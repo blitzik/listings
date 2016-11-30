@@ -1,0 +1,3 @@
+{block |strip}
+<title n:tag-if="$entireTitle">{if $title === null}{_$defaultTitle}{else}{_$title}{/if}{if $entireTitle}{$joinedTitleText}{/if}</title>
+{/block}

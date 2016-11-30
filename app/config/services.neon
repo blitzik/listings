@@ -1,0 +1,16 @@
+services:
+
+	latte.templateFactory: App\Templates\TemplateFactory
+
+
+	# core component factories
+	pageTitleControlFactory:
+			implement: App\Components\IPageTitleControlFactory
+			parameters: [defaultTitle]
+			arguments: [%defaultTitle%]
+
+	metaTagsControlFactory:
+		implement: App\Components\IMetaTagsControlFactory
+
+	flashMessagesControlFactory:
+		implement: App\Components\IFlashMessagesControlFactory

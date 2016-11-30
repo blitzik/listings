@@ -1,0 +1,48 @@
+includes:
+	- parameters.neon
+	- extensions.neon
+	- services.neon
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+	savePath: %appDir%/../temp/sessions
+	name: application
+
+
+monolog:
+	name: application
+
+
+console:
+	application: false
+
+
+doctrine:
+	defaultRepositoryClassName: Kdyby\Doctrine\EntityRepository
+
+	host: %database.host%
+	user: %database.user%
+	password: %database.password%
+	dbname: %database.dbname%
+
+	types:
+		'date_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType
+		'datetime_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType
+		'time_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\TimeImmutableType
+		'uuid': Ramsey\Uuid\Doctrine\UuidType
+
+
+decorator:
+	App\Components\BaseControl:
+		setup:
+			- injectFlashMessagesFactory(@App\Components\IFlashMessagesControlFactory)
+			- injectFlashMessagesTranslator(@Kdyby\Translation\Translator)
+			- setAuthorizator(@users.authorizator)
+			- setUser(@security.user)
