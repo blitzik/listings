@@ -1,0 +1,23 @@
+{
+  "name": "listings",
+  "description": "",
+  "main": "bower.json",
+  "authors": [
+    "Ales Tichava"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "nette.ajax.js": "^2.2.0",
+    "font-awesome-sass": "^4.7.0",
+    "bootstrap": "v4.0.0-alpha.5"
+  }
+}

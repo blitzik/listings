@@ -1,5 +1,15 @@
 .idea
+.sass-cache
+bower_components
+node_modules
 
 app/config/config.local.neon
 
 vendor
+
+www/assets/fonts
+www/assets/css/original
+www/assets/css/*.css
+
+www/assets/js/concatenated
+www/assets/js/*.js
