@@ -12,4 +12,5 @@ extensions:
 	users: Users\DI\UsersExtension
 
 	# app specifix extensions
-	accounts: Accounts\AccountsExtension
+	accounts: Accounts\DI\AccountsExtension
+	listings: Listings\DI\ListingsExtension

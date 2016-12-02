@@ -1,14 +1,14 @@
 <?php
 
-namespace Accounts\DI;
+namespace Listings\DI;
 
-use Accounts\Fixtures\AccountsFixture;
 use Kdyby\Doctrine\DI\IEntityProvider;
 use App\Extensions\CompilerExtension;
+use Listings\Fixtures\ListingsFixture;
 use App\Fixtures\IFixtureProvider;
 use Nette\DI\Compiler;
 
-class AccountsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
+class ListingsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
 {
     public function loadConfiguration()
     {
@@ -21,13 +21,13 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
     {
         $cb = $this->getContainerBuilder();
 
-        $this->setPresenterMapping($cb, ['Accounts' => 'Accounts\\*Module\\Presenters\\*Presenter']);
+        $this->setPresenterMapping($cb, ['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']);
     }
 
 
     function getEntityMappings()
     {
-        return ['Accounts' => __DIR__ . '/..'];
+        return ['Listings' => __DIR__ . '/..'];
     }
 
 
@@ -38,10 +38,9 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
     {
         return [
             __DIR__ . '/../fixtures' => [
-                AccountsFixture::class
+                ListingsFixture::class
             ]
         ];
     }
-
 
 }

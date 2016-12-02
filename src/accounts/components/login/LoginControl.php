@@ -9,6 +9,8 @@ use Nette\Security\AuthenticationException;
 
 class LoginControl extends BaseControl
 {
+    public $onSuccessfulLogin;
+
 
     public function render()
     {
@@ -44,7 +46,7 @@ class LoginControl extends BaseControl
         try {
             $this->user->login($values['email'], $values['password']);
 
-            // todo
+            $this->onSuccessfulLogin();
 
         } catch (AuthenticationException $e) {
             $this->flashMessage('Špatný E-mail nebo Heslo', FlashMessage::WARNING);
