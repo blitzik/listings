@@ -5,7 +5,7 @@ namespace Accounts\Presenters;
 use App\AuthModule\Presenters\PublicPresenter;
 use Accounts\Components\ILoginControlFactory;
 
-final class LoginPresenter extends PublicPresenter
+final class AuthPresenter extends PublicPresenter
 {
     /**
      * @var ILoginControlFactory
@@ -14,12 +14,15 @@ final class LoginPresenter extends PublicPresenter
     public $loginControlFactory;
 
 
-    public function actionDefault()
+    public function actionLogin()
     {
+        if ($this->user->isLoggedIn()) {
+            $this->redirect(':Listings:Dashboard:default');
+        }
     }
 
 
-    public function renderDefault()
+    public function renderLogin()
     {
     }
 
@@ -34,4 +37,19 @@ final class LoginPresenter extends PublicPresenter
 
         return $comp;
     }
+
+
+    /*
+     * --------------------
+     * ----- LOGOUT -------
+     * --------------------
+     */
+
+
+    public function actionLogOut()
+    {
+        $this->user->logout();
+        $this->redirect(':Accounts:Auth:logIn');
+    }
+
 }

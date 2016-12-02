@@ -27,8 +27,9 @@ class AccountsFixture extends AbstractFixture implements DependentFixtureInterfa
 
     private function loadDefaultUrls(ObjectManager $manager)
     {
-        $ug = new UrlGenerator('Accounts:Login', $manager);
-        $ug->addUrl('prihlaseni', 'default');
+        $ug = new UrlGenerator('Accounts:Auth', $manager);
+        $ug->addUrl('prihlaseni', 'logIn')
+           ->addUrl('odhlaseni', 'logOut');
     }
 
 
