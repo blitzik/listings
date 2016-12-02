@@ -6,8 +6,10 @@ extensions:
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
 
-	# app specific extensions
+	# core extensions
 	core: App\DI\CoreExtension
-
 	url: Url\DI\UrlExtension
 	users: Users\DI\UsersExtension
+
+	# app specifix extensions
+	accounts: Accounts\AccountsExtension

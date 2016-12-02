@@ -8,9 +8,9 @@ use App\Extensions\CompilerExtension;
 use App\Fixtures\IFixtureProvider;
 use Url\Fixtures\UrlsFixture;
 use Url\IUrlParametersMapper;
+use Url\Panel\RequestPanel;
 use Nette\DI\Statement;
 use Nette\DI\Compiler;
-use Url\RequestPanel;
 use Tracy\Bar;
 
 class UrlExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider

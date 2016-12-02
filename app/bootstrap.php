@@ -11,6 +11,7 @@ $configurator->setTimeZone('Europe/Prague');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 
 $configurator->createRobotLoader()
+	->addDirectory(__DIR__ . '/../src')
 	->addDirectory(__DIR__)
 	->register();
 
