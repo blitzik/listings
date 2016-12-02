@@ -84,6 +84,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('js', ['concat:base_js', 'uglify:base_js']);
 
-    grunt.registerTask('watch_front_css', ['watch']);
+    grunt.registerTask('watch_accounts_css', ['watch']);
 
 };

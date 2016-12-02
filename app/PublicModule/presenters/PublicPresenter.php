@@ -4,7 +4,7 @@ namespace App\AuthModule\Presenters;
 
 use App\Presenters\AppPresenter;
 
-abstract class AuthPresenter extends AppPresenter
+abstract class PublicPresenter extends AppPresenter
 {
     public function findLayoutTemplateFile()
     {

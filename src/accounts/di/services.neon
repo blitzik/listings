@@ -1,0 +1,2 @@
+loginControlFactory:
+	implement: Accounts\Components\ILoginControlFactory

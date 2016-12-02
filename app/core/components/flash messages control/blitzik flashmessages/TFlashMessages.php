@@ -3,7 +3,6 @@
 namespace App\Components\FlashMessages;
 
 use Nette\Localization\ITranslator;
-use Kdyby\Translation\Phrase;
 
 trait TFlashMessages
 {
