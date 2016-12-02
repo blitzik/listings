@@ -8,7 +8,6 @@ final class LoginPresenter extends AuthPresenter
 {
     public function actionDefault()
     {
-
     }
 
 

@@ -1,0 +1,32 @@
+.flash{
+  padding: 10px 15px;
+  margin-bottom: 5px;
+
+  i{
+    margin-right: 10px;
+  }
+
+  &.info{
+    color: #31708f;
+    background-color: #d9edf7;
+    border: 1px solid darken(#d9edf7, 7%);
+  }
+
+  &.success{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid darken(#dff0d8, 5%);
+  }
+
+  &.warning{
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border: 1px solid darken(#fcf8e3, 5%);
+  }
+
+  &.error{
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid darken(#f2dede, 5%);
+  }
+}

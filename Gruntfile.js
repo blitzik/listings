@@ -13,6 +13,8 @@ module.exports = function (grunt) {
 
                 src: [
                     'bower_components/jquery/dist/jquery.js',
+                    'bower_components/bootstrap/js/dist/alert.js',
+                    'bower_components/bootstrap/js/dist/modal.js',
                     'bower_components/nette-forms/src/assets/netteForms.js',
                     'bower_components/nette.ajax.js/nette.ajax.js',
                     'www/assets/js/original/main.js'
@@ -30,21 +32,21 @@ module.exports = function (grunt) {
         },
 
         sass: {
-            front: {
+            accounts: {
                 options: {
                     style: 'expanded'
                 },
                 files: {
-                    'www/assets/css/original/front.css': ['www/assets/css/scss/front/front.scss']
+                    'www/assets/css/original/accounts.css': ['www/assets/css/scss/accounts/accounts.scss']
                 }
             }
         },
 
         cssmin: {
-            front: {
+            accounts: {
                 files: {
-                    'www/assets/css/front.min.css': [
-                        'www/assets/css/original/front.css'
+                    'www/assets/css/accounts.min.css': [
+                        'www/assets/css/original/accounts.css'
                     ]
                 }
             }
@@ -57,7 +59,7 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: true,
                         src: ['bower_components/font-awesome-sass/assets/fonts/font-awesome/*'],
-                        dest: 'www/assets/fonts/font-awesome/'
+                        dest: 'www/assets/css/fonts/font-awesome/'
                     }
                 ]
             }
@@ -65,8 +67,12 @@ module.exports = function (grunt) {
 
         watch: {
             sass: {
-                files: 'www/assets/css/scss/front/*.{scss,sass}',
-                tasks: ['sass:front']
+                files: [
+                    'www/assets/css/scss/accounts/*.{scss,sass}',
+                    'www/assets/css/scss/common/*.{scss,sass}'
+
+                ],
+                tasks: ['sass:accounts']
             }
         }
 
@@ -74,7 +80,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['copy', 'sass', 'concat', 'cssmin', 'uglify']);
 
-    grunt.registerTask('css', ['sass:front', 'cssmin:front']);
+    grunt.registerTask('css_accounts', ['sass:accounts', 'cssmin:accounts']);
 
     grunt.registerTask('js', ['concat:base_js', 'uglify:base_js']);
 

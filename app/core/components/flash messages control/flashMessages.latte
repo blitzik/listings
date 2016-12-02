@@ -3,7 +3,9 @@
 {/if}
 
 {define flashMessageIcon}
-	<i class="fa {if $type === 'success'}
+	<i class="fa {if $type === 'info'}
+		fa-exclamation
+	{elseif $type === 'success'}
 		fa-check
 	{elseif $type === 'warning'}
 		fa-warning

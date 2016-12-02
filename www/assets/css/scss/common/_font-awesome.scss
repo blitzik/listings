@@ -1,0 +1,24 @@
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/variables";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/mixins";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/path";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/core";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/larger";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/fixed-width";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/list";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/bordered-pulled";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/animated";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/rotated-flipped";
+@import "../../../../../bower_components/font-awesome-sass/assets/stylesheets/font-awesome/stacked";
+
+
+// for flash messages
+.#{$fa-css-prefix}-exclamation:before { content: $fa-var-exclamation; }
+
+.#{$fa-css-prefix}-check:before { content: $fa-var-check; }
+
+.#{$fa-css-prefix}-remove:before,
+.#{$fa-css-prefix}-close:before,
+.#{$fa-css-prefix}-times:before { content: $fa-var-times; }
+
+.#{$fa-css-prefix}-warning:before,
+.#{$fa-css-prefix}-exclamation-triangle:before { content: $fa-var-exclamation-triangle; }
