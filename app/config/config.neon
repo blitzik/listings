@@ -32,7 +32,18 @@ doctrine:
 	password: %database.password%
 	dbname: %database.dbname%
 
+	dql:
+		string:
+			'COLLATE': blitzik\Doctrine\MySQL\Collate
+
+		datetime:
+			'TIME_TO_SEC': blitzik\Doctrine\MySQL\TimeToSec
+			'SEC_TO_TIME': blitzik\Doctrine\MySQL\SecToTime
+			'ADDTIME': blitzik\Doctrine\MySQL\AddTime
+			'SUBTIME': blitzik\Doctrine\MySQL\SubTime
+
 	types:
+		'invoice_time': Listings\Doctrine\Types\InvoiceTimeType
 		'date_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType
 		'datetime_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType
 		'time_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\TimeImmutableType

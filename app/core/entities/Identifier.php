@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Entities\Attributes;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -11,7 +13,7 @@ trait Identifier
     /**
      * @ORM\Id
      * @ORM\Column(type="string", length=32, options={"fixed": true})
-     * @var UuidInterface
+     * @var string
      */
     private $id;
 
@@ -20,7 +22,7 @@ trait Identifier
     /**
      * @return string
      */
-    final public function getId()
+    final public function getId(): string
     {
         return $this->id;
     }
@@ -29,7 +31,7 @@ trait Identifier
     /**
      * @return string
      */
-    private function getUuid()
+    private function getUuid(): string
     {
         return $this->id = str_replace('-', '', Uuid::uuid4()->toString());
     }

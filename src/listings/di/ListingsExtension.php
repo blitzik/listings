@@ -20,8 +20,11 @@ class ListingsExtension extends CompilerExtension implements IEntityProvider, IF
     public function beforeCompile()
     {
         $cb = $this->getContainerBuilder();
-
         $this->setPresenterMapping($cb, ['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']);
+
+        $latteFactory = $cb->getDefinition('nette.latteFactory');
+        $latteFactory->addSetup('addFilter', ['invoiceTime', $this->prefix('@invoiceTimeFilter')])
+                     ->addSetup('addFilter', ['invoiceTimeWithComma', $this->prefix('@invoiceTimeWithCommaFilter')]);
     }
 
 

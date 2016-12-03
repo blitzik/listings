@@ -1,0 +1,7 @@
+
+# template filters
+invoiceTimeFilter: Listings\Template\Filters\InvoiceTimeFilter
+invoiceTimeWithCommaFilter: Listings\Template\Filters\InvoiceTimeWithCommaFilter
+
+# facades
+listingFacade: Listings\Facades\ListingFacade

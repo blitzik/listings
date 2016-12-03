@@ -14,6 +14,5 @@ final class DashboardPresenter extends SecuredPresenter
 
     public function renderDefault()
     {
-
     }
 }
