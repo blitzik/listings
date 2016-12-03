@@ -2,10 +2,19 @@
 @import "variables";
 
 
+h1 {
+  margin-top: 0;
+}
+
+#content-wrapper {
+  margin-top: 20px;
+  transition: margin-left .7s;
+}
+
+
 @media (min-width: map-get($grid-breakpoints, 'md')) {
   #content-wrapper {
     margin-left: $sidebar-width;
   }
-
 
 }

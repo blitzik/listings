@@ -8,7 +8,7 @@ final class DashboardPresenter extends SecuredPresenter
 {
     public function actionDefault()
     {
-
+        $this['pageTitle']->setPageTitle('Test');
     }
 
 

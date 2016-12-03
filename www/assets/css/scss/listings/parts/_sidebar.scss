@@ -3,7 +3,7 @@
 
 
 #sidebar {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   top: 0;
   bottom: 0;
@@ -19,13 +19,19 @@
     margin-bottom: 30px;
     color: #fff;
     border-bottom: 1px solid #364044;
+
+    i {
+      padding-right: 30px;
+    }
   }
 
   #main-nav {
     .nav-header {
       color: #BBCBCD;
-      font-size: 0.9em;
+      font-size: 0.75em;
       padding: 0 $sidebar-horizontal-padding;
+      margin-bottom: 10px;
+      text-transform: uppercase;
     }
 
     ul {
@@ -55,9 +61,13 @@
         }
       }
     }
+
+    .logout{
+      margin-top: 100px;
+      border-top: 1px solid #364044;
+    }
   }
 }
-
 
 #sidebar-expand,
 #sidebar-collapse {
@@ -91,16 +101,6 @@
   transition: bottom .66s;
 }
 
-#overlay{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-  z-index: -1;
-}
-
 #sidebar-expand:checked + #sidebar-expand-button {
   bottom: -300px;
 }
@@ -109,13 +109,6 @@
   margin-left: 0;
   width: 100%;
 }
-
-/*#sidebar-expand:checked + #sidebar-expand-button + #sidebar + #content-wrapper + #overlay {
-  background-color: #000;
-  opacity: .2;
-  z-index: 1;
-}*/
-
 
 @media (min-width: map-get($grid-breakpoints, 'md')) {
   #sidebar {
