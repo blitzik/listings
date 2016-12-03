@@ -39,6 +39,15 @@ module.exports = function (grunt) {
                 files: {
                     'www/assets/css/original/accounts.css': ['www/assets/css/scss/accounts/accounts.scss']
                 }
+            },
+
+            listings: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    'www/assets/css/original/listings.css': ['www/assets/css/scss/listings/listings.scss']
+                }
             }
         },
 
@@ -47,6 +56,14 @@ module.exports = function (grunt) {
                 files: {
                     'www/assets/css/accounts.min.css': [
                         'www/assets/css/original/accounts.css'
+                    ]
+                }
+            },
+
+            listings: {
+                files: {
+                    'www/assets/css/listings.min.css': [
+                        'www/assets/css/original/listings.css'
                     ]
                 }
             }
@@ -68,11 +85,12 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: [
-                    'www/assets/css/scss/accounts/*.{scss,sass}',
+                    //'www/assets/css/scss/accounts/*.{scss,sass}',
+                    'www/assets/css/scss/listings/_styles.scss',
                     'www/assets/css/scss/common/*.{scss,sass}'
 
                 ],
-                tasks: ['sass:accounts']
+                tasks: ['sass:listings']
             }
         }
 
@@ -82,8 +100,10 @@ module.exports = function (grunt) {
 
     grunt.registerTask('css_accounts', ['sass:accounts', 'cssmin:accounts']);
 
+    grunt.registerTask('css_listings', ['sass:listings'/*, 'cssmin:listings'*/]);
+
     grunt.registerTask('js', ['concat:base_js', 'uglify:base_js']);
 
-    grunt.registerTask('watch_accounts_css', ['watch']);
+    grunt.registerTask('watch_css', ['watch']);
 
 };

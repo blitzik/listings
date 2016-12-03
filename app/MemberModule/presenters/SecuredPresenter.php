@@ -21,6 +21,14 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
+    protected function beforeRender()
+    {
+        parent::beforeRender();
+
+        $this->template->_userEntity = $this->user->getIdentity();
+    }
+
+
     public function findLayoutTemplateFile()
     {
         if ($this->layout === false) {

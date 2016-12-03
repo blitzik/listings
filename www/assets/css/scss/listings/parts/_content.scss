@@ -1,0 +1,11 @@
+@import "../../../../../../bower_components/bootstrap/scss/variables";
+@import "variables";
+
+
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+  #content-wrapper {
+    margin-left: $sidebar-width;
+  }
+
+
+}

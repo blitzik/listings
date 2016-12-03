@@ -6,15 +6,45 @@
     {control pageTitle}
 
     {block styles}
-        <link rel="stylesheet" href="{$basePath}/assets/css/original/front.css">
+        <link rel="stylesheet" href="{$basePath}/assets/css/original/listings_bootstrap.css">
+        <link rel="stylesheet" href="{$basePath}/assets/css/original/listings.css">
     {/block}
 </head>
 <body>
 
 
-<div class="container">
-    {include #content}
+<input type="radio" name="sidebar-nav" id="sidebar-expand">
+<label for="sidebar-expand" id="sidebar-expand-button">MENU</label>
+<div id="sidebar">
+    <label for="sidebar-collapse" id="sidebar-inner-collapse-button"><i class="fa fa-fw fa-times"></i></label>
+
+    <div id="sidebar-user">
+        {$_userEntity->getFullName()}
+    </div>
+
+    <nav id="main-nav">
+        <ul>
+            <li class="nav-header">Navigace</li>
+            <li><a href="#"><i class="fa fa-fw fa-th"></i> Přehled výčetek</a></li>
+            <li><a href="#" class="active"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
+        </ul>
+    </nav>
 </div>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi asperiores cumque debitis dolores eos exercitationem explicabo facere facilis laboriosam nobis officia, perferendis possimus quaerat temporibus voluptates! Doloremque eaque porro quam!
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<label for="sidebar-collapse" id="overlay"></label>
+{*<label for="sidebar-collapse" id="sidebar-collapse-button">ZAVŘÍT MENU</label>*}
+<input type="radio" name="sidebar-nav" id="sidebar-collapse">
 
 
 {block scripts}

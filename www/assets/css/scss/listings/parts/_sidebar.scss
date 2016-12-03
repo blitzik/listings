@@ -1,0 +1,132 @@
+@import "../../../../../../bower_components/bootstrap/scss/variables";
+@import "variables";
+
+
+#sidebar {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  width: $sidebar-width;
+  margin-left: -$sidebar-width;
+  background-color: #263238;
+  overflow: hidden;
+
+  transition: margin-left .7s, width 1s;
+
+  #sidebar-user {
+    padding: 30px $sidebar-horizontal-padding;
+    margin-bottom: 30px;
+    color: #fff;
+    border-bottom: 1px solid #364044;
+  }
+
+  #main-nav {
+    .nav-header {
+      color: #BBCBCD;
+      font-size: 0.9em;
+      padding: 0 $sidebar-horizontal-padding;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        a {
+          display: block;
+          color: #BBCBCD;
+          padding: 12px $sidebar-horizontal-padding;
+          text-decoration: none;
+
+          i {
+            padding-right: 30px;
+          }
+
+          &:hover {
+            background-color: #202B30;
+            color: #fff;
+          }
+
+          &.active {
+            background-color: #26A69A;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+#sidebar-expand,
+#sidebar-collapse {
+  display: none;
+}
+
+#sidebar-inner-collapse-button {
+  display: block;
+  padding: 20px;
+  color: #81D4FA;
+  text-align: center;
+  border-bottom: 1px solid #364044;
+  cursor: pointer;
+}
+
+#sidebar-expand-button {
+  position: fixed;
+  z-index: 101;
+  bottom: 20px;
+  left: $sidebar-horizontal-padding;
+  display: block;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  background-color: #81D4FA;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  opacity: .66;
+
+  transition: bottom .66s;
+}
+
+#overlay{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  z-index: -1;
+}
+
+#sidebar-expand:checked + #sidebar-expand-button {
+  bottom: -300px;
+}
+
+#sidebar-expand:checked + #sidebar-expand-button + #sidebar {
+  margin-left: 0;
+  width: 100%;
+}
+
+/*#sidebar-expand:checked + #sidebar-expand-button + #sidebar + #content-wrapper + #overlay {
+  background-color: #000;
+  opacity: .2;
+  z-index: 1;
+}*/
+
+
+@media (min-width: map-get($grid-breakpoints, 'md')) {
+  #sidebar {
+    margin-left: 0;
+  }
+
+  #sidebar-inner-collapse-button {
+    display: none;
+  }
+
+  #sidebar-expand-button {
+    display: none;
+  }
+}

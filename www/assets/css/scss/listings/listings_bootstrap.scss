@@ -25,7 +25,7 @@ $enable-flex: true;
 //@import "../../../../../bower_components/bootstrap/scss/custom-forms";
 //@import "../../../../../bower_components/bootstrap/scss/nav";
 //@import "../../../../../bower_components/bootstrap/scss/navbar";
-//@import "../../../../../bower_components/bootstrap/scss/card";
+@import "../../../../../bower_components/bootstrap/scss/card";
 //@import "../../../../../bower_components/bootstrap/scss/breadcrumb";
 @import "../../../../../bower_components/bootstrap/scss/pagination";
 //@import "../../../../../bower_components/bootstrap/scss/tags";
@@ -49,6 +49,5 @@ $enable-flex: true;
 
 @import "../../scss/common/font-awesome";
 @import "../../scss/common/flashMessages";
-
-
-@import "../../scss/accounts/styles";
+@import "../../scss/common/common";
+@import "../../scss/listings/font-awesome/icons";
