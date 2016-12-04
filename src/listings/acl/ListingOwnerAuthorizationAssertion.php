@@ -7,6 +7,7 @@ use Users\Authorization\IResource;
 use Nette\Security\Permission;
 use Nette\Security\IRole;
 use Listings\Listing;
+use Users\Authorization\Privilege;
 
 final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertion
 {
@@ -31,9 +32,9 @@ final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertio
     /**
      * @return string
      */
-    public function getPrivilegeName()
+    public function getPrivilegeNames()
     {
-        return 'view';
+        return [Privilege::EDIT, Privilege::REMOVE, Privilege::VIEW];
     }
 
 

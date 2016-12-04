@@ -23,25 +23,21 @@ class UsersFixture extends AbstractFixture
 
     private function loadDefaultPrivileges(ObjectManager $manager)
     {
-        $create = new Privilege('create');
+        $create = new Privilege(Privilege::CREATE);
         $manager->persist($create);
         $this->setReference('privilege_create', $create);
 
-        $edit = new Privilege('edit');
+        $edit = new Privilege(Privilege::EDIT);
         $manager->persist($edit);
         $this->setReference('privilege_edit', $edit);
 
-        $remove = new Privilege('remove');
+        $remove = new Privilege(Privilege::REMOVE);
         $manager->persist($remove);
         $this->setReference('privilege_remove', $remove);
 
-        $view = new Privilege('view');
+        $view = new Privilege(Privilege::VIEW);
         $manager->persist($view);
         $this->setReference('privilege_view', $view);
-
-        $upload = new Privilege('upload');
-        $manager->persist($upload);
-        $this->setReference('privilege_upload', $upload);
     }
 
 }

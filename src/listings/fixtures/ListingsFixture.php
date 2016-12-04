@@ -42,6 +42,8 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     {
         $arg = new AuthorizationRulesGenerator($manager);
         $arg->addResource(new Resource(Listing::class))
+            ->addDefinition($this->getReference('privilege_edit'), $this->getReference('role_member'))
+            ->addDefinition($this->getReference('privilege_remove'), $this->getReference('role_member'))
             ->addDefinition($this->getReference('privilege_view'), $this->getReference('role_member'));
     }
 

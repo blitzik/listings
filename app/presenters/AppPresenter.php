@@ -52,7 +52,7 @@ abstract class AppPresenter extends Presenter
     protected function createComponentPageTitle()
     {
         return $this->pageTitleControlFactory
-                    ->create('Active Sport Club');
+                    ->create('Výčetkový systém');
     }
 
 

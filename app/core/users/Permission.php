@@ -6,7 +6,6 @@ use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
-use Nette\Security\IRole;
 
 /**
  * @ORM\Entity

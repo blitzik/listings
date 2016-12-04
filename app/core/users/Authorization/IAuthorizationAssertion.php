@@ -28,9 +28,9 @@ interface IAuthorizationAssertion
 
 
     /**
-     * @return string
+     * @return array
      */
-    public function getPrivilegeName();
+    public function getPrivilegeNames();
 
 
     /**

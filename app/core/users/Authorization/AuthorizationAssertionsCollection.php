@@ -17,9 +17,11 @@ class AuthorizationAssertionsCollection
 
     public function addAssertion(IAuthorizationAssertion $assertion)
     {
-        $this->definitions[$assertion->getResourceName()]
-                          [(bool)$assertion->isForAllowed()]
-                          [$assertion->getPrivilegeName()] = $assertion;
+        foreach ($assertion->getPrivilegeNames() as $privilegeName) {
+            $this->definitions[$assertion->getResourceName()]
+                              [(bool)$assertion->isForAllowed()]
+                              [$privilegeName] = $assertion;
+        }
     }
 
 

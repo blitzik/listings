@@ -17,6 +17,11 @@ class Privilege
 {
     use Identifier;
 
+    const CREATE = 'create';
+    const EDIT = 'edit';
+    const REMOVE = 'remove';
+    const VIEW = 'view';
+
 
     /**
      * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)

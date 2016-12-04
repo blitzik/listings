@@ -6,6 +6,7 @@ use Listings\Components\IListingFormControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
 use Listings\Facades\ListingFacade;
+use Users\Authorization\Privilege;
 use Listings\Queries\ListingQuery;
 use Listings\Listing;
 
@@ -67,10 +68,12 @@ final class ListingPresenter extends SecuredPresenter
                                   ->byId($id)
                               );
 
-        if ($this->listing === null/* or !$this->authorizator->isAllowed($this->user, $this->listing, 'view')*/) {
+        if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
             $this->redirect(':Listings:Dashboard:default', []);
         }
+
+        $this['pageTitle']->setPageTitle('Úprava výčetky');
     }
 
 
@@ -78,5 +81,20 @@ final class ListingPresenter extends SecuredPresenter
     {
 
     }
+
+
+    protected function createComponentListingEditForm()
+    {
+        $comp = $this->listingFormControlFactory->create();
+
+        $comp->setListing($this->listing);
+
+        $comp->onSuccessfulSaving[] = function (Listing $listing) {
+            $this->redirect(':Listings:ListingDetail:default', ['id' => $listing->getId()]);
+        };
+
+        return $comp;
+    }
+
 
 }
