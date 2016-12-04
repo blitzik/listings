@@ -25,8 +25,15 @@
     <nav id="main-nav">
         <ul>
             <li class="nav-header">Navigace</li>
-            <li><a href="{plink :Listings:Dashboard:default}"><i class="fa fa-fw fa-th"></i> Přehled výčetek</a></li>
-            <li><a href="#" class="active"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
+            <li><a href="{plink :Listings:Listing:new}"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
+            <li><input type="checkbox" id="listing-years" {if $presenter->isLinkCurrent(':Listings:Dashboard:default')}checked{/if}>
+                <label for="listing-years"><i class="fa fa-fw fa-th"></i> Přehled výčetek</label>
+                <ul>
+                    {foreach $_years as $_year}
+                        <li><a href="{plink :Listings:Dashboard:default year => $_year}" n:class="($_year == $_chosenYear) ? active">{$_year}</a></li>
+                    {/foreach}
+                </ul>
+            </li>
         </ul>
 
         <ul class="logout">
@@ -37,6 +44,11 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                {control flashMessages}
+            </div>
+        </div>
         <div class="row">
             <div class="col-xs-12">
                 {include #content}

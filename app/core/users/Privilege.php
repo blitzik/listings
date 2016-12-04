@@ -17,6 +17,7 @@ class Privilege
 {
     use Identifier;
 
+
     /**
      * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
      * @var string

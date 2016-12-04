@@ -9,6 +9,7 @@ use Nette\Security\Permission;
 use Nette\Security\IResource;
 use Nette\Caching\IStorage;
 use Nette\Utils\Validators;
+use Nette\Security\IRole;
 use Nette\Caching\Cache;
 use Nette\SmartObject;
 use Users\User;
@@ -16,8 +17,7 @@ use Users\User;
 class Authorizator implements IAuthorizator
 {
     use SmartObject;
-    
-    
+
     const CACHE_NAMESPACE = 'users.authorization';
 
     /** @var Cache */
@@ -46,20 +46,18 @@ class Authorizator implements IAuthorizator
     
 
     /**
-     * @param \Nette\Security\User|\Users\User|IRole|string $role
+     * @param \Nette\Security\User|\Users\User|string $role
      * @param IResource|string $resource
      * @param string $privilege
      * @return bool
      */
     public function isAllowed($role, $resource, $privilege)
     {
-        $roles = $this->resolveRoles($role);
+        $_role = $this->resolveRole($role);
 
         try {
-            foreach ($roles as $userRole) {
-                if ($this->acl->isAllowed($userRole, $resource, $privilege) === true) {
-                    return true;
-                }
+            if ($this->acl->isAllowed($_role, $resource, $privilege) === true) {
+                return true;
             }
 
             return false;
@@ -71,43 +69,26 @@ class Authorizator implements IAuthorizator
 
 
     /**
-     * @param User|\Nette\Security\User|IRole|string $role
+     * @param User|\Nette\Security\User|string $role
      * @return array
      */
-    private function resolveRoles($role)
+    private function resolveRole($role)
     {
-        $roles = [];
+        $_role = null;
         if (Validators::is($role, 'unicode')) {
-            $roles[] = $role;
+            $_role = $role;
 
         } elseif ($role instanceof IRole) {
-            $roles[] = $role->getName();
+            $_role = $role;
+
+        } elseif ($role instanceof \Nette\Security\User) {
+            $_role = $role->getIdentity(); // identity is User entity that implements IRole interface
 
         } else {
-            $userRoles = [];
-            if ($role instanceof User) {
-                $userRoles = $role->getRoles();
-
-            } elseif ($role instanceof \Nette\Security\User) {
-                $userIdentity = $role->getIdentity();
-                if ($userIdentity !== null) {
-                    $userRoles = $role->getIdentity()->getRoles();
-                }
-
-            } else {
-                throw new \InvalidArgumentException;
-            }
-
-            foreach ($userRoles as $userRole) {
-                if (Validators::is($userRole, 'unicode')) {
-                    $roles[] = $userRole;
-                } else {
-                    $roles[] = $userRole->getName();
-                }
-            }
+            throw new \InvalidArgumentException;
         }
 
-        return $roles;
+        return $_role;
     }
 
 
@@ -154,7 +135,7 @@ class Authorizator implements IAuthorizator
             'SELECT r FROM ' . Resource::class . ' r'
         )->execute();
 
-        /** @var Resource $resource */
+        /** @var \Users\Authorization\Resource $resource */
         foreach ($resources as $resource) {
             $acl->addResource($resource->getName());
         }
@@ -171,10 +152,10 @@ class Authorizator implements IAuthorizator
         /** @var \Users\Authorization\Permission $permission */
         foreach ($permissions as $permission) {
             if ($permission->isAllowed() === true) {
-                $assertion = $this->assertionsCollection->getAssertionsForAllowed($permission->getResourceName(), $permission->getPrivilegeName());
+                $assertion = $this->assertionsCollection->getAssertionForAllowed($permission->getResourceName(), $permission->getPrivilegeName());
                 $acl->allow($permission->getRoleName(), $permission->getResourceName(), $permission->getPrivilegeName(), ($assertion !== null ? [$assertion, 'assert'] : null));
             } else {
-                $assertion = $this->assertionsCollection->getAssertionsForDenied($permission->getResourceName(), $permission->getPrivilegeName());
+                $assertion = $this->assertionsCollection->getAssertionForDenied($permission->getResourceName(), $permission->getPrivilegeName());
                 $acl->deny($permission->getRoleName(), $permission->getResourceName(), $permission->getPrivilegeName(), ($assertion !== null ? [$assertion, 'assert'] : null));
             }
         }

@@ -8,11 +8,10 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Url\Generators\UrlGenerator;
 use Users\Fixtures\UsersFixture;
-use Users\Authorization\IRole;
 use Users\Authorization\Role;
 use Users\User;
 
-class AccountsFixture extends AbstractFixture implements DependentFixtureInterface
+final class AccountsFixture extends AbstractFixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -35,10 +34,10 @@ class AccountsFixture extends AbstractFixture implements DependentFixtureInterfa
 
     private function loadDefaultUserRoles(ObjectManager $objManager)
     {
-        $member = new Role(IRole::MEMBER, 'member');
+        $member = new Role('member');
         $objManager->persist($member);
 
-        $admin = new Role(IRole::ADMIN, 'admin', $member);
+        $admin = new Role('admin', $member);
         $objManager->persist($admin);
 
         $this->addReference('role_member', $member);
@@ -57,6 +56,14 @@ class AccountsFixture extends AbstractFixture implements DependentFixtureInterfa
         $member = new User('Lorem', 'ipsum', 'member@project.cz', 'member', $this->getReference('role_member'));
         $manager->persist($member);
         $this->addReference('user_member', $member);
+
+        $member2 = new User('Consecteteur', 'Eligendi', 'member2@project.cz', 'member2', $this->getReference('role_member'));
+        $manager->persist($member2);
+        $this->addReference('user_member2', $member2);
+
+        $admin = new User('Dolor', 'Sit Amet', 'admin@project.cz', 'admin', $this->getReference('role_admin'));
+        $manager->persist($admin);
+        $this->addReference('user_admin', $admin);
     }
 
 

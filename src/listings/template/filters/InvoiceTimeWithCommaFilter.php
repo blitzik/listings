@@ -6,7 +6,7 @@ namespace Listings\Template\Filters;
 
 use Nette\SmartObject;
 
-class InvoiceTimeWithCommaFilter
+final class InvoiceTimeWithCommaFilter
 {
     use SmartObject;
 

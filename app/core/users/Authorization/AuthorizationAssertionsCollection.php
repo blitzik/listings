@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Users\Authorization;
 
 use Nette\SmartObject;
@@ -26,7 +28,7 @@ class AuthorizationAssertionsCollection
      * @param $privilege
      * @return IAuthorizationAssertion|null
      */
-    public function getAssertionsForAllowed($resource, $privilege)
+    public function getAssertionForAllowed($resource, $privilege)
     {
         if (isset($this->definitions[$resource][true][$privilege])) {
             return $this->definitions[$resource][true][$privilege];
@@ -41,7 +43,7 @@ class AuthorizationAssertionsCollection
      * @param $privilege
      * @return IAuthorizationAssertion|null
      */
-    public function getAssertionsForDenied($resource, $privilege)
+    public function getAssertionForDenied($resource, $privilege)
     {
         if (isset($this->definitions[$resource][false][$privilege])) {
             return $this->definitions[$resource][false][$privilege];

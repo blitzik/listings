@@ -3,9 +3,13 @@
 namespace App\MemberModule\Presenters;
 
 use App\Presenters\AppPresenter;
+use Listings\Services\TimeUtils;
 
 abstract class SecuredPresenter extends AppPresenter
 {
+    /** @var string */
+    protected $chosenYear;
+
     /** @var string */
     protected $_backLink;
 
@@ -26,6 +30,8 @@ abstract class SecuredPresenter extends AppPresenter
         parent::beforeRender();
 
         $this->template->_userEntity = $this->user->getIdentity();
+        $this->template->_years = TimeUtils::generateYearsForSelection();
+        $this->template->_chosenYear = $this->chosenYear;
     }
 
 

@@ -8,7 +8,7 @@ use Listings\Exceptions\Logic\InvalidArgumentException;
 use Nette\Utils\Validators;
 use Nette\SmartObject;
 
-class TimeManipulator
+final class TimeManipulator
 {
     use SmartObject;
 

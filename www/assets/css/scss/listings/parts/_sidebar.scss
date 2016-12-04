@@ -39,11 +39,14 @@
       padding: 0;
 
       li {
-        a {
+        list-style: none;
+
+        a, label {
           display: block;
           color: #BBCBCD;
           padding: 12px $sidebar-horizontal-padding;
           text-decoration: none;
+          cursor: pointer;
 
           i {
             padding-right: 30px;
@@ -57,6 +60,55 @@
           &.active {
             background-color: #26A69A;
             color: #fff;
+          }
+        }
+
+        input {
+          display: none;
+        }
+
+        label {
+          margin-bottom: 0;
+
+          &:after {
+            font-family: 'FontAwesome';
+            content: '\f105';
+            float: right;
+          }
+        }
+
+        input + label + ul {
+          height: 0;
+          overflow: hidden;
+          background-color: darken(#202B30, 5%);
+
+          transition: height .5s;
+
+          li a{
+            padding-left: 75px;
+            margin-left: -$sidebar-width;
+
+            transition: margin-left .2s, transform 1s;
+          }
+        }
+
+        input:checked {
+          & + label {
+            background-color: darken(#202B30, 2.5%);
+
+            &:after {
+              font-family: 'FontAwesome';
+              content: '\f107';
+              float: right;
+            }
+
+            & + ul {
+              height: auto;
+
+              li a {
+                margin-left: 0;
+              }
+            }
           }
         }
       }
@@ -77,6 +129,7 @@
 #sidebar-inner-collapse-button {
   display: block;
   padding: 20px;
+  margin-bottom: 0;
   color: #81D4FA;
   text-align: center;
   border-bottom: 1px solid #364044;

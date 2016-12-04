@@ -2,6 +2,14 @@ services:
 
 	latte.templateFactory: App\Templates\TemplateFactory
 
+	nette.latteFactory:
+		setup:
+			- addFilter(monthByNumber, @monthByNumberFilter)
+
+
+	# latte filters
+	monthByNumberFilter: blitzik\Latte\Filters\MonthByNumberFilter
+
 
 	# core component factories
 	pageTitleControlFactory:

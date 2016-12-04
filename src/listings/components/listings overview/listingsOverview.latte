@@ -1,0 +1,18 @@
+
+<div class="row">
+
+    {if empty($listingsByMonth)}
+        <div class="col-xs-12">
+            <p>Nebyly nalezeny žádné výčetky.</p>
+        </div>
+
+    {else}
+        {foreach $listingsByMonth as $monthNumber => $listings}
+            {foreach $listings as $listing}
+                {var $id = $listing->getId()}
+                {control listing-$id}
+            {/foreach}
+        {/foreach}
+    {/if}
+
+</div>

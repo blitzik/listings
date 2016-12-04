@@ -1,0 +1,44 @@
+
+<div class="card listing-form">
+    <div class="card-block">
+    {form form}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {label month /}
+                    {input month class => 'form-control form-control-lg'}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {label year /}
+                    {input year class => 'form-control form-control-lg'}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    {label name /}
+                    {input name class => 'form-control form-control-lg'}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    {label hourlyRate /}
+                    <div class="input-group input-group-lg">
+                        {input hourlyRate class => 'form-control form-control-lg'}
+                        <span class="input-group-addon">Kč</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button n:name="save" class="btn btn-lg btn-primary">Uložit</button>
+    {/form}
+    </div>
+</div>

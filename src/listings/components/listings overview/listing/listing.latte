@@ -1,0 +1,16 @@
+
+{var $listingName = $listing->getName() ?? 'Bez názvu'}
+<div class="col-xl-6">
+    <div class="listing">
+        <a href="{plink :Listings:ListingDetail:default id => $listing->getId()}" title="{$listingName}">
+            <div class="row">
+                <div class="col-xs-4">
+                    <b>{$listing->getMonth()|monthByNumber}</b> <small>| {$listing->getYear()}</small>
+                </div>
+                <div class="col-xs-8 text-right">
+                    <small>{$listingName}</small>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

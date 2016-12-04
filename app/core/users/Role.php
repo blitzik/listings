@@ -2,28 +2,27 @@
 
 namespace Users\Authorization;
 
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Nette\Utils\Validators;
+use Nette\Security\IRole;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="role")
  */
-class Role implements IRole
+class Role
 {
+    use Identifier;
+
+
     const GOD = 'god';
+
+
     const LENGTH_NAME = 255;
 
-
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @var integer
-     */
-    private $id;
 
     /**
      * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
@@ -37,18 +36,11 @@ class Role implements IRole
      */
     private $parent;
 
-    /** @var int|null */
-    private $ownerId;
-
 
     public function __construct(
-        $identifier,
         $name,
         Role $parent = null
     ) {
-        Validators::assert($identifier, 'numericint:1..');
-        $this->id = $identifier;
-        
         $this->setName($name);
         $this->parent = $parent;
     }
@@ -94,62 +86,6 @@ class Role implements IRole
     public function getParent()
     {
         return $this->parent;
-    }
-
-
-    /*
-     * ----------------------------
-     * ----- I_ROLE INTERFACE -----
-     * ----------------------------
-     */
-
-
-    /**
-     * @return string
-     */
-    public function getRoleId()
-    {
-        return $this->getName();
-    }
-
-
-    /**
-     * @param int $ownerId
-     */
-    public function setOwnerId($ownerId)
-    {
-        Validators::assert($ownerId, 'numericint');
-        $this->ownerId = $ownerId;
-    }
-
-
-    /**
-     * Role owner ID
-     *
-     * @return int|null
-     */
-    public function getOwnerId()
-    {
-        return $this->ownerId;
-    }
-
-
-
-
-
-    /**
-     * @return int
-     */
-    final public function getId()
-    {
-        return $this->id;
-    }
-
-
-
-    public function __clone()
-    {
-        $this->id = NULL; // todo
     }
 
 }

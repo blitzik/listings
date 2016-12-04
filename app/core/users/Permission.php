@@ -6,6 +6,7 @@ use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Nette\Security\IRole;
 
 /**
  * @ORM\Entity
@@ -18,14 +19,14 @@ class Permission
 
     
     /**
-     * @ORM\ManyToOne(targetEntity="Role", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Role")
      * @ORM\JoinColumn(name="role", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @var Role
      */
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Resource", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Resource")
      * @ORM\JoinColumn(name="resource", referencedColumnName="id", nullable=false)
      * @var Resource
      */

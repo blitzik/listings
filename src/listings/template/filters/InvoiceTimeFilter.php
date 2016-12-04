@@ -6,7 +6,7 @@ namespace Listings\Template\Filters;
 
 use Nette\SmartObject;
 
-class InvoiceTimeFilter
+final class InvoiceTimeFilter
 {
     use SmartObject;
 

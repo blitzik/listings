@@ -13,11 +13,11 @@ application:
 session:
 	expiration: 14 days
 	savePath: %appDir%/../temp/sessions
-	name: application
+	name: listings
 
 
 monolog:
-	name: application
+	name: listings
 
 
 console:

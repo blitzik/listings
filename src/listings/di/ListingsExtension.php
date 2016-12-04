@@ -8,7 +8,7 @@ use Listings\Fixtures\ListingsFixture;
 use App\Fixtures\IFixtureProvider;
 use Nette\DI\Compiler;
 
-class ListingsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
+final class ListingsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
 {
     public function loadConfiguration()
     {

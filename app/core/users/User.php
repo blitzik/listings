@@ -6,16 +6,18 @@ use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use Nette\Security\IIdentity;
 use Users\Authorization\Role;
 use Nette\Security\Passwords;
 use Nette\Utils\Validators;
+use Nette\Security\IRole;
 use Nette\Utils\Random;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User
+class User implements IIdentity, IRole
 {
     use Identifier;
 
@@ -210,11 +212,25 @@ class User
     }
 
 
+    // ----- IIdentity
+
+
     /**
-     * @return array
+     * @return IRole[]
      */
     public function getRoles()
     {
-        return [$this->role->getName()];
+        return [$this->role];
     }
+
+
+    // ----- IRole
+
+
+    function getRoleId()
+    {
+        return $this->role->getName();
+    }
+
+
 }

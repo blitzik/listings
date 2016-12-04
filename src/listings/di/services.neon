@@ -1,7 +1,31 @@
 
+# acl
+listingOwnerAuthorizationAssertion: Listings\ACL\ListingOwnerAuthorizationAssertion
+
+
 # template filters
 invoiceTimeFilter: Listings\Template\Filters\InvoiceTimeFilter
 invoiceTimeWithCommaFilter: Listings\Template\Filters\InvoiceTimeWithCommaFilter
 
+
+# persisters
+listingPersister: Listings\Services\Persisters\ListingPersister
+
+
 # facades
 listingFacade: Listings\Facades\ListingFacade
+
+
+# component factories
+listingsOverviewControlFactory:
+	implement: Listings\Components\IListingsOverviewControlFactory
+	parameters: [year]
+	arguments: [%year%]
+
+listingControlFactory:
+	implement: Listings\Components\IListingControlFactory
+	parameters: [Listings\Listing listing]
+	arguments: [%listing%]
+
+listingFormControlFactory:
+	implement: Listings\Components\IListingFormControlFactory

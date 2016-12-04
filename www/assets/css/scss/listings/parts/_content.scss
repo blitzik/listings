@@ -4,6 +4,7 @@
 
 h1 {
   margin-top: 0;
+  margin-bottom: 20px;
 }
 
 #content-wrapper {
@@ -12,9 +13,42 @@ h1 {
 }
 
 
+// ----- listings years selection
+
+.listing {
+  display: block;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 30px $grid-gutter-width-base / 2;
+  margin-bottom: $grid-gutter-width-base / 2;
+  overflow: auto;
+
+  .listing-actions {
+    float: right;
+    padding: 0;
+    margin: 10px 0 0 0;
+    list-style: none;
+
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+
+
+
+
 @media (min-width: map-get($grid-breakpoints, 'md')) {
   #content-wrapper {
     margin-left: $sidebar-width;
   }
+}
 
+
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+  .listing-form{
+    max-width: 40%;
+  }
 }
