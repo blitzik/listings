@@ -45,6 +45,7 @@ class LoginControl extends BaseControl
     {
         try {
             $this->user->login($values['email'], $values['password']);
+            $this->user->setExpiration('+14 days');
 
             $this->onSuccessfulLogin();
 
