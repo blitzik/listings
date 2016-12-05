@@ -34,10 +34,10 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
 
     private function loadDefaultUserRoles(ObjectManager $objManager)
     {
-        $member = new Role('member');
+        $member = new Role(Role::MEMBER);
         $objManager->persist($member);
 
-        $admin = new Role('admin', $member);
+        $admin = new Role(Role::ADMIN, $member);
         $objManager->persist($admin);
 
         $this->addReference('role_member', $member);

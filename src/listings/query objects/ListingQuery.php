@@ -107,7 +107,7 @@ final class ListingQuery extends QueryObject
     }
 
 
-    protected function doCreateQuery(Kdyby\Persistence\Queryable $repository)
+    protected function doCreateQuery(Kdyby\Persistence\Queryable $repository): Kdyby\Doctrine\QueryBuilder
     {
         $qb = $this->createBasicQuery($repository);
         $qb->select('l');
@@ -120,7 +120,7 @@ final class ListingQuery extends QueryObject
     }
 
 
-    private function createBasicQuery(Kdyby\Persistence\Queryable $repository)
+    private function createBasicQuery(Kdyby\Persistence\Queryable $repository): Kdyby\Doctrine\QueryBuilder
     {
         /** @var Kdyby\Doctrine\QueryBuilder $qb */
         $qb = $repository->getEntityManager()->createQueryBuilder();

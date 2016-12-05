@@ -7,6 +7,7 @@ namespace Listings;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\WrongDayNumberException;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Services\InvoiceTime;
@@ -16,8 +17,12 @@ use Nette\Utils\Validators;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="listing_item")
- *
+ * @ORM\Table(
+ *     name="listing_item",
+ *     uniqueConstraints={
+ *         @UniqueConstraint(name="listing_day", columns={"listing", "day"})
+ *     }
+ * )
  */
 class ListingItem
 {
@@ -82,6 +87,10 @@ class ListingItem
 
         $this->listing = $listing;
 
+        $this->workStart = new InvoiceTime();
+        $this->workEnd = new InvoiceTime();
+        $this->lunch = new InvoiceTime();
+
         $this->setDay($day);
         $this->changeLocality($locality);
         $this->changeHours($workStart, $workEnd, $lunch);
@@ -105,14 +114,33 @@ class ListingItem
      */
     public function changeHours($workStart, $workEnd, $lunch)
     {
+        $oldWorkedHours = $this->getWorkedHours();
+
         $this->workStart = new InvoiceTime($workStart);
         $this->workEnd = new InvoiceTime($workEnd);
-        $workedHoursWithLunch = $this->workEnd->sub($this->workStart);
-        if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
-            throw new NegativeWorkedTimeException;
+        if ($this->workStart->compare($this->workEnd) === 1) {
+            throw new WorkedHoursRangeException;
         }
 
         $this->lunch = new InvoiceTime($lunch);
+        $workedHoursWithLunch = $this->workEnd->sub($this->workStart);
+        if ($workedHoursWithLunch->compare($this->lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
+            throw new NegativeWorkedTimeException;
+        }
+
+        $newWorkedHours = $this->getWorkedHours();
+        $this->updateTotalWorkedTimeInListing($oldWorkedHours, $newWorkedHours);
+    }
+
+
+    private function updateTotalWorkedTimeInListing(InvoiceTime $oldWorkedHours, InvoiceTime $newWorkedHours)
+    {
+        if ($oldWorkedHours->compare($newWorkedHours) === 1) {
+            $this->listing->subWorkedHours($oldWorkedHours->sub($newWorkedHours));
+
+        } elseif ($oldWorkedHours->compare($newWorkedHours) === -1) {
+            $this->listing->addWorkedHours($newWorkedHours->sub($oldWorkedHours));
+        }
     }
 
 
@@ -128,5 +156,102 @@ class ListingItem
         }
 
         $this->day = $day;
+    }
+
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getDate(): \DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->getYear(), $this->getMonth(), $this->getDay()));
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getDay(): int
+    {
+        return $this->day;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getLocality(): string
+    {
+        return $this->locality;
+    }
+
+
+    /**
+     * @return InvoiceTime
+     */
+    public function getWorkStart(): InvoiceTime
+    {
+        return $this->workStart;
+    }
+
+
+    /**
+     * @return InvoiceTime
+     */
+    public function getWorkEnd(): InvoiceTime
+    {
+        return $this->workEnd;
+    }
+
+
+    /**
+     * @return InvoiceTime
+     */
+    public function getLunch(): InvoiceTime
+    {
+        return $this->lunch;
+    }
+
+
+    /**
+     * @return InvoiceTime
+     */
+    public function getWorkedHours(): InvoiceTime
+    {
+        return $this->workEnd->sub($this->workStart)->sub($this->lunch);
+    }
+
+
+    /*
+     * ---------------------------
+     * ----- LISTING GETTERS -----
+     * ---------------------------
+     */
+
+
+    /**
+     * @return string
+     */
+    public function getListingId(): string
+    {
+        return $this->listing->getId();
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getMonth(): int
+    {
+        return $this->listing->getMonth();
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getYear(): int
+    {
+        return $this->listing->getYear();
     }
 }

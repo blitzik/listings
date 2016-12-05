@@ -18,6 +18,9 @@ final class InvoiceTimeFilter
      */
     public function __invoke(\Listings\Services\InvoiceTime $invoiceTime, bool $trimLeftZero = false): string
     {
-        return $invoiceTime->getTime($trimLeftZero);
+        $t = $invoiceTime->getTime($trimLeftZero);
+        $pos = strrpos($t, ':');
+
+        return mb_substr($t, 0, $pos);
     }
 }

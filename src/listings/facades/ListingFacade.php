@@ -63,7 +63,7 @@ final class ListingFacade
      * @param ListingQuery $query
      * @return ResultSet
      */
-    public function getListings(ListingQuery $query): ResultSet
+    public function findListings(ListingQuery $query): ResultSet
     {
         return $this->listingRepository->fetch($query);
     }

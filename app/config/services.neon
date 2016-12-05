@@ -5,10 +5,12 @@ services:
 	nette.latteFactory:
 		setup:
 			- addFilter(monthByNumber, @monthByNumberFilter)
+			- addFilter(weekDayName, @weekDayNameFilter)
 
 
 	# latte filters
 	monthByNumberFilter: blitzik\Latte\Filters\MonthByNumberFilter
+	weekDayNameFilter: blitzik\Latte\Filters\WeekDayNameFilter
 
 
 	# core component factories

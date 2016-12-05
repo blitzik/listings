@@ -6,8 +6,6 @@ use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
-use Nette\Utils\Validators;
-use Nette\Security\IRole;
 
 /**
  * @ORM\Entity
@@ -17,7 +15,8 @@ class Role
 {
     use Identifier;
 
-
+    const MEMBER = 'member';
+    const ADMIN = 'admin';
     const GOD = 'god';
 
 

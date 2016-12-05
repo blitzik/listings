@@ -1,0 +1,35 @@
+
+<table class="listing-table">
+    <thead>
+        <tr>
+            <th class="w75">Datum</th>
+            <th class="w75">Den</th>
+            <th class="w450">Popis práce - místo</th>
+            <th class="w125">Prac. doba</th>
+            <th class="w75">Obděd</th>
+            <th class="w75">Odpr. hod.</th>
+            <th colspan="2">Akce</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {for $day = 1; $day <= $daysInMonth; $day++}
+            {if isset($listingItems[$day])}
+                {control listingItem-$day}
+
+            {else}
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            {/if}
+        {/for}
+    </tbody>
+
+</table>

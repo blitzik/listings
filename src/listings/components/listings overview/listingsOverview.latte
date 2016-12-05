@@ -8,10 +8,13 @@
 
     {else}
         {foreach $listingsByMonth as $monthNumber => $listings}
-            {foreach $listings as $listing}
-                {var $id = $listing->getId()}
-                {control listing-$id}
-            {/foreach}
+            <div class="col-xl-6">
+                <h2>{$monthNumber|monthByNumber}</h2>
+                {foreach $listings as $listing}
+                    {var $id = $listing->getId()}
+                    {control listing-$id}
+                {/foreach}
+            </div>
         {/foreach}
     {/if}
 

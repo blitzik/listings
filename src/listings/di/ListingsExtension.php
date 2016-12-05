@@ -23,7 +23,7 @@ final class ListingsExtension extends CompilerExtension implements IEntityProvid
         $this->setPresenterMapping($cb, ['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']);
 
         $latteFactory = $cb->getDefinition('nette.latteFactory');
-        $latteFactory->addSetup('addFilter', ['invoiceTime', $this->prefix('@invoiceTimeFilter')])
+        $latteFactory->addSetup('addFilter', ['invoiceTimeHoursAndMinutes', $this->prefix('@invoiceTimeFilter')])
                      ->addSetup('addFilter', ['invoiceTimeWithComma', $this->prefix('@invoiceTimeWithCommaFilter')]);
     }
 

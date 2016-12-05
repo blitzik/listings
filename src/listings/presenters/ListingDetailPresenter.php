@@ -2,15 +2,23 @@
 
 namespace Listings\Presenters;
 
+use Listings\Components\IListingTableControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
+use Listings\Services\InvoiceTime;
 use Users\Authorization\Privilege;
 use Listings\Listing;
 
 final class ListingDetailPresenter extends SecuredPresenter
 {
+    /**
+     * @var IListingTableControlFactory
+     * @inject
+     */
+    public $listingTableControlFactory;
+
     /**
      * @var ListingFacade
      * @inject
@@ -42,5 +50,13 @@ final class ListingDetailPresenter extends SecuredPresenter
     public function renderDefault($id)
     {
         $this->template->listing = $this->listing;
+    }
+
+
+    protected function createComponentListingTable()
+    {
+        $comp = $this->listingTableControlFactory->create($this->listing);
+
+        return $comp;
     }
 }

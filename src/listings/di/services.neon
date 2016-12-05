@@ -14,6 +14,7 @@ listingPersister: Listings\Services\Persisters\ListingPersister
 
 # facades
 listingFacade: Listings\Facades\ListingFacade
+listingItemFacade: Listings\Facades\ListingItemFacade
 
 
 # component factories
@@ -29,3 +30,13 @@ listingControlFactory:
 
 listingFormControlFactory:
 	implement: Listings\Components\IListingFormControlFactory
+
+listingTableControlFactory:
+	implement: Listings\Components\IListingTableControlFactory
+	parameters: [Listings\Listing listing]
+	arguments: [%listing%]
+
+listingItemControlFactory:
+	implement: Listings\Components\IListingItemControlFactory
+	parameters: [Listings\ListingItem listingItem]
+	arguments: [%listingItem%]

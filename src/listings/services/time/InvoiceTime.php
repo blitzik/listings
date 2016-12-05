@@ -177,7 +177,7 @@ class InvoiceTime
     /**
      * @return string
      */
-    private function toSeconds(): string
+    public function toSeconds(): string
     {
         if (!isset($this->numberOfSeconds)) {
             $this->numberOfSeconds = TimeManipulator::time2seconds($this->time);

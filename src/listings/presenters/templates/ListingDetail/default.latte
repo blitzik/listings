@@ -1,7 +1,11 @@
 {block content}
 
-    listing detail
+    <h1>{$listing->getMonth()|monthByNumber} {$listing->getYear()}
+        <small class="text-muted">| {if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</small>
+    </h1>
 
     <a href="{link :Listings:Listing:edit id => $listing->getId()}">EDIT</a>
+
+    {control listingTable}
 
 {/block}

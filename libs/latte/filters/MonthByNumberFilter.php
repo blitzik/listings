@@ -4,7 +4,7 @@ namespace blitzik\Latte\Filters;
 
 use Nette\SmartObject;
 
-class MonthByNumberFilter
+final class MonthByNumberFilter
 {
     use SmartObject;
 

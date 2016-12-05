@@ -41,7 +41,7 @@ class ListingsOverviewControl extends BaseControl
         $template->setFile(__DIR__ . '/listingsOverview.latte');
 
         $this->listings = $this->listingFacade
-                               ->getListings(
+                               ->findListings(
                                    (new ListingQuery())
                                    ->byOwnerId($this->user->getId())
                                    ->byYear($this->year)
