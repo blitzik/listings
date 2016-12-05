@@ -52,6 +52,7 @@ class ListingTableControl extends BaseControl
                                    )->toArray();
 
         $template->listingItems = $this->listingItems;
+        $template->listing = $this->listing;
 
         $template->render();
     }
@@ -60,8 +61,12 @@ class ListingTableControl extends BaseControl
     protected function createComponentListingItem()
     {
         return new Multiplier(function ($day) {
+            $item = null;
+            if (isset($this->listingItems[$day])) {
+                $item = $this->listingItems[$day];
+            }
             $comp = $this->listingItemControlFactory
-                         ->create($this->listingItems[$day]);
+                         ->create($day, $this->listing, $item);
 
             return $comp;
         });

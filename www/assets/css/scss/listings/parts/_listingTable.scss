@@ -1,17 +1,68 @@
+@import "../../../../../../bower_components/bootstrap/scss/mixins";
+
+
 .listing-table {
   background-color: #fff;
+  margin-bottom: 150px;
 
   thead {
-    background-color: #455a64;
+    background-color: #546E7A;
+    border: 1px solid #546E7A;
     color: #fff;
+
+    th {
+      background-color: #546E7A;
+    }
+  }
+
+  tbody{
+    border: 1px solid #ccc;
+    border-top: 0;
   }
 
   th, td {
-    padding: 15px;
+    height: 60px;
     text-align: center;
   }
 
-  tr:hover {
+  td {
+    border: 1px solid #ccc;
 
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  tr {
+    &.current-day {
+      background-color: #FFE0B2;
+    }
+
+    &.week-end {
+      background-color: #ECEFF1;
+    }
+  }
+
+  tr:hover {
+    background-color: #FBE9E7;
+    //color: #fff;
+  }
+
+  .copy-item-down,
+  .remove-item{
+    background-color: #26A69A;
+    padding: 10px 15px;
+    @include border-radius(5px);
+    color: #fff;
+    margin: 0 7px;
+  }
+
+  .remove-item{
+    background-color: #e74c3c;
+  }
+
+  .edit-item{
+    display: block;
+    padding: 10px 0;
   }
 }

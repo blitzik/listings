@@ -3,8 +3,8 @@
 namespace Listings\DI;
 
 use Kdyby\Doctrine\DI\IEntityProvider;
-use App\Extensions\CompilerExtension;
 use Listings\Fixtures\ListingsFixture;
+use App\Extensions\CompilerExtension;
 use App\Fixtures\IFixtureProvider;
 use Nette\DI\Compiler;
 

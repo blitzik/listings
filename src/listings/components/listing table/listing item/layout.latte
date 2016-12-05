@@ -1,0 +1,6 @@
+<tr n:class="$isCurrentDay ? current-day : ($isWeekEnd ? week-end)" n:snippet="item">
+    <td>{$day}</td>
+    <td>{$itemDate|weekDayName|substr:0,2|upper}</td>
+
+    {include #content}
+</tr>

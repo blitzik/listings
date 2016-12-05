@@ -1,4 +1,5 @@
 
+
 <table class="listing-table">
     <thead>
         <tr>
@@ -14,21 +15,7 @@
 
     <tbody>
         {for $day = 1; $day <= $daysInMonth; $day++}
-            {if isset($listingItems[$day])}
-                {control listingItem-$day}
-
-            {else}
-                <tr>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-            {/if}
+            {control listingItem-$day}
         {/for}
     </tbody>
 

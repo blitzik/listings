@@ -38,5 +38,5 @@ listingTableControlFactory:
 
 listingItemControlFactory:
 	implement: Listings\Components\IListingItemControlFactory
-	parameters: [Listings\ListingItem listingItem]
-	arguments: [%listingItem%]
+	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
+	arguments: [%day%, %listing%, %listingItem%]
