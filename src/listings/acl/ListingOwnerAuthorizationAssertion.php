@@ -8,6 +8,7 @@ use Nette\Security\Permission;
 use Nette\Security\IRole;
 use Listings\Listing;
 use Users\Authorization\Privilege;
+use Users\Authorization\Role;
 
 final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertion
 {
@@ -52,7 +53,7 @@ final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertio
             throw new \Exception('The Role\'s owner has to implement IRole');
         }
 
-        if ($acl->getQueriedRole()->getRoleId() === 'admin') {
+        if ($acl->getQueriedRole()->getRoleId() === Role::ADMIN) {
             return true;
         }
 

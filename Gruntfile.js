@@ -13,8 +13,6 @@ module.exports = function (grunt) {
 
                 src: [
                     'bower_components/jquery/dist/jquery.js',
-                    'bower_components/bootstrap/js/dist/alert.js',
-                    'bower_components/bootstrap/js/dist/modal.js',
                     'bower_components/nette-forms/src/assets/netteForms.js',
                     'bower_components/nette.ajax.js/nette.ajax.js',
                     'www/assets/js/original/main.js'

@@ -34,6 +34,21 @@ class ListingItemQuery extends QueryObject
 
 
     /**
+     * @param int $day
+     * @return ListingItemQuery
+     */
+    public function byDay(int $day): self
+    {
+        $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($day) {
+            $qb->andWhere('li.day = :day')
+               ->setParameter('day', $day);
+        };
+
+        return $this;
+    }
+
+
+    /**
      * @return ListingItemQuery
      */
     public function indexedByDay(): self

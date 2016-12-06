@@ -27,6 +27,7 @@ class Listing implements IResource
 {
     use Identifier;
 
+
     const LENGTH_NAME = 50;
 
 
@@ -66,12 +67,6 @@ class Listing implements IResource
      * @var \DateTimeImmutable
      */
     private $createdAt;
-    
-    /**
-     * @ORM\Column(name="total_worked_hours_in_seconds", type="integer", nullable=false, unique=false)
-     * @var int
-     */
-    private $totalWorkedHoursInSeconds;
 
 
     /**
@@ -94,34 +89,6 @@ class Listing implements IResource
         $this->month = $month;
 
         $this->createdAt = new \DateTimeImmutable;
-        $this->totalWorkedHoursInSeconds = 0;
-    }
-
-
-    /**
-     * @return InvoiceTime
-     */
-    public function getWorkedHours(): InvoiceTime
-    {
-        return new InvoiceTime($this->totalWorkedHoursInSeconds);
-    }
-
-
-    /**
-     * @param InvoiceTime $invoiceTime
-     */
-    public function addWorkedHours(InvoiceTime $invoiceTime)
-    {
-        $this->totalWorkedHoursInSeconds += (int)$invoiceTime->toSeconds();
-    }
-
-
-    /**
-     * @param InvoiceTime $invoiceTime
-     */
-    public function subWorkedHours(InvoiceTime $invoiceTime)
-    {
-        $this->totalWorkedHoursInSeconds -= (int)$invoiceTime->toSeconds();
     }
 
 
@@ -197,6 +164,15 @@ class Listing implements IResource
     public function getHourlyRate()
     {
         return $this->hourlyRate;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getNumberOfDaysInMonth(): int
+    {
+        return cal_days_in_month(CAL_GREGORIAN, $this->month, $this->year);
     }
 
 

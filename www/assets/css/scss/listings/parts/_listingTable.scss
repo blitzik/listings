@@ -1,3 +1,4 @@
+@import "../../../../../../bower_components/bootstrap/scss/variables";
 @import "../../../../../../bower_components/bootstrap/scss/mixins";
 
 
@@ -49,7 +50,7 @@
   }
 
   .copy-item-down,
-  .remove-item{
+  .remove-item {
     background-color: #26A69A;
     padding: 10px 15px;
     @include border-radius(5px);
@@ -57,11 +58,11 @@
     margin: 0 7px;
   }
 
-  .remove-item{
+  .remove-item {
     background-color: #e74c3c;
   }
 
-  .edit-item{
+  .edit-item {
     display: block;
     padding: 10px 0;
   }

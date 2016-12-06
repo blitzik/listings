@@ -2,8 +2,9 @@
 
 namespace Listings\Components;
 
+use Listings\Queries\Factories\ListingItemQueryFactory;
+use Nette\Application\BadRequestException;
 use Listings\Facades\ListingItemFacade;
-use Listings\Queries\ListingItemQuery;
 use Nette\Application\UI\Multiplier;
 use App\Components\BaseControl;
 use Listings\ListingItem;
@@ -11,6 +12,11 @@ use Listings\Listing;
 
 class ListingTableControl extends BaseControl
 {
+    public $onSuccessfulCopyDown;
+    public $onSuccessfulRemoval;
+    public $onMissingListing;
+
+
     /** @var IListingItemControlFactory */
     private $listingItemControlFactory;
 
@@ -44,12 +50,13 @@ class ListingTableControl extends BaseControl
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
         $template->daysInMonth = $daysInMonth;
 
-        $this->listingItems = $this->listingItemFacade
-                                   ->findListingItems(
-                                       (new ListingItemQuery())
-                                       ->byListingId($this->listing->getId())
-                                       ->indexedByDay()
-                                   )->toArray();
+        if ($this->listingItems === null) {
+            $this->listingItems = $this->listingItemFacade
+                                       ->findListingItems(
+                                           ListingItemQueryFactory::filterByListing($this->listing->getId())
+                                           ->indexedByDay()
+                                       )->toArray();
+        }
 
         $template->listingItems = $this->listingItems;
         $template->listing = $this->listing;
@@ -61,6 +68,13 @@ class ListingTableControl extends BaseControl
     protected function createComponentListingItem()
     {
         return new Multiplier(function ($day) {
+            if ($this->listingItems === null) {
+                $this->listingItems[$day] = $this->listingItemFacade
+                                                 ->getListingItem(ListingItemQueryFactory::filterByListingAndDay($this->listing->getId(), $day));
+                if ($this->listingItems[$day] === null) {
+                    throw new BadRequestException; // todo
+                }
+            }
             $item = null;
             if (isset($this->listingItems[$day])) {
                 $item = $this->listingItems[$day];
@@ -68,8 +82,36 @@ class ListingTableControl extends BaseControl
             $comp = $this->listingItemControlFactory
                          ->create($day, $this->listing, $item);
 
+            $comp->onSuccessfulCopyDown[] = [$this, 'onSuccessfullyCopiedListingItemDown'];
+            $comp->onSuccessfulRemoval[] = [$this, 'onSuccessfullyRemovedListingItem'];
+            $comp->onMissingListing[] = function () {
+                $this->onMissingListing();
+            };
+
             return $comp;
         });
+    }
+
+
+    // -----
+
+
+    public function onSuccessfullyCopiedListingItemDown(ListingItem $listingItem)
+    {
+        $this->listingItems[$listingItem->getDay()] = $listingItem;
+        $this['listingItem'][$listingItem->getDay()]->redrawControl();
+
+        $this->onSuccessfulCopyDown();
+    }
+
+
+    public function onSuccessfullyRemovedListingItem($day)
+    {
+        unset($this['listingItem'][$day]);
+        $this->listingItems = [];
+        $this['listingItem'][$day]->redrawControl();
+
+        $this->onSuccessfulRemoval();
     }
 }
 

@@ -114,8 +114,6 @@ class ListingItem
      */
     public function changeHours($workStart, $workEnd, $lunch)
     {
-        $oldWorkedHours = $this->getWorkedHours();
-
         $this->workStart = new InvoiceTime($workStart);
         $this->workEnd = new InvoiceTime($workEnd);
         if ($this->workStart->compare($this->workEnd) === 1) {
@@ -126,20 +124,6 @@ class ListingItem
         $workedHoursWithLunch = $this->workEnd->sub($this->workStart);
         if ($workedHoursWithLunch->compare($this->lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;
-        }
-
-        $newWorkedHours = $this->getWorkedHours();
-        $this->updateTotalWorkedTimeInListing($oldWorkedHours, $newWorkedHours);
-    }
-
-
-    private function updateTotalWorkedTimeInListing(InvoiceTime $oldWorkedHours, InvoiceTime $newWorkedHours)
-    {
-        if ($oldWorkedHours->compare($newWorkedHours) === 1) {
-            $this->listing->subWorkedHours($oldWorkedHours->sub($newWorkedHours));
-
-        } elseif ($oldWorkedHours->compare($newWorkedHours) === -1) {
-            $this->listing->addWorkedHours($newWorkedHours->sub($oldWorkedHours));
         }
     }
 

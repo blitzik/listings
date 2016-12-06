@@ -13,3 +13,5 @@ class RuntimeException extends \RuntimeException {}
     class NegativeResultOfTimeCalcException extends RuntimeException {}
 
     class NegativeWorkedTimeException extends RuntimeException {}
+
+    class ListingNotFoundException extends RuntimeException {}

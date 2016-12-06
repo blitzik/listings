@@ -3,10 +3,10 @@
 
 
 {block content}
-    <td><a href="#" class="edit-item">{$item->getLocality()}</a></td>
+    <td><a href="{plink :Listings:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
     <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
     <td>{$item->getLunch()|invoiceTimeWithComma}</td>
     <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
-    <td><a href="#" class="copy-item-down"><i class="fa fa-angle-down"></i></a></td>
-    <td><a href="#" class="remove-item"><i class="fa fa-remove"></i></a></td>
+    <td><a href="{link copyDown}" class="ajax copy-item-down"><i class="fa fa-angle-down"></i></a></td>
+    <td><a href="{link remove}" class="ajax remove-item"><i class="fa fa-remove"></i></a></td>
 {/block}

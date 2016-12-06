@@ -2,15 +2,25 @@
 
 namespace Listings\Components;
 
+use Listings\Exceptions\Runtime\ListingNotFoundException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
+use Listings\Facades\ListingItemFacade;
 use App\Components\BaseControl;
 use Listings\ListingItem;
 use Listings\Listing;
 
 class ListingItemControl extends BaseControl
 {
+    public $onSuccessfulCopyDown;
+    public $onSuccessfulRemoval;
+    public $onMissingListing;
+
+
     /** @var string */
     private $originalTemplatePath = __DIR__ . '/layout.latte';
+
+    /** @var ListingItemFacade */
+    private $listingItemFacade;
 
     /** @var ListingItem */
     private $listingItem;
@@ -25,15 +35,21 @@ class ListingItemControl extends BaseControl
     public function __construct(
         int $day,
         Listing $listing,
-        ListingItem $listingItem = null
+        ListingItem $listingItem = null,
+        ListingItemFacade $listingItemFacade
     ) {
         $this->listingItem = $listingItem;
         $this->listing = $listing;
         $this->day = $day;
 
+        if ($listingItem !== null and $listingItem->getListingId() !== $listing->getId()) {
+            throw new InvalidArgumentException('Given ListingItem does NOT belong to given Listing entity');
+        }
+
         if ($this->listingItem !== null and $this->listingItem->getDay() !== $day) {
             throw new InvalidArgumentException('ListingItem::$day and given parameter does NOT match');
         }
+        $this->listingItemFacade = $listingItemFacade;
     }
 
 
@@ -48,6 +64,7 @@ class ListingItemControl extends BaseControl
             $template->setFile(__DIR__ . '/templates/listingItem.latte');
         }
 
+        $template->listing = $this->listing;
         $template->item = $this->listingItem;
         $template->day = $this->day;
 
@@ -59,6 +76,26 @@ class ListingItemControl extends BaseControl
 
 
         $template->render();
+    }
+
+
+    public function handleCopyDown()
+    {
+        try {
+            $newListingItem = $this->listingItemFacade->copyDown($this->listingItem);
+
+            $this->onSuccessfulCopyDown($newListingItem);
+
+        } catch (ListingNotFoundException $e) {
+            $this->onMissingListing();
+        }
+    }
+
+
+    public function handleRemove()
+    {
+        $this->listingItemFacade->removeListingItem($this->listingItem->getId());
+        $this->onSuccessfulRemoval($this->day);
     }
 }
 

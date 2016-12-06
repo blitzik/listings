@@ -40,3 +40,6 @@ listingItemControlFactory:
 	implement: Listings\Components\IListingItemControlFactory
 	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
 	arguments: [%day%, %listing%, %listingItem%]
+
+listingItemFormControlFactory:
+	implement: Listings\Components\IListingItemFormControlFactory
