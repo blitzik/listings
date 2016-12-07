@@ -1,7 +1,7 @@
 @import "../../../../../../bower_components/bootstrap/scss/variables";
 @import "variables";
 
-@import "listingTable";
+@import "listing-table";
 
 .w75 {
   width: 75px;
@@ -51,6 +51,10 @@ h1 {
 }
 
 
+.content-w900-limiter {
+  width: 900px;
+}
+
 @media (min-width: map-get($grid-breakpoints, 'md')) {
   #content-wrapper {
     margin-left: $sidebar-width;
@@ -59,7 +63,14 @@ h1 {
 
 
 @media (min-width: map-get($grid-breakpoints, 'xl')) {
-  .listing-form{
+  .listing-form {
     max-width: 40%;
+  }
+}
+
+
+@media (min-width: 1600px) {
+  .listing-item-form {
+    max-width: 66%;
   }
 }

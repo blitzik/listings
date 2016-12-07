@@ -12,7 +12,6 @@ use Nette\Utils\Validators;
 use Nette\Security\IRole;
 use Nette\Caching\Cache;
 use Nette\SmartObject;
-use Users\User;
 
 class Authorizator implements IAuthorizator
 {
@@ -46,7 +45,7 @@ class Authorizator implements IAuthorizator
     
 
     /**
-     * @param \Nette\Security\User|\Users\User|string $role
+     * @param \Nette\Security\User|IRole|Role|string $role
      * @param IResource|string $resource
      * @param string $privilege
      * @return bool
@@ -56,11 +55,7 @@ class Authorizator implements IAuthorizator
         $_role = $this->resolveRole($role);
 
         try {
-            if ($this->acl->isAllowed($_role, $resource, $privilege) === true) {
-                return true;
-            }
-
-            return false;
+            return $this->acl->isAllowed($_role, $resource, $privilege);
 
         } catch (InvalidStateException $e) {
             return false; // role does not exists
@@ -69,7 +64,7 @@ class Authorizator implements IAuthorizator
 
 
     /**
-     * @param User|\Nette\Security\User|string $role
+     * @param \Nette\Security\User|IRole|Role|string $role
      * @return array
      */
     private function resolveRole($role)
@@ -77,6 +72,9 @@ class Authorizator implements IAuthorizator
         $_role = null;
         if (Validators::is($role, 'unicode')) {
             $_role = $role;
+
+        } elseif ($role instanceof Role) {
+            $_role = $role->getName();
 
         } elseif ($role instanceof IRole) {
             $_role = $role;

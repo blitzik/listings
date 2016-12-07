@@ -8,7 +8,7 @@ app/config/config.local.neon
 vendor
 
 www/assets/css/fonts
-www/assets/css/original
+www/assets/css/temp
 www/assets/css/*.css
 
 www/assets/js/concatenated

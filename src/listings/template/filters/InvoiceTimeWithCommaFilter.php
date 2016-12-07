@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Listings\Template\Filters;
 
+use Listings\Services\InvoiceTime;
 use Nette\SmartObject;
 
 final class InvoiceTimeWithCommaFilter
@@ -12,11 +13,22 @@ final class InvoiceTimeWithCommaFilter
 
 
     /**
-     * @param \Listings\Services\InvoiceTime $invoiceTime
+     * @param InvoiceTime $invoiceTime
      * @param $withoutTrailingZero
      * @return string
      */
-    public function __invoke(\Listings\Services\InvoiceTime $invoiceTime, $withoutTrailingZero = true): string
+    public function __invoke(InvoiceTime $invoiceTime, bool $withoutTrailingZero = true): string
+    {
+        return self::convert($invoiceTime, $withoutTrailingZero);
+    }
+
+
+    /**
+     * @param InvoiceTime $invoiceTime
+     * @param bool $withoutTrailingZero
+     * @return string
+     */
+    public static function convert(InvoiceTime $invoiceTime, bool $withoutTrailingZero = true): string
     {
         list($hours, $minutes, $secs) = sscanf($invoiceTime->getTime(), '%d:%d:%d');
 

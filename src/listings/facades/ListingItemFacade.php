@@ -4,13 +4,16 @@ declare(strict_types = 1);
 
 namespace Listings\Facades;
 
+use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
+use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\ListingNotFoundException;
-use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Services\Persisters\ListingItemPersister;
 use Listings\Queries\ListingItemQuery;
 use Kdyby\Doctrine\EntityRepository;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\ResultSet;
 use Listings\ListingItem;
+use Nette\Utils\Arrays;
 use Nette\SmartObject;
 use Listings\Listing;
 
@@ -22,13 +25,19 @@ class ListingItemFacade
     /** @var EntityRepository */
     private $listingItemRepository;
 
+    /** @var ListingItemPersister */
+    private $listingItemPersister;
+
     /** @var EntityManager */
     private $em;
 
 
-    public function __construct(EntityManager $entityManager)
-    {
+    public function __construct(
+        EntityManager $entityManager,
+        ListingItemPersister $listingItemPersister
+    ) {
         $this->em = $entityManager;
+        $this->listingItemPersister = $listingItemPersister;
 
         $this->listingItemRepository = $entityManager->getRepository(ListingItem::class);
     }
@@ -55,12 +64,41 @@ class ListingItemFacade
 
 
     /**
+     * @param array $values
+     * @param ListingItem|null $listingItem
+     * @return ListingItem
+     * @throws WorkedHoursRangeException
+     * @throws NegativeWorkedTimeException
+     */
+    public function saveListingItem(array $values, ListingItem $listingItem = null): ListingItem
+    {
+        return $this->listingItemPersister->save($values, $listingItem);
+    }
+
+
+    /**
+     * @param string $listingId
+     * @return array
+     */
+    public function loadLocalities(string $listingId): array
+    {
+        $localities = $this->em->createQuery(
+            'SELECT DISTINCT li.locality FROM ' . ListingItem::class . ' li
+             WHERE li.listing = :listing'
+        )->setParameter('listing', $listingId)
+         ->getArrayResult();
+
+        return Arrays::flatten($localities);
+    }
+
+
+    /**
      * @param ListingItem $listingItem
-     * @return ListingItem|void
+     * @return ListingItem
      * @throws \Exception
      * @throws ListingNotFoundException
      */
-    public function copyDown(ListingItem $listingItem)
+    public function copyDown(ListingItem $listingItem): ListingItem
     {
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $listingItem->getMonth(), $listingItem->getYear());
         if (($listingItem->getDay() + 1) > $daysInMonth) {

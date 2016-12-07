@@ -21,12 +21,12 @@ final class DashboardPresenter extends SecuredPresenter
             $this->redirect(':Listings:Dashboard:default', ['year' => null]);
         }
 
-        $this['pageTitle']->setPageTitle('Test');
-
         if ($year === null) {
             $year = date('Y');
         }
         $this->chosenYear = $year;
+
+        $this['pageTitle']->setPageTitle(sprintf('Přehled výčetek za rok %s', $year));
     }
 
 

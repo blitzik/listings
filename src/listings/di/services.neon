@@ -10,6 +10,7 @@ invoiceTimeWithCommaFilter: Listings\Template\Filters\InvoiceTimeWithCommaFilter
 
 # persisters
 listingPersister: Listings\Services\Persisters\ListingPersister
+listingItemPersister: Listings\Services\Persisters\ListingItemPersister
 
 
 # facades
@@ -43,3 +44,5 @@ listingItemControlFactory:
 
 listingItemFormControlFactory:
 	implement: Listings\Components\IListingItemFormControlFactory
+	parameters: [int day, Listings\Listing listing]
+	arguments: [%day%, %listing%]

@@ -6,8 +6,8 @@ namespace Listings\Services\Persisters;
 
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Monolog\Logger;
-use Listings\Listing;
 use Nette\SmartObject;
+use Listings\Listing;
 use Users\User;
 
 class ListingPersister

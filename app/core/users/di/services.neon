@@ -1,8 +1,5 @@
 userAuthenticator: Users\Authentication\UserAuthenticator
 
-# role restricters
-roleRestricter: Users\Services\RoleRestricter
-
 # commands
 defaultDataCommand:
 	class: Users\Commands\DefaultDataCommand

@@ -74,6 +74,8 @@ class ListingItem
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
      * @param \DateTimeInterface|int|InvoiceTime|null|string $lunch
+     * @throws WorkedHoursRangeException
+     * @throws NegativeWorkedTimeException
      */
     public function __construct(
         Listing $listing,
@@ -111,6 +113,8 @@ class ListingItem
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
      * @param \DateTimeInterface|int|InvoiceTime|null|string $lunch
+     * @throws WorkedHoursRangeException
+     * @throws NegativeWorkedTimeException
      */
     public function changeHours($workStart, $workEnd, $lunch)
     {

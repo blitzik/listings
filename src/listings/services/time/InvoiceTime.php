@@ -14,8 +14,8 @@ class InvoiceTime
     use SmartObject;
 
 
-    const TIME_WITH_COMMA_REGEXP = '~^\d+(,[05])?$~';
-    const TIME_REGEXP = '~^\d+:[03]0:00$~';
+    const TIME_WITH_COMMA_REGEXP = '^\d+(,[05])?$';
+    const TIME_REGEXP = '^\d+:[03]0:00$';
     const TIME_STEP = '1800'; // string
 
     /** @var string */
@@ -146,13 +146,13 @@ class InvoiceTime
             }
 
             // time in format with comma
-            if (Validators::is($time, 'unicode') and preg_match(self::TIME_WITH_COMMA_REGEXP, $time)) {
+            if (Validators::is($time, 'unicode') and preg_match(sprintf('~%s~', self::TIME_WITH_COMMA_REGEXP), $time)) {
                 $time = self::timeWithComma2Time($time);
                 break;
             }
         } while (false);
 
-        if (!preg_match(self::TIME_REGEXP, $time)) {
+        if (!preg_match(sprintf('~%s~', self::TIME_REGEXP), $time)) {
             throw new InvalidArgumentException(
                 'Wrong $time format.'
             );
