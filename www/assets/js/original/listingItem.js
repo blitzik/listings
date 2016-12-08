@@ -57,6 +57,22 @@
             }
         });
 
+
+        // -----
+
+
+        var nullTimeButton = $("#_null-time-button");
+        nullTimeButton.on("click", function (e) {
+            workStart.val("0:00");
+            workEnd.val("0:00");
+            workLunch.val("0");
+            workWorkedHours.val("0");
+
+            workRangeSlider.slider("values", 0, 0);
+            workRangeSlider.slider("values", 1, 0);
+            workLunchSlider.slider("value", 0);
+        });
+
     });
 
 }(window, window.jQuery));

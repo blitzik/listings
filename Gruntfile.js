@@ -27,9 +27,9 @@ module.exports = function (grunt) {
                     separator: ";"
                 },
                 src: [
-                    "www/assets/js/original/listingItemSliders.js"
+                    "www/assets/js/original/listingItem.js"
                 ],
-                dest: "www/assets/js/concatenated/listingItemSliders.js"
+                dest: "www/assets/js/concatenated/listingItem.js"
             }
         },
 
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
             },
             listing_item_js: {
                 files: {
-                    "www/assets/js/listingItemSliders.min.js": ["www/assets/js/concatenated/listingItemSliders.js"]
+                    "www/assets/js/listingItem.min.js": ["www/assets/js/concatenated/listingItem.js"]
                 }
             }
         },

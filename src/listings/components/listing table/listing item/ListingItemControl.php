@@ -60,6 +60,10 @@ class ListingItemControl extends BaseControl
 
         if ($this->listingItem === null) {
             $template->setFile(__DIR__ . '/templates/emptyItem.latte');
+
+        } elseif ($this->listingItem->getWorkedHoursWithLunch()->toSeconds() === '0') {
+            $template->setFile(__DIR__ . '/templates/onlyLocality.latte');
+
         } else {
             $template->setFile(__DIR__ . '/templates/listingItem.latte');
         }

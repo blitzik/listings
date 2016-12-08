@@ -210,6 +210,15 @@ class ListingItem
     }
 
 
+    /**
+     * @return InvoiceTime
+     */
+    public function getWorkedHoursWithLunch(): InvoiceTime
+    {
+        return $this->workEnd->sub($this->workStart);
+    }
+
+
     /*
      * ---------------------------
      * ----- LISTING GETTERS -----

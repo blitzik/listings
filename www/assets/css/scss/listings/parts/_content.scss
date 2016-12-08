@@ -1,4 +1,5 @@
 @import "../../../../../../bower_components/bootstrap/scss/variables";
+@import "../../../../../../bower_components/bootstrap/scss/mixins";
 @import "variables";
 
 @import "listing-table";
@@ -50,14 +51,16 @@ h1 {
   }
 }
 
+.content-w900-limiter {
+  width: 900px;
+}
 
 .listing-item-title {
   margin-bottom: 30px;
 }
 
-
-.content-w900-limiter {
-  width: 900px;
+.btn-null-time {
+  @include button-variant(#fff, #16a085, #16a085);
 }
 
 @media (min-width: map-get($grid-breakpoints, 'md')) {

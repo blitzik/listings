@@ -140,7 +140,7 @@ class InvoiceTime
             }
 
             // time in hours:minutes format
-            if (Validators::is($time, 'unicode') and preg_match('~^\d+:[0-5][0-9]$~', $time)) {
+            if (Validators::is($time, 'unicode') and preg_match('~^\d+:[03]0$~', $time)) {
                 $time = $time . ':00'; // add SECONDS part to HH..:MM format
                 break;
             }
@@ -188,16 +188,11 @@ class InvoiceTime
 
 
     /**
-     * @param bool $trimLeftZero
      * @return string
      */
-    public function getTime(bool $trimLeftZero = false): string
+    public function getTime(): string
     {
-        $time = $this->time;
-        if ($trimLeftZero === true) {
-            $time = ltrim($time, '0');
-        }
-        return $time;
+        return $this->time;
     }
 
 

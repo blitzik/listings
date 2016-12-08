@@ -30,9 +30,13 @@ final class InvoiceTimeFilter
      */
     public static function convert(InvoiceTime $invoiceTime, bool $trimLeftZero = false): string
     {
-        $t = $invoiceTime->getTime($trimLeftZero);
-        $pos = strrpos($t, ':');
-
-        return mb_substr($t, 0, $pos);
+        $time = mb_substr($invoiceTime->getTime(), 0, strrpos($invoiceTime->getTime(), ':'));
+        if ($trimLeftZero === true) {
+            $time = ltrim($time, '0');
+            if ($time[0] === ':') {
+                $time = '0' . $time;
+            }
+        }
+        return $time;
     }
 }

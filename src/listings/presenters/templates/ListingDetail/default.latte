@@ -4,8 +4,11 @@
         <small class="text-muted">| {if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</small>
     </h1>
 
-    <a href="{link :Listings:Listing:edit id => $listing->getId()}">EDIT</a>
+    <div class="content-w900-limiter">
+        <a href="{link :Listings:Listing:edit id => $listing->getId()}">EDIT</a>
 
-    {control listingTable}
+        {control listingTable}
+
+    </div>
 
 {/block}

@@ -1,0 +1,12 @@
+
+{extends $originalTemplatePath}
+
+
+{block content}
+    <td><a href="{plink :Listings:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><a href="{link copyDown}" class="ajax copy-item-down"><i class="fa fa-angle-down"></i></a></td>
+    <td><a href="{link remove}" class="ajax remove-item"><i class="fa fa-remove"></i></a></td>
+{/block}
