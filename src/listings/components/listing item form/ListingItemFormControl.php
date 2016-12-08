@@ -54,6 +54,14 @@ class ListingItemFormControl extends BaseControl
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingItemForm.latte');
 
+        $template->listing = $this->listing;
+        $template->day = $this->day;
+        $template->daysInMonth = $this->listing->getNumberOfDaysInMonth();
+
+        $template->previous = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day - 1));
+        $template->date = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day));
+        $template->next = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day + 1));
+
         $template->listingLocalities = $this->listingItemFacade->loadLocalities($this->listing->getId());
 
         $template->render();

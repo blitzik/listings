@@ -6,11 +6,21 @@ services:
 		setup:
 			- addFilter(monthByNumber, @monthByNumberFilter)
 			- addFilter(weekDayName, @weekDayNameFilter)
+			- addFilter(completeDate, @completeDateFilter)
+			- addFilter(completeDateTime, @completeDateTimeFilter)
+			- addFilter(hoursAndMinutes, @hoursAndMinutesFilter)
+			- addFilter(plural, @pluralFilter)
+			- addFilter(relativeTime, @relativeTimeFilter)
 
 
 	# latte filters
 	monthByNumberFilter: blitzik\Latte\Filters\MonthByNumberFilter
 	weekDayNameFilter: blitzik\Latte\Filters\WeekDayNameFilter
+	completeDateFilter: blitzik\Latte\Filters\CompleteDateFilter
+	completeDateTimeFilter: blitzik\Latte\Filters\CompleteDateTimeFilter
+	hoursAndMinutesFilter: blitzik\Latte\Filters\HoursAndMinutesFilter
+	pluralFilter: blitzik\Latte\Filters\PluralFilter
+	relativeTimeFilter: blitzik\Latte\Filters\RelativeTimeFilter
 
 
 	# core component factories

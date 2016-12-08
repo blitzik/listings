@@ -2,9 +2,27 @@
 <div class="listing-item-form">
     <div class="card">
         <div class="card-block">
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="{plink :Listings:ListingItem:default listingId => $listing->getId(), day => $day - 1}" n:if="$day > 1">{$previous|completeDate}</a>
+                </div>
+                <div class="col-xs-6 text-xs-center">
+                    <a href="{plink :Listings:ListingDetail:default id => $listing->getId()}">{$listing->getName()}</a>
+                </div>
+                <div class="col-xs-3 text-xs-right">
+                    <a href="{plink :Listings:ListingItem:default listingId => $listing->getId(), day => $day + 1}" n:if="$day < $daysInMonth">{$next|completeDate}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-block">
             {snippet flashMessages}
                 {control flashMessages}
             {/snippet}
+
+            <h2 class="card-title listing-item-title">{$date|completeDate}</a></h2>
 
             {form form}
                 <div class="row" n:if="$form->hasErrors()">

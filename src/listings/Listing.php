@@ -159,6 +159,15 @@ class Listing implements IResource
 
 
     /**
+     * @return \DateTimeImmutable
+     */
+    public function getDate(): \DateTimeImmutable
+    {
+        return \DateTimeImmutable::createFromFormat('!Y-m', sprintf('%s-%s', $this->year, $this->month));
+    }
+
+
+    /**
      * @return int|null
      */
     public function getHourlyRate()
