@@ -1,114 +1,95 @@
 
-<div class="listing-item-form">
-    <div class="card">
-        <div class="card-block">
-            <div class="row">
-                <div class="col-xs-3">
-                    <a href="{plink :Listings:ListingItem:default listingId => $listing->getId(), day => $day - 1}" n:if="$day > 1">{$previous|completeDate}</a>
-                </div>
-                <div class="col-xs-6 text-xs-center">
-                    <a href="{plink :Listings:ListingDetail:default id => $listing->getId()}">{$listing->getName()}</a>
-                </div>
-                <div class="col-xs-3 text-xs-right">
-                    <a href="{plink :Listings:ListingItem:default listingId => $listing->getId(), day => $day + 1}" n:if="$day < $daysInMonth">{$next|completeDate}</a>
+<div class="card">
+    <div class="card-block">
+        {snippet flashMessages}
+            {control flashMessages}
+        {/snippet}
+
+        <h2 class="card-title listing-item-title">{$date|completeDate}</a></h2>
+
+        {form form}
+            <div class="row" n:if="$form->hasErrors()">
+                <div class="col-xs-12">
+                    <ul class="form-errors">
+                        <li n:foreach="$form->errors as $error" class="form-error"><i class="fa fa-warning"></i> {$error}</li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="card">
-        <div class="card-block">
-            {snippet flashMessages}
-                {control flashMessages}
-            {/snippet}
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {label workStart /}
+                                {input workStart class => 'form-control form-control-lg'}
+                            </div>
+                        </div>
 
-            <h2 class="card-title listing-item-title">{$date|completeDate}</a></h2>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {label workEnd /}
+                                {input workEnd class => 'form-control form-control-lg'}
+                            </div>
+                        </div>
+                    </div>
 
-            {form form}
-                <div class="row" n:if="$form->hasErrors()">
-                    <div class="col-xs-12">
-                        <ul class="form-errors">
-                            <li n:foreach="$form->errors as $error" class="form-error"><i class="fa fa-warning"></i> {$error}</li>
-                        </ul>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                            <div id="work-range-slider"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {label workStart /}
-                                    {input workStart class => 'form-control form-control-lg'}
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {label workEnd /}
-                                    {input workEnd class => 'form-control form-control-lg'}
-                                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {label lunch /}
+                                {input lunch class => 'form-control form-control-lg'}
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
-                                <div id="work-range-slider"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {label workedHours /}
+                                {input workedHours class => 'form-control form-control-lg'}
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {label lunch /}
-                                    {input lunch class => 'form-control form-control-lg'}
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {label workedHours /}
-                                    {input workedHours class => 'form-control form-control-lg'}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
-                                <div id="work-lunch-slider"></div>
-                            </div>
+                    <div class="row">
+                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                            <div id="work-lunch-slider"></div>
                         </div>
                     </div>
-
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            {label locality /}
-                            {input locality class => 'form-control form-control-lg'}
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <button type="button" id="_null-time-button" class="btn btn-null-time btn-lg">vynulovat čas</button>
-                            </div>
-                            <div class="col-xs-4">
-                                <button n:name="save" class="ajax form-control btn btn-primary btn-lg float-xs-right">Uložit</button>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            {/form}
-        </div>
+
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        {label locality /}
+                        {input locality class => 'form-control form-control-lg'}
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <button type="button" id="_null-time-button" class="btn btn-null-time btn-lg">vynulovat čas</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button n:name="save" class="ajax form-control btn btn-primary btn-lg float-xs-right">Uložit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {/form}
     </div>
-
-    <datalist id="_work-locality" n:if="!empty($listingLocalities)">
-        {foreach $listingLocalities as $locality}
-        <option value="{$locality}">
-            {/foreach}
-    </datalist>
-
 </div>
+
+<datalist id="_work-locality" n:if="!empty($listingLocalities)">
+    {foreach $listingLocalities as $locality}
+    <option value="{$locality}">
+        {/foreach}
+</datalist>

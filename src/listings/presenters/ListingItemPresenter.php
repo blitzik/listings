@@ -9,7 +9,6 @@ use App\Components\FlashMessages\FlashMessage;
 use Listings\Facades\ListingItemFacade;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
-use Nette\Application\UI\Form;
 use Users\Authorization\Privilege;
 use Nette\Utils\Validators;
 use Listings\ListingItem;
@@ -78,7 +77,13 @@ class ListingItemPresenter extends SecuredPresenter
 
     public function renderDefault($listingId, $day)
     {
+        $this->template->listing = $this->listing;
+        $this->template->day = $this->day;
+        $this->template->daysInMonth = $this->listing->getNumberOfDaysInMonth();
 
+        $this->template->previous = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day - 1));
+        $this->template->date = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day));
+        $this->template->next = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day + 1));
     }
 
 
