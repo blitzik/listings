@@ -12,6 +12,6 @@ class PluralFilter
      */
     public function __invoke($number, array $words)
     {
-        return $words[($number == 1) ? 0 : (($number >= 2 && $number <= 4) ? 1 : 2)];
+        return $words[($number == 0) ? 0 : (($number == 1) ? 1 : (($number >= 2 && $number <= 4) ? 2 : 3))];
     }
 }

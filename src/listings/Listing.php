@@ -7,7 +7,6 @@ namespace Listings;
 use Listings\Exceptions\Runtime\WrongMonthNumberException;
 use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Listings\Services\InvoiceTime;
 use Users\Authorization\IResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;

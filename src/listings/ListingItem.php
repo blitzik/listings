@@ -66,6 +66,12 @@ class ListingItem
      */
     private $lunch;
 
+    /**
+     * @ORM\Column(name="worked_hours_in_seconds", type="integer", nullable=false, unique=false)
+     * @var int
+     */
+    private $workedHoursInSeconds;
+
 
     /**
      * @param Listing $listing
@@ -89,9 +95,10 @@ class ListingItem
 
         $this->listing = $listing;
 
-        $this->workStart = new InvoiceTime();
-        $this->workEnd = new InvoiceTime();
-        $this->lunch = new InvoiceTime();
+        $this->workStart = new InvoiceTime;
+        $this->workEnd = new InvoiceTime;
+        $this->lunch = new InvoiceTime;
+        $this->workedHoursInSeconds = 0;
 
         $this->setDay($day);
         $this->changeLocality($locality);
@@ -129,6 +136,8 @@ class ListingItem
         if ($workedHoursWithLunch->compare($this->lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;
         }
+
+        $this->workedHoursInSeconds = (int)$this->getWorkedHours()->toSeconds();
     }
 
 

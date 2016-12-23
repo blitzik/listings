@@ -75,6 +75,8 @@ class ListingFormControl extends BaseControl
 
         $form->addSubmit('save', 'Uložit');
 
+        $form->addProtection();
+
         $form->onSuccess[] = [$this, 'processForm'];
 
 

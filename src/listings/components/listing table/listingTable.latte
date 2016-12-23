@@ -1,5 +1,9 @@
 
+
 <table class="listing-table">
+    <caption n:snippet="listingInfo">
+        Celkem {$totalWorkedDays|plural:["Odpracováno", "Odpracován", "Odpracovány", "Odpracováno"]} [ <b>{$totalWorkedDays} {$totalWorkedDays|plural:["dní", "den", "dny", "dní"]}</b> ] a [ <b>{$totalWorkedHours|invoiceTimeWithComma} {if $totalWorkedHoursInSeconds % 3600 != 0}hodiny{elseif $totalWorkedHoursInSeconds == 0 or $totalWorkedHoursInSeconds > 14400}hodin{elseif $totalWorkedHoursInSeconds == 3600}hodina{else}hodiny{/if}</b> ]
+    </caption>
     <thead>
         <tr>
             <th class="w75">Datum</th>

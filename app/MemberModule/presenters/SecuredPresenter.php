@@ -4,6 +4,7 @@ namespace App\MemberModule\Presenters;
 
 use App\Presenters\AppPresenter;
 use Listings\Services\TimeUtils;
+use Listings\Listing;
 
 abstract class SecuredPresenter extends AppPresenter
 {
@@ -32,6 +33,13 @@ abstract class SecuredPresenter extends AppPresenter
         $this->template->_userEntity = $this->user->getIdentity();
         $this->template->_years = TimeUtils::generateYearsForSelection();
         $this->template->_chosenYear = $this->chosenYear;
+    }
+
+
+    protected function setListingPageTitle(Listing $listing)
+    {
+        $this['pageTitle']->setPageTitle(sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear()))
+                          ->setJoinedText($listing->getName() ?? 'Bez názvu');
     }
 
 

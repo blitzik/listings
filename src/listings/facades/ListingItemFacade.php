@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Listings\Facades;
 
+use Listings\Exceptions\Logic\InvalidStateException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\ListingNotFoundException;
@@ -102,7 +103,7 @@ class ListingItemFacade
     {
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $listingItem->getMonth(), $listingItem->getYear());
         if (($listingItem->getDay() + 1) > $daysInMonth) {
-            return;
+            throw new InvalidStateException;
         }
 
         try {

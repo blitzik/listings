@@ -4,11 +4,11 @@ namespace Listings\ACL;
 
 use Users\Authorization\IAuthorizationAssertion;
 use Users\Authorization\IResource;
+use Users\Authorization\Privilege;
 use Nette\Security\Permission;
+use Users\Authorization\Role;
 use Nette\Security\IRole;
 use Listings\Listing;
-use Users\Authorization\Privilege;
-use Users\Authorization\Role;
 
 final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertion
 {

@@ -24,6 +24,15 @@ final class TimeUtils
 
 
     /**
+     * @return array
+     */
+    public static function getDays(): array
+    {
+        return self::$days;
+    }
+
+
+    /**
      * @param bool $reversed
      * @return array
      */
@@ -35,6 +44,16 @@ final class TimeUtils
             return $m;
         }
         return self::$months;
+    }
+
+
+    /**
+     * @param int $monthNumber
+     * @return string
+     */
+    public static function getMonthName(int $monthNumber): string
+    {
+        return self::$months[$monthNumber];
     }
 
 

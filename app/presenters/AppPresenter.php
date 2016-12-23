@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\IFlashMessagesControlFactory;
+use App\Components\IMetaTitleControlFactory;
 use App\Components\IPageTitleControlFactory;
 use App\Components\IMetaTagsControlFactory;
 use Users\Authorization\Authorizator;
@@ -15,6 +16,12 @@ abstract class AppPresenter extends Presenter
      * @inject
      */
     public $flashMessagesControlFactory;
+
+    /**
+     * @var IMetaTitleControlFactory
+     * @inject
+     */
+    public $metaTitleControlFactory;
 
     /**
      * @var IPageTitleControlFactory
@@ -49,10 +56,15 @@ abstract class AppPresenter extends Presenter
     }
 
 
+    protected function createComponentMetaTitle()
+    {
+        return $this->metaTitleControlFactory->create();
+    }
+
+
     protected function createComponentPageTitle()
     {
-        return $this->pageTitleControlFactory
-                    ->create('Výčetkový systém');
+        return $this->pageTitleControlFactory->create();
     }
 
 

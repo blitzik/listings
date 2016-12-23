@@ -24,10 +24,11 @@ services:
 
 
 	# core component factories
+	metaTitleControlFactory:
+			implement: App\Components\IMetaTitleControlFactory
+
 	pageTitleControlFactory:
 			implement: App\Components\IPageTitleControlFactory
-			parameters: [defaultTitle]
-			arguments: [%defaultTitle%]
 
 	metaTagsControlFactory:
 		implement: App\Components\IMetaTagsControlFactory

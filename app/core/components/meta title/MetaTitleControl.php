@@ -2,33 +2,21 @@
 
 namespace App\Components;
 
-class PageTitleControl extends BaseControl
+class MetaTitleControl extends BaseControl
 {
     /** @var string */
     private $pageTitle;
-
-    /** @var string */
-    private $joinedText;
 
 
     /**
      * @param $pageTitle
      * @return $this
      */
-    public function setPageTitle($pageTitle)
+    public function setTitle($pageTitle)
     {
         $this->pageTitle = $pageTitle;
 
         return $this;
-    }
-
-
-    /**
-     * @param string $joinedText
-     */
-    public function setJoinedText($joinedText)
-    {
-        $this->joinedText = $joinedText;
     }
 
 
@@ -38,17 +26,16 @@ class PageTitleControl extends BaseControl
         $template->setFile(__DIR__ . '/title.latte');
 
         $this->template->title = $this->pageTitle;
-        $this->template->joinedText = $this->joinedText;
 
         $template->render();
     }
 }
 
 
-interface IPageTitleControlFactory
+interface IMetaTitleControlFactory
 {
     /**
-     * @return PageTitleControl
+     * @return MetaTitleControl
      */
     public function create();
 }

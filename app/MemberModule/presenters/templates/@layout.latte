@@ -2,8 +2,7 @@
 <html lang="cs">
 <head>
     {control metaTags}
-
-    {control pageTitle}
+    {control metaTitle}
 
     {block styles}
         <link rel="stylesheet" href="{$basePath}/assets/css/temp/listings-bootstrap.css">
@@ -45,6 +44,12 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
+        <div class="row content-header">
+            <div class="col-xs-12">
+                {control pageTitle}
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-xs-12">
                 {control flashMessages}

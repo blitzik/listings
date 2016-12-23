@@ -1,14 +1,11 @@
 {block content}
 
-    <h1>{$listing->getMonth()|monthByNumber} {$listing->getYear()}
-        <small class="text-muted">| {if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</small>
-    </h1>
+    {control listingActions}
 
-    <div class="content-w900-limiter">
-        <a href="{link :Listings:Listing:edit id => $listing->getId()}">EDIT</a>
+    {if $displayRemovalForm === true}
+        {control listingRemoval}
+    {/if}
 
-        {control listingTable}
-
-    </div>
+    {control listingTable}
 
 {/block}

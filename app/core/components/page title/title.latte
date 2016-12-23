@@ -1,3 +1,1 @@
-{block |strip}
-<title n:tag-if="$entireTitle">{if $title === null}{_$defaultTitle}{else}{_$title}{/if}{if $entireTitle}{$joinedTitleText}{/if}</title>
-{/block}
+<h1>{_$title}<small class="text-muted" n:if="!empty($joinedText)"> | {_$joinedText}</small></h1>

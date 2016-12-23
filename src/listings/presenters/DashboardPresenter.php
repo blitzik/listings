@@ -26,7 +26,8 @@ final class DashboardPresenter extends SecuredPresenter
         }
         $this->chosenYear = $year;
 
-        $this['pageTitle']->setPageTitle(sprintf('Přehled výčetek za rok %s', $year));
+        $this['metaTitle']->setTitle(sprintf('Přehled výčetek za rok %s', $year));
+        $this['pageTitle']->setPageTitle(sprintf('Rok %s', $year));
     }
 
 

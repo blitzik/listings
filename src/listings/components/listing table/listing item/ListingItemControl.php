@@ -71,6 +71,8 @@ class ListingItemControl extends BaseControl
         $template->listing = $this->listing;
         $template->item = $this->listingItem;
         $template->day = $this->day;
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
+        $template->daysInMonth = $daysInMonth;
 
         $itemDate = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day));
         $currentDate = \DateTimeImmutable::createFromFormat('!Y-m-d', date('Y-m-d'));

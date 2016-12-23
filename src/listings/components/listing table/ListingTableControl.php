@@ -3,9 +3,11 @@
 namespace Listings\Components;
 
 use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Services\InvoiceTime;
 use Nette\Application\BadRequestException;
 use Listings\Facades\ListingItemFacade;
 use Nette\Application\UI\Multiplier;
+use Listings\Facades\ListingFacade;
 use App\Components\BaseControl;
 use Listings\ListingItem;
 use Listings\Listing;
@@ -23,6 +25,15 @@ class ListingTableControl extends BaseControl
     /** @var ListingItemFacade */
     private $listingItemFacade;
 
+    /** @var ListingFacade */
+    private $listingFacade;
+
+
+    /** @var int */
+    private $totalWorkedHoursInSeconds;
+
+    /** @var int */
+    private $totalWorkedDays;
 
     /** @var ListingItem[] */
     private $listingItems;
@@ -33,12 +44,14 @@ class ListingTableControl extends BaseControl
 
     public function __construct(
         Listing $listing,
+        ListingFacade $listingFacade,
         ListingItemFacade $listingItemFacade,
         IListingItemControlFactory $listingItemControlFactory
     ) {
         $this->listing = $listing;
         $this->listingItemFacade = $listingItemFacade;
         $this->listingItemControlFactory = $listingItemControlFactory;
+        $this->listingFacade = $listingFacade;
     }
 
 
@@ -60,6 +73,12 @@ class ListingTableControl extends BaseControl
 
         $template->listingItems = $this->listingItems;
         $template->listing = $this->listing;
+
+        $this->loadListingInfo();
+
+        $template->totalWorkedDays = $this->totalWorkedDays;
+        $template->totalWorkedHoursInSeconds = $this->totalWorkedHoursInSeconds;
+        $template->totalWorkedHours = new InvoiceTime($this->totalWorkedHoursInSeconds);
 
         $template->render();
     }
@@ -93,6 +112,16 @@ class ListingTableControl extends BaseControl
     }
 
 
+    private function loadListingInfo()
+    {
+        if ($this->totalWorkedDays === null or $this->totalWorkedHoursInSeconds === null) {
+            $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing);
+            $this->totalWorkedDays = $listingData['daysCount'];
+            $this->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
+        }
+    }
+
+
     // -----
 
 
@@ -100,6 +129,9 @@ class ListingTableControl extends BaseControl
     {
         $this->listingItems[$listingItem->getDay()] = $listingItem;
         $this['listingItem'][$listingItem->getDay()]->redrawControl();
+
+        $this->loadListingInfo();
+        $this->redrawControl('listingInfo');
 
         $this->onSuccessfulCopyDown();
     }
@@ -110,6 +142,9 @@ class ListingTableControl extends BaseControl
         unset($this['listingItem'][$day]);
         $this->listingItems = [];
         $this['listingItem'][$day]->redrawControl();
+
+        $this->loadListingInfo();
+        $this->redrawControl('listingInfo');
 
         $this->onSuccessfulRemoval();
     }
