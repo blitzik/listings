@@ -2,6 +2,7 @@
 
 namespace Listings\Components;
 
+use Listings\Facades\EmployerFacade;
 use Listings\Facades\ListingFacade;
 use Listings\Services\TimeUtils;
 use App\Components\BaseControl;
@@ -13,6 +14,9 @@ class ListingFormControl extends BaseControl
     public $onSuccessfulSaving;
 
 
+    /** @var EmployerFacade */
+    private $employerFacade;
+
     /** @var ListingFacade */
     private $listingFacade;
 
@@ -22,9 +26,11 @@ class ListingFormControl extends BaseControl
 
 
     public function __construct(
-        ListingFacade $listingFacade
+        ListingFacade $listingFacade,
+        EmployerFacade $employerFacade
     ) {
         $this->listingFacade = $listingFacade;
+        $this->employerFacade = $employerFacade;
     }
 
 
@@ -58,6 +64,10 @@ class ListingFormControl extends BaseControl
 
         $form->addSelect('year', 'Rok', TimeUtils::generateYearsForSelection())
                 ->setRequired();
+
+        $form->addSelect('employer', 'Zaměstnavatel')
+             ->setPrompt('Bez zaměstnavatele')
+             ->setItems($this->employerFacade->findEmployersForSelect($this->user->getId()));
 
         $form->addText('name', 'Název', null, Listing::LENGTH_NAME)
                 ->setNullable();
@@ -103,9 +113,13 @@ class ListingFormControl extends BaseControl
         $form['year']->setDisabled()
                      ->setDefaultValue($this->listing->getYear());
 
+        $e = $this->listing->getEmployer();
+        $form['employer']->setDefaultValue(($e !== null ? $e->getId() : null));
+
         $form['name']->setDefaultValue($this->listing->getName());
         $form['hourlyRate']->setDefaultValue($this->listing->getHourlyRate());
     }
+
 }
 
 

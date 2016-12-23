@@ -52,6 +52,7 @@ final class ListingDetailPresenter extends SecuredPresenter
         $this->listing = $this->listingFacade
                               ->getListing(
                                   (new ListingQuery())
+                                  ->withEmployer()
                                   ->byId($id)
                               );
 

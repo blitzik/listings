@@ -36,6 +36,13 @@ class Listing implements IResource
      * @var \Users\User
      */
     private $owner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Employer")
+     * @ORM\JoinColumn(name="employer", referencedColumnName="id", nullable=true)
+     * @var Employer
+     */
+    private $employer;
     
     /**
      * @ORM\Column(name="name", type="string", length=50, nullable=true, unique=false)
@@ -88,6 +95,15 @@ class Listing implements IResource
         $this->month = $month;
 
         $this->createdAt = new \DateTimeImmutable;
+    }
+
+
+    /**
+     * @param Employer|null $employer
+     */
+    public function setEmployer(Employer $employer = null)
+    {
+        $this->employer = $employer;
     }
 
 
@@ -196,10 +212,36 @@ class Listing implements IResource
     }
 
 
+    /**
+     * @return Employer|null
+     */
+    public function getEmployer()
+    {
+        return $this->employer;
+    }
+
+
+    /*
+     * -------------------------
+     * ----- OWNER GETTERS -----
+     * -------------------------
+     */
+
+
+    /**
+     * @return string
+     */
+    public function getOwnerFullName(): string
+    {
+        return sprintf('%s %s', $this->owner->getFirstName(), $this->owner->getLastName());
+    }
+
+
+
     // ----- IResource
 
 
-    function getResourceId()
+    function getResourceId(): string
     {
         return self::class;
     }

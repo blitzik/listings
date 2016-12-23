@@ -18,6 +18,7 @@ listingRemover: Listings\Services\Removers\ListingRemover
 
 # facades
 listingFacade: Listings\Facades\ListingFacade
+employerFacade: Listings\Facades\EmployerFacade
 listingItemFacade: Listings\Facades\ListingItemFacade
 
 
@@ -59,3 +60,13 @@ listingRemovalControlFactory:
 	implement: Listings\Components\IListingRemovalControlFactory
 	parameters: [Listings\Listing listing]
 	arguments: [%listing%]
+
+listingPdfGenerationControlFactory:
+	implement: Listings\Components\IListingPdfGenerationControlFactory
+	parameters: [Listings\Listing listing]
+	arguments: [%listing%]
+
+pdfListingItemControlFactory:
+	implement: Listings\Components\IPdfListingItemControlFactory
+	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
+	arguments: [%day%, %listing%, %listingItem%]

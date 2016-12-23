@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Listings\Services\Persisters;
 
+use Listings\Exceptions\Runtime\EmployerNotFoundException;
+use Listings\Facades\EmployerFacade;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Monolog\Logger;
 use Nette\SmartObject;
@@ -15,6 +17,9 @@ class ListingPersister
     use SmartObject;
 
 
+    /** @var EmployerFacade */
+    private $employerFacade;
+
     /** @var Logger */
     private $logger;
 
@@ -22,9 +27,13 @@ class ListingPersister
     private $em;
 
 
-    public function __construct(EntityManager $entityManager, Logger $logger)
-    {
+    public function __construct(
+        EmployerFacade $employerFacade,
+        EntityManager $entityManager,
+        Logger $logger
+    ) {
         $this->em = $entityManager;
+        $this->employerFacade = $employerFacade;
         $this->logger = $logger->channel('listing');
     }
 
@@ -33,6 +42,7 @@ class ListingPersister
      * @param array $values
      * @param Listing|null $listing
      * @return Listing
+     * @throws EmployerNotFoundException
      * @throws \Exception
      */
     public function save(array $values, Listing $listing = null): Listing
@@ -60,11 +70,20 @@ class ListingPersister
     /**
      * @param array $values
      * @return Listing
+     * @throws EmployerNotFoundException
      */
     private function create(array $values): Listing
     {
         $owner = $this->em->find(User::class, $values['owner']->getId());
         $listing = new Listing($owner, $values['year'], $values['month']);
+        if ($values['employer'] !== null) {
+            $employer = $this->employerFacade->getEmployer($values['employer']);
+            if ($employer === null) {
+                throw new EmployerNotFoundException;
+            }
+            $listing->setEmployer($employer);
+        }
+
         if (isset($values['name'])) {
             $listing->setName($values['name']);
         }
@@ -83,9 +102,21 @@ class ListingPersister
      * @param array $values
      * @param Listing $listing
      * @return Listing
+     * @throws EmployerNotFoundException
      */
     private function update(array $values, Listing $listing): Listing
     {
+        if ($values['employer'] !== null) {
+            $employer = $this->employerFacade->getEmployer($values['employer']);
+            if ($employer === null) {
+                throw new EmployerNotFoundException;
+            }
+            $listing->setEmployer($employer);
+
+        } else {
+            $listing->setEmployer(null);
+        }
+
         if (isset($values['name'])) {
             $listing->setName($values['name']);
         }

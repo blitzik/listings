@@ -36,10 +36,15 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
+    /**
+     * @param Listing $listing
+     */
     protected function setListingPageTitle(Listing $listing)
     {
-        $this['pageTitle']->setPageTitle(sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear()))
-                          ->setJoinedText($listing->getName() ?? 'Bez názvu');
+        $this['pageTitle']->setPageTitle(sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear()));
+        if ($listing->getName() !== null) {
+            $this['pageTitle']->setJoinedText($listing->getName());
+        }
     }
 
 

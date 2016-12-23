@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Listings\Facades;
 
+use Listings\Exceptions\Runtime\EmployerNotFoundException;
 use Listings\ListingItem;
 use Listings\Services\Persisters\ListingPersister;
 use Listings\Services\Removers\ListingRemover;
@@ -49,6 +50,7 @@ final class ListingFacade
      * @param array $values
      * @param Listing|null $listing
      * @return Listing
+     * @throws EmployerNotFoundException
      */
     public function save(array $values, Listing $listing = null): Listing
     {

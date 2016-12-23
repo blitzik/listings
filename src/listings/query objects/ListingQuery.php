@@ -33,6 +33,17 @@ final class ListingQuery extends QueryObject
     }
 
 
+    public function withEmployer(): self
+    {
+        $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {
+            $qb->addSelect('e')
+               ->leftJoin('l.employer', 'e');
+        };
+
+        return $this;
+    }
+
+
     /**
      * @param User $owner
      * @return ListingQuery

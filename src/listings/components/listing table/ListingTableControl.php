@@ -3,11 +3,11 @@
 namespace Listings\Components;
 
 use Listings\Queries\Factories\ListingItemQueryFactory;
-use Listings\Services\InvoiceTime;
 use Nette\Application\BadRequestException;
 use Listings\Facades\ListingItemFacade;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
+use Listings\Services\InvoiceTime;
 use App\Components\BaseControl;
 use Listings\ListingItem;
 use Listings\Listing;

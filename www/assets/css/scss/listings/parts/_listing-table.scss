@@ -9,13 +9,17 @@
 
   caption {
     caption-side: top;
-    text-align: right;
     border: 1px solid #d5d5d5;
     border-bottom: 0;
     background-color: #fff;
     color: #333;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+    overflow: auto;
+
+    span {
+      float: right;
+    }
   }
 
   thead {
