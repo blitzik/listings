@@ -57,7 +57,7 @@ final class ListingDetailPresenter extends SecuredPresenter
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::VIEW)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default', []);
+            $this->redirect(':Listings:Dashboard:default');
         }
 
         $this['metaTitle']->setTitle('Detail výčetky');

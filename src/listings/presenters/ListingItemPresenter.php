@@ -14,7 +14,7 @@ use Nette\Utils\Validators;
 use Listings\ListingItem;
 use Listings\Listing;
 
-class ListingItemPresenter extends SecuredPresenter
+final class ListingItemPresenter extends SecuredPresenter
 {
     /**
      * @var IListingItemFormControlFactory
