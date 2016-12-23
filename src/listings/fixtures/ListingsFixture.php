@@ -30,15 +30,18 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
         $ug->addUrl('', 'default');
 
         $ug->addPresenter('Listings:Listing')
-           ->addUrl('nova-vycetka', 'new')
-           ->addUrl('uprava-vycetky', 'edit')
-           ->addUrl('zruseni-vycetky', 'remover');
+           ->addUrl('vycetka/zalozeni', 'new')
+           ->addUrl('vycetka/uprava', 'edit')
+           ->addUrl('vycetka/zruseni', 'remover');
 
         $ug->addPresenter('Listings:ListingDetail')
-           ->addUrl('detail-vycetky', 'default');
+           ->addUrl('vycetka/detail', 'default');
 
         $ug->addPresenter('Listings:ListingItem')
-           ->addUrl('polozka-vycetky', 'default');
+           ->addUrl('vycetka/polozka', 'default');
+
+        $ug->addPresenter('Listings:ListingPdfGeneration')
+           ->addUrl('vycetka/generovani-pdf', 'default');
     }
 
 
