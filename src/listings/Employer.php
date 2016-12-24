@@ -13,8 +13,12 @@ use Users\User;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="employer")
- *
+ * @ORM\Table(
+ *     name="employer",
+ *     indexes={
+ *         @Index(name="user_created_at", columns={"user", "created_at"})
+ *     }
+ * )
  */
 class Employer
 {
@@ -37,20 +41,29 @@ class Employer
      */
     private $user;
 
+    /**
+     * @ORM\Column(name="created_at", type="datetime_immutable", nullable=false, unique=false)
+     * @var \DateTimeImmutable
+     */
+    private $createdAt;
+
 
     public function __construct(
-        $name,
+        string $name,
         User $user
     ) {
+        $this->id = $this->getUuid();
+
         $this->setName($name);
         $this->user = $user;
+        $this->createdAt = new \DateTimeImmutable;
     }
 
 
     /**
-     * @param $name
+     * @param string $name
      */
-    private function setName($name)
+    public function setName(string $name)
     {
         Validators::assert($name, sprintf('unicode:1..%s', self::LENGTH_NAME));
         $this->name = $name;
@@ -60,8 +73,17 @@ class Employer
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
+    }
+
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getCreationTime(): \DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

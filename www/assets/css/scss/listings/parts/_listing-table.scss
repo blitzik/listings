@@ -2,6 +2,9 @@
 @import "../../../../../../bower_components/bootstrap/scss/mixins";
 
 
+
+
+
 .listing-table {
   background-color: #fff;
   margin-bottom: 150px;
@@ -32,6 +35,21 @@
     }
   }
 
+  tr {
+    &.current-day {
+      background-color: #FFE0B2;
+    }
+
+    &.week-end {
+      background-color: #ECEFF1;
+    }
+  }
+
+  tr:hover {
+    background-color: #FBE9E7;
+    //color: #fff;
+  }
+
   th, td {
     height: 60px;
     text-align: center;
@@ -49,21 +67,6 @@
     }
   }
 
-  tr {
-    &.current-day {
-      background-color: #FFE0B2;
-    }
-
-    &.week-end {
-      background-color: #ECEFF1;
-    }
-  }
-
-  tr:hover {
-    background-color: #FBE9E7;
-    //color: #fff;
-  }
-
   .copy-item-down,
   .remove-item {
     background-color: #26A69A;
@@ -79,6 +82,5 @@
 
   .edit-item {
     display: block;
-    padding: 10px 0;
   }
 }

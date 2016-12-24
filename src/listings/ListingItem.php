@@ -31,7 +31,7 @@ class ListingItem
 
     /**
      * @ORM\ManyToOne(targetEntity="Listing")
-     * @ORM\JoinColumn(name="listing", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="listing", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @var Listing
      */
     private $listing;

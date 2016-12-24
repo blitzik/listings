@@ -39,7 +39,7 @@ class Listing implements IResource
 
     /**
      * @ORM\ManyToOne(targetEntity="Employer")
-     * @ORM\JoinColumn(name="employer", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="employer", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @var Employer
      */
     private $employer;

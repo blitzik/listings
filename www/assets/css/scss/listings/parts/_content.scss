@@ -97,6 +97,14 @@ a {
   @include button-variant(#fff, #16a085, #16a085);
 }
 
+
+@media (min-width: map-get($grid-breakpoints, 'xl')) {
+  .listing-form {
+    max-width: 40%;
+  }
+}
+
+
 @media (min-width: map-get($grid-breakpoints, 'md')) {
   #content-wrapper {
     margin-left: $sidebar-width;
@@ -104,9 +112,14 @@ a {
 }
 
 
-@media (min-width: map-get($grid-breakpoints, 'xl')) {
-  .listing-form {
-    max-width: 40%;
+@media (min-width: map-get($grid-breakpoints, 'lg')) {
+  #content-wrapper {
+    margin-left: $sidebar-width;
+  }
+
+  .new-employer-form,
+  .employer-item {
+    max-width: 75%;
   }
 }
 

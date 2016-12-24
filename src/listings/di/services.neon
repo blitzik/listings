@@ -10,6 +10,7 @@ invoiceTimeWithCommaFilter: Listings\Template\Filters\InvoiceTimeWithCommaFilter
 
 # persisters
 listingPersister: Listings\Services\Persisters\ListingPersister
+employerPersister: Listings\Services\Persisters\EmployerPersister
 listingItemPersister: Listings\Services\Persisters\ListingItemPersister
 
 # removers
@@ -70,3 +71,16 @@ pdfListingItemControlFactory:
 	implement: Listings\Components\IPdfListingItemControlFactory
 	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
 	arguments: [%day%, %listing%, %listingItem%]
+
+employerFormControlFactory:
+	implement: Listings\Components\IEmployerFormControlFactory
+
+employersOverviewControlFactory:
+	implement: Listings\Components\IEmployersOverviewControlFactory
+	parameters: [Users\User owner]
+	arguments: [%owner%]
+
+employerItemControlFactory:
+	implement: Listings\Components\IEmployerItemControlFactory
+	parameters: [Listings\Employer employer]
+	arguments: [%employer%]

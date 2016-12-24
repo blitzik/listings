@@ -1,0 +1,26 @@
+
+{extends $originalTemplatePath}
+
+
+{block content}
+    {form form}
+        <div class="row">
+            <div class="col-xs-12">
+                {label name /}
+            </div>
+            <div class="col-md-6 margin-bottom-md">
+                {input name class => 'form-control'}
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <button n:name="save" class="ajax btn btn-primary form-control">uložit</button>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="{link displayRemovalForm!}" class="ajax btn btn-block btn-danger">Odebrat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {/form}
+{/block}

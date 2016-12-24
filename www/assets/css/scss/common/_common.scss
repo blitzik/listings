@@ -8,3 +8,18 @@
 .margin-bottom-md{
   margin-bottom: 10px;
 }
+
+.alert {
+  i {
+    display: table-cell;
+    padding-right: 10px;
+  }
+
+  div, span {
+    display: table-cell;
+  }
+}
+
+a.btn {
+  text-decoration: none;
+}
