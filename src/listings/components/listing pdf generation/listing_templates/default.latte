@@ -79,13 +79,12 @@
 
 <table class="listing-meta-table">
     <tr>
+        <td rowspan="2" style="border: 0; font-size: 25px; font-weight: bold; padding: 0;">{$listing->getMonth()|monthByNumber} {$listing->getYear()}</td>
         <th>Zaměstnavatel:</th>
-        <th>Přehled o docházce za měsíc:</th>
         <th>Jméno:</th>
     </tr>
     <tr>
         <td>{if $employer !== null}{$employer->getName()}{/if}</td>
-        <td>{$listing->getMonth()|monthByNumber} {$listing->getYear()}</td>
         <td>{$employeeFullName}</td>
     </tr>
 </table>
