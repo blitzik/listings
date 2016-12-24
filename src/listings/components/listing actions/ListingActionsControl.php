@@ -7,9 +7,6 @@ use Listings\Listing;
 
 class ListingActionsControl extends BaseControl
 {
-    public $onDisplayRemovalClick;
-
-
     /** @var Listing */
     private $listing;
 
@@ -30,12 +27,6 @@ class ListingActionsControl extends BaseControl
 
 
         $template->render();
-    }
-
-
-    public function handleDisplayRemovalForm()
-    {
-        $this->onDisplayRemovalClick($this->listing);
     }
 }
 

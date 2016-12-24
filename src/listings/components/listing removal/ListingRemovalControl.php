@@ -2,7 +2,6 @@
 
 namespace Listings\Components;
 
-use Nette\Forms\Controls\SubmitButton;
 use Listings\Facades\ListingFacade;
 use App\Components\BaseControl;
 use Nette\Application\UI\Form;
@@ -11,7 +10,7 @@ use Listings\Listing;
 class ListingRemovalControl extends BaseControl
 {
     public $onSuccessfulRemoval;
-    public $onCancelClick;
+
 
     /** @var ListingFacade */
     private $listingFacade;
@@ -35,6 +34,8 @@ class ListingRemovalControl extends BaseControl
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingRemoval.latte');
 
+        $template->listing = $this->listing;
+
 
 
         $template->render();
@@ -43,32 +44,28 @@ class ListingRemovalControl extends BaseControl
 
     protected function createComponentForm()
     {
-        $form = new Form();
+        $form = new Form;
 
-        $form->addSubmit('remove', 'Zrušit výčetku')
-                ->onClick[] = [$this, 'processRemove'];
+        $form->addText('confirmation', 'Zadejte kontrolní text "odstranit". Bez uvozovek.')
+                ->setRequired('Zadejte kontrolní text')
+                ->addRule(Form::EQUAL, 'Neshoduje se kontrolní text.', 'odstranit');
 
-        $form->addSubmit('cancel', 'Zpět')
-                ->onClick[] = [$this, 'processCancel'];
+        $form->addSubmit('remove', 'Odstranit výčetku');
 
-        //$form->addProtection();
+        $form->onSuccess[] = [$this, 'processRemoval'];
+
+        $form->addProtection();
 
 
         return $form;
     }
 
 
-    public function processRemove(SubmitButton $button)
+    public function processRemoval(Form $form, $values)
     {
         $this->listingFacade->remove($this->listing);
 
         $this->onSuccessfulRemoval();
-    }
-
-
-    public function processCancel(SubmitButton $button)
-    {
-        $this->onCancelClick();
     }
 }
 

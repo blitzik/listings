@@ -1,12 +1,22 @@
-<div class="card listing-removal">
+<div class="card listing-removal-form">
     <div class="card-block">
-        <div class="listing-removal-notice">
-            Zrušení výčetky je nenávratná akce. Skutečně si přejete výčetku zrušit?
-        </div>
+        <h2 class="card-title"><a href="{plink :Listings:ListingDetail:default, id => $listing->getId()}">{$listing->getMonth()|monthByNumber} {$listing->getYear()} <small class="text-muted" n:if="$listing->getName() !== null">| {$listing->getName()}</small></a></h2>
+
+        <p class="card-text">
+            Skutečně si přejete <strong>nenávratně odstranit</strong> výčetku?
+        </p>
 
         {form form}
-            <button n:name="remove" class="btn btn-danger btn-lg">zrušit výčetku</button>
-            <button n:name="cancel" class="btn btn-default btn-lg">zpět</button>
+            <div class="form-group">
+                {label confirmation /}
+
+                {if $form['confirmation']->hasErrors()}
+                    <p class="form-error">{inputError confirmation}</p>
+                {/if}
+                {input confirmation class => 'form-control'}
+            </div>
+
+            <button n:name="remove" class="btn btn-danger btn-block">Odstranit výčetku</button>
         {/form}
     </div>
 </div>

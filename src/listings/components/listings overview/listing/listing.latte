@@ -4,7 +4,7 @@
 <a href="{plink :Listings:ListingDetail:default id => $listing->getId()}" class="listing" title="{$listingName}">
     <div class="row">
         <div class="col-xs-4">
-            <b>{$listing->getMonth()|monthByNumber}</b> <small>| {$listing->getYear()}</small>
+            <b>{$listing->getMonth()|monthByNumber}</b> {$listing->getYear()}
         </div>
         <div class="col-xs-8 text-xs-right">
             <small>{$listingName}</small>

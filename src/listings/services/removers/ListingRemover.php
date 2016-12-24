@@ -23,8 +23,12 @@ class ListingRemover
     }
 
 
+    /**
+     * @param Listing $listing
+     */
     public function remove(Listing $listing)
     {
-        $this->em->remove($listing)>flush();
+        $this->em->remove($listing);
+        $this->em->flush();
     }
 }

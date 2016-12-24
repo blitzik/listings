@@ -2,10 +2,10 @@
 
 namespace Listings\Presenters;
 
+use Listings\Components\IListingRemovalControlFactory;
 use Listings\Components\IListingFormControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
-use Listings\Components\IListingRemovalControlFactory;
 use Listings\Facades\ListingFacade;
 use Users\Authorization\Privilege;
 use Listings\Queries\ListingQuery;
@@ -13,6 +13,12 @@ use Listings\Listing;
 
 final class ListingPresenter extends SecuredPresenter
 {
+    /**
+     * @var IListingRemovalControlFactory
+     * @inject
+     */
+    public $listingRemovalControlFactory;
+
     /**
      * @var IListingFormControlFactory
      * @inject
@@ -39,7 +45,6 @@ final class ListingPresenter extends SecuredPresenter
 
     public function renderNew()
     {
-
     }
 
 
@@ -64,11 +69,7 @@ final class ListingPresenter extends SecuredPresenter
 
     public function actionEdit($id)
     {
-        $this->listing = $this->listingFacade
-                              ->getListing(
-                                  (new ListingQuery())
-                                  ->byId($id)
-                              );
+        $this->listing = $this->getListingById($id);
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
@@ -88,7 +89,6 @@ final class ListingPresenter extends SecuredPresenter
     protected function createComponentListingEditForm()
     {
         $comp = $this->listingFormControlFactory->create();
-
         $comp->setListing($this->listing);
 
         $comp->onSuccessfulSaving[] = function (Listing $listing) {
@@ -99,22 +99,37 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-
-
-    /**
-     * @var IListingRemovalControlFactory
-     * @inject
+    /*
+     * ---------------------------
+     * ----- LISTING REMOVAL -----
+     * ---------------------------
      */
-    public $listingRemovalControlFactory;
+
+
+    public function actionRemove($id)
+    {
+        $this->listing = $this->getListingById($id);
+
+        if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
+            $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
+            $this->redirect(':Listings:Dashboard:default');
+        }
+
+        $this['metaTitle']->setTitle('Odstranění výčetky');
+        $this['pageTitle']->setPageTitle('Odstranění výčetky');
+    }
+
+
+    public function renderRemove($id)
+    {
+    }
 
 
     protected function createComponentListingRemoval()
     {
-        $comp = $this->listingRemovalControlFactory
-                     ->create($this->listing);
+        $comp = $this->listingRemovalControlFactory->create($this->listing);
 
         $comp->onSuccessfulRemoval[] = [$this, 'onSuccessfulListingRemoval'];
-        $comp->onCancelClick[] = [$this, 'onRemovalCancelClick'];
 
         return $comp;
     }
@@ -122,40 +137,25 @@ final class ListingPresenter extends SecuredPresenter
 
     public function onSuccessfulListingRemoval()
     {
-        $this->flashMessage('Výčetka byla úspěšně odstraněna.', FlashMessage::SUCCESS);
+        $this->flashMessage('Výčetka byla odstraněna.', FlashMessage::SUCCESS);
         $this->redirect(':Listings:Dashboard:default');
     }
 
 
-    public function onRemovalCancelClick()
+    // -----
+
+
+    /**
+     * @param $id
+     * @return Listing|null
+     */
+    private function getListingById($id)
     {
-        //$this->displayRemovalForm = null;
-        $this->redirect('this');
-    }
-
-
-
-    public function actionRemove($id)
-    {
-        $this->listing = $this->listingFacade
-            ->getListing(
-                (new ListingQuery())
-                    ->byId($id)
-            );
-
-        if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
-            $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default', []);
-        }
-
-        $this['metaTitle']->setTitle('Zrušení výčetky');
-        $this->setListingPageTitle($this->listing);
-    }
-
-
-    public function renderRemove($id)
-    {
-
+        return $this->listingFacade
+                    ->getListing(
+                        (new ListingQuery())
+                        ->byId($id)
+                    );
     }
 
 
