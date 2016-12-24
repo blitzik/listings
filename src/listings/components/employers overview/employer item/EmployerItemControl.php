@@ -75,6 +75,8 @@ class EmployerItemControl extends BaseControl
 
         $form->onSuccess[] = [$this, 'processEmployer'];
 
+        $form->addProtection();
+
 
         return $form;
     }
@@ -99,6 +101,8 @@ class EmployerItemControl extends BaseControl
 
         $form->addSubmit('cancel', 'zpět')
                 ->onClick[] = [$this, 'processCancel'];
+
+        $form->addProtection();
 
 
         return $form;

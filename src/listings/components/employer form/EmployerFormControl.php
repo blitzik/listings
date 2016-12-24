@@ -59,6 +59,8 @@ class EmployerFormControl extends BaseControl
 
         $form->onSuccess[] = [$this, 'processEmployer'];
 
+        $form->addProtection();
+
 
         return $form;
     }
@@ -70,6 +72,9 @@ class EmployerFormControl extends BaseControl
         $employer = $this->employerFacade->save((array)$values, $this->employer);
 
         $this->onSuccessfulSaving($employer);
+
+        unset($this['form']);
+        $this->redrawControl('form');
     }
 }
 
