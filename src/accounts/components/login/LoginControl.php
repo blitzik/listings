@@ -2,10 +2,10 @@
 
 namespace Accounts\Components;
 
-use App\Components\BaseControl;
 use App\Components\FlashMessages\FlashMessage;
-use Nette\Application\UI\Form;
 use Nette\Security\AuthenticationException;
+use App\Components\BaseControl;
+use Nette\Application\UI\Form;
 
 class LoginControl extends BaseControl
 {
@@ -26,7 +26,7 @@ class LoginControl extends BaseControl
     {
         $form = new Form;
 
-        $form->addText('email', 'E-mail')
+        $form->addText('email', 'E-mailová adresa')
                 ->setRequired('Zadejte Váš %label');
 
         $form->addPassword('password', 'Heslo')

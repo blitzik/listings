@@ -1,6 +1,6 @@
 <?php
 
-namespace Accounts\Presenters;
+namespace Accounts\PublicModule\Presenters;
 
 use App\AuthModule\Presenters\PublicPresenter;
 use Accounts\Components\ILoginControlFactory;
@@ -49,7 +49,7 @@ final class AuthPresenter extends PublicPresenter
     public function actionLogOut()
     {
         $this->user->logout();
-        $this->redirect(':Accounts:Auth:logIn');
+        $this->redirect(':Accounts:Public:Auth:logIn');
     }
 
 }

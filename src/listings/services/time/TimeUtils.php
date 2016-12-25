@@ -58,7 +58,6 @@ final class TimeUtils
 
 
     /**
-     * Generates array of years for Select component of Form.
      * Every year this method increases automatically its output by current year
      *
      * @return array Array of years

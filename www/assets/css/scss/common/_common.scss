@@ -20,6 +20,25 @@
   }
 }
 
+a {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 a.btn {
   text-decoration: none;
+}
+
+
+// ----- forms
+
+label {
+  overflow: auto;
+
+  .label-link {
+    float: right;
+  }
 }

@@ -1,5 +1,6 @@
 $enable-flex: true;
 
+
 @import "../../../../../bower_components/bootstrap/scss/variables";
 @import "../../../../../bower_components/bootstrap/scss/mixins";
 
@@ -44,7 +45,7 @@ $enable-flex: true;
 //@import "../../../../../bower_components/bootstrap/scss/carousel";
 
 // Utility classes
-//@import "../../../../../bower_components/bootstrap/scss/utilities";
+@import "../../../../../bower_components/bootstrap/scss/utilities";
 
 
 @import "../../scss/common/font-awesome";

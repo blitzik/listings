@@ -5,21 +5,35 @@
             {control flashMessages}
         {/snippet}
 
-
         {form loginForm}
-            {*label email /*}
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                {input email class => 'form-control', placeholder => 'zadejte Váš E-mail'}
+            <div class="form-group">
+                {label email /}
+                <div class="input-group">
+                    <span class="input-group-addon" title="E-mailová adresa"><i class="fa fa-envelope-o fa-fw"></i></span>
+                    {input email class => 'form-control', placeholder => 'zadejte Váš E-mail'}
+                </div>
             </div>
 
-            {*label password /*}
-            <div class="input-group margin-bottom-sm">
-                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-                {input password class => 'form-control', placeholder => 'zadejte Vaše heslo'}
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-3">{label password /}</div>
+                    <div class="col-xs-9 text-xs-right">
+                        <a class="" href="">Potřebujete obnovit heslo?</a>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon" title="Heslo"><i class="fa fa-key fa-fw"></i></span>
+                    {input password class => 'form-control', placeholder => 'zadejte Vaše heslo'}
+                </div>
             </div>
 
-            <button n:name="login" class="form-control btn btn-primary">Přihlásit</button>
+            <button n:name="login" class="btn btn-primary btn-block">Přihlásit</button>
         {/form}
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-block text-xs-center">
+        <a class="d-block" href="">Založit nový účet</a>
     </div>
 </div>
