@@ -43,13 +43,16 @@ class RegistrationControl extends BaseControl
 
         $form->addText('email', 'E-mailová adresa', null, User::LENGTH_EMAIL)
                 ->setRequired('Zadejte E-mailovou adresu')
-                ->addRule(Form::EMAIL, '%label nemá platný formát');
+                ->addRule(Form::EMAIL, '%label nemá platný formát')
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', User::LENGTH_EMAIL);
 
         $form->addText('firstName', 'Jméno', null, User::LENGTH_FIRSTNAME)
-                ->setRequired('Zadejte Vaše jméno');
+                ->setRequired('Zadejte Vaše jméno')
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', User::LENGTH_FIRSTNAME);
 
         $form->addText('lastName', 'Příjmení', null, User::LENGTH_LASTNAME)
-                ->setRequired('Zadejte Vaše příjmení');
+                ->setRequired('Zadejte Vaše příjmení')
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', User::LENGTH_LASTNAME);
 
         $form->addPassword('pass', 'Heslo')
                 ->setRequired('Zadejte Vaše heslo')
