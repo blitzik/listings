@@ -4,6 +4,11 @@
 accountFacade: Accounts\Facades\AccountFacade
 
 
+# Persisters
+
+userPersister: Accounts\Services\Persisters\UserPersister
+
+
 # component factories
 
 loginControlFactory:

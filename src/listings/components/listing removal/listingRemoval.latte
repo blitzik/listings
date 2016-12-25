@@ -11,7 +11,7 @@
                 {label confirmation /}
 
                 {if $form['confirmation']->hasErrors()}
-                    <p class="form-error">{inputError confirmation}</p>
+                    <p class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError confirmation}</span></p>
                 {/if}
                 {input confirmation class => 'form-control'}
             </div>

@@ -1,32 +1,42 @@
 
 <div class="card">
     <div class="card-block">
-        {form form}
+        {snippet form}
+        {form form novalidate => novalidate}
             <div class="form-group">
-                <div n:if="$form['email']->hasErrors()">{inputError email}</div>
+                <div n:if="$form['email']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError email}</span></div>
                 {label email /}
                 {input email class => 'form-control'}
             </div>
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-6">{label firstName /}</div>
-                    <div class="col-xs-6">{label lastName /}</div>
+                    <div class="col-xs-6">
+                        <div n:if="$form['firstName']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError firstName}</span></div>
+                        {label firstName /}
+                    </div>
+                    <div class="col-xs-6">
+                        <div n:if="$form['lastName']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError lastName}</span></div>
+                        {label lastName /}
+                    </div>
                     <div class="col-xs-6">{input firstName class => 'form-control'}</div>
                     <div class="col-xs-6">{input lastName class => 'form-control'}</div>
                 </div>
             </div>
 
             <div class="form-group">
+                <div n:if="$form['pass']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError pass}</span></div>
                 {label pass /}
                 {input pass class => 'form-control'}
             </div>
 
             <div class="form-group">
+                <div n:if="$form['passCheck']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError passCheck}</span></div>
                 {label passCheck /}
                 {input passCheck class => 'form-control'}
             </div>
 
             <button n:name="save" class="btn btn-primary btn-block">Vytvořit účet</button>
         {/form}
+        {/snippet}
     </div>
 </div>

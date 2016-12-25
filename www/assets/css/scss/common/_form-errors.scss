@@ -12,6 +12,11 @@
   border: 1px solid darken(#fcf8e3, 15%);
 
   i{
-    margin-right: 10px;
+    display: table-cell;
+    padding-right: 10px;
+  }
+
+  div, span {
+    display: table-cell;
   }
 }

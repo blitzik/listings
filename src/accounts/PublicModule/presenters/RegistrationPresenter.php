@@ -4,6 +4,7 @@ namespace Accounts\PublicModule\Presenters;
 
 use Accounts\Components\IRegistrationControlFactory;
 use App\AuthModule\Presenters\PublicPresenter;
+use App\Components\FlashMessages\FlashMessage;
 
 final class RegistrationPresenter extends PublicPresenter
 {
@@ -29,6 +30,11 @@ final class RegistrationPresenter extends PublicPresenter
     protected function createComponentRegistration()
     {
         $comp = $this->registrationControlFactory->create();
+
+        $comp->onSuccessfulAccountCreation[] = function () {
+            $this->flashMessage('Účet byl vytvořen. Můžete se přihlásit.', FlashMessage::SUCCESS);
+            $this->redirect(':Accounts:Public:Auth:logIn');
+        };
 
         return $comp;
     }
