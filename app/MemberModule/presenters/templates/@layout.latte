@@ -25,7 +25,7 @@
     <nav id="main-nav">
         <ul>
             <li class="nav-header">Navigace</li>
-            <li><a href="{plink :Listings:Listing:new}"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
+            <li><a href="{plink :Listings:Listing:new}" n:class="$presenter->isLinkCurrent(':Listings:Listing:new') ? active"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
             <li><input type="checkbox" id="listing-years" {if $presenter->isLinkCurrent(':Listings:Dashboard:default')}checked{/if}>
                 <label for="listing-years"><i class="fa fa-fw fa-th"></i> Přehled výčetek</label>
                 <ul>
@@ -34,7 +34,7 @@
                     {/foreach}
                 </ul>
             </li>
-            <li><a href="{plink :Listings:EmployersOverview:default}"><i class="fa fa-fw fa-money"></i> Správa zaměstnavatelů</a></li>
+            <li><a href="{plink :Listings:EmployersOverview:default}" n:class="$presenter->isLinkCurrent(':Listings:EmployersOverview:default') ? active"><i class="fa fa-fw fa-money"></i> Správa zaměstnavatelů</a></li>
         </ul>
 
         <ul class="logout">
