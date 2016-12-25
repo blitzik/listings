@@ -10,6 +10,7 @@
                 </div>
 
                 <div class="form-group">
+                    <div class="form-error" n:if="$form['employee']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError employee}</span></div>
                     {label employee /}
                     {input employee class => 'form-control'}
                 </div>

@@ -29,6 +29,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
+                    <div class="form-error" n:if="$form['name']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError name}</span></div>
                     {label name /}
                     {input name class => 'form-control'}
                 </div>
@@ -38,6 +39,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
+                    <div class="form-error" n:if="$form['hourlyRate']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError hourlyRate}</span></div>
                     {label hourlyRate /}
                     <div class="input-group">
                         {input hourlyRate class => 'form-control'}

@@ -5,11 +5,15 @@
         var workStart = $("#_work-start");
         var workEnd = $("#_work-end");
         var workLunch = $("#_work-lunch");
-        var workWorkedHours = $("#_work-worked-hours");
 
         workStart.attr("readOnly", "readOnly");
         workEnd.attr("readOnly", "readOnly");
         workLunch.attr("readOnly", "readOnly");
+
+        var workedHours = $("#_worked-hours");
+        workedHours.append("<div class=\"form-group\"><label for=\"_work-worked-hours\">Odpr. hod.</label><input type=\"text\" id=\"_work-worked-hours\" class=\"form-control\" value=\"" + workedHours.data("workedHours") + "\" disabled></div>");
+
+        var workWorkedHours = $("#_work-worked-hours");
 
         var workRangeSlider = $("#work-range-slider");
         var workLunchSlider = $("#work-lunch-slider");

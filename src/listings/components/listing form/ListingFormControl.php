@@ -70,7 +70,9 @@ class ListingFormControl extends BaseControl
              ->setItems($this->employerFacade->findEmployersForSelect($this->user->getId()));
 
         $form->addText('name', 'Název', null, Listing::LENGTH_NAME)
-                ->setNullable();
+                ->setNullable()
+                ->addCondition(Form::FILLED)
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Listing::LENGTH_NAME);
 
         $form->addText('hourlyRate', 'Hodinová mzda')
                 ->setNullable()

@@ -6,9 +6,9 @@ use Listings\Queries\Factories\ListingItemQueryFactory;
 use Joseki\Application\Responses\PdfResponse;
 use Listings\Facades\ListingItemFacade;
 use Listings\Facades\EmployerFacade;
-use Listings\Services\InvoiceTime;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
+use Listings\Services\InvoiceTime;
 use App\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\ListingItem;
@@ -75,8 +75,10 @@ class ListingPdfGenerationControl extends BaseControl
             $form['employer']->setDefaultValue($this->listing->getEmployer()->getId());
         }
 
-        $form->addText('employee', 'Jméno', null, 75)
-                ->setDefaultValue($this->listing->getOwnerFullName());
+        $form->addText('employee', 'Jméno', null, 70)
+                ->setDefaultValue($this->listing->getOwnerFullName())
+                ->addCondition(Form::FILLED)
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', 70);
 
         $form->addCheckbox('displayHourlyRate', 'Zobrazit "základní mzdu"')
              ->setDefaultValue(true);

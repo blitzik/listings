@@ -10,9 +10,7 @@
             <div class="form-group">
                 {label confirmation /}
 
-                {if $form['confirmation']->hasErrors()}
-                    <p class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError confirmation}</span></p>
-                {/if}
+                <div class="form-error" n:if="$form['confirmation']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError confirmation}</span></div>
                 {input confirmation class => 'form-control'}
             </div>
 

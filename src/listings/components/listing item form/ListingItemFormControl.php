@@ -60,6 +60,13 @@ class ListingItemFormControl extends BaseControl
 
         $template->listingLocalities = $this->listingItemFacade->loadLocalities($this->listing->getId());
 
+        $workedHours = '9';
+        if ($this->listingItem !== null) {
+            $workedHours = InvoiceTimeWithCommaFilter::convert($this->listingItem->getWorkedHours());
+        }
+        $template->workedHours = $workedHours;
+
+
         $template->render();
     }
     
@@ -68,30 +75,24 @@ class ListingItemFormControl extends BaseControl
     {
         $form = new Form;
         $form->getElementPrototype()->class = 'ajax';
-        //$form->getElementPrototype()->novalidate = 'novalidate';
 
         $form->addText('workStart', 'Začátek')
-                ->setRequired()
+                ->setRequired('Zadejte začátek směny')
                 ->setHtmlId('_work-start')
                 ->setDefaultValue('6:00')
                 ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
         $form->addText('workEnd', 'Konec')
-                ->setRequired()
+                ->setRequired('Zadejte konec směny')
                 ->setHtmlId('_work-end')
                 ->setDefaultValue('16:00')
                 ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
         $form->addText('lunch', 'Oběd')
-                ->setRequired()
+                ->setRequired('Zadejte délku oběda')
                 ->setHtmlId('_work-lunch')
                 ->setDefaultValue('1')
                 ->addRule(Form::PATTERN, 'Špatný formát času', '^\d+(,[05])?$');
-
-        $form->addText('workedHours', 'Odpr. hod.')
-                ->setHtmlId('_work-worked-hours')
-                ->setDisabled()
-                ->setDefaultValue('9');
 
         $form->addText('locality', 'Místo pracoviště')
                 ->setRequired('Zadejte místo pracoviště')
@@ -138,7 +139,6 @@ class ListingItemFormControl extends BaseControl
         $form['workStart']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkStart(), true));
         $form['workEnd']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkEnd(), true));
         $form['lunch']->setDefaultValue(InvoiceTimeWithCommaFilter::convert($listingItem->getLunch()));
-        $form['workedHours']->setDefaultValue(InvoiceTimeWithCommaFilter::convert($listingItem->getWorkedHours()));
 
         $form['locality']->setDefaultValue($listingItem->getLocality());
     }
