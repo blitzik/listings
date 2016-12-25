@@ -60,6 +60,12 @@ final class EmployersOverviewPresenter extends SecuredPresenter
         $comp = $this->employersOverviewControlFactory
                      ->create($this->user->getIdentity());
 
+        $comp->onSuccessfulEmployerRemoval[] = function () {
+            if (!$this->isAjax()) {
+                $this->redirect('this');
+            }
+        };
+
         return $comp;
     }
 }

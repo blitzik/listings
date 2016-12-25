@@ -13,15 +13,16 @@ class EmployerItemControl extends BaseControl
     public $onSuccessfulEmployerRemoval;
 
 
+    /** @persistent */
+    public $isRemovalDisplayed = false;
+
+
     /** @var EmployerFacade */
     private $employerFacade;
 
 
     /** @var string */
     private $originalTemplatePath = __DIR__ . '/layout.latte';
-
-    /** @var bool */
-    private $isRemovalDisplayed = false;
 
     /** @var Employer */
     private $employer;
@@ -69,6 +70,7 @@ class EmployerItemControl extends BaseControl
 
         $form->addText('name', $this->employer->getName(), null, Employer::LENGTH_NAME)
                 ->setRequired('Zadejte název zaměstnavatele')
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Employer::LENGTH_NAME)
                 ->setDefaultValue($this->employer->getName());
 
         $form->addSubmit('save', 'Uložit');
@@ -112,6 +114,8 @@ class EmployerItemControl extends BaseControl
     public function processRemoval(SubmitButton $button)
     {
         $this->employerFacade->remove($this->employer->getId());
+
+        $this->isRemovalDisplayed = false;
 
         $this->onSuccessfulEmployerRemoval();
     }

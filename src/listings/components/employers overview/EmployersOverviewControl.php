@@ -11,6 +11,9 @@ use Users\User;
 
 class EmployersOverviewControl extends BaseControl
 {
+    public $onSuccessfulEmployerRemoval;
+
+
     /** @var IEmployerItemControlFactory */
     private $employerItemControlFactory;
 
@@ -64,6 +67,8 @@ class EmployersOverviewControl extends BaseControl
                          ->create($this->employers[$employerId]);
 
             $comp->onSuccessfulEmployerRemoval[] = function () {
+                $this->onSuccessfulEmployerRemoval();
+
                 $this->employers = null;
                 $this->redrawControl('overview');
             };

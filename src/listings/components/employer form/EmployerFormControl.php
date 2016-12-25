@@ -2,10 +2,10 @@
 
 namespace Listings\Components;
 
-use App\Components\BaseControl;
-use Listings\Employer;
 use Listings\Facades\EmployerFacade;
+use App\Components\BaseControl;
 use Nette\Application\UI\Form;
+use Listings\Employer;
 
 class EmployerFormControl extends BaseControl
 {
@@ -53,7 +53,8 @@ class EmployerFormControl extends BaseControl
         $form->getElementPrototype()->class = 'ajax';
 
         $form->addText('name', 'Nový zaměstnavatel', null, Employer::LENGTH_NAME)
-                ->setRequired('Zadejte název zaměstnavatele');
+                ->setRequired('Zadejte název zaměstnavatele')
+                ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Employer::LENGTH_NAME);
 
         $form->addSubmit('save', 'Uložit');
 

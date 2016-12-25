@@ -10,7 +10,7 @@
   width: $sidebar-width;
   margin-left: -$sidebar-width;
   background-color: #263238;
-  overflow: scroll;
+  overflow: auto;
 
   transition: margin-left .7s, width 1s;
 
