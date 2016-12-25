@@ -1,2 +1,13 @@
+
+# facades
+
+accountFacade: Accounts\Facades\AccountFacade
+
+
+# component factories
+
 loginControlFactory:
 	implement: Accounts\Components\ILoginControlFactory
+
+registrationControlFactory:
+	implement: Accounts\Components\IRegistrationControlFactory

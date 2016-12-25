@@ -74,7 +74,7 @@ class NewUrlCommand extends Command
 
             if (!isset($internalID)) {
                 $internalID = null;
-                $internalIDConfirmation = new ConfirmationQuestion('Would you like to set Internal ID?', true);
+                $internalIDConfirmation = new ConfirmationQuestion('Would you like to set an Internal ID?', true);
                 if ($helper->ask($input, $output, $internalIDConfirmation)) {
                     $internalID = $this->askInternalID($helper, $input, $output);
                 }
@@ -109,7 +109,7 @@ class NewUrlCommand extends Command
                         continue;
                     }
 
-                    $output->writeln(sprintf('Your Url couldn\'t have been saved because url with path "%s" already exists.', $urlPath));
+                    $output->writeln(sprintf('Your Url cannot be saved because url with path "%s" already exists.', $urlPath));
                     return 1;
                 }
 
