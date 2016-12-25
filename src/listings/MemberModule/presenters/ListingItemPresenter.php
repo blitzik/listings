@@ -1,6 +1,6 @@
 <?php
 
-namespace Listings\Presenters;
+namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingItemFormControlFactory;
 use Listings\Queries\Factories\ListingItemQueryFactory;
@@ -48,7 +48,7 @@ final class ListingItemPresenter extends SecuredPresenter
     public function actionDefault($listingId, $day)
     {
         if ($listingId === null) {
-            $this->redirect(':Listings:Dashboard:default');
+            $this->redirect(':Listings:Member:Dashboard:default');
         }
 
         $this->listing = $this->listingFacade
@@ -58,12 +58,12 @@ final class ListingItemPresenter extends SecuredPresenter
                               );
 
         if (!Validators::is($day, 'numericint') or $day < 1 or $day > $this->listing->getNumberOfDaysInMonth()) {
-            $this->redirect(':Listings:ListingDetail:default', ['id' => $this->listing->getId()]);
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $this->listing->getId()]);
         }
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default', []);
+            $this->redirect(':Listings:Member:Dashboard:default', []);
         }
 
         $this->listingItem = $this->listingItemFacade

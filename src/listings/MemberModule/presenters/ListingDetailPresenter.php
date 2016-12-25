@@ -1,6 +1,6 @@
 <?php
 
-namespace Listings\Presenters;
+namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingActionsControlFactory;
 use Listings\Components\IListingTableControlFactory;
@@ -51,7 +51,7 @@ final class ListingDetailPresenter extends SecuredPresenter
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::VIEW)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default');
+            $this->redirect(':Listings:Member:Dashboard:default');
         }
 
         $this['metaTitle']->setTitle('Detail výčetky');
@@ -106,6 +106,6 @@ final class ListingDetailPresenter extends SecuredPresenter
     public function onMissingListing()
     {
         $this->flashMessage('Akci nelze dokončit. Výčetka nebyla nalezena.', FlashMessage::WARNING);
-        $this->redirect(':Listings:Dashboard:default');
+        $this->redirect(':Listings:Member:Dashboard:default');
     }
 }

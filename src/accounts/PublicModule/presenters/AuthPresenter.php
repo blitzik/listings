@@ -17,7 +17,7 @@ final class AuthPresenter extends PublicPresenter
     public function actionLogin()
     {
         if ($this->user->isLoggedIn()) {
-            $this->redirect(':Listings:Dashboard:default');
+            $this->redirect(':Listings:Member:Dashboard:default');
         }
     }
 
@@ -32,7 +32,7 @@ final class AuthPresenter extends PublicPresenter
         $comp = $this->loginControlFactory->create();
 
         $comp->onSuccessfulLogin[] = function () {
-            $this->redirect(':Listings:Dashboard:default');
+            $this->redirect(':Listings:Member:Dashboard:default');
         };
 
         return $comp;

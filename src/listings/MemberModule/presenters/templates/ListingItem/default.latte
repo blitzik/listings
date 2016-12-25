@@ -1,0 +1,27 @@
+{block scripts}
+    {include parent}
+    <script type="text/javascript" src="{$basePath}/assets/js/listingItem.min.js"></script>
+{/block}
+
+
+{block content}
+
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+            <div class="col-xs-3">
+                <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day - 1}" n:if="$day > 1">{$previous|completeDate}</a>
+            </div>
+            <div class="col-xs-6 text-xs-center">
+                <a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}">{if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</a>
+            </div>
+            <div class="col-xs-3 text-xs-right">
+                <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day + 1}" n:if="$day < $daysInMonth">{$next|completeDate}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{control listingItemForm}
+
+{/block}

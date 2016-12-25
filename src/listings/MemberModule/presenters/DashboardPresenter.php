@@ -1,6 +1,6 @@
 <?php
 
-namespace Listings\Presenters;
+namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingsOverviewControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
@@ -18,7 +18,7 @@ final class DashboardPresenter extends SecuredPresenter
     public function actionDefault($year)
     {
         if ($year !== null and !array_key_exists($year, TimeUtils::generateYearsForSelection())) {
-            $this->redirect(':Listings:Dashboard:default', ['year' => null]);
+            $this->redirect(':Listings:Member:Dashboard:default', ['year' => null]);
         }
 
         if ($year === null) {

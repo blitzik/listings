@@ -1,6 +1,6 @@
 <?php
 
-namespace Listings\Presenters;
+namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IEmployersOverviewControlFactory;
 use Listings\Components\IEmployerFormControlFactory;

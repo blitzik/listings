@@ -1,6 +1,6 @@
 <?php
 
-namespace Listings\Presenters;
+namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingRemovalControlFactory;
 use Listings\Components\IListingFormControlFactory;
@@ -53,7 +53,7 @@ final class ListingPresenter extends SecuredPresenter
         $comp = $this->listingFormControlFactory->create();
 
         $comp->onSuccessfulSaving[] = function (Listing $listing) {
-            $this->redirect(':Listings:ListingDetail:default', ['id' => $listing->getId()]);
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]);
         };
 
         return $comp;
@@ -73,7 +73,7 @@ final class ListingPresenter extends SecuredPresenter
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default', []);
+            $this->redirect(':Listings:Member:Dashboard:default', []);
         }
 
         $this['metaTitle']->setTitle('Úprava výčetky');
@@ -92,7 +92,7 @@ final class ListingPresenter extends SecuredPresenter
         $comp->setListing($this->listing);
 
         $comp->onSuccessfulSaving[] = function (Listing $listing) {
-            $this->redirect(':Listings:ListingDetail:default', ['id' => $listing->getId()]);
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]);
         };
 
         return $comp;
@@ -112,7 +112,7 @@ final class ListingPresenter extends SecuredPresenter
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
-            $this->redirect(':Listings:Dashboard:default');
+            $this->redirect(':Listings:Member:Dashboard:default');
         }
 
         $this['metaTitle']->setTitle('Odstranění výčetky');
@@ -138,7 +138,7 @@ final class ListingPresenter extends SecuredPresenter
     public function onSuccessfulListingRemoval()
     {
         $this->flashMessage('Výčetka byla odstraněna.', FlashMessage::SUCCESS);
-        $this->redirect(':Listings:Dashboard:default');
+        $this->redirect(':Listings:Member:Dashboard:default');
     }
 
 

@@ -26,24 +26,24 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
 
     private function loadDefaultUrls(ObjectManager $manager)
     {
-        $ug = new UrlGenerator('Listings:Dashboard', $manager);
+        $ug = new UrlGenerator('Listings:Member:Dashboard', $manager);
         $ug->addUrl('', 'default');
 
-        $ug->addPresenter('Listings:Listing')
+        $ug->addPresenter('Listings:Member:Listing')
            ->addUrl('vycetka/zalozeni', 'new')
            ->addUrl('vycetka/uprava', 'edit')
            ->addUrl('vycetka/zruseni', 'remove');
 
-        $ug->addPresenter('Listings:ListingDetail')
+        $ug->addPresenter('Listings:Member:ListingDetail')
            ->addUrl('vycetka/detail', 'default');
 
-        $ug->addPresenter('Listings:ListingItem')
+        $ug->addPresenter('Listings:Member:ListingItem')
            ->addUrl('vycetka/polozka', 'default');
 
-        $ug->addPresenter('Listings:ListingPdfGeneration')
+        $ug->addPresenter('Listings:Member:ListingPdfGeneration')
            ->addUrl('vycetka/generovani-pdf', 'default');
 
-        $ug->addPresenter('Listings:EmployersOverviewPresenter')
+        $ug->addPresenter('Listings:Member:EmployersOverviewPresenter')
            ->addUrl('zamestnavatele/prehled', 'default');
     }
 

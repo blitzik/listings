@@ -3,7 +3,7 @@
 
 
 {block content}
-    <td><a href="{plink :Listings:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
+    <td><a href="{plink :Listings:Member:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
     <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
     <td>{$item->getLunch()|invoiceTimeWithComma}</td>
     <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
