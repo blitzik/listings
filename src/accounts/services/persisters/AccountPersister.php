@@ -5,8 +5,8 @@ namespace Accounts\Services\Persisters;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Accounts\Exceptions\Runtime\EmailIsInUseException;
 use Kdyby\Doctrine\EntityManager;
-use Kdyby\Monolog\Logger;
 use Users\Authorization\Role;
+use Kdyby\Monolog\Logger;
 use Nette\SmartObject;
 use Users\User;
 
@@ -27,7 +27,7 @@ class UserPersister
         Logger $logger
     ) {
         $this->em = $entityManager;
-        $this->logger = $logger->channel('accounts');
+        $this->logger = $logger->channel('registrations');
     }
 
 
@@ -65,7 +65,7 @@ class UserPersister
         } catch (\Exception $e) {
             $this->closeManager();
 
-            $this->logger->addCritical(sprintf('Registration of user has failed. User\'s E-mail: [%s]', $values['email']));
+            $this->logger->addCritical(sprintf('User\'s E-mail: [%s]', $values['email']));
 
             throw $e;
         }
