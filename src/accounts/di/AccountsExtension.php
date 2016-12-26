@@ -20,8 +20,14 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
     public function beforeCompile()
     {
         $cb = $this->getContainerBuilder();
+        $config = $this->getConfig();
 
         $this->setPresenterMapping($cb, ['Accounts' => 'Accounts\\*Module\\Presenters\\*Presenter']);
+
+        $forgottenPassword = $cb->getDefinition($this->prefix('forgottenPasswordFormControlFactory'));
+        $forgottenPassword->addSetup('setApplicationUrl', [$config['applicationUrl']])
+                          ->addSetup('setAdminEmail', [$config['adminEmail']])
+                          ->addSetup('setAdminFullName', [$config['adminFullName']]);
     }
 
 

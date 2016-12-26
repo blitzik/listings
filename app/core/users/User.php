@@ -178,10 +178,16 @@ class User implements IIdentity, IRole
     }
 
 
+    /**
+     * @param \DateTime $validity
+     * @return string
+     */
     public function createToken(\DateTime $validity)
     {
         $this->token = Random::generate(32);
         $this->tokenValidity = $validity;
+
+        return $this->token;
     }
 
 

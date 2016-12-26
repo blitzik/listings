@@ -32,6 +32,10 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
 
         $ug->addPresenter('Accounts:Public:Registration')
            ->addUrl('registrace', 'default');
+
+        $ug->addPresenter('Accounts:Public:ForgottenPassword')
+           ->addUrl('zapomenute-heslo', 'request')
+           ->addUrl('obnova-hesla', 'change');
     }
 
 

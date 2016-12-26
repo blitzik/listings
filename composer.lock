@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3abe38f3716b82228e4e49340d9d0ec0",
-    "content-hash": "aa9d18c69614ee80f9d71798aeb0b90c",
+    "hash": "ec51f754c09f67a043b9325f7590da02",
+    "content-hash": "bbc81da9c471869e202c06bf01a2c388",
     "packages": [
         {
             "name": "dg/mysql-dump",
@@ -2635,6 +2635,68 @@
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
             "time": "2016-09-28 17:57:14"
+        },
+        {
+            "name": "nextras/mail-panel",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/mail-panel.git",
+                "reference": "42208df6d60ba40c657e0ef7e9d73506680082c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/mail-panel/zipball/42208df6d60ba40c657e0ef7e9d73506680082c4",
+                "reference": "42208df6d60ba40c657e0ef7e9d73506680082c4",
+                "shasum": ""
+            },
+            "require": {
+                "latte/latte": "~2.2",
+                "nette/http": "~2.2",
+                "nette/mail": "~2.3.1 || ~2.4",
+                "nette/utils": "~2.2",
+                "php": ">=5.3",
+                "tracy/tracy": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\MailPanel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Drábek",
+                    "homepage": "http://www.jandrabek.cz"
+                },
+                {
+                    "name": "Jan Marek",
+                    "homepage": "http://www.janmarek.net"
+                },
+                {
+                    "name": "Jan Škrášek",
+                    "email": "hrach.cz@gmail.com"
+                }
+            ],
+            "description": "MailPanel is extension for Nette Framework which captures sent e-mails in development mode and shows them in debugger bar.",
+            "keywords": [
+                "debugging",
+                "framework",
+                "mail",
+                "mail panel",
+                "mailing",
+                "mailpanel"
+            ],
+            "time": "2016-06-08 09:45:07"
         },
         {
             "name": "paragonie/random_compat",

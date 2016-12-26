@@ -1,5 +1,9 @@
 services:
 
+	nette.mailer:
+		class: Nette\Mail\IMailer
+		factory: Nextras\MailPanel\FileMailer(%tempDir%/mail-panel-mails)
+
 	latte.templateFactory: App\Templates\TemplateFactory
 
 	nette.latteFactory:
@@ -21,6 +25,9 @@ services:
 	hoursAndMinutesFilter: blitzik\Latte\Filters\HoursAndMinutesFilter
 	pluralFilter: blitzik\Latte\Filters\PluralFilter
 	relativeTimeFilter: blitzik\Latte\Filters\RelativeTimeFilter
+
+
+	mailMessageFactory: blitzik\email\MailMessageFactory
 
 
 	# core component factories

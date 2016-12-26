@@ -27,7 +27,8 @@
 		"dg/mysql-dump": "^1.3",
 		"ramsey/uuid": "^3.4",
 		"ramsey/uuid-doctrine": "^1.2",
-		"joseki/pdf-response": "dev-master"
+		"joseki/pdf-response": "dev-master",
+		"nextras/mail-panel": "^2.3"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"

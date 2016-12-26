@@ -1,6 +1,17 @@
 parameters:
+
+	applicationUrl: 'http://url-of-your-app'
+	adminEmail: your-email@your-app
+	adminFullName: 'Lorem Ipsum'
+
+
 	database:
 		host: 127.0.0.1
 		user: root
 		password: asqw
-		dbname: database
+		dbname: listings
+
+accounts:
+	applicationUrl: %applicationUrl%
+	adminEmail: %adminEmail%
+	adminFullName: %adminFullName%

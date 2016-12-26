@@ -16,6 +16,11 @@ session:
 	name: listings
 
 
+tracy:
+	bar:
+		- Nextras\MailPanel\MailPanel(%tempDir%/mail-panel-latte)
+
+
 monolog:
 	name: listings
 
