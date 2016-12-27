@@ -19,6 +19,9 @@ class ListingPdfGenerationControl extends BaseControl
     public $onPdfGenerationClick;
 
 
+    const TYPE_DEFAULT = 'default';
+
+
     /** @var IPdfListingItemControlFactory */
     private $pdfListingItemControlFactory;
 
@@ -31,6 +34,9 @@ class ListingPdfGenerationControl extends BaseControl
     /** @var ListingFacade */
     private $listingFacade;
 
+
+    /** @var string */
+    private $listingItemPdfType;
 
     /** @var ListingItem[] */
     private $listingItems;
@@ -80,8 +86,16 @@ class ListingPdfGenerationControl extends BaseControl
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', 70);
 
+
         $form->addCheckbox('displayHourlyRate', 'Zobrazit "základní mzdu"')
              ->setDefaultValue(true);
+
+
+        $form->addSelect('template', 'Zvolte vzhled', [
+            self::TYPE_DEFAULT => 'Základní šablona',
+            'onlyWorkedHours' => 'Šablona s pouze odprac. hod.'
+        ]);
+
 
         $form->addSubmit('generatePdf', 'Reset nastavení');
 
@@ -102,6 +116,8 @@ class ListingPdfGenerationControl extends BaseControl
             $comp = $this->pdfListingItemControlFactory
                          ->create($day, $this->listing, $item);
 
+            $comp->setType($this->listingItemPdfType);
+
             return $comp;
         });
     }
@@ -109,8 +125,10 @@ class ListingPdfGenerationControl extends BaseControl
 
     public function processListing(Form $form, $values)
     {
+        $this->listingItemPdfType = $values['template'];
+
         $template = $this->createTemplate();
-        $template->setFile(__DIR__ . '/listing_templates/default.latte');
+        $template->setFile(sprintf('%s/listing_templates/%s.latte', __DIR__, $values['template']));
 
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
         $template->daysInMonth = $daysInMonth;
