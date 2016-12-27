@@ -3,6 +3,11 @@ forgottenPasswordEmailSender: Accounts\Services\ForgottenPasswordEmailSender
 forgottenEmailTemplateFactory: Accounts\Services\ForgottenEmailTemplateFactory
 
 
+# factories
+
+accountFormFactory: Accounts\Services\Factories\AccountFormFactory
+
+
 # facades
 
 accountFacade: Accounts\Facades\AccountFacade
@@ -23,3 +28,8 @@ registrationControlFactory:
 
 forgottenPasswordFormControlFactory:
 	implement: Accounts\Components\IForgottenPasswordFormControlFactory
+
+forgottenPasswordChangeControlFactory:
+	implement: Accounts\Components\IForgottenPasswordChangeControlFactory
+	parameters: [Users\User user]
+	arguments: [%user%]

@@ -25,6 +25,7 @@ class User implements IIdentity, IRole
     const LENGTH_FIRSTNAME = 50;
     const LENGTH_LASTNAME = 50;
     const LENGTH_EMAIL = 100;
+    const LENGHT_TOKEN = 32;
 
 
     /**
@@ -163,9 +164,11 @@ class User implements IIdentity, IRole
     /**
      * @param string $plainPassword
      */
-    public function setPassword($plainPassword)
+    public function changePassword($plainPassword)
     {
         $this->password = Passwords::hash($plainPassword);
+        $this->token = null;
+        $this->tokenValidity = null;
     }
 
 
@@ -184,7 +187,7 @@ class User implements IIdentity, IRole
      */
     public function createToken(\DateTime $validity)
     {
-        $this->token = Random::generate(32);
+        $this->token = Random::generate(self::LENGHT_TOKEN);
         $this->tokenValidity = $validity;
 
         return $this->token;

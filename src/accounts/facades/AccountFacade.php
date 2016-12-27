@@ -95,4 +95,16 @@ class AccountFacade
              );
     }
 
+
+    /**
+     * @param User $user
+     * @param string $newPassword
+     */
+    public function changePassword(User $user, $newPassword)
+    {
+        $user->changePassword($newPassword);
+
+        $this->em->flush();
+    }
+
 }
