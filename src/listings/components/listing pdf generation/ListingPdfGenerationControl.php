@@ -144,7 +144,8 @@ class ListingPdfGenerationControl extends BaseControl
 
         $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing);
         $template->totalWorkedDays = $listingData['daysCount'];
-        $template->totalWorkedHoursInSeconds = new InvoiceTime($listingData['hoursInSeconds']);
+        $template->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
+        $template->totalWorkedHours = new InvoiceTime($listingData['hoursInSeconds']);
 
         $employer = null;
         if ($values['employer'] !== null) {

@@ -27,7 +27,7 @@
         }
 
         .listing-meta-table td {
-            font-size: 10px;
+            font-size: 13px;
             width: 33.33333%;
             border: 1px solid #000;
             padding: 5px 10px;
@@ -85,8 +85,8 @@
         <th>Jméno:</th>
     </tr>
     <tr>
-        <td>{if $employer !== null}{$employer->getName()}{/if}</td>
-        <td>{$employeeFullName}</td>
+        <td>{if $employer !== null}{$employer->getName()}{else}&nbsp;{/if}</td>
+        <td>{if $employeeFullName != ''}{$employeeFullName}{else}&nbsp;{/if}</td>
     </tr>
 
     <tr>
@@ -94,8 +94,8 @@
         <th class="padding-top">Odpracované hodiny:</th>
     </tr>
     <tr>
-        <td>{if $displayHourlyRate === true and $listing->getHourlyRate() !== null}{$listing->getHourlyRate()} Kč/h{/if}</td>
-        <td align="right"><b>{$totalWorkedHoursInSeconds|invoiceTimeWithComma}</b></td>
+        <td>{if $displayHourlyRate === true and $listing->getHourlyRate() !== null}{$listing->getHourlyRate()} Kč/h{else}&nbsp;{/if}</td>
+        <td align="right">{if $totalWorkedHoursInSeconds != 0}<b>{$totalWorkedHours|invoiceTimeWithComma}</b>{else}&nbsp;{/if}</td>
     </tr>
 </table>
 

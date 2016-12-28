@@ -84,8 +84,8 @@
         <th>Jméno:</th>
     </tr>
     <tr>
-        <td>{if $employer !== null}{$employer->getName()}{/if}</td>
-        <td>{$employeeFullName}</td>
+        <td>{if $employer !== null}{$employer->getName()}{else}&nbsp;{/if}</td>
+        <td>{if $employeeFullName != ''}{$employeeFullName}{else}&nbsp;{/if}</td>
     </tr>
 </table>
 
@@ -132,7 +132,7 @@
 
     <tr>
         <td colspan="5" align="right" class="bold-text" style="font-size: 13px;">Hodin celkem</td>
-        <td class="bold-text" style="font-size: 13px;">{$totalWorkedHoursInSeconds|invoiceTimeWithComma}</td>
+        <td class="bold-text" style="font-size: 13px;">{if $totalWorkedHoursInSeconds != 0}{$totalWorkedHours|invoiceTimeWithComma}{else}&nbsp;{/if}</td>
     </tr>
 </table>
 
