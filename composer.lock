@@ -4,9 +4,46 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ec51f754c09f67a043b9325f7590da02",
-    "content-hash": "bbc81da9c471869e202c06bf01a2c388",
+    "hash": "e52016f6359d9ee5f5e72b3fe44e10a3",
+    "content-hash": "5a089d9be60216c7357a69f3ec018c6d",
     "packages": [
+        {
+            "name": "dg/ftp-php",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/ftp-php.git",
+                "reference": "6e28a2c0e1ae5baba037558d140c8ffaa54e7a10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/ftp-php/zipball/6e28a2c0e1ae5baba037558d140c8ffaa54e7a10",
+                "reference": "6e28a2c0e1ae5baba037558d140c8ffaa54e7a10",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
+                }
+            ],
+            "description": "Easy-to-use library for accessing FTP servers",
+            "homepage": "https://github.com/dg/ftp-php",
+            "keywords": [
+                "ftp"
+            ],
+            "time": "2015-07-02 12:16:59"
+        },
         {
             "name": "dg/mysql-dump",
             "version": "v1.3.0",

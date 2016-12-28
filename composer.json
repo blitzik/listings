@@ -28,7 +28,8 @@
 		"ramsey/uuid": "^3.4",
 		"ramsey/uuid-doctrine": "^1.2",
 		"joseki/pdf-response": "dev-master",
-		"nextras/mail-panel": "^2.3"
+		"nextras/mail-panel": "^2.3",
+		"dg/ftp-php": "^1.2"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"

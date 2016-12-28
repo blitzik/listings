@@ -14,3 +14,4 @@ extensions:
 	# app specifix extensions
 	accounts: Accounts\DI\AccountsExtension
 	listings: Listings\DI\ListingsExtension
+	databaseBackup: DatabaseBackup\DatabaseBackupExtension

@@ -4,14 +4,37 @@ parameters:
 	adminEmail: your-email@your-app
 	adminFullName: 'Lorem Ipsum'
 
-
 	database:
 		host: 127.0.0.1
 		user: root
 		password: asqw
 		dbname: listings
 
+	backup:
+		password: backup_password
+		tempBackupPath: %appDir%/../backup
+		receivers:
+			info:
+				- email@email.email
+			file:
+				- email@email.email
+
+		ftps:
+			first:
+				host: host
+				username: username
+				password: password
+				path: /path/in/remote/ftp
+
+
 accounts:
 	applicationUrl: %applicationUrl%
 	adminEmail: %adminEmail%
 	adminFullName: %adminFullName%
+
+databaseBackup:
+	sender: %adminEmail%
+	databaseCredentials: %database%
+	backupTempPath: %backup.tempBackupPath%
+	receivers: %backup.receivers%
+	ftps: %backup.ftps%
