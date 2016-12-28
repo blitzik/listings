@@ -19,7 +19,9 @@
     <label for="sidebar-collapse" id="sidebar-inner-collapse-button"><i class="fa fa-fw fa-times"></i></label>
 
     <div id="sidebar-user">
-        <i class="fa fa-fw fa-user"></i> {$_userEntity->getFullName()}
+        <div class="sidebar-user-detail">
+            <i class="fa fa-fw fa-user"></i> <span>{$_userEntity->getFullName()}</span>
+        </div>
     </div>
 
     <nav id="main-nav">

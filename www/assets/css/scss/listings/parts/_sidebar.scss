@@ -20,9 +20,14 @@
     color: #fff;
     border-bottom: 1px solid #364044;
 
-    i {
-      padding-right: 30px;
+    .sidebar-user-detail {
+      span { display: table-cell; }
+      i {
+        display: table-cell;
+        padding-right: 30px;
+      }
     }
+
   }
 
   #main-nav {
