@@ -18,7 +18,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     {
         $this->loadDefaultUrls($manager);
         $this->loadDefaultAuthorizatorRules($manager);
-        $this->loadTestingData($manager);
+        //$this->loadTestingData($manager);
 
         $manager->flush();
     }
@@ -43,7 +43,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
         $ug->addPresenter('Listings:Member:ListingPdfGeneration')
            ->addUrl('vycetka/generovani-pdf', 'default');
 
-        $ug->addPresenter('Listings:Member:EmployersOverviewPresenter')
+        $ug->addPresenter('Listings:Member:EmployersOverview')
            ->addUrl('zamestnavatele/prehled', 'default');
     }
 

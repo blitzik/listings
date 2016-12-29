@@ -12,7 +12,7 @@ trait Identifier
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32, options={"fixed": true})
+     * @ORM\Column(type="uuid_binary")
      * @var string
      */
     private $id;
@@ -29,17 +29,26 @@ trait Identifier
 
 
     /**
+     * @return UuidInterface
+     */
+    public function getUuid(): UuidInterface
+    {
+        return Uuid::fromString($this->id);
+    }
+
+
+    /**
      * @return string
      */
-    private function getUuid(): string
+    private function generateUuid(): string
     {
-        return $this->id = str_replace('-', '', Uuid::uuid4()->toString());
+        return str_replace('-', '', Uuid::uuid4()->toString());
     }
     
 
     public function __clone()
     {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
     }
 
 }

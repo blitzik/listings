@@ -43,7 +43,7 @@ class BackupFile
      */
     public function getFileName(): string
     {
-        return sprintf('%s%s', $this->namePrefix, $this->createdAt->format('Y-m-d-h-i-s'));
+        return sprintf('%s%s.sql', $this->namePrefix, $this->createdAt->format('Y-m-d-h-i-s'));
     }
 
 
@@ -52,7 +52,7 @@ class BackupFile
      */
     public function getFilePath(): string
     {
-        return $this->storagePath;
+        return sprintf('%s%s', $this->storagePath, $this->getFileName());
     }
 
 

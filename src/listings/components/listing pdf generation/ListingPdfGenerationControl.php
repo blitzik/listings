@@ -77,8 +77,8 @@ class ListingPdfGenerationControl extends BaseControl
         $form->addSelect('employer', 'Zaměstnavatel')
              ->setPrompt('Bez zaměstnavatele')
              ->setItems($this->employerFacade->findEmployersForSelect($this->listing->getOwnerId()));
-        if ($this->listing->getEmployer() !== null) {
-            $form['employer']->setDefaultValue($this->listing->getEmployer()->getId());
+        if ($this->listing->hasSetEmployer()) {
+            $form['employer']->setDefaultValue($this->listing->getEmployerId(true));
         }
 
         $form->addText('employee', 'Jméno', null, 70)
@@ -142,7 +142,7 @@ class ListingPdfGenerationControl extends BaseControl
         $template->listingItems = $this->listingItems;
         $template->listing = $this->listing;
 
-        $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing);
+        $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing->getId());
         $template->totalWorkedDays = $listingData['daysCount'];
         $template->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
         $template->totalWorkedHours = new InvoiceTime($listingData['hoursInSeconds']);

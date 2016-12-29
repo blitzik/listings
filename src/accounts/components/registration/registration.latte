@@ -26,6 +26,7 @@
             <div class="form-group">
                 <div n:if="$form['pass']->hasErrors()" class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError pass}</span></div>
                 {label pass /}
+                <span class="float-xs-right text-muted"><small> (minimálně 5 znaků)</small></span>
                 {input pass class => 'form-control'}
             </div>
 

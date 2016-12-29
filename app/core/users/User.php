@@ -85,12 +85,12 @@ class User implements IIdentity, IRole
         $plainPassword,
         Role $role
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
         
         $this->setFirstName($firstName);
         $this->setLastName($lastName);
         $this->setEmail($email);
-        $this->setPassword($plainPassword);
+        $this->changePassword($plainPassword);
         $this->isClosed = false;
 
         $this->role = $role;

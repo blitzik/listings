@@ -56,15 +56,16 @@ class EmployersOverviewControl extends BaseControl
     protected function createComponentEmployerItem()
     {
         return new Multiplier(function ($employerId) {
+            $id = hex2bin($employerId);
             if ($this->employers === null) {
-                $this->employers[$employerId] = $this->employerFacade->getEmployer($employerId);
-                if ($this->employers[$employerId] === null) {
+                $this->employers[$id] = $this->employerFacade->getEmployer($employerId);
+                if ($this->employers[$id] === null) {
                     throw new BadRequestException;
                 }
             }
 
             $comp = $this->employerItemControlFactory
-                         ->create($this->employers[$employerId]);
+                         ->create($this->employers[$id]);
 
             $comp->onSuccessfulEmployerRemoval[] = function () {
                 $this->onSuccessfulEmployerRemoval();

@@ -52,7 +52,7 @@ class Employer
         string $name,
         User $user
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
 
         $this->setName($name);
         $this->user = $user;

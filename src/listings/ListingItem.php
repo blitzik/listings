@@ -91,7 +91,7 @@ class ListingItem
         $workEnd,
         $lunch
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
 
         $this->listing = $listing;
 

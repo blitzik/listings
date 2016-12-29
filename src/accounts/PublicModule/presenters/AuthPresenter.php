@@ -19,6 +19,8 @@ final class AuthPresenter extends PublicPresenter
         if ($this->user->isLoggedIn()) {
             $this->redirect(':Listings:Member:Dashboard:default');
         }
+
+        $this['metaTitle']->setTitle('Přihlášení');
     }
 
 
@@ -48,7 +50,7 @@ final class AuthPresenter extends PublicPresenter
 
     public function actionLogOut()
     {
-        $this->user->logout();
+        $this->user->logout(true);
         $this->redirect(':Accounts:Public:Auth:logIn');
     }
 

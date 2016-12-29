@@ -1,9 +1,5 @@
 services:
 
-	nette.mailer:
-		class: Nette\Mail\IMailer
-		factory: Nextras\MailPanel\FileMailer(%tempDir%/mail-panel-mails)
-
 	latte.templateFactory: App\Templates\TemplateFactory
 
 	nette.latteFactory:

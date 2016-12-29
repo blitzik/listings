@@ -51,7 +51,7 @@ class Permission
         Privilege $privilege,
         $isAllowed = true
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
         
         $this->role = $role;
         $this->resource = $resource;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Listings\Facades;
 
-use Listings\Exceptions\Logic\InvalidStateException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\ListingNotFoundException;
 use Listings\Services\Persisters\ListingItemPersister;
+use Listings\Exceptions\Logic\InvalidStateException;
 use Listings\Queries\ListingItemQuery;
 use Kdyby\Doctrine\EntityRepository;
 use Kdyby\Doctrine\EntityManager;
@@ -86,7 +86,7 @@ class ListingItemFacade
         $localities = $this->em->createQuery(
             'SELECT DISTINCT li.locality FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listing'
-        )->setParameter('listing', $listingId)
+        )->setParameter('listing', hex2bin($listingId))
          ->getArrayResult();
 
         return Arrays::flatten($localities);
@@ -151,7 +151,7 @@ class ListingItemFacade
         return $this->em->createQuery(
             'DELETE FROM ' . ListingItem::class . ' li
              WHERE li.id = :id'
-        )->execute(['id' => $listingItemId]);
+        )->execute(['id' => hex2bin($listingItemId)]);
     }
 
 
@@ -165,7 +165,7 @@ class ListingItemFacade
         return $this->em->createQuery(
             'DELETE FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listingId AND li.day = :day'
-        )->execute(['listingId' => $listingId, 'day' => $day]);
+        )->execute(['listingId' => hex2bin($listingId), 'day' => $day]);
     }
     
 }

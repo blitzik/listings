@@ -66,7 +66,7 @@ class UserStorage extends \Nette\Http\UserStorage
                     'SELECT u, role FROM ' . $identity->getClass() . ' u
                      JOIN u.role role
                      WHERE u.id = :id'
-                )->setParameter('id', $identity->getId())
+                )->setParameter('id', hex2bin($identity->getId()))
                  ->getOneOrNullResult();
             });
 

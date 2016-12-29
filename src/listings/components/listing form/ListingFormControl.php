@@ -115,8 +115,7 @@ class ListingFormControl extends BaseControl
         $form['year']->setDisabled()
                      ->setDefaultValue($this->listing->getYear());
 
-        $e = $this->listing->getEmployer();
-        $form['employer']->setDefaultValue(($e !== null ? $e->getId() : null));
+        $form['employer']->setDefaultValue($this->listing->getEmployerId());
 
         $form['name']->setDefaultValue($this->listing->getName());
         $form['hourlyRate']->setDefaultValue($this->listing->getHourlyRate());

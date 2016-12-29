@@ -2,7 +2,7 @@
 
 <table class="listing-table">
     <caption n:snippet="listingInfo">
-        <a href="{plink :Listings:Member:Listing:edit id => $listing->getId()}">{if $listing->getEmployer() === null}Zaměstnavatel není nastaven{else}{$listing->getEmployer()->getName()}{/if}</a>
+        <a href="{plink :Listings:Member:Listing:edit id => $listing->getId()}">{if !$listing->hasSetEmployer()}Zaměstnavatel není nastaven{else}{$listing->getEmployerName()}{/if}</a>
         <span>Celkem {$totalWorkedDays|plural:["Odpracováno", "Odpracován", "Odpracovány", "Odpracováno"]} [ <b>{$totalWorkedDays} {$totalWorkedDays|plural:["dní", "den", "dny", "dní"]}</b> ] a [ <b>{$totalWorkedHours|invoiceTimeWithComma} {if $totalWorkedHoursInSeconds % 3600 != 0}hodiny{elseif $totalWorkedHoursInSeconds == 0 or $totalWorkedHoursInSeconds > 14400}hodin{elseif $totalWorkedHoursInSeconds == 3600}hodina{else}hodiny{/if}</b> ]</span>
     </caption>
     <thead>

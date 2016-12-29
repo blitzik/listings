@@ -35,6 +35,12 @@ accounts:
 databaseBackup:
 	sender: %adminEmail%
 	databaseCredentials: %database%
+	urlPassword: %backup.password%
 	backupTempPath: %backup.tempBackupPath%
 	receivers: %backup.receivers%
 	ftps: %backup.ftps%
+
+services:
+	nette.mailer:
+		class: Nette\Mail\IMailer
+		factory: Nextras\MailPanel\FileMailer(%tempDir%/mail-panel-mails)

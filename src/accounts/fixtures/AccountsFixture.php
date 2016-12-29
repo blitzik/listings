@@ -18,7 +18,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
         $this->loadDefaultUrls($manager);
         $this->loadDefaultUserRoles($manager);
         $this->loadDefaultAuthorizatorRules($manager);
-        $this->loadDefaultData($manager);
+        //$this->loadTestingData($manager);
 
         $manager->flush();
     }
@@ -58,7 +58,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultData(ObjectManager $manager)
+    private function loadTestingData(ObjectManager $manager)
     {
         $member = new User('Lorem', 'ipsum', 'member@project.cz', 'member', $this->getReference('role_member'));
         $manager->persist($member);

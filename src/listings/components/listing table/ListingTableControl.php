@@ -115,7 +115,7 @@ class ListingTableControl extends BaseControl
     private function loadListingInfo()
     {
         if ($this->totalWorkedDays === null or $this->totalWorkedHoursInSeconds === null) {
-            $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing);
+            $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing->getId());
             $this->totalWorkedDays = $listingData['daysCount'];
             $this->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
         }

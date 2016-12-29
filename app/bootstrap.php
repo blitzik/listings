@@ -6,8 +6,8 @@ $configurator = new Nette\Configurator;
 
 //$configurator->setDebugMode('23.75.345.200'); // enable for your remote IP
 
-//$configurator->setDebugMode(false);
-//Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
+//$configurator->setDebugMode(true);
+//Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
 
 $configurator->enableDebugger(__DIR__ . '/../log');
 

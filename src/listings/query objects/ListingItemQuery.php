@@ -26,7 +26,7 @@ class ListingItemQuery extends QueryObject
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($listingId) {
             $qb->andWhere('li.listing = :listingId')
-               ->setParameter('listingId', $listingId);
+               ->setParameter('listingId', hex2bin($listingId));
         };
 
         return $this;

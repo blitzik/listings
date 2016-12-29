@@ -38,7 +38,7 @@ class AccessDefinition
         \Users\Authorization\Resource $resource,
         Privilege $privilege
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
 
         $this->resource = $resource;
         $this->privilege = $privilege;

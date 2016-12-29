@@ -26,7 +26,7 @@ final class ListingQuery extends QueryObject
     public function byId(string $id): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($id) {
-            $qb->andWhere('l.id = :id')->setParameter('id', $id);
+            $qb->andWhere('l.id = :id')->setParameter('id', hex2bin($id));
         };
 
         return $this;
@@ -51,7 +51,7 @@ final class ListingQuery extends QueryObject
     public function byOwner(User $owner): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($owner) {
-            $qb->andWhere('l.owner = :owner')->setParameter('owner', $owner);
+            $qb->andWhere('l.owner = :owner')->setParameter('owner', hex2bin($owner->getId()));
         };
 
         return $this;
@@ -65,7 +65,7 @@ final class ListingQuery extends QueryObject
     public function byOwnerId(string $owner): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($owner) {
-            $qb->andWhere('l.owner = :owner')->setParameter('owner', $owner);
+            $qb->andWhere('l.owner = :owner')->setParameter('owner', hex2bin($owner));
         };
 
         return $this;

@@ -37,6 +37,7 @@ final class ForgottenPasswordPresenter extends PublicPresenter
 
     public function actionRequest()
     {
+        $this['metaTitle']->setTitle('Obnova hesla');
     }
     
     
@@ -71,6 +72,8 @@ final class ForgottenPasswordPresenter extends PublicPresenter
         if ($this->account === null or $this->account->getToken() !== $token) {
             $this->redirect(':Accounts:Public:Auth:logIn');
         }
+
+        $this['metaTitle']->setTitle('Obnova hesla');
     }
 
 

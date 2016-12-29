@@ -88,17 +88,17 @@ final class ListingFacade
 
 
     /**
-     * @param Listing $listing
+     * @param string $listingId
      * @return array
      */
-    public function getWorkedDaysAndHours(Listing $listing)
+    public function getWorkedDaysAndHours(string $listingId)
     {
         $result = $this->em->createQuery(
             'SELECT COUNT(li.id) AS daysCount, SUM(li.workedHoursInSeconds) AS hoursInSeconds
              FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listing
              GROUP BY li.listing'
-        )->setParameter('listing', $listing)
+        )->setParameter('listing', hex2bin($listingId))
          ->getArrayResult();
 
         $listingData = [

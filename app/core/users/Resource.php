@@ -26,7 +26,7 @@ class Resource
 
     public function __construct($name)
     {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
         
         $this->setName($name);
     }

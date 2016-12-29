@@ -48,6 +48,7 @@ doctrine:
 			'SUBTIME': blitzik\Doctrine\MySQL\SubTime
 
 	types:
+		'uuid_binary': blitzik\Doctrine\Types\UuidBinaryType
 		'invoice_time': Listings\Doctrine\Types\InvoiceTimeType
 		'date_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType
 		'datetime_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType

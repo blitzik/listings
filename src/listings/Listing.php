@@ -86,7 +86,7 @@ class Listing implements IResource
         int $year,
         int $month
     ) {
-        $this->id = $this->getUuid();
+        $this->id = $this->generateUuid();
 
         $this->owner = $owner;
         $this->year = $year;
@@ -212,12 +212,45 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @return Employer|null
+    /*
+     * ----------------------------
+     * ----- EMPLOYER GETTERS -----
+     * ----------------------------
      */
-    public function getEmployer()
+
+
+    /**
+     * @return bool
+     */
+    public function hasSetEmployer(): bool
     {
-        return $this->employer;
+        return $this->employer !== null;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getEmployerId()
+    {
+        if ($this->hasSetEmployer()) {
+            return $this->employer->getId();
+        }
+
+        return null;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getEmployerName()
+    {
+        if ($this->hasSetEmployer()) {
+            return $this->employer->getName();
+        }
+
+        return null;
     }
 
 
@@ -248,11 +281,12 @@ class Listing implements IResource
 
 
     /**
+     * @param bool $convertToHex
      * @return string
      */
-    public function getOwnerId(): string
+    public function getOwnerId(bool $convertToHex = false): string
     {
-        return $this->owner->getId();
+        return $this->owner->getId($convertToHex);
     }
 
 

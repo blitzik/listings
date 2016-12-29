@@ -121,8 +121,10 @@ class ListingPersister
             $listing->setName($values['name']);
         }
 
-        if (isset($values['hourlyRate'])) {
+        if (!empty($values['hourlyRate'])) {
             $listing->setHourlyRate($values['hourlyRate']);
+        } else {
+            $listing->setHourlyRate(null);
         }
 
         $this->em->flush();

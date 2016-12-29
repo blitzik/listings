@@ -67,7 +67,7 @@ class ListingsOverviewControl extends BaseControl
     {
         return new Multiplier(function ($id) {
             $comp = $this->listingControlFactory
-                         ->create($this->listings[$id]);
+                         ->create($this->listings[hex2bin($id)]);
 
             return $comp;
         });

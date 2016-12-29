@@ -17,7 +17,7 @@ final class RegistrationPresenter extends PublicPresenter
 
     public function actionDefault()
     {
-
+        $this['metaTitle']->setTitle('Registrace');
     }
 
 

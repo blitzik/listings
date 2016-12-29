@@ -8,6 +8,7 @@ use Listings\Services\Persisters\EmployerPersister;
 use Kdyby\Doctrine\EntityManager;
 use Listings\Employer;
 use Nette\SmartObject;
+use Ramsey\Uuid\Uuid;
 
 class EmployerFacade
 {
@@ -49,7 +50,7 @@ class EmployerFacade
         $this->em->createQuery(
             'DELETE FROM ' . Employer::class . ' e
              WHERE e.id = :id'
-        )->execute(['id' => $employerId]);
+        )->execute(['id' => hex2bin($employerId)]);
     }
 
 
@@ -73,7 +74,7 @@ class EmployerFacade
             'SELECT e FROM ' . Employer::class . ' e INDEX BY e.id
              WHERE e.user = :userId
              ORDER BY e.createdAt DESC'
-        )->setParameter('userId', $userId)
+        )->setParameter('userId', hex2bin($userId))
          ->getResult();
     }
 
@@ -87,7 +88,7 @@ class EmployerFacade
         $result = $this->em->createQuery(
             'SELECT e.id, e.name FROM ' . Employer::class . ' e
              WHERE e.user = :user'
-        )->setParameter('user', $userId)
+        )->setParameter('user', hex2bin($userId))
          ->getArrayResult();
 
         if (empty($result)) {
