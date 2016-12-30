@@ -7,7 +7,7 @@ app/config/config.local.neon
 
 vendor
 
-www/assets/css/fonts
+www/assets/fonts
 www/assets/css/temp
 www/assets/css/*.css
 

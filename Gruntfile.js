@@ -47,12 +47,12 @@ module.exports = function (grunt) {
         },
 
         sass: {
-            accounts: {
+            public: {
                 options: {
                     style: "expanded"
                 },
                 files: {
-                    "www/assets/css/original/accounts.css": ["www/assets/css/scss/accounts/accounts.scss"]
+                    "www/assets/css/temp/public.css": ["www/assets/css/scss/public/public.scss"]
                 }
             },
 
@@ -61,25 +61,24 @@ module.exports = function (grunt) {
                     style: "expanded"
                 },
                 files: {
-                    "www/assets/css/original/listings.css": ["www/assets/css/scss/listings/listings.scss"]
+                    "www/assets/css/temp/listings.css": ["www/assets/css/scss/listings/listings.scss"]
                 }
             }
         },
 
         cssmin: {
-            accounts: {
+            public: {
                 files: {
-                    "www/assets/css/temp/accounts.css": [
-                        "www/assets/css/original/accounts.css"
+                    "www/assets/css/public.min.css": [
+                        "www/assets/css/temp/public.css"
                     ]
                 }
             },
 
             listings: {
                 files: {
-                    "www/assets/css/temp/listings.css": [
-                        "www/assets/css/original/listings.css",
-                        "www/assets/css/original/jquery-ui.css"
+                    "www/assets/css/listings.min.css": [
+                        "www/assets/css/temp/listings.css"
                     ]
                 }
             }
@@ -92,21 +91,9 @@ module.exports = function (grunt) {
                         expand: true,
                         flatten: true,
                         src: ["bower_components/font-awesome-sass/assets/fonts/font-awesome/*"],
-                        dest: "www/assets/css/fonts/font-awesome/"
+                        dest: "www/assets/fonts/font-awesome/"
                     }
                 ]
-            }
-        },
-
-        watch: {
-            sass: {
-                files: [
-                    //"www/assets/css/scss/accounts/*.{scss,sass}",
-                    "www/assets/css/scss/listings/_styles.scss",
-                    "www/assets/css/scss/common/*.{scss,sass}"
-
-                ],
-                tasks: ["sass:listings"]
             }
         }
 
@@ -114,12 +101,14 @@ module.exports = function (grunt) {
 
     grunt.registerTask("default", ["copy", "sass", "concat", "cssmin", "uglify"]);
 
-    grunt.registerTask("css_accounts", ["sass:accounts", "cssmin:accounts"]);
+    grunt.registerTask("css_public", ["sass:public", "cssmin:public"]);
+
+    grunt.registerTask("css_min_public", ["cssmin:public"]);
 
     grunt.registerTask("css_listings", ["sass:listings", "cssmin:listings"]);
 
-    grunt.registerTask("js", ["concat", "uglify"]);
+    grunt.registerTask("css_min_listings", ["cssmin:listings"]);
 
-    grunt.registerTask("watch_css", ["watch"]);
+    grunt.registerTask("js", ["concat", "uglify"]);
 
 };
