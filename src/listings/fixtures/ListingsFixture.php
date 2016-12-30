@@ -44,7 +44,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
            ->addUrl('vycetka/generovani-pdf', 'default');
 
         $ug->addPresenter('Listings:Member:EmployersOverview')
-           ->addUrl('zamestnavatele/prehled', 'default');
+           ->addUrl('zamestnavatele', 'default');
     }
 
 
