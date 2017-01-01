@@ -1,0 +1,44 @@
+
+<div class="empty-listings-pdf-setting">
+{form form}
+    <div class="row">
+
+        <div class="col-md-2">
+            Zvolte rok:
+            <div class="row">
+            {foreach $form['year']->getItems() as $key => $label}
+                <div class="col-xs-6 col-md-12">
+                    <input n:name="year:$key">
+                    <label n:name="year:$key" class="year-option">{$label}</label>
+                </div>
+            {/foreach}
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            Zvolte měsíc:
+            <div class="row">
+            {foreach $form['months']->getItems() as $key => $label}
+                <div class="col-xs-6 col-md-4 col-lg-3">
+                    <input n:name="months:$key">
+                    <label n:name="months:$key" class="month-option">{$label}</label>
+                </div>
+            {/foreach}
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-lg-6">
+                    <div class="form-group">
+                        {label template /}
+                        {input template}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-8 col-lg-6">
+                    <button n:name="generate" class="btn btn-primary btn-block">Vygenerovat PDF</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{/form}
+</div>

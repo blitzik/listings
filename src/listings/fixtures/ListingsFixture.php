@@ -45,6 +45,9 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
 
         $ug->addPresenter('Listings:Member:EmployersOverview')
            ->addUrl('zamestnavatele', 'default');
+
+        $ug->addPresenter('Listings:Public:ListingPdf')
+           ->addUrl('pdf-sablony', 'default');
     }
 
 

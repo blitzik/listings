@@ -4,11 +4,11 @@ namespace Listings\Components;
 
 use Listings\Queries\Factories\ListingItemQueryFactory;
 use Joseki\Application\Responses\PdfResponse;
+use Listings\Pdf\ListingPdfTemplateFactory;
 use Listings\Facades\ListingItemFacade;
 use Listings\Facades\EmployerFacade;
-use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
-use Listings\Services\InvoiceTime;
+use Listings\Pdf\ListingPdfDTO;
 use App\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\ListingItem;
@@ -22,8 +22,8 @@ class ListingPdfGenerationControl extends BaseControl
     const TYPE_DEFAULT = 'default';
 
 
-    /** @var IPdfListingItemControlFactory */
-    private $pdfListingItemControlFactory;
+    /** @var ListingPdfTemplateFactory */
+    private $listingPdfTemplateFactory;
 
     /** @var ListingItemFacade */
     private $listingItemFacade;
@@ -38,9 +38,6 @@ class ListingPdfGenerationControl extends BaseControl
     /** @var string */
     private $listingItemPdfType;
 
-    /** @var ListingItem[] */
-    private $listingItems;
-
     /** @var Listing */
     private $listing;
 
@@ -50,13 +47,13 @@ class ListingPdfGenerationControl extends BaseControl
         ListingFacade $listingFacade,
         EmployerFacade $employerFacade,
         ListingItemFacade $listingItemFacade,
-        IPdfListingItemControlFactory $pdfListingItemControlFactory
+        ListingPdfTemplateFactory $listingPdfTemplateFactory
     ) {
         $this->listing = $listing;
         $this->listingFacade = $listingFacade;
         $this->employerFacade = $employerFacade;
         $this->listingItemFacade = $listingItemFacade;
-        $this->pdfListingItemControlFactory = $pdfListingItemControlFactory;
+        $this->listingPdfTemplateFactory = $listingPdfTemplateFactory;
     }
 
 
@@ -78,10 +75,11 @@ class ListingPdfGenerationControl extends BaseControl
              ->setPrompt('Bez zaměstnavatele')
              ->setItems($this->employerFacade->findEmployersForSelect($this->listing->getOwnerId()));
         if ($this->listing->hasSetEmployer()) {
-            $form['employer']->setDefaultValue($this->listing->getEmployerId(true));
+            $form['employer']->setDefaultValue($this->listing->getEmployerId());
         }
 
         $form->addText('employee', 'Jméno', null, 70)
+                ->setNullable()
                 ->setDefaultValue($this->listing->getOwnerFullName())
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', 70);
@@ -90,10 +88,9 @@ class ListingPdfGenerationControl extends BaseControl
         $form->addCheckbox('displayHourlyRate', 'Zobrazit "základní mzdu"')
              ->setDefaultValue(true);
 
-
         $form->addSelect('template', 'Zvolte vzhled', [
-            self::TYPE_DEFAULT => 'Základní šablona',
-            'onlyWorkedHours' => 'Šablona s pouze odprac. hod.'
+            ListingPdfTemplateFactory::LAYOUT_DEFAULT => 'Základní šablona',
+            ListingPdfTemplateFactory::LAYOUT_SEP => 'Šablona pro OSVČ'
         ]);
 
 
@@ -106,55 +103,34 @@ class ListingPdfGenerationControl extends BaseControl
     }
 
 
-    protected function createComponentListingItem()
-    {
-        return new Multiplier(function ($day) {
-            $item = null;
-            if (isset($this->listingItems[$day])) {
-                $item = $this->listingItems[$day];
-            }
-            $comp = $this->pdfListingItemControlFactory
-                         ->create($day, $this->listing, $item);
-
-            $comp->setType($this->listingItemPdfType);
-
-            return $comp;
-        });
-    }
-
-
     public function processListing(Form $form, $values)
     {
         $this->listingItemPdfType = $values['template'];
 
-        $template = $this->createTemplate();
-        $template->setFile(sprintf('%s/listing_templates/%s.latte', __DIR__, $values['template']));
-
-        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
-        $template->daysInMonth = $daysInMonth;
-
-        $this->listingItems = $this->listingItemFacade
+        $listingItems = $this->listingItemFacade
                              ->findListingItems(
                                  ListingItemQueryFactory::filterByListing($this->listing->getId())
                                  ->indexedByDay()
                              )->toArray();
 
-        $template->listingItems = $this->listingItems;
-        $template->listing = $this->listing;
+        $pdfDto = new ListingPdfDTO($this->listing->getYear(), $this->listing->getMonth());
+        $pdfDto->fillByListing($this->listing, $listingItems);
 
-        $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing->getId());
-        $template->totalWorkedDays = $listingData['daysCount'];
-        $template->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
-        $template->totalWorkedHours = new InvoiceTime($listingData['hoursInSeconds']);
+        $pdfDto->setEmployeeFullName($values['employee']);
+        if ($values['displayHourlyRate']) {
+            $pdfDto->displayHourlyRate();
+        }
 
         $employer = null;
         if ($values['employer'] !== null) {
             $employer = $this->employerFacade->getEmployer($values['employer']);
+            $pdfDto->setEmployerName($employer->getName());
+        } else {
+            $pdfDto->setEmployerName(null);
         }
-        $template->employer = $employer;
-        $template->employeeFullName = $values['employee'];
 
-        $template->displayHourlyRate = $values['displayHourlyRate'];
+        $template = $this->listingPdfTemplateFactory
+                         ->create($values['template'], ListingPdfTemplateFactory::ITEM_DEFAULT, [$pdfDto]);
 
         $pdf = new PdfResponse($template);
         $pdf->setPageMargins('10,10,10,10,0,0');

@@ -35,6 +35,7 @@ final class ListingPdfGenerationPresenter extends SecuredPresenter
         $this->listing = $this->listingFacade
                               ->getListing(
                                   (new ListingQuery())
+                                  ->withOwner()
                                   ->byId($id)
                               );
 

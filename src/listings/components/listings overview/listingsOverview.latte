@@ -3,7 +3,10 @@
 
     {if empty($listingsByMonth)}
         <div class="col-xs-12">
-            <p>Nebyly nalezeny žádné výčetky.</p>
+            <div class="alert alert-info">
+                <i class="fa fa-fw fa-info-circle"></i>
+                <span>Nebyly nalezeny žádné výčetky.</span>
+            </div>
         </div>
 
     {else}

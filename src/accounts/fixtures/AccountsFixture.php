@@ -18,7 +18,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
         $this->loadDefaultUrls($manager);
         $this->loadDefaultUserRoles($manager);
         $this->loadDefaultAuthorizatorRules($manager);
-        //$this->loadTestingData($manager);
+        $this->loadTestingData($manager);
 
         $manager->flush();
     }

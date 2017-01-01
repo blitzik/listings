@@ -33,6 +33,20 @@ final class ListingQuery extends QueryObject
     }
 
 
+    /**
+     * @return ListingQuery
+     */
+    public function withOwner(): self
+    {
+        $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {
+            $qb->addSelect('o')
+               ->leftJoin('l.owner', 'o');
+        };
+
+        return $this;
+    }
+
+
     public function withEmployer(): self
     {
         $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {

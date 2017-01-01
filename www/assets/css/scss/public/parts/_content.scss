@@ -1,3 +1,38 @@
 body {
   padding-top: 25px;
 }
+
+
+// empty listings generation
+
+.empty-listings-pdf-setting {
+  .month-option,
+  .year-option {
+    display: block;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    margin-top: 25px;
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked + .year-option {
+    color: #fff;
+    background-color: #8e44ad;
+    border: 1px solid #8e44ad;
+  }
+
+  input:checked + .month-option {
+    color: #fff;
+    background-color: #27ae60;
+    border: 1px solid #27ae60;
+  }
+}

@@ -60,10 +60,12 @@ class ListingFormControl extends BaseControl
         $form = new Form;
 
         $form->addSelect('month', 'Měsíc', TimeUtils::getMonths(true))
-                ->setRequired();
+                ->setRequired()
+                ->setDefaultValue(date('n'));
 
         $form->addSelect('year', 'Rok', TimeUtils::generateYearsForSelection())
-                ->setRequired();
+                ->setRequired()
+                ->setDefaultValue(date('Y'));
 
         $form->addSelect('employer', 'Zaměstnavatel')
              ->setPrompt('Bez zaměstnavatele')

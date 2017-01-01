@@ -1,0 +1,7 @@
+
+<tr>
+    <td n:class="$item->isWeekEnd() ? week-day">{$item->getDay()}</td>
+    <td n:class="$item->isWeekEnd() ? week-day">{$item->getDate()|weekDayName|substr:0,2|upper}</td>
+
+    {include #content}
+</tr>

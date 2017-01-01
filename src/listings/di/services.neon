@@ -1,4 +1,6 @@
 
+listingPdfTemplateFactory: Listings\Pdf\ListingPdfTemplateFactory
+
 # acl
 listingOwnerAuthorizationAssertion: Listings\ACL\ListingOwnerAuthorizationAssertion
 
@@ -67,11 +69,6 @@ listingPdfGenerationControlFactory:
 	parameters: [Listings\Listing listing]
 	arguments: [%listing%]
 
-pdfListingItemControlFactory:
-	implement: Listings\Components\IPdfListingItemControlFactory
-	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
-	arguments: [%day%, %listing%, %listingItem%]
-
 employerFormControlFactory:
 	implement: Listings\Components\IEmployerFormControlFactory
 
@@ -84,3 +81,6 @@ employerItemControlFactory:
 	implement: Listings\Components\IEmployerItemControlFactory
 	parameters: [Listings\Employer employer]
 	arguments: [%employer%]
+
+emptyListingPdfGenerationControlFactory:
+	implement: Listings\Components\IEmptyListingPdfGenerationControlFactory
