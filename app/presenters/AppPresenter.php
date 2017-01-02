@@ -42,6 +42,14 @@ abstract class AppPresenter extends Presenter
     public $authorizator;
 
 
+    protected function beforeRender()
+    {
+        parent::beforeRender();
+
+        $this->template->assetsVersion = '001';
+    }
+
+
     protected function createComponentFlashMessages()
     {
         return $this->flashMessagesControlFactory
