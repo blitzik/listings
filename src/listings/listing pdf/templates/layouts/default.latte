@@ -110,7 +110,7 @@
         {var $itemTypeTemplateBasePath = sprintf('../items/%s/types/', $itemType)}
         {if $item->isEmpty()}
             {include $itemTypeTemplateBasePath.'empty.latte', item => $item}
-        {elseif $item->getWorkedHoursWithLunch()->toSeconds() === 0}
+        {elseif $item->getWorkedHoursWithLunch()->toSeconds() == 0}
             {include $itemTypeTemplateBasePath.'onlyLocality.latte', item => $item}
         {else}
             {include $itemTypeTemplateBasePath.'full.latte', item => $item}
