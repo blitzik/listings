@@ -66,6 +66,10 @@
             background-color: #e5e5e5;
         }
 
+        .margin-b-50 {
+            margin-bottom: 50px;
+        }
+
         .w5p { width: 5%; }
         .w7p { width: 7%; }
         .w10p { width: 10%; }
@@ -143,7 +147,7 @@
 </table>
 
 
-<table class="listing-table summary">
+<table n:class="'listing-table summary', $listing->getMonth() === 2 ? margin-b-50">
     <tr>
         <td class="w32p"><b>Základní mzda</b></td>
         <td class="w16p">{if $listing->isHourlyRateDisplayed() and $listing->getHourlyRate() !== null}{$listing->getHourlyRate()} Kč/h{/if}</td>

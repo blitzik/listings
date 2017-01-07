@@ -70,6 +70,10 @@
             padding-top: 8px;
         }
 
+        .margin-b-50 {
+            margin-bottom: 50px;
+        }
+
         .w5p { width: 5%; }
         .w7p { width: 7%; }
         .w10p { width: 10%; }
@@ -103,7 +107,7 @@
 </table>
 
 
-<table class="listing-table">
+<table n:class="listing-table, $listing->getMonth() === 2 ? margin-b-50">
     <thead>
     <tr>
         {include './table header/'.$listing->getType().'.latte'}
