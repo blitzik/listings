@@ -2,10 +2,10 @@
 
 namespace Listings\MemberModule\Presenters;
 
-use Joseki\Application\Responses\PdfResponse;
 use Listings\Components\IListingPdfGenerationControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
+use Joseki\Application\Responses\PdfResponse;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
 use Users\Authorization\Privilege;
@@ -57,7 +57,8 @@ final class ListingPdfGenerationPresenter extends SecuredPresenter
 
     protected function createComponentPdfGeneration()
     {
-        $comp = $this->listingPdfGenerationControlFactory->create($this->listing);
+        $comp = $this->listingPdfGenerationControlFactory
+                     ->create($this->listing);
 
         $comp->onPdfGenerationClick[] = function (PdfResponse $pdfResponse) {
             $this->sendResponse($pdfResponse);

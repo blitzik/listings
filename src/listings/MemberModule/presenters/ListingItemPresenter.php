@@ -2,31 +2,30 @@
 
 namespace Listings\MemberModule\Presenters;
 
-use Listings\Components\IListingItemFormControlFactory;
-use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Components\IListingItemEditingControlFactory;
+use Listings\Services\ListingItemManipulatorFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
-use Listings\Facades\ListingItemFacade;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
 use Users\Authorization\Privilege;
 use Nette\Utils\Validators;
-use Listings\ListingItem;
+use Listings\IListingItem;
 use Listings\Listing;
 
 final class ListingItemPresenter extends SecuredPresenter
 {
     /**
-     * @var IListingItemFormControlFactory
+     * @var IListingItemEditingControlFactory
      * @inject
      */
-    public $listingItemFormControlFactory;
+    public $listingItemEditingControlFactory;
 
     /**
-     * @var ListingItemFacade
+     * @var ListingItemManipulatorFactory
      * @inject
      */
-    public $listingItemFacade;
+    public $listingItemManipulatorFactory;
 
     /**
      * @var ListingFacade
@@ -35,7 +34,7 @@ final class ListingItemPresenter extends SecuredPresenter
     public $listingFacade;
 
 
-    /** @var ListingItem */
+    /** @var IListingItem|null */
     private $listingItem;
 
     /** @var Listing */
@@ -66,10 +65,11 @@ final class ListingItemPresenter extends SecuredPresenter
             $this->redirect(':Listings:Member:Dashboard:default', []);
         }
 
-        $this->listingItem = $this->listingItemFacade
-                                  ->getListingItem(ListingItemQueryFactory::filterByListingAndDay($listingId, $day));
-
         $this->day = $day;
+
+        $this->listingItem = $this->listingItemManipulatorFactory
+                                  ->getByListing($this->listing)
+                                  ->getListingItemByDay((int)$day, $this->listing->getId());
 
         $this['metaTitle']->setTitle('Detail položky');
         $this->setListingPageTitle($this->listing);
@@ -88,14 +88,15 @@ final class ListingItemPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingItemForm()
+    protected function createComponentListingItemEditing()
     {
-        $comp = $this->listingItemFormControlFactory
+        $comp = $this->listingItemEditingControlFactory
                      ->create($this->day, $this->listing);
 
         if ($this->listingItem !== null) {
             $comp->setListingItem($this->listingItem);
         }
+
 
         return $comp;
     }

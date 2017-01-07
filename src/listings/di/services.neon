@@ -1,5 +1,8 @@
 
 listingPdfTemplateFactory: Listings\Pdf\ListingPdfTemplateFactory
+listingItemFormFactory: Listings\Services\Factories\ListingItemFormFactory
+listingItemManipulatorFactory: Listings\Services\ListingItemManipulatorFactory
+
 
 # acl
 listingOwnerAuthorizationAssertion: Listings\ACL\ListingOwnerAuthorizationAssertion
@@ -13,7 +16,14 @@ invoiceTimeWithCommaFilter: Listings\Template\Filters\InvoiceTimeWithCommaFilter
 # persisters
 listingPersister: Listings\Services\Persisters\ListingPersister
 employerPersister: Listings\Services\Persisters\EmployerPersister
-listingItemPersister: Listings\Services\Persisters\ListingItemPersister
+rangeLunchListingItemPersister: Listings\Services\Persisters\RangeLunchListingItemPersister
+simpleLunchListingItemPersister: Listings\Services\Persisters\SimpleLunchListingItemPersister
+
+
+# listing item manipulators
+rangeLunchListingItemManipulator: Listings\Services\RangeLunchListingItemManipulator
+simpleLunchListingItemManipulator: Listings\Services\SimpleLunchListingItemManipulator
+
 
 # removers
 listingRemover: Listings\Services\Removers\ListingRemover
@@ -22,7 +32,6 @@ listingRemover: Listings\Services\Removers\ListingRemover
 # facades
 listingFacade: Listings\Facades\ListingFacade
 employerFacade: Listings\Facades\EmployerFacade
-listingItemFacade: Listings\Facades\ListingItemFacade
 
 
 # component factories
@@ -46,11 +55,21 @@ listingTableControlFactory:
 
 listingItemControlFactory:
 	implement: Listings\Components\IListingItemControlFactory
-	parameters: [day, Listings\Listing listing, Listings\ListingItem listingItem = null]
+	parameters: [day, Listings\Listing listing, Listings\IListingItem listingItem = null]
 	arguments: [%day%, %listing%, %listingItem%]
+
+listingItemEditingControlFactory:
+	implement: Listings\Components\IListingItemEditingControlFactory
+	parameters: [int day, Listings\Listing listing]
+	arguments: [%day%, %listing%]
 
 listingItemFormControlFactory:
 	implement: Listings\Components\IListingItemFormControlFactory
+	parameters: [int day, Listings\Listing listing]
+	arguments: [%day%, %listing%]
+
+lunchRangeListingItemFormControlFactory:
+	implement: Listings\Components\ILunchRangeListingItemFormControlFactory
 	parameters: [int day, Listings\Listing listing]
 	arguments: [%day%, %listing%]
 

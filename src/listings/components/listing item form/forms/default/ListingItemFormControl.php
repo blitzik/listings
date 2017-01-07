@@ -2,49 +2,59 @@
 
 namespace Listings\Components;
 
+use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Template\Filters\InvoiceTimeWithCommaFilter;
-use Listings\Template\Filters\InvoiceTimeFilter;
+use Listings\Services\SimpleLunchListingItemManipulator;
+use Listings\Services\Factories\ListingItemFormFactory;
 use App\Components\FlashMessages\FlashMessage;
-use Listings\Facades\ListingItemFacade;
+use Nette\Application\UI\ITemplate;
 use App\Components\BaseControl;
 use Nette\Application\UI\Form;
-use Listings\ListingItem;
+use Listings\IListingItem;
 use Listings\Listing;
 
 class ListingItemFormControl extends BaseControl
 {
-    /** @var ListingItemFacade */
-    private $listingItemFacade;
+    /** @var ListingItemFormFactory */
+    protected $listingItemFormFactory;
+
+    /** @var SimpleLunchListingItemManipulator */
+    protected $listingItemManipulator;
 
 
-    /** @var ListingItem|null */
-    private $listingItem;
+    /** @var IListingItem|null */
+    protected $listingItem;
 
     /** @var Listing */
-    private $listing;
+    protected $listing;
 
     /** @var int */
-    private $day;
+    protected $day;
 
 
     public function __construct(
         int $day,
         Listing $listing,
-        ListingItemFacade $listingItemFacade
+        ListingItemFormFactory $listingItemFormFactory,
+        SimpleLunchListingItemManipulator $listingItemManipulator
     ) {
         $this->day = $day;
         $this->listing = $listing;
-        $this->listingItemFacade = $listingItemFacade;
+        $this->listingItemFormFactory = $listingItemFormFactory;
+        $this->listingItemManipulator = $listingItemManipulator;
     }
 
 
     /**
-     * @param ListingItem $listingItem
+     * @param IListingItem $listingItem
      */
-    public function setListingItem(ListingItem $listingItem)
+    public function setListingItem(IListingItem $listingItem)
     {
+        if ($listingItem->getListingId() !== $this->listing->getId()) {
+            throw new InvalidArgumentException;
+        }
         $this->listingItem = $listingItem;
     }
 
@@ -52,41 +62,46 @@ class ListingItemFormControl extends BaseControl
     public function render()
     {
         $template = $this->getTemplate();
-        $template->setFile(__DIR__ . '/listingItemForm.latte');
 
+        $this->setPathToTemplate($template);
+        $this->fillTemplate($template);
+
+
+        $template->render();
+    }
+
+
+    /**
+     * @param ITemplate $template
+     */
+    protected function setPathToTemplate(ITemplate $template)
+    {
+        $template->setFile(__DIR__ . '/listingItemForm.latte');
+    }
+
+
+    /**
+     * @param ITemplate $template
+     */
+    protected function fillTemplate(ITemplate $template)
+    {
         $template->listing = $this->listing;
 
         $template->date = \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day));
 
-        $template->listingLocalities = $this->listingItemFacade->loadLocalities($this->listing->getId());
+        $template->listingLocalities = $this->listingItemManipulator->loadLocalities($this->listing->getId());
 
         $workedHours = '9';
         if ($this->listingItem !== null) {
             $workedHours = InvoiceTimeWithCommaFilter::convert($this->listingItem->getWorkedHours());
         }
         $template->workedHours = $workedHours;
-
-
-        $template->render();
     }
     
     
     protected function createComponentForm()
     {
-        $form = new Form;
-        $form->getElementPrototype()->class = 'ajax';
-
-        $form->addText('workStart', 'Začátek')
-                ->setRequired('Zadejte začátek směny')
-                ->setHtmlId('_work-start')
-                ->setDefaultValue('6:00')
-                ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
-
-        $form->addText('workEnd', 'Konec')
-                ->setRequired('Zadejte konec směny')
-                ->setHtmlId('_work-end')
-                ->setDefaultValue('16:00')
-                ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
+        $form = $this->listingItemFormFactory->create($this->listingItem);
 
         $form->addText('lunch', 'Oběd')
                 ->setRequired('Zadejte délku oběda')
@@ -94,17 +109,10 @@ class ListingItemFormControl extends BaseControl
                 ->setDefaultValue('1')
                 ->addRule(Form::PATTERN, 'Špatný formát času', '^\d+(,[05])?$');
 
-        $form->addText('locality', 'Místo pracoviště')
-                ->setRequired('Zadejte místo pracoviště')
-                ->setAttribute('list', '_work-locality');
-
         if ($this->listingItem !== null) {
             $this->fillForm($form, $this->listingItem);
         }
 
-        $form->addSubmit('save', 'Uložit');
-
-        $form->addProtection();
 
         $form->onSuccess[] = [$this, 'processListing'];
 
@@ -119,7 +127,7 @@ class ListingItemFormControl extends BaseControl
         $values['listing'] = $this->listing;
         $values['day'] = $this->day;
         try {
-            $this->listingItemFacade->saveListingItem((array)$values, $this->listingItem);
+            $this->listingItemManipulator->save((array)$values, $this->listingItem);
 
             $this->flashMessage('Položka byla uložena.', FlashMessage::SUCCESS);
 
@@ -134,19 +142,13 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    private function fillForm(Form $form, ListingItem $listingItem)
+    /**
+     * @param Form $form
+     * @param IListingItem $listingItem
+     */
+    protected function fillForm(Form $form, IListingItem $listingItem)
     {
-        $form['workStart']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkStart(), true));
-        $form['workEnd']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkEnd(), true));
         $form['lunch']->setDefaultValue(InvoiceTimeWithCommaFilter::convert($listingItem->getLunch()));
-
-        $form['locality']->setDefaultValue($listingItem->getLocality());
-    }
-
-
-    private function getTimeRegex()
-    {
-        return '^(0?[0-9]|1[0-9]|2[0-3]):[03]0$';
     }
 
 }

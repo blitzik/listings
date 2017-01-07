@@ -2,10 +2,13 @@
 
 namespace Listings\MemberModule\Presenters;
 
+use Listings\Services\SimpleLunchListingItemManipulator;
+use Listings\Services\RangeLunchListingItemManipulator;
 use Listings\Components\IListingActionsControlFactory;
 use Listings\Components\IListingTableControlFactory;
 use App\MemberModule\Presenters\SecuredPresenter;
 use App\Components\FlashMessages\FlashMessage;
+use Listings\Services\IListingItemManipulator;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
 use Users\Authorization\Privilege;
@@ -16,6 +19,18 @@ final class ListingDetailPresenter extends SecuredPresenter
     /** @persistent */
     public $displayRemovalForm;
 
+
+    /**
+     * @var SimpleLunchListingItemManipulator
+     * @inject
+     */
+    public $simpleLunchListingItemManipulator;
+
+    /**
+     * @var RangeLunchListingItemManipulator
+     * @inject
+     */
+    public $rangeLunchListingItemManipulator;
 
     /**
      * @var IListingActionsControlFactory
@@ -36,6 +51,9 @@ final class ListingDetailPresenter extends SecuredPresenter
     public $listingFacade;
 
 
+    /** @var IListingItemManipulator */
+    private $listingItemManipulator;
+
     /** @var Listing */
     private $listing;
 
@@ -52,6 +70,12 @@ final class ListingDetailPresenter extends SecuredPresenter
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::VIEW)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
             $this->redirect(':Listings:Member:Dashboard:default');
+        }
+
+        if ($this->listing->getItemsType() === Listing::ITEM_TYPE_LUNCH_SIMPLE) {
+            $this->listingItemManipulator = $this->simpleLunchListingItemManipulator;
+        } else {
+            $this->listingItemManipulator = $this->rangeLunchListingItemManipulator;
         }
 
         $this['metaTitle']->setTitle('Detail výčetky');
@@ -77,7 +101,8 @@ final class ListingDetailPresenter extends SecuredPresenter
 
     protected function createComponentListingTable()
     {
-        $comp = $this->listingTableControlFactory->create($this->listing);
+        $comp = $this->listingTableControlFactory
+                     ->create($this->listing, $this->listingItemManipulator);
 
         $comp->onSuccessfulCopyDown[] = [$this, 'onSuccessfulCopyDown'];
         $comp->onSuccessfulRemoval[] = [$this, 'onSuccessfulItemRemoval'];

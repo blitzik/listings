@@ -6,11 +6,11 @@ namespace Listings\Services\Persisters;
 
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
+use Listings\LunchRangeListingItem;
 use Kdyby\Doctrine\EntityManager;
-use Listings\ListingItem;
 use Nette\SmartObject;
 
-class ListingItemPersister
+class RangeLunchListingItemPersister
 {
     use SmartObject;
 
@@ -27,12 +27,12 @@ class ListingItemPersister
 
     /**
      * @param array $values
-     * @param ListingItem|null $listingItem
-     * @return ListingItem
+     * @param LunchRangeListingItem|null $listingItem
+     * @return LunchRangeListingItem
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
-    public function save(array $values, ListingItem $listingItem = null): ListingItem
+    public function save(array $values, LunchRangeListingItem $listingItem = null): LunchRangeListingItem
     {
         if ($listingItem !== null) {
             $newListingItem = $this->update($values, $listingItem);
@@ -46,19 +46,20 @@ class ListingItemPersister
 
     /**
      * @param array $values
-     * @return ListingItem
+     * @return LunchRangeListingItem
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
-    private function create(array $values): ListingItem
+    private function create(array $values): LunchRangeListingItem
     {
-        $listingItem = new ListingItem(
+        $listingItem = new LunchRangeListingItem(
             $values['listing'],
             $values['day'],
             $values['locality'],
             $values['workStart'],
             $values['workEnd'],
-            $values['lunch']
+            $values['lunchStart'],
+            $values['lunchEnd']
         );
         $this->em->persist($listingItem)->flush();
 
@@ -68,15 +69,15 @@ class ListingItemPersister
 
     /**
      * @param array $values
-     * @param ListingItem $listingItem
-     * @return ListingItem
+     * @param LunchRangeListingItem $listingItem
+     * @return LunchRangeListingItem
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
-    private function update(array $values, ListingItem $listingItem): ListingItem
+    private function update(array $values, LunchRangeListingItem $listingItem): LunchRangeListingItem
     {
         $listingItem->changeLocality($values['locality']);
-        $listingItem->changeHours($values['workStart'], $values['workEnd'], $values['lunch']);
+        $listingItem->changeHours($values['workStart'], $values['workEnd'], $values['lunchStart'], $values['lunchEnd']);
 
         $this->em->flush();
 

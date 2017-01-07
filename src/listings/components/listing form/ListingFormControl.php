@@ -49,8 +49,6 @@ class ListingFormControl extends BaseControl
         $template->setFile(__DIR__ . '/listingForm.latte');
 
 
-
-
         $template->render();
     }
 
@@ -75,6 +73,10 @@ class ListingFormControl extends BaseControl
                 ->setNullable()
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Listing::LENGTH_NAME);
+
+        $form->addSelect('itemType', 'Typ položek')
+                ->setItems(Listing::getTypes())
+                ->setDefaultValue(Listing::ITEM_TYPE_LUNCH_RANGE);
 
         $form->addText('hourlyRate', 'Hodinová mzda')
                 ->setNullable()
@@ -116,6 +118,9 @@ class ListingFormControl extends BaseControl
 
         $form['year']->setDisabled()
                      ->setDefaultValue($this->listing->getYear());
+
+        $form['itemType']->setDisabled()
+                         ->setDefaultValue($this->listing->getItemsType());
 
         $form['employer']->setDefaultValue($this->listing->getEmployerId());
 

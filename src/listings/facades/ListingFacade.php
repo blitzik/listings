@@ -86,27 +86,4 @@ final class ListingFacade
         return $this->listingRepository->fetch($query);
     }
 
-
-    /**
-     * @param string $listingId
-     * @return array
-     */
-    public function getWorkedDaysAndHours(string $listingId)
-    {
-        $result = $this->em->createQuery(
-            'SELECT COUNT(li.id) AS daysCount, SUM(li.workedHoursInSeconds) AS hoursInSeconds
-             FROM ' . ListingItem::class . ' li
-             WHERE li.listing = :listing
-             GROUP BY li.listing'
-        )->setParameter('listing', hex2bin($listingId))
-         ->getArrayResult();
-
-        $listingData = [
-            'daysCount' => empty($result) ? 0 : $result[0]['daysCount'],
-            'hoursInSeconds' => empty($result) ? 0 : $result[0]['hoursInSeconds']
-        ];
-
-        return $listingData;
-    }
-
 }

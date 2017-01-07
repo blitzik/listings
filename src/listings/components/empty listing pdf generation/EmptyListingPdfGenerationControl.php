@@ -3,6 +3,7 @@
 namespace Listings\Components;
 
 use Joseki\Application\Responses\PdfResponse;
+use Listings\Listing;
 use Listings\Pdf\ListingPdfTemplateFactory;
 use Listings\Pdf\ListingPdfDTO;
 use Listings\Services\TimeUtils;
@@ -53,6 +54,8 @@ class EmptyListingPdfGenerationControl extends BaseControl
             ListingPdfTemplateFactory::LAYOUT_SEP => 'Šablona pro OSVČ'
         ]);
 
+        $form->addSelect('itemType', 'Typ položek', Listing::getTypes());
+
         $form->addSubmit('generate', 'Vygenerovat PDF');
 
         $form->onSuccess[] = [$this, 'generatePdfs'];
@@ -66,7 +69,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
     {
         $pdfDTOs = [];
         foreach ($values['months'] as $month) {
-            $pdfDTOs[] = new ListingPdfDTO((int)$values['year'], (int)$month);
+            $pdfDTOs[] = new ListingPdfDTO((int)$values['year'], (int)$month, (int)$values['itemType']);
         }
 
         $template = $this->pdfTemplateFactory

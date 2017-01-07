@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Listings;
 
+use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\WrongMonthNumberException;
 use App\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
@@ -28,6 +29,9 @@ class Listing implements IResource
 
 
     const LENGTH_NAME = 50;
+
+    const ITEM_TYPE_LUNCH_SIMPLE = 1;
+    const ITEM_TYPE_LUNCH_RANGE = 2;
 
 
     /**
@@ -74,19 +78,29 @@ class Listing implements IResource
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(name="`type`", type="smallint", nullable=false, unique=false, options={"comment":"type of items"})
+     * @var int
+     */
+    private $type;
+
 
     /**
      * @param User $owner
      * @param int $year
      * @param int $month
+     * @param int $itemType
      * @throws WrongMonthNumberException
      */
     public function __construct(
         User $owner,
         int $year,
-        int $month
+        int $month,
+        int $itemType
     ) {
         $this->id = $this->generateUuid();
+
+        $this->type = self::ITEM_TYPE_LUNCH_RANGE;
 
         $this->owner = $owner;
         $this->year = $year;
@@ -94,7 +108,43 @@ class Listing implements IResource
         $this->checkMonth($month);
         $this->month = $month;
 
+        $this->setItemsType($itemType);
+
         $this->createdAt = new \DateTimeImmutable;
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function getTypes(): array
+    {
+        return [
+            self::ITEM_TYPE_LUNCH_RANGE => 'Pole oběd - rozsah hodin',
+            self::ITEM_TYPE_LUNCH_SIMPLE => 'Pole oběd - počet hodin',
+        ];
+    }
+
+
+    /**
+     * @param int $type
+     */
+    private function setItemsType(int $type)
+    {
+        if (!array_key_exists($type, [self::ITEM_TYPE_LUNCH_RANGE => null, self::ITEM_TYPE_LUNCH_SIMPLE => null])) {
+            throw new InvalidArgumentException;
+        }
+
+        $this->type = $type;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getItemsType()
+    {
+        return $this->type;
     }
 
 

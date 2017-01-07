@@ -10,6 +10,8 @@ class RuntimeException extends \RuntimeException {}
 
     class WorkedHoursRangeException extends RuntimeException {}
 
+    class LunchHoursRangeException extends RuntimeException {}
+
     class NegativeResultOfTimeCalcException extends RuntimeException {}
 
     class NegativeWorkedTimeException extends RuntimeException {}

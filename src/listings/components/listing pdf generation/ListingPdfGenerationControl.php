@@ -2,16 +2,15 @@
 
 namespace Listings\Components;
 
-use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Services\ListingItemManipulatorFactory;
+use Listings\Services\IListingItemManipulator;
 use Joseki\Application\Responses\PdfResponse;
 use Listings\Pdf\ListingPdfTemplateFactory;
-use Listings\Facades\ListingItemFacade;
 use Listings\Facades\EmployerFacade;
 use Listings\Facades\ListingFacade;
 use Listings\Pdf\ListingPdfDTO;
 use App\Components\BaseControl;
 use Nette\Application\UI\Form;
-use Listings\ListingItem;
 use Listings\Listing;
 
 class ListingPdfGenerationControl extends BaseControl
@@ -25,8 +24,8 @@ class ListingPdfGenerationControl extends BaseControl
     /** @var ListingPdfTemplateFactory */
     private $listingPdfTemplateFactory;
 
-    /** @var ListingItemFacade */
-    private $listingItemFacade;
+    /** @var IListingItemManipulator */
+    private $listingItemManipulator;
 
     /** @var EmployerFacade */
     private $employerFacade;
@@ -46,13 +45,13 @@ class ListingPdfGenerationControl extends BaseControl
         Listing $listing,
         ListingFacade $listingFacade,
         EmployerFacade $employerFacade,
-        ListingItemFacade $listingItemFacade,
+        ListingItemManipulatorFactory $listingItemManipulatorFactory,
         ListingPdfTemplateFactory $listingPdfTemplateFactory
     ) {
         $this->listing = $listing;
         $this->listingFacade = $listingFacade;
         $this->employerFacade = $employerFacade;
-        $this->listingItemFacade = $listingItemFacade;
+        $this->listingItemManipulator = $listingItemManipulatorFactory->getByListing($listing);
         $this->listingPdfTemplateFactory = $listingPdfTemplateFactory;
     }
 
@@ -107,13 +106,9 @@ class ListingPdfGenerationControl extends BaseControl
     {
         $this->listingItemPdfType = $values['template'];
 
-        $listingItems = $this->listingItemFacade
-                             ->findListingItems(
-                                 ListingItemQueryFactory::filterByListing($this->listing->getId())
-                                 ->indexedByDay()
-                             )->toArray();
+        $listingItems = $this->listingItemManipulator->findListingItems($this->listing->getId());
 
-        $pdfDto = new ListingPdfDTO($this->listing->getYear(), $this->listing->getMonth());
+        $pdfDto = new ListingPdfDTO($this->listing->getYear(), $this->listing->getMonth(), $this->listing->getItemsType());
         $pdfDto->fillByListing($this->listing, $listingItems);
 
         $pdfDto->setEmployeeFullName($values['employee']);

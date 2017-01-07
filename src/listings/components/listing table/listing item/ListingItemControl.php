@@ -4,9 +4,10 @@ namespace Listings\Components;
 
 use Listings\Exceptions\Runtime\ListingNotFoundException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
-use Listings\Facades\ListingItemFacade;
+use Listings\Services\ListingItemManipulatorFactory;
+use Listings\Services\IListingItemManipulator;
 use App\Components\BaseControl;
-use Listings\ListingItem;
+use Listings\IListingItem;
 use Listings\Listing;
 
 class ListingItemControl extends BaseControl
@@ -19,10 +20,10 @@ class ListingItemControl extends BaseControl
     /** @var string */
     private $originalTemplatePath = __DIR__ . '/layout.latte';
 
-    /** @var ListingItemFacade */
-    private $listingItemFacade;
+    /** @var IListingItemManipulator */
+    private $listingItemManipulator;
 
-    /** @var ListingItem */
+    /** @var IListingItem */
     private $listingItem;
 
     /** @var Listing */
@@ -35,8 +36,8 @@ class ListingItemControl extends BaseControl
     public function __construct(
         int $day,
         Listing $listing,
-        ListingItem $listingItem = null,
-        ListingItemFacade $listingItemFacade
+        IListingItem $listingItem = null,
+        ListingItemManipulatorFactory $listingItemManipulatorFactory
     ) {
         $this->listingItem = $listingItem;
         $this->listing = $listing;
@@ -49,7 +50,8 @@ class ListingItemControl extends BaseControl
         if ($this->listingItem !== null and $this->listingItem->getDay() !== $day) {
             throw new InvalidArgumentException('ListingItem::$day and given parameter does NOT match');
         }
-        $this->listingItemFacade = $listingItemFacade;
+
+        $this->listingItemManipulator = $listingItemManipulatorFactory->getByListing($listing);
     }
 
 
@@ -58,14 +60,16 @@ class ListingItemControl extends BaseControl
         $template = $this->getTemplate();
         $template->originalTemplatePath = $this->originalTemplatePath;
 
+        $itemTemplateBasePath = sprintf('%s/templates/%s', __DIR__, $this->listing->getItemsType());
+
         if ($this->listingItem === null) {
-            $template->setFile(__DIR__ . '/templates/emptyItem.latte');
+            $template->setFile(sprintf('%s/%s', $itemTemplateBasePath, 'emptyItem.latte'));
 
         } elseif ($this->listingItem->getWorkedHoursWithLunch()->toSeconds() === '0') {
-            $template->setFile(__DIR__ . '/templates/onlyLocality.latte');
+            $template->setFile(sprintf('%s/%s', $itemTemplateBasePath, 'onlyLocality.latte'));
 
         } else {
-            $template->setFile(__DIR__ . '/templates/listingItem.latte');
+            $template->setFile(sprintf('%s/%s', $itemTemplateBasePath, 'listingItem.latte'));
         }
 
         $template->listing = $this->listing;
@@ -88,7 +92,7 @@ class ListingItemControl extends BaseControl
     public function handleCopyDown()
     {
         try {
-            $newListingItem = $this->listingItemFacade->copyDown($this->listingItem);
+            $newListingItem = $this->listingItemManipulator->copyDown($this->listingItem);
 
             $this->onSuccessfulCopyDown($newListingItem);
 
@@ -100,7 +104,7 @@ class ListingItemControl extends BaseControl
 
     public function handleRemove()
     {
-        $this->listingItemFacade->removeListingItem($this->listingItem->getId());
+        $this->listingItemManipulator->removeListingItem($this->listingItem->getId());
         $this->onSuccessfulRemoval($this->day);
     }
 }
@@ -111,8 +115,8 @@ interface IListingItemControlFactory
     /**
      * @param int $day
      * @param Listing $listing
-     * @param ListingItem $listingItem
+     * @param IListingItem $listingItem
      * @return ListingItemControl
      */
-    public function create($day, Listing $listing, ListingItem $listingItem);
+    public function create($day, Listing $listing, IListingItem $listingItem);
 }

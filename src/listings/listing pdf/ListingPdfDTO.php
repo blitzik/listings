@@ -6,7 +6,7 @@ namespace Listings\Pdf;
 
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Services\InvoiceTime;
-use Listings\ListingItem;
+use Listings\IListingItem;
 use Nette\SmartObject;
 use Listings\Listing;
 
@@ -34,7 +34,7 @@ class ListingPdfDTO
     /** @var int|null */
     private $hourlyRate;
 
-    /** @var ListingItem[] */
+    /** @var IListingItem[] */
     private $listingItems = [];
 
     /** @var ListingItemPdfDTO[]|null */
@@ -53,13 +53,22 @@ class ListingPdfDTO
     /** @var bool */
     private $displayHourlyRate = false;
 
+    /** @var int */
+    private $type;
 
-    public function __construct(int $year, int $month)
+
+    public function __construct(int $year, int $month, int $type)
     {
         $this->year = $year;
         $this->month = $month;
         $this->workedDays = 0;
         $this->workedHours = new InvoiceTime();
+
+        if (!array_key_exists($type, Listing::getTypes())) {
+            throw new InvalidArgumentException;
+        }
+
+        $this->type = $type;
     }
 
 
@@ -79,9 +88,10 @@ class ListingPdfDTO
         $this->employeeFullName = $listing->getOwnerFullName();
         $this->employerName = $listing->getEmployerName();
         $this->hourlyRate = $listing->getHourlyRate();
+        $this->type = $listing->getItemsType();
 
         foreach ($listingItems as $listingItem) {
-            if (!$listingItem instanceof ListingItem or $listingItem->getListingId() !== $this->listing->getId()) {
+            if (!$listingItem instanceof IListingItem or $listingItem->getListingId() !== $this->listing->getId()) {
                 throw new InvalidArgumentException;
             }
             $this->listingItems[$listingItem->getDay()] = $listingItem;
@@ -100,7 +110,11 @@ class ListingPdfDTO
         if ($this->itemDTOs === null) {
             for ($d = 1; $d <= $this->getDaysInMonth(); $d++) {
                 if (isset($this->listingItems[$d])) {
-                    $this->itemDTOs[$d] = new ListingItemPdfDTO($this->year, $this->month, $d);
+                    if ($this->type === Listing::ITEM_TYPE_LUNCH_SIMPLE) {
+                        $this->itemDTOs[$d] = new ListingItemPdfDTO($this->year, $this->month, $d);
+                    } else {
+                        $this->itemDTOs[$d] = new RangeLunchListingItemPdfDTO($this->year, $this->month, $d);
+                    }
                     $this->itemDTOs[$d]->fillByListingItem($this->listingItems[$d]);
                 } else {
                     $this->itemDTOs[$d] = new ListingItemPdfDTO($this->year, $this->month, $d);
@@ -124,6 +138,15 @@ class ListingPdfDTO
     public function displayHourlyRate()
     {
         $this->displayHourlyRate = true;
+    }
+
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
     }
 
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Listings\Pdf;
 
 use Listings\Services\InvoiceTime;
+use Listings\IListingItem;
 use Listings\ListingItem;
 use Nette\SmartObject;
 
@@ -14,36 +15,36 @@ class ListingItemPdfDTO
 
 
     /** @var int */
-    private $month;
+    protected $month;
 
     /** @var int */
-    private $year;
+    protected $year;
 
     /** @var int */
-    private $day;
+    protected $day;
 
 
     /** @var ListingItem|null */
-    private $listingItem;
+    protected $listingItem;
 
 
     /** @var InvoiceTime */
-    private $workedHoursWithLunch;
+    protected $workedHoursWithLunch;
 
     /** @var InvoiceTime */
-    private $workedHours;
+    protected $workedHours;
 
     /** @var InvoiceTime */
-    private $workStart;
+    protected $workStart;
 
     /** @var string */
-    private $locality;
+    protected $locality;
 
     /** @var InvoiceTime */
-    private $workEnd;
+    protected $workEnd;
 
     /** @var InvoiceTime */
-    private $lunch;
+    protected $lunch;
 
 
     public function __construct(int $year, int $month, int $day)
@@ -55,9 +56,9 @@ class ListingItemPdfDTO
 
 
     /**
-     * @param ListingItem $listingItem
+     * @param IListingItem $listingItem
      */
-    public function fillByListingItem(ListingItem $listingItem)
+    public function fillByListingItem(IListingItem $listingItem)
     {
         $this->listingItem = $listingItem;
 

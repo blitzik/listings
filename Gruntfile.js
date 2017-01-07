@@ -22,14 +22,23 @@ module.exports = function (grunt) {
                 ],
                 dest: "www/assets/js/concatenated/js.js"
             },
-            listing_item_js: {
+            simple_lunch_listing_item_js: {
                 options: {
                     separator: ";"
                 },
                 src: [
-                    "www/assets/js/original/listingItem.js"
+                    "www/assets/js/original/listingItemType1.js"
                 ],
-                dest: "www/assets/js/concatenated/listingItem.js"
+                dest: "www/assets/js/concatenated/listingItemType1.js"
+            },
+            range_lunch_listing_item_js: {
+                options: {
+                    separator: ";"
+                },
+                src: [
+                    "www/assets/js/original/listingItemType2.js"
+                ],
+                dest: "www/assets/js/concatenated/listingItemType2.js"
             }
         },
 
@@ -39,9 +48,14 @@ module.exports = function (grunt) {
                     "www/assets/js/js.min.js": ["www/assets/js/concatenated/js.js"]
                 }
             },
-            listing_item_js: {
+            simple_lunch_listing_item_js: {
                 files: {
-                    "www/assets/js/listingItem.min.js": ["www/assets/js/concatenated/listingItem.js"]
+                    "www/assets/js/listingItemType1.min.js": ["www/assets/js/concatenated/listingItemType1.js"]
+                }
+            },
+            range_lunch_listing_item_js: {
+                files: {
+                    "www/assets/js/listingItemType2.min.js": ["www/assets/js/concatenated/listingItemType2.js"]
                 }
             }
         },

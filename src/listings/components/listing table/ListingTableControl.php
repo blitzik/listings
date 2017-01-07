@@ -2,14 +2,14 @@
 
 namespace Listings\Components;
 
-use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Services\ListingItemManipulatorFactory;
+use Listings\Services\IListingItemManipulator;
 use Nette\Application\BadRequestException;
-use Listings\Facades\ListingItemFacade;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
 use Listings\Services\InvoiceTime;
 use App\Components\BaseControl;
-use Listings\ListingItem;
+use Listings\IListingItem;
 use Listings\Listing;
 
 class ListingTableControl extends BaseControl
@@ -22,9 +22,6 @@ class ListingTableControl extends BaseControl
     /** @var IListingItemControlFactory */
     private $listingItemControlFactory;
 
-    /** @var ListingItemFacade */
-    private $listingItemFacade;
-
     /** @var ListingFacade */
     private $listingFacade;
 
@@ -32,10 +29,13 @@ class ListingTableControl extends BaseControl
     /** @var int */
     private $totalWorkedHoursInSeconds;
 
+    /** @var IListingItemManipulator */
+    private $listingItemManipulator;
+
     /** @var int */
     private $totalWorkedDays;
 
-    /** @var ListingItem[] */
+    /** @var IListingItem[] */
     private $listingItems;
 
     /** @var Listing|null */
@@ -45,30 +45,33 @@ class ListingTableControl extends BaseControl
     public function __construct(
         Listing $listing,
         ListingFacade $listingFacade,
-        ListingItemFacade $listingItemFacade,
-        IListingItemControlFactory $listingItemControlFactory
+        IListingItemControlFactory $listingItemControlFactory,
+        ListingItemManipulatorFactory $listingItemManipulatorFactory
     ) {
         $this->listing = $listing;
-        $this->listingItemFacade = $listingItemFacade;
-        $this->listingItemControlFactory = $listingItemControlFactory;
         $this->listingFacade = $listingFacade;
+        $this->listingItemManipulator = $listingItemManipulatorFactory->getByListing($listing);
+        $this->listingItemControlFactory = $listingItemControlFactory;
     }
 
 
     public function render()
     {
         $template = $this->getTemplate();
-        $template->setFile(__DIR__ . '/listingTable.latte');
+        switch ($this->listing->getItemsType()) {
+            case Listing::ITEM_TYPE_LUNCH_RANGE:
+                $template->setFile(sprintf('%s/type templates/%s.latte', __DIR__, $this->listing->getItemsType()));
+                break;
+
+            default:
+                $template->setFile(sprintf('%s/type templates/%s.latte', __DIR__, $this->listing->getItemsType()));
+        }
 
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
         $template->daysInMonth = $daysInMonth;
 
         if ($this->listingItems === null) {
-            $this->listingItems = $this->listingItemFacade
-                                       ->findListingItems(
-                                           ListingItemQueryFactory::filterByListing($this->listing->getId())
-                                           ->indexedByDay()
-                                       )->toArray();
+            $this->listingItems = $this->listingItemManipulator->findListingItems($this->listing->getId());
         }
 
         $template->listingItems = $this->listingItems;
@@ -88,10 +91,10 @@ class ListingTableControl extends BaseControl
     {
         return new Multiplier(function ($day) {
             if ($this->listingItems === null) {
-                $this->listingItems[$day] = $this->listingItemFacade
-                                                 ->getListingItem(ListingItemQueryFactory::filterByListingAndDay($this->listing->getId(), $day));
+                $this->listingItems[$day] = $this->listingItemManipulator
+                                                 ->getListingItemByDay($day, $this->listing->getId());
                 if ($this->listingItems[$day] === null) {
-                    throw new BadRequestException; // todo
+                    throw new BadRequestException;
                 }
             }
             $item = null;
@@ -115,7 +118,7 @@ class ListingTableControl extends BaseControl
     private function loadListingInfo()
     {
         if ($this->totalWorkedDays === null or $this->totalWorkedHoursInSeconds === null) {
-            $listingData = $this->listingFacade->getWorkedDaysAndHours($this->listing->getId());
+            $listingData = $this->listingItemManipulator->getWorkedDaysAndHours($this->listing->getId());
             $this->totalWorkedDays = $listingData['daysCount'];
             $this->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
         }
@@ -125,7 +128,7 @@ class ListingTableControl extends BaseControl
     // -----
 
 
-    public function onSuccessfullyCopiedListingItemDown(ListingItem $listingItem)
+    public function onSuccessfullyCopiedListingItemDown(IListingItem $listingItem)
     {
         $this->listingItems[$listingItem->getDay()] = $listingItem;
         $this['listingItem'][$listingItem->getDay()]->redrawControl();

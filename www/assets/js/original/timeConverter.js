@@ -82,12 +82,14 @@
                 hoursAndMinutes = hoursAndMinutes.toString();
             }
 
-
             var timeParts = hoursAndMinutes.split(",");
             var hours = parseInt(timeParts[0], 10) * 60;
-            var minutes = parseInt(timeParts[1], 10);
+            var minutes = 0;
+            if (typeof timeParts[1] !== "undefined") {
+                minutes = parseInt(timeParts[1], 10);
+            }
 
-            minutes = ((minutes === "5") ? 30 : 0);
+            minutes = ((minutes === 5) ? 30 : 0);
 
             return (hours + minutes);
         },

@@ -75,7 +75,7 @@ class ListingPersister
     private function create(array $values): Listing
     {
         $owner = $this->em->find(User::class, $values['owner']->getId());
-        $listing = new Listing($owner, $values['year'], $values['month']);
+        $listing = new Listing($owner, (int)$values['year'], (int)$values['month'], (int)$values['itemType']);
         if ($values['employer'] !== null) {
             $employer = $this->employerFacade->getEmployer($values['employer']);
             if ($employer === null) {
