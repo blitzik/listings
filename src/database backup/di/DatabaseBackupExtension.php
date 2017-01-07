@@ -5,6 +5,7 @@ namespace DatabaseBackup;
 use DatabaseBackup\Fixtures\DefaultFixture;
 use App\Extensions\CompilerExtension;
 use App\Fixtures\IFixtureProvider;
+use DatabaseBackup\Services\IBackupFileHandler;
 use Nette\DI\Compiler;
 
 class DatabaseBackupExtension extends CompilerExtension implements IFixtureProvider
@@ -27,8 +28,11 @@ class DatabaseBackupExtension extends CompilerExtension implements IFixtureProvi
         $ftpBackupFileHandler->setArguments([$config['ftps']]);
 
         $databaseBackup = $cb->getDefinition($this->prefix('databaseBackup'));
-        $databaseBackup->setArguments([$config['databaseCredentials'], $config['backupTempPath']])
-                       ->addSetup('addHandler', ['@'.$this->prefix('ftpBackupFileHandler')]);
+        $databaseBackup->setArguments([$config['databaseCredentials'], $config['backupTempPath']]);
+
+        foreach ($cb->findByType(IBackupFileHandler::class) as $definition) {
+            $databaseBackup->addSetup('addHandler', [$definition]);
+        }
 
         $backupSubscriber = $cb->getDefinition($this->prefix('databaseBackupSubscriber'));
         $backupSubscriber->setArguments([$config['sender'], $config['receivers']]);

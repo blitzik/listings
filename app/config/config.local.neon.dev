@@ -40,6 +40,8 @@ databaseBackup:
 	receivers: %backup.receivers%
 	ftps: %backup.ftps%
 
+
+
 services:
 	nette.mailer:
 		class: Nette\Mail\IMailer
