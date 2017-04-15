@@ -27,7 +27,7 @@
             slide: function( event, ui ) {
                 var lunchMinutes = global.tc.timeWithComma2Minutes(workLunch.val());
                 var workedTime = ui.values[1] - ui.values[0] - lunchMinutes;
-                if (workedTime < 0) {
+                if (workedTime < 30) {
                     return false;
                 }
 

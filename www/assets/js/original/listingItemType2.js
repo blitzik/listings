@@ -35,7 +35,7 @@
 
                 var lunchMinutes = lEnd - lStart;
                 var workedTime = ui.values[1] - ui.values[0] - lunchMinutes;
-                if (workedTime < 0) {
+                if (workedTime < 30) {
                     return false;
                 }
 
@@ -90,6 +90,20 @@
             workLunchSlider.slider("values", 1, 0);
         });
 
+        var lunchNullTimeButton = $("#_lunch-null-time-button");
+        lunchNullTimeButton.on("click", function (e) {
+            workLunchStart.val("0:00");
+            workLunchEnd.val("0:00");
+
+            workLunchSlider.slider("values", 0, 0);
+            workLunchSlider.slider("values", 1, 0);
+
+            var wStartMinutes = global.tc.time2Minutes(workStart.val());
+            var wEndMinutes = global.tc.time2Minutes(workEnd.val());
+            var _workedHours = wEndMinutes - wStartMinutes;
+
+            workWorkedHours.val(global.tc.minutes2TimeWithComma(_workedHours));
+        });
     });
 
 }(window, window.jQuery));

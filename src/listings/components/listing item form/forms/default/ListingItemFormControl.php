@@ -2,12 +2,13 @@
 
 namespace Listings\Components;
 
-use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Template\Filters\InvoiceTimeWithCommaFilter;
 use Listings\Services\SimpleLunchListingItemManipulator;
 use Listings\Services\Factories\ListingItemFormFactory;
+use Listings\Exceptions\Logic\InvalidArgumentException;
+use Listings\Exceptions\Runtime\WorkedHoursException;
 use App\Components\FlashMessages\FlashMessage;
 use Nette\Application\UI\ITemplate;
 use App\Components\BaseControl;
@@ -132,7 +133,10 @@ class ListingItemFormControl extends BaseControl
             $this->flashMessage('Položka byla uložena.', FlashMessage::SUCCESS);
 
         } catch (WorkedHoursRangeException $e) {
-            $this->flashMessage('Pracovní doba nemůže skončit dříve, než začala.', FlashMessage::WARNING);
+            $this->flashMessage('Položku nelze uložit. Pracovní doba nemůže skončit dříve, než začala.', FlashMessage::WARNING);
+
+        } catch (WorkedHoursException $e) {
+            $this->flashMessage('Položku nelze uložit. Musíte mít odpracováno alespoň 30 minut.', FlashMessage::WARNING);
 
         } catch (NegativeWorkedTimeException $e) {
             $this->flashMessage('Položku nelze uložit. Musíte mít odpracováno více hodin, než kolik strávíte obědem.', FlashMessage::WARNING);

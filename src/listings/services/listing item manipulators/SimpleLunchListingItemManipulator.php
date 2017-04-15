@@ -9,6 +9,7 @@ use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\ListingNotFoundException;
 use Listings\Queries\Factories\ListingItemQueryFactory;
+use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Logic\InvalidStateException;
 use Kdyby\Doctrine\EntityManager;
 use Listings\IListingItem;
@@ -42,6 +43,7 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
      * @param array $data
      * @param IListingItem|null $listingItem
      * @return IListingItem
+     * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */

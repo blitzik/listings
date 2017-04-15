@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Listings;
 
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
+use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\WrongDayNumberException;
 use Doctrine\ORM\Mapping\UniqueConstraint;
@@ -70,22 +71,33 @@ class ListingItem implements IListingItem
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
      * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
      * @param \DateTimeInterface|int|InvoiceTime|null|string $lunch
+     * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
     public function changeHours($workStart, $workEnd, $lunch)
     {
-        $this->workStart = new InvoiceTime($workStart);
-        $this->workEnd = new InvoiceTime($workEnd);
-        if ($this->workStart->compare($this->workEnd) === 1) {
-            throw new WorkedHoursRangeException;
+        $workStart = new InvoiceTime($workStart);
+        $workEnd = new InvoiceTime($workEnd);
+        if ($workStart->compare('00:00') !== 0 or $workEnd->compare('00:00') !== 0) {
+            if ($workStart->compare($workEnd) > 0) {
+                throw new WorkedHoursRangeException;
+            }
+
+            if ($workEnd->sub($workStart)->compare('00:30') === -1) {
+                throw new WorkedHoursException;
+            }
         }
 
-        $this->lunch = new InvoiceTime($lunch);
-        $workedHoursWithLunch = $this->workEnd->sub($this->workStart);
-        if ($workedHoursWithLunch->compare($this->lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
+        $lunch = new InvoiceTime($lunch);
+        $workedHoursWithLunch = $workEnd->sub($workStart);
+        if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;
         }
+
+        $this->workStart = $workStart;
+        $this->workEnd = $workEnd;
+        $this->lunch = $lunch;
 
         $this->workedHoursInSeconds = (int)$this->getWorkedHours()->toSeconds();
     }

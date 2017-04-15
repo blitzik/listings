@@ -101,15 +101,7 @@ class InvoiceTime
         $paramSecs = TimeManipulator::time2seconds(self::gatherTime($time));
         $objSecs = $this->toSeconds();
 
-        if (bccomp($objSecs, $paramSecs, 0) === 1) {
-            return 1;
-
-        } elseif (bccomp($objSecs, $paramSecs, 0) === -1) {
-            return -1;
-
-        } else {
-            return 0;
-        }
+        return (int)bccomp($objSecs, $paramSecs, 0);
     }
 
 

@@ -6,6 +6,7 @@ namespace Listings\Services\Persisters;
 
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
+use Listings\Exceptions\Runtime\WorkedHoursException;
 use Kdyby\Doctrine\EntityManager;
 use Listings\ListingItem;
 use Nette\SmartObject;
@@ -29,6 +30,7 @@ class SimpleLunchListingItemPersister
      * @param array $values
      * @param ListingItem|null $listingItem
      * @return ListingItem
+     * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
@@ -47,6 +49,7 @@ class SimpleLunchListingItemPersister
     /**
      * @param array $values
      * @return ListingItem
+     * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
@@ -70,6 +73,7 @@ class SimpleLunchListingItemPersister
      * @param array $values
      * @param ListingItem $listingItem
      * @return ListingItem
+     * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */

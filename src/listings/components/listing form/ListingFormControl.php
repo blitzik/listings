@@ -74,9 +74,11 @@ class ListingFormControl extends BaseControl
                 ->addCondition(Form::FILLED)
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Listing::LENGTH_NAME);
 
+        $itemTypes = Listing::getTypes();
+        unset($itemTypes[Listing::ITEM_TYPE_LUNCH_RANGE]);
         $form->addSelect('itemType', 'Typ položek')
-                ->setItems(Listing::getTypes())
-                ->setDefaultValue(Listing::ITEM_TYPE_LUNCH_RANGE);
+                ->setItems($itemTypes);
+                //->setDefaultValue(Listing::ITEM_TYPE_LUNCH_RANGE);
 
         $form->addText('hourlyRate', 'Hodinová mzda')
                 ->setNullable()

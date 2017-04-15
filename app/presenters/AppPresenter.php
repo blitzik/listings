@@ -46,7 +46,7 @@ abstract class AppPresenter extends Presenter
     {
         parent::beforeRender();
 
-        $this->template->assetsVersion = '002';
+        $this->template->assetsVersion = '003';
     }
 
 

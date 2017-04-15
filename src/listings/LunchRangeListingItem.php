@@ -88,8 +88,6 @@ class LunchRangeListingItem implements IListingItem
      */
     public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd)
     {
-        $this->lunch = null;
-
         $this->workStart = new InvoiceTime($workStart);
         $this->workEnd = new InvoiceTime($workEnd);
         if ($this->workStart->compare($this->workEnd) === 1) {
@@ -109,6 +107,12 @@ class LunchRangeListingItem implements IListingItem
         if ($workedHoursWithLunch->compare($this->getLunch()) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;
         }
+
+        $this->lunch = null;
+        $this->workStart = $workStart;
+        $this->workEnd = $workEnd;
+        $this->lunchStart = $lunchStart;
+        $this->lunchEnd = $lunchEnd;
 
         $this->workedHoursInSeconds = (int)$this->getWorkedHours()->toSeconds();
     }
