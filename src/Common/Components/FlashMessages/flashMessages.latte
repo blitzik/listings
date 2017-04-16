@@ -1,0 +1,5 @@
+{if !empty($flashes)}
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+		<img src="{$imagesPath}/{$flash->type}.svg" alt="{$flash->type}-icon"> <span>{_$flash->message}</span>
+	</div>
+{/if}

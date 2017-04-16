@@ -1,0 +1,35 @@
+
+forgottenPasswordEmailSender: Accounts\Services\ForgottenPasswordEmailSender
+forgottenEmailTemplateFactory: Accounts\Services\ForgottenEmailTemplateFactory
+
+
+# factories
+
+accountFormFactory: Accounts\Services\Factories\AccountFormFactory
+
+
+# facades
+
+accountFacade: Accounts\Facades\AccountFacade
+
+
+# Persisters
+
+userPersister: Accounts\Services\Persisters\UserPersister
+
+
+# component factories
+
+loginControlFactory:
+	implement: Accounts\Components\ILoginControlFactory
+
+registrationControlFactory:
+	implement: Accounts\Components\IRegistrationControlFactory
+
+forgottenPasswordFormControlFactory:
+	implement: Accounts\Components\IForgottenPasswordFormControlFactory
+
+forgottenPasswordChangeControlFactory:
+	implement: Accounts\Components\IForgottenPasswordChangeControlFactory
+	parameters: [Users\User user]
+	arguments: [%user%]

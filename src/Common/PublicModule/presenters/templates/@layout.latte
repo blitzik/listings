@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    {control metaTags}
+
+    {control metaTitle}
+
+    {block styles}
+        <link rel="stylesheet" href="{$basePath}/assets/css/public.min.css?v={$assetsVersion}">
+    {/block}
+</head>
+<body>
+
+<div class="container">
+    {include #content}
+</div>
+
+
+{block scripts}
+    <script type="text/javascript" src="{$basePath}/assets/js/js.min.js?v={$assetsVersion}"></script>
+{/block}
+</body>
+</html>

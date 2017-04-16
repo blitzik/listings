@@ -1,0 +1,20 @@
+<div class="card listing-removal-form">
+    <div class="card-block">
+        <h2 class="card-title"><a href="{plink :Listings:Member:ListingDetail:default, id => $listing->getId()}">{$listing->getMonth()|monthByNumber} {$listing->getYear()} <small class="text-muted" n:if="$listing->getName() !== null">| {$listing->getName()}</small></a></h2>
+
+        <p class="card-text">
+            Skutečně si přejete <strong>nenávratně odstranit</strong> výčetku?
+        </p>
+
+        {form form}
+            <div class="form-group">
+                {label confirmation /}
+
+                <div class="form-error" n:if="$form['confirmation']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError confirmation}</span></div>
+                {input confirmation class => 'form-control'}
+            </div>
+
+            <button n:name="remove" class="btn btn-danger btn-block">Odstranit výčetku</button>
+        {/form}
+    </div>
+</div>

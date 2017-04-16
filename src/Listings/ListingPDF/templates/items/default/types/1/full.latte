@@ -1,0 +1,11 @@
+
+{extends '../../layout.latte'}
+
+
+{block content}
+    <td>{$item->getLocality()}</td>
+    <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
+    <td>{$item->getLunch()|invoiceTimeWithComma}</td>
+    <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
+    <td></td>
+{/block}

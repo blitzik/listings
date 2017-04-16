@@ -1,0 +1,15 @@
+
+ftpBackupFileHandler: DatabaseBackup\Services\FtpBackupFileHandler
+
+databaseBackup: DatabaseBackup\Services\DatabaseBackup
+
+# presenters
+
+cronBackupPresenter: DatabaseBackup\Presenters\CronBackupPresenter
+
+
+# subscribers
+
+databaseBackupSubscriber:
+	class: DatabaseBackup\Subscribers\DatabaseBackupSubscriber
+	tags: [kdyby.subscriber]

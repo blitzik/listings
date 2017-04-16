@@ -1,0 +1,16 @@
+
+
+{snippet overview}
+    {if empty($employers)}
+        <div class="alert alert-info">
+            <i class="fa fa-fw fa-info-circle"></i>
+            <span>Nebyly nalezeny žádné položky.</span>
+        </div>
+
+    {else}
+        {foreach $employers as $employer}
+            {var $id = $employer->getId()}
+            {control employerItem-$id}
+        {/foreach}
+    {/if}
+{/snippet}
