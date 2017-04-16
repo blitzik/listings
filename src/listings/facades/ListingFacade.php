@@ -1,11 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Listings\Facades;
 
 use Listings\Exceptions\Runtime\EmployerNotFoundException;
-use Listings\ListingItem;
 use Listings\Services\Persisters\ListingPersister;
 use Listings\Services\Removers\ListingRemover;
 use Kdyby\Doctrine\EntityRepository;

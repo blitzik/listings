@@ -1,14 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingItemEditingControlFactory;
 use Listings\Services\ListingItemManipulatorFactory;
-use App\MemberModule\Presenters\SecuredPresenter;
-use App\Components\FlashMessages\FlashMessage;
+use Common\MemberModule\Presenters\SecuredPresenter;
+use Listings\Components\ListingItemEditingControl;
+use Common\Components\FlashMessages\FlashMessage;
+use blitzik\Authorization\Privilege;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
-use Users\Authorization\Privilege;
 use Nette\Utils\Validators;
 use Listings\IListingItem;
 use Listings\Listing;
@@ -88,10 +89,10 @@ final class ListingItemPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingItemEditing()
+    protected function createComponentListingItemEditing(): ListingItemEditingControl
     {
         $comp = $this->listingItemEditingControlFactory
-                     ->create($this->day, $this->listing);
+                     ->create((int)$this->day, $this->listing);
 
         if ($this->listingItem !== null) {
             $comp->setListingItem($this->listingItem);

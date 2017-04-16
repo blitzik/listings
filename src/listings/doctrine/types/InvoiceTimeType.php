@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Doctrine\Types;
 
@@ -18,7 +18,7 @@ class InvoiceTimeType extends Type
      *
      * @return string
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return $platform->getTimeTypeDeclarationSQL($fieldDeclaration);
     }
@@ -46,7 +46,7 @@ class InvoiceTimeType extends Type
      *
      * @return mixed The PHP representation of the value.
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): InvoiceTime
     {
         return new InvoiceTime($value);
     }

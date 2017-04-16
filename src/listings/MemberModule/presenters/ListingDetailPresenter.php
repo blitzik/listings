@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\MemberModule\Presenters;
 
@@ -6,12 +6,14 @@ use Listings\Services\SimpleLunchListingItemManipulator;
 use Listings\Services\RangeLunchListingItemManipulator;
 use Listings\Components\IListingActionsControlFactory;
 use Listings\Components\IListingTableControlFactory;
-use App\MemberModule\Presenters\SecuredPresenter;
-use App\Components\FlashMessages\FlashMessage;
+use Common\MemberModule\Presenters\SecuredPresenter;
+use Common\Components\FlashMessages\FlashMessage;
 use Listings\Services\IListingItemManipulator;
+use Listings\Components\ListingActionsControl;
+use Listings\Components\ListingTableControl;
+use blitzik\Authorization\Privilege;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
-use Users\Authorization\Privilege;
 use Listings\Listing;
 
 final class ListingDetailPresenter extends SecuredPresenter
@@ -90,7 +92,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingActions()
+    protected function createComponentListingActions(): ListingActionsControl
     {
         $comp = $this->listingActionsControlFactory
                      ->create($this->listing);
@@ -99,7 +101,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingTable()
+    protected function createComponentListingTable(): ListingTableControl
     {
         $comp = $this->listingTableControlFactory
                      ->create($this->listing, $this->listingItemManipulator);

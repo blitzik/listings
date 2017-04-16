@@ -1,11 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\PublicModule\Presenters;
 
 use Accounts\Components\IForgottenPasswordChangeControlFactory;
 use Accounts\Components\IForgottenPasswordFormControlFactory;
-use App\AuthModule\Presenters\PublicPresenter;
-use App\Components\FlashMessages\FlashMessage;
+use Accounts\Components\ForgottenPasswordChangeControl;
+use Accounts\Components\ForgottenPasswordFormControl;
+use Common\AuthModule\Presenters\PublicPresenter;
+use Common\Components\FlashMessages\FlashMessage;
 use Accounts\Facades\AccountFacade;
 use Nette\Utils\Validators;
 use Users\User;
@@ -43,11 +45,10 @@ final class ForgottenPasswordPresenter extends PublicPresenter
     
     public function renderRequest()
     {
-        
     }
 
 
-    protected function createComponentRequestForm()
+    protected function createComponentRequestForm(): ForgottenPasswordFormControl
     {
         $comp = $this->forgottenPasswordFormControlFactory->create();
 
@@ -82,7 +83,7 @@ final class ForgottenPasswordPresenter extends PublicPresenter
     }
 
 
-    protected function createComponentPasswordChange()
+    protected function createComponentPasswordChange(): ForgottenPasswordChangeControl
     {
         $comp = $this->forgottenPasswordChangeControlFactory
                      ->create($this->account);

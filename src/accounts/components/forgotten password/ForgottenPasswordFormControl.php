@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\Components;
 
 use Accounts\Exceptions\Runtime\EmailSendingFailedException;
 use Accounts\Exceptions\Runtime\UserNotFoundException;
-use App\Components\FlashMessages\FlashMessage;
+use Common\Components\FlashMessages\FlashMessage;
 use Accounts\Facades\AccountFacade;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 
 class ForgottenPasswordFormControl extends BaseControl
@@ -65,12 +65,11 @@ class ForgottenPasswordFormControl extends BaseControl
         $template->setFile(__DIR__ . '/forgottenPasswordForm.latte');
 
 
-
         $template->render();
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = new Form;
         $form->getElementPrototype()->class = 'ajax';
@@ -95,12 +94,12 @@ class ForgottenPasswordFormControl extends BaseControl
     {
         try {
             $this->accountFacade
-                ->restorePassword(
-                    $values['email'],
-                    $this->adminEmail,
-                    $this->applicationUrl,
-                    $this->adminFullName
-                );
+                 ->restorePassword(
+                     $values['email'],
+                     $this->adminEmail,
+                     $this->applicationUrl,
+                     $this->adminFullName
+                 );
 
             $this->flashMessage('Na Váš E-mail byly zaslány instrukce pro obnovení hesla', FlashMessage::SUCCESS);
             $this->refresh('this', ['flashMessages', 'form']);

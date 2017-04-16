@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\PublicModule\Presenters;
 
 use Accounts\Components\IRegistrationControlFactory;
-use App\AuthModule\Presenters\PublicPresenter;
-use App\Components\FlashMessages\FlashMessage;
+use Accounts\Components\RegistrationControl;
+use Common\AuthModule\Presenters\PublicPresenter;
+use Common\Components\FlashMessages\FlashMessage;
 
 final class RegistrationPresenter extends PublicPresenter
 {
@@ -27,7 +28,7 @@ final class RegistrationPresenter extends PublicPresenter
     }
 
 
-    protected function createComponentRegistration()
+    protected function createComponentRegistration(): RegistrationControl
     {
         $comp = $this->registrationControlFactory->create();
 

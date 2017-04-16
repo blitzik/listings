@@ -1,14 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Joseki\Application\Responses\PdfResponse;
-use Listings\Listing;
 use Listings\Pdf\ListingPdfTemplateFactory;
-use Listings\Pdf\ListingPdfDTO;
+use Common\Components\BaseControl;
 use Listings\Services\TimeUtils;
-use App\Components\BaseControl;
+use Listings\Pdf\ListingPdfDTO;
 use Nette\Application\UI\Form;
+use Listings\Listing;
 
 class EmptyListingPdfGenerationControl extends BaseControl
 {
@@ -37,7 +37,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = new Form;
 
@@ -83,7 +83,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
     }
 
 
-    private function generateYears()
+    private function generateYears(): array
     {
         $currentYear = date('Y');
         $years = array_reverse(range($currentYear - 3, $currentYear));

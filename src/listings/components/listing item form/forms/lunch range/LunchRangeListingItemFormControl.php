@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
+use Common\Components\FlashMessages\FlashMessage;
 use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Listings\Services\Factories\ListingItemFormFactory;
 use Listings\Services\RangeLunchListingItemManipulator;
 use Listings\Template\Filters\InvoiceTimeFilter;
-use App\Components\FlashMessages\FlashMessage;
 use Nette\Application\UI\ITemplate;
 use Nette\Application\UI\Form;
 use Listings\IListingItem;
@@ -36,7 +36,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->listingItemFormFactory->create($this->listingItem);
 

@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Nette\Application\BadRequestException;
 use Listings\Facades\EmployerFacade;
 use Nette\Application\UI\Multiplier;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Listings\Employer;
 use Users\User;
 

@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\PublicModule\Presenters;
 
-use Joseki\Application\Responses\PdfResponse;
+use Listings\Components\EmptyListingPdfGenerationControl;
 use Listings\Components\IEmptyListingPdfGenerationControlFactory;
-use App\AuthModule\Presenters\PublicPresenter;
+use Common\AuthModule\Presenters\PublicPresenter;
+use Joseki\Application\Responses\PdfResponse;
 
 final class ListingPdfPresenter extends PublicPresenter
 {
@@ -27,7 +28,7 @@ final class ListingPdfPresenter extends PublicPresenter
     }
 
 
-    protected function createComponentPdfGeneration()
+    protected function createComponentPdfGeneration(): EmptyListingPdfGenerationControl
     {
         $comp = $this->emptyListingPdfGenerationControlFactory->create();
 

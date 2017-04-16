@@ -1,11 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\DI;
 
+use Nette\Application\IPresenterFactory;
 use Kdyby\Doctrine\DI\IEntityProvider;
 use Listings\Fixtures\ListingsFixture;
-use App\Extensions\CompilerExtension;
-use App\Fixtures\IFixtureProvider;
+use Nette\DI\CompilerExtension;
+use Fixtures\IFixtureProvider;
 use Nette\DI\Compiler;
 
 final class ListingsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
@@ -20,7 +21,9 @@ final class ListingsExtension extends CompilerExtension implements IEntityProvid
     public function beforeCompile()
     {
         $cb = $this->getContainerBuilder();
-        $this->setPresenterMapping($cb, ['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']);
+
+        $cb->getDefinition($cb->getByType(IPresenterFactory::class))
+           ->addSetup('setMapping', [['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']]);
 
         $latteFactory = $cb->getDefinition('nette.latteFactory');
         $latteFactory->addSetup('addFilter', ['invoiceTimeHoursAndMinutes', $this->prefix('@invoiceTimeFilter')])

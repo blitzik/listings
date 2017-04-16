@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\Components;
 
-use Accounts\Facades\AccountFacade;
 use Accounts\Services\Factories\AccountFormFactory;
-use App\Components\BaseControl;
+use Accounts\Facades\AccountFacade;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Users\User;
 
@@ -41,12 +41,11 @@ class ForgottenPasswordChangeControl extends BaseControl
         $template->setFile(__DIR__ . '/forgottenPasswordChange.latte');
 
 
-
         $template->render();
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->accountFormFactory->create(false);
         $form['email']->setOmitted()

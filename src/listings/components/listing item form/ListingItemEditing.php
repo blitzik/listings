@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Listings\Exceptions\Logic\InvalidArgumentException;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Listings\IListingItem;
 use Listings\Listing;
 

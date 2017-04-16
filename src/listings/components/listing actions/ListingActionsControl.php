@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Listings\Listing;
 
 class ListingActionsControl extends BaseControl

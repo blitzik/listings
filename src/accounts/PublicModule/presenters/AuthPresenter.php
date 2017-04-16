@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\PublicModule\Presenters;
 
-use App\AuthModule\Presenters\PublicPresenter;
+use Accounts\Components\LoginControl;
+use Common\AuthModule\Presenters\PublicPresenter;
 use Accounts\Components\ILoginControlFactory;
 
 final class AuthPresenter extends PublicPresenter
@@ -29,7 +30,7 @@ final class AuthPresenter extends PublicPresenter
     }
 
 
-    protected function createComponentLogin()
+    protected function createComponentLogin(): LoginControl
     {
         $comp = $this->loginControlFactory->create();
 

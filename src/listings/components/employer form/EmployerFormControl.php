@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Listings\Facades\EmployerFacade;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\Employer;
 
@@ -47,7 +47,7 @@ class EmployerFormControl extends BaseControl
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = new Form;
         $form->getElementPrototype()->class = 'ajax';

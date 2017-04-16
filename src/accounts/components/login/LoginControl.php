@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\Components;
 
-use App\Components\FlashMessages\FlashMessage;
+use Common\Components\FlashMessages\FlashMessage;
 use Nette\Security\AuthenticationException;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 
 class LoginControl extends BaseControl
@@ -22,7 +22,7 @@ class LoginControl extends BaseControl
     }
 
 
-    protected function createComponentLoginForm()
+    protected function createComponentLoginForm(): Form
     {
         $form = new Form;
 

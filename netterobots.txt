@@ -1,0 +1,3 @@
+Disallow: /.sass-cache
+Disallow: /bower_components
+Disallow: /node_modules

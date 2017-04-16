@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Listings\Listing;
 
 class ListingsOverviewControl extends BaseControl

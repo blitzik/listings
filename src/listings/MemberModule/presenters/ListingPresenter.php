@@ -3,11 +3,13 @@
 namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingRemovalControlFactory;
+use Common\MemberModule\Presenters\SecuredPresenter;
 use Listings\Components\IListingFormControlFactory;
-use App\MemberModule\Presenters\SecuredPresenter;
-use App\Components\FlashMessages\FlashMessage;
+use Common\Components\FlashMessages\FlashMessage;
+use Listings\Components\ListingRemovalControl;
+use Listings\Components\ListingFormControl;
+use blitzik\Authorization\Privilege;
 use Listings\Facades\ListingFacade;
-use Users\Authorization\Privilege;
 use Listings\Queries\ListingQuery;
 use Listings\Listing;
 
@@ -48,7 +50,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentNewListingForm()
+    protected function createComponentNewListingForm(): ListingFormControl
     {
         $comp = $this->listingFormControlFactory->create();
 
@@ -86,7 +88,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingEditForm()
+    protected function createComponentListingEditForm(): ListingFormControl
     {
         $comp = $this->listingFormControlFactory->create();
         $comp->setListing($this->listing);
@@ -125,7 +127,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingRemoval()
+    protected function createComponentListingRemoval(): ListingRemovalControl
     {
         $comp = $this->listingRemovalControlFactory->create($this->listing);
 

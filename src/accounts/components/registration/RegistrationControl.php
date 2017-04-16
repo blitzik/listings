@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\Components;
 
 use Accounts\Exceptions\Runtime\EmailIsInUseException;
 use Accounts\Services\Factories\AccountFormFactory;
 use Accounts\Facades\AccountFacade;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
-use Users\User;
 
 class RegistrationControl extends BaseControl
 {
@@ -36,13 +35,11 @@ class RegistrationControl extends BaseControl
         $template->setFile(__DIR__ . '/registration.latte');
 
 
-
-
         $template->render();
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->accountFormFactory->create();
 

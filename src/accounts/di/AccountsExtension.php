@@ -1,11 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\DI;
 
+use Nette\Application\IPresenterFactory;
 use Accounts\Fixtures\AccountsFixture;
 use Kdyby\Doctrine\DI\IEntityProvider;
-use App\Extensions\CompilerExtension;
-use App\Fixtures\IFixtureProvider;
+use Nette\DI\CompilerExtension;
+use Fixtures\IFixtureProvider;
 use Nette\DI\Compiler;
 
 class AccountsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
@@ -22,7 +23,8 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
         $cb = $this->getContainerBuilder();
         $config = $this->getConfig();
 
-        $this->setPresenterMapping($cb, ['Accounts' => 'Accounts\\*Module\\Presenters\\*Presenter']);
+        $cb->getDefinition($cb->getByType(IPresenterFactory::class))
+           ->addSetup('setMapping', [['Accounts' => 'Accounts\\*Module\\Presenters\\*Presenter']]);
 
         $forgottenPassword = $cb->getDefinition($this->prefix('forgottenPasswordFormControlFactory'));
         $forgottenPassword->addSetup('setApplicationUrl', [$config['applicationUrl']])

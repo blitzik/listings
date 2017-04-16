@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
@@ -8,8 +8,8 @@ use Joseki\Application\Responses\PdfResponse;
 use Listings\Pdf\ListingPdfTemplateFactory;
 use Listings\Facades\EmployerFacade;
 use Listings\Facades\ListingFacade;
+use Common\Components\BaseControl;
 use Listings\Pdf\ListingPdfDTO;
-use App\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\Listing;
 

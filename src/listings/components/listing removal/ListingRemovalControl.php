@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
 use Listings\Facades\ListingFacade;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\Listing;
 
@@ -42,7 +42,7 @@ class ListingRemovalControl extends BaseControl
     }
 
 
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = new Form;
 

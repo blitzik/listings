@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\MemberModule\Presenters;
 
 use Listings\Components\IListingsOverviewControlFactory;
-use App\MemberModule\Presenters\SecuredPresenter;
+use Common\MemberModule\Presenters\SecuredPresenter;
+use Listings\Components\ListingsOverviewControl;
 use Listings\Services\TimeUtils;
 
 final class DashboardPresenter extends SecuredPresenter
@@ -36,7 +37,7 @@ final class DashboardPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentListingsOverview()
+    protected function createComponentListingsOverview(): ListingsOverviewControl
     {
         $comp = $this->listingsOverviewControlFactory->create($this->chosenYear);
 

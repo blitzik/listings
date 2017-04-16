@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\MemberModule\Presenters;
 
+use Listings\Components\EmployerFormControl;
+use Listings\Components\EmployersOverviewControl;
 use Listings\Components\IEmployersOverviewControlFactory;
 use Listings\Components\IEmployerFormControlFactory;
-use App\MemberModule\Presenters\SecuredPresenter;
+use Common\MemberModule\Presenters\SecuredPresenter;
 use Listings\Employer;
 
 final class EmployersOverviewPresenter extends SecuredPresenter
@@ -35,7 +37,7 @@ final class EmployersOverviewPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentNewEmployerForm()
+    protected function createComponentNewEmployerForm(): EmployerFormControl
     {
         $comp = $this->employerFormControlFactory->create();
 
@@ -55,7 +57,7 @@ final class EmployersOverviewPresenter extends SecuredPresenter
     }
 
 
-    protected function createComponentEmployersOverview()
+    protected function createComponentEmployersOverview(): EmployersOverviewControl
     {
         $comp = $this->employersOverviewControlFactory
                      ->create($this->user->getIdentity());

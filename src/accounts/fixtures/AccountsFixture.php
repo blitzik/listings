@@ -1,14 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Accounts\Fixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Users\Authorization\AuthorizationRulesGenerator;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Url\Generators\UrlGenerator;
+use blitzik\Routing\Services\UrlGenerator;
 use Users\Fixtures\UsersFixture;
-use Users\Authorization\Role;
+use blitzik\Authorization\Role;
 use Users\User;
 
 final class AccountsFixture extends AbstractFixture implements DependentFixtureInterface

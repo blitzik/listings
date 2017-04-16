@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
@@ -8,7 +8,7 @@ use Nette\Application\BadRequestException;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
 use Listings\Services\InvoiceTime;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Listings\IListingItem;
 use Listings\Listing;
 
@@ -92,7 +92,7 @@ class ListingTableControl extends BaseControl
         return new Multiplier(function ($day) {
             if ($this->listingItems === null) {
                 $this->listingItems[$day] = $this->listingItemManipulator
-                                                 ->getListingItemByDay($day, $this->listing->getId());
+                                                 ->getListingItemByDay((int)$day, $this->listing->getId());
                 if ($this->listingItems[$day] === null) {
                     throw new BadRequestException;
                 }

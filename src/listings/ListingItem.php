@@ -1,20 +1,16 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Listings;
 
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
-use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
-use Listings\Exceptions\Runtime\WrongDayNumberException;
+use Listings\Exceptions\Runtime\WorkedHoursException;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use App\Entities\Attributes\Identifier;
+use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Services\InvoiceTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
-use Nette\Utils\Validators;
 
 /**
  * @ORM\Entity

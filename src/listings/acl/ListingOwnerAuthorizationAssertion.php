@@ -1,39 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\ACL;
 
-use Users\Authorization\IAuthorizationAssertion;
-use Users\Authorization\IResource;
-use Users\Authorization\Privilege;
+use blitzik\Authorization\Authorizator\IAuthorizationAssertion;
+use blitzik\Authorization\Authorizator\IResource;
+use blitzik\Authorization\Privilege;
+use blitzik\Authorization\Role;
 use Nette\Security\Permission;
-use Users\Authorization\Role;
 use Nette\Security\IRole;
 use Listings\Listing;
 
 final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertion
 {
-    /**
-     * @return bool
-     */
-    public function isForAllowed()
+    public function isForAllowed(): bool
     {
         return true;
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getResourceName()
+    public function getResourceName(): string
     {
         return Listing::class;
     }
 
 
-    /**
-     * @return string
-     */
-    public function getPrivilegeNames()
+    public function getPrivilegeNames(): array
     {
         return [Privilege::EDIT, Privilege::REMOVE, Privilege::VIEW];
     }

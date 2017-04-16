@@ -17,7 +17,7 @@
 		"nette/utils": "^2.4",
 		"nette/safe-stream": "^2.3",
 		"nette/mail": "^2.4",
-		"kdyby/doctrine": "^3.0",
+		"kdyby/doctrine": "dev-master",
 		"kdyby/monolog": "^1.2",
 		"doctrine/data-fixtures": "^1.1",
 		"kdyby/events": "^3.0",
@@ -29,7 +29,10 @@
 		"ramsey/uuid-doctrine": "^1.2",
 		"joseki/pdf-response": "dev-master",
 		"nextras/mail-panel": "^2.3",
-		"dg/ftp-php": "^1.2"
+		"dg/ftp-php": "^1.2",
+		"blitzik/router": "dev-master",
+		"blitzik/dbrouting": "dev-master",
+		"blitzik/authorization": "dev-master"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"

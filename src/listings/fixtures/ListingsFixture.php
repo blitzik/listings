@@ -2,13 +2,13 @@
 
 namespace Listings\Fixtures;
 
+use blitzik\Authorization\Authorizator\AuthorizationRulesGenerator;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Users\Authorization\AuthorizationRulesGenerator;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use blitzik\Routing\Services\UrlGenerator;
 use Accounts\Fixtures\AccountsFixture;
-use Users\Authorization\Resource;
-use Url\Generators\UrlGenerator;
+use blitzik\Authorization\Resource;
 use Listings\ListingItem;
 use Listings\Listing;
 
@@ -67,7 +67,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
         foreach ([2014, 2015, 2016] as $year) {
             for ($month = 0; $month < 12; $month++) {
                 for ($j = 0; $j < 2; $j++) {
-                    $l = new Listing($users[rand(0, 2)], $year, $month + 1);
+                    $l = new Listing($users[rand(0, 2)], $year, $month + 1, Listing::ITEM_TYPE_LUNCH_SIMPLE);
                     $manager->persist($l);
                     for ($day = 1; $day <= 10; $day++) {
                         $item = new ListingItem($l, $day, 'Locality name', '06:00', '16:00', '01:00');

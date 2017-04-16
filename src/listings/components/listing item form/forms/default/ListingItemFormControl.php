@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Listings\Components;
 
@@ -9,9 +9,9 @@ use Listings\Services\SimpleLunchListingItemManipulator;
 use Listings\Services\Factories\ListingItemFormFactory;
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
-use App\Components\FlashMessages\FlashMessage;
+use Common\Components\FlashMessages\FlashMessage;
 use Nette\Application\UI\ITemplate;
-use App\Components\BaseControl;
+use Common\Components\BaseControl;
 use Nette\Application\UI\Form;
 use Listings\IListingItem;
 use Listings\Listing;
@@ -100,7 +100,7 @@ class ListingItemFormControl extends BaseControl
     }
     
     
-    protected function createComponentForm()
+    protected function createComponentForm(): Form
     {
         $form = $this->listingItemFormFactory->create($this->listingItem);
 
