@@ -18,6 +18,6 @@
   "dependencies": {
     "nette.ajax.js": "^2.2.0",
     "font-awesome-sass": "^4.7.0",
-    "bootstrap": "v4.0.0-alpha.5"
+    "bootstrap": "v4.0.0-alpha.6"
   }
 }
