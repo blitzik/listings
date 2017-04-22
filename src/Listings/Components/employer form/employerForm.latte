@@ -1,11 +1,18 @@
 
-<div class="card">
+<div class="card employer-creation-form">
     <div class="card-block">
         {snippet form}
         {form form}
             <div class="row">
                 <div class="col-12" n:if="$form['name']->hasErrors()">
-                    <div class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError name}</span></div>
+                    <div class="form-error">
+                        <div class="icon-container">
+                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                        </div>
+                        <div class="message-container">
+                            {inputError name}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12">{label name /}</div>
             </div>

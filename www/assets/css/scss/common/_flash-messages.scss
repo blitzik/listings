@@ -1,9 +1,12 @@
 .flash{
   padding: 10px 15px;
   margin-bottom: 5px;
+  display: table;
+  width: 100%;
 
-  i{
-    margin-right: 10px;
+  img{
+    width: 27px;
+    height: 27px;
   }
 
   &.info{

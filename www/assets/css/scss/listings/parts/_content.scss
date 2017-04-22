@@ -34,7 +34,7 @@ h1 {
     padding-bottom: 5px;
     margin-top: 0;
     display: block;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #b0bec5;
   }
 }
 
@@ -46,10 +46,18 @@ h1 {
   margin-bottom: 25px;
 }
 
+.employer-creation-form{
+  margin-bottom: $grid-gutter-width-base / 2;
+}
+
+.employer-item{
+  margin-top: $grid-gutter-width-base / 2;
+}
+
 .listing {
   display: block;
   background-color: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #b0bec5;
   padding: $grid-gutter-width-base / 2;
   padding-top: 0;
   margin-bottom: $grid-gutter-width-base / 2;
@@ -59,6 +67,10 @@ h1 {
   small{
     padding-top: $grid-gutter-width-base / 2;
     display: block;
+  }
+
+  &:hover{
+    border: 1px solid darken(#b0bec5, 10%);
   }
 }
 
@@ -79,7 +91,7 @@ h1 {
   padding: 0;
   list-style: none;
   background-color: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #b0bec5;
   overflow: auto;
 
   li {
@@ -88,7 +100,7 @@ h1 {
     a {
       display: block;
       padding: 12px 20px;
-      border-right: 1px solid #e0e0e0;
+      border-right: 1px solid #b0bec5;
 
       i {
         margin-right: 10px;
@@ -110,6 +122,11 @@ h1 {
 
 .btn-null-time {
   @include button-variant(#fff, #16a085, #16a085);
+}
+
+[class^="icon-"]{
+  width: 27px;
+  height: 27px;
 }
 
 

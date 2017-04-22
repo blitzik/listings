@@ -1,7 +1,7 @@
 
 <div class="card listing-form">
     <div class="card-block">
-    {form form}
+    {form form novalidate => novalidate}
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
@@ -38,7 +38,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    <div class="form-error" n:if="$form['name']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError name}</span></div>
+                    <div class="form-error" n:if="$form['name']->hasErrors()">
+                        <div class="icon-container">
+                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                        </div>
+                        <div class="message-container">
+                            {inputError name}
+                        </div>
+                    </div>
                     {label name /}
                     {input name class => 'form-control'}
                 </div>
@@ -48,7 +55,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
-                    <div class="form-error" n:if="$form['hourlyRate']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError hourlyRate}</span></div>
+                    <div class="form-error" n:if="$form['hourlyRate']->hasErrors()">
+                        <div class="icon-container">
+                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                        </div>
+                        <div class="message-container">
+                            {inputError hourlyRate}
+                        </div>
+                    </div>
                     {label hourlyRate /}
                     <div class="input-group">
                         {input hourlyRate class => 'form-control'}

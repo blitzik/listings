@@ -10,13 +10,12 @@
 }
 
 .alert {
-  i {
-    display: table-cell;
-    padding-right: 10px;
-  }
+  display: table;
+  width: 100%;
 
-  div, span {
-    display: table-cell;
+  i, img {
+    width: 27px;
+    height: 27px;
   }
 }
 
@@ -30,4 +29,15 @@ a {
 
 a.btn {
   text-decoration: none;
+}
+
+
+.icon-container,
+.message-container{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.icon-container{
+  padding-right: 10px;
 }

@@ -10,13 +10,11 @@
   color: #8a6d3b;
   background-color: #fcf8e3;
   border: 1px solid darken(#fcf8e3, 15%);
+  display: table;
+  width: 100%;
 
-  i{
-    display: table-cell;
-    padding-right: 10px;
-  }
-
-  div, span {
-    display: table-cell;
+  img{
+    width: 27px;
+    height: 27px;
   }
 }

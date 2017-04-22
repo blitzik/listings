@@ -3,8 +3,10 @@
 {snippet overview}
     {if empty($employers)}
         <div class="alert alert-info">
-            <i class="fa fa-fw fa-info-circle"></i>
-            <span>Nebyly nalezeny žádné položky.</span>
+            <div class="icon-container">
+                <img src="{$imagesPath}/info.svg" alt="info-icon">
+            </div>
+            <div class="message-container">Nebyly nalezeny žádné položky.</div>
         </div>
 
     {else}
