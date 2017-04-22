@@ -2,7 +2,6 @@
 
 namespace blitzik\Utils;
 
-use Listings\Exceptions\Logic\InvalidArgumentException;
 use Nette\Utils\Validators;
 
 class Time
@@ -115,7 +114,7 @@ class Time
         } while (false);
 
         if (!$this->isTimeFormatValid($time)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Wrong $time format.'
             );
         }
@@ -209,7 +208,7 @@ class Time
     private function time2seconds(string $time): string
     {
         if (!self::isTimeFormatValid($time)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Argument $time has wrong format. ' . '"'.$time.'" given.'
             );
         }
