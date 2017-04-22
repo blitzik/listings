@@ -2,7 +2,6 @@
 
 namespace Listings;
 
-use blitzik\Utils\Time;
 use Listings\Exceptions\Runtime\NegativeWorkedDaysException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WrongMonthNumberException;
@@ -14,6 +13,7 @@ use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Nette\Utils\Validators;
+use blitzik\Utils\Time;
 use Users\User;
 
 /**

@@ -4,10 +4,10 @@
         {snippet form}
         {form form}
             <div class="row">
-                <div class="col-xs-12" n:if="$form['name']->hasErrors()">
+                <div class="col-12" n:if="$form['name']->hasErrors()">
                     <div class="form-error"><i class="fa fa-fw fa-warning"></i> <span>{inputError name}</span></div>
                 </div>
-                <div class="col-xs-12">{label name /}</div>
+                <div class="col-12">{label name /}</div>
             </div>
 
             <div class="row">

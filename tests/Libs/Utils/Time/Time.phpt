@@ -59,14 +59,22 @@ class TimeTest extends \Tester\TestCase
         Assert::same('01:25:11', $t2->getTime());
         Assert::same('5111', $t2->getSeconds());
 
+        $t3 = new Time('000001:25:11');
+        Assert::same('01:25:11', $t3->getTime());
+        Assert::same('5111', $t3->getSeconds());
 
-        $t3 = new Time('-01:25:11');
-        Assert::same('-01:25:11', $t3->getTime());
-        Assert::same('-5111', $t3->getSeconds());
 
-        $t4 = new Time('-1:25:11');
+        $t4 = new Time('-01:25:11');
         Assert::same('-01:25:11', $t4->getTime());
         Assert::same('-5111', $t4->getSeconds());
+
+        $t5 = new Time('-1:25:11');
+        Assert::same('-01:25:11', $t5->getTime());
+        Assert::same('-5111', $t5->getSeconds());
+
+        $t6 = new Time('-000001:25:11');
+        Assert::same('-01:25:11', $t6->getTime());
+        Assert::same('-5111', $t6->getSeconds());
     }
 
 

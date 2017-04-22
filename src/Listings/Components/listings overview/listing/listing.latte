@@ -3,11 +3,26 @@
 
 <a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}" class="listing" title="{$listingName}">
     <div class="row">
-        <div class="col-xs-4">
-            <b>{$listing->getMonth()|monthByNumber}</b> {$listing->getYear()}
+        <div class="col-8 col-lg-5">
+            <small><b>Název</b></small>
+            {$listingName}
         </div>
-        <div class="col-xs-8 text-xs-right">
-            <small>{$listingName}</small>
+
+        <div class="col-4 text-right col-lg-3 text-lg-center">
+            <small><b>Období</b></small>
+            {$listing->getMonth()|monthByNumber} {$listing->getYear()}
+        </div>
+
+        <div class="col-6 col-lg-2 text-lg-center">
+            <small><b>Odpr. hod.</b></small>
+            {var $workedHoursInSeconds = $listing->getWorkedHours()->getSeconds()}
+            {$listing->getWorkedHours()|invoiceTimeWithComma}
+            {if $workedHoursInSeconds % 3600 != 0}hodiny{elseif $workedHoursInSeconds == 0 or $workedHoursInSeconds > 14400}hodin{elseif $workedHoursInSeconds == 3600}hodina{else}hodiny{/if}
+        </div>
+
+        <div class="col-6 text-right col-lg-2 text-lg-center">
+            <small><b>Odpr. dní</b></small>
+            {$listing->getWorkedDays()} / {$listing->getNumberOfDaysInMonth()}
         </div>
     </div>
 </a>

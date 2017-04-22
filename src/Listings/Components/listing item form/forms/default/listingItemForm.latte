@@ -1,5 +1,5 @@
 
-<div class="card">
+<div class="card listing-item-form">
     <div class="card-block">
         {snippet flashMessages}
             {control flashMessages}
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
                             <div id="work-range-slider"></div>
                         </div>
                     </div>
@@ -51,13 +51,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
                             <div id="work-lunch-slider"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="form-group">
                         <div class="form-error" n:if="$form['locality']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError locality}</span></div>
                         {label locality /}
@@ -65,13 +65,13 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="row">
-                        <div class="col-xs-8">
+                        <div class="col-8">
                             <button type="button" id="_null-time-button" class="btn btn-null-time">vynulovat čas</button>
                         </div>
-                        <div class="col-xs-4">
-                            <button n:name="save" class="ajax form-control btn btn-primary float-xs-right">Uložit</button>
+                        <div class="col-4">
+                            <button n:name="save" class="ajax form-control btn btn-primary float-right">Uložit</button>
                         </div>
                     </div>
                 </div>
@@ -84,6 +84,6 @@
 
 <datalist id="_work-locality" n:if="!empty($listingLocalities)">
     {foreach $listingLocalities as $locality}
-    <option value="{$locality}">
-        {/foreach}
+        <option value="{$locality}">
+    {/foreach}
 </datalist>

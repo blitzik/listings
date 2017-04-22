@@ -1,17 +1,25 @@
 
-<div class="row">
-
-    {if empty($listingsByMonth)}
-        <div class="col-xs-12">
+{if empty($listingsByMonth)}
+    <div class="row">
+        <div class="col-12">
             <div class="alert alert-info">
                 <i class="fa fa-fw fa-info-circle"></i>
                 <span>Nebyly nalezeny žádné výčetky.</span>
             </div>
         </div>
+    </div>
 
-    {else}
+{else}
+    <div class="row year-statistics">
+        <div class="col-12">
+            Za <b>rok {$year}</b> máte celkem
+            {$totalWorkedDays|plural:["odpracováno", "odpracován", "odpracovány", "odpracováno"]} [ <b>{$totalWorkedDays} {$totalWorkedDays|plural:["dní", "den", "dny", "dní"]}</b> ] a [ <b>{$totalWorkedHours|invoiceTimeWithComma} {if $totalWorkedHours->getSeconds() % 3600 != 0}hodiny{elseif $totalWorkedHours->getSeconds() == 0 or $totalWorkedHours->getSeconds() > 14400}hodin{elseif $totalWorkedHours->getSeconds() == 3600}hodina{else}hodiny{/if}</b> ]
+        </div>
+    </div>
+
+    <div class="row">
         {foreach $listingsByMonth as $monthNumber => $listings}
-            <div class="col-xl-6">
+            <div class="col-12">
                 <h3>{$monthNumber|monthByNumber}</h3>
                 {foreach $listings as $listing}
                     {var $id = $listing->getId()}
@@ -19,6 +27,5 @@
                 {/foreach}
             </div>
         {/foreach}
-    {/if}
-
-</div>
+    </div>
+{/if}

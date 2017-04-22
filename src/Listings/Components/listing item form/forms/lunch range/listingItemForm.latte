@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <div class="form-error" n:if="$form['workStart']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError workStart}</span></div>
                                 {label workStart /}
@@ -19,7 +19,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <div class="form-error" n:if="$form['workEnd']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError workEnd}</span></div>
                                 {label workEnd /}
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
                             <div id="worked-hours-slider"></div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
                 <div class="col-lg-5">
                     <div class="row">
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <div class="form-error" n:if="$form['lunchStart']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunchStart}</span></div>
                                 {label lunchStart /}
@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <div class="form-error" n:if="$form['lunchEnd']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunchEnd}</span></div>
                                 {label lunchEnd /}
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-xs-12" style="padding-top: 15px; padding-bottom: 15px;">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
                             <div id="work-lunch-slider"></div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div id="_worked-hours" data-worked-hours="{$workedHours}"></div>
                 </div>
 
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="form-group">
                         <div class="form-error" n:if="$form['locality']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError locality}</span></div>
                         {label locality /}
@@ -73,14 +73,14 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12">
+                <div class="col-12">
                     <div class="row">
-                        <div class="col-xs-8">
+                        <div class="col-8">
                             <button type="button" id="_null-time-button" class="btn btn-null-time">Vynulovat čas</button>
                             <button type="button" id="_lunch-null-time-button" class="btn btn-secondary">Bez oběda</button>
                         </div>
-                        <div class="col-xs-4">
-                            <button n:name="save" class="ajax form-control btn btn-primary float-xs-right">Uložit</button>
+                        <div class="col-4">
+                            <button n:name="save" class="ajax form-control btn btn-primary float-right">Uložit</button>
                         </div>
                     </div>
                 </div>

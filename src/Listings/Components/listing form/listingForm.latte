@@ -3,13 +3,13 @@
     <div class="card-block">
     {form form}
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-6">
                 <div class="form-group">
                     {label month /}
                     {input month class => 'form-control'}
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-6">
                 <div class="form-group">
                     {label year /}
                     {input year class => 'form-control'}
@@ -18,7 +18,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="form-group">
                     {label itemType /}
                     {input itemType class => 'form-control'}
@@ -27,7 +27,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="form-group">
                     {label employer /}
                     {input employer class => 'form-control'}
@@ -36,7 +36,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="form-group">
                     <div class="form-error" n:if="$form['name']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError name}</span></div>
                     {label name /}
@@ -46,7 +46,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="form-group">
                     <div class="form-error" n:if="$form['hourlyRate']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError hourlyRate}</span></div>
                     {label hourlyRate /}
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <button n:name="save" class="btn btn-primary float-xs-right">Uložit</button>
+        <button n:name="save" class="btn btn-primary float-right">Uložit</button>
     {/form}
     </div>
 </div>

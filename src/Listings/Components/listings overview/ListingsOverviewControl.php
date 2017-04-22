@@ -2,6 +2,7 @@
 
 namespace Listings\Components;
 
+use Listings\Utils\Time\ListingTime;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
 use Listings\Queries\ListingQuery;
@@ -50,13 +51,22 @@ class ListingsOverviewControl extends BaseControl
                                    ->indexedById()
                                )->toArray();
 
-        $result = [];
+
+        $totalWorkedDays = 0;
+        $totalWorkedHours = new ListingTime();
+        $listingsByMonth = [];
         /** @var Listing $listing */
         foreach ($this->listings as $listing) {
-            $result[$listing->getMonth()][] = $listing;
+            $listingsByMonth[$listing->getMonth()][] = $listing;
+            $totalWorkedDays += $listing->getWorkedDays();
+            $totalWorkedHours = $totalWorkedHours->sum($listing->getWorkedHours());
         }
 
-        $template->listingsByMonth = $result;
+        $template->listingsByMonth = $listingsByMonth;
+        $template->totalWorkedDays = $totalWorkedDays;
+        $template->totalWorkedHours = $totalWorkedHours;
+
+        $template->year = $this->year;
 
 
         $template->render();
