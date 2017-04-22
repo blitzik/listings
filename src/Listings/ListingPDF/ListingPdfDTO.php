@@ -3,7 +3,7 @@
 namespace Listings\Pdf;
 
 use Listings\Exceptions\Logic\InvalidArgumentException;
-use Listings\Services\InvoiceTime;
+use Listings\Services\Time;
 use Listings\IListingItem;
 use Nette\SmartObject;
 use Listings\Listing;
@@ -41,7 +41,7 @@ class ListingPdfDTO
     /** @var int */
     private $workedDays;
 
-    /** @var InvoiceTime */
+    /** @var Time */
     private $workedHours;
 
 
@@ -60,7 +60,7 @@ class ListingPdfDTO
         $this->year = $year;
         $this->month = $month;
         $this->workedDays = 0;
-        $this->workedHours = new InvoiceTime();
+        $this->workedHours = new Time();
 
         if (!array_key_exists($type, Listing::getTypes())) {
             throw new InvalidArgumentException;
@@ -77,7 +77,7 @@ class ListingPdfDTO
     public function fillByListing(Listing $listing, array $listingItems = [])
     {
         $this->workedDays = 0;
-        $this->workedHours = new InvoiceTime();
+        $this->workedHours = new Time();
         $this->itemDTOs = null;
 
         $this->listing = $listing;
@@ -167,9 +167,9 @@ class ListingPdfDTO
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getWorkedHours(): InvoiceTime
+    public function getWorkedHours(): Time
     {
         return $this->workedHours;
     }

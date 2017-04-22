@@ -2,7 +2,7 @@
 
 namespace Listings;
 
-use Listings\Services\InvoiceTime;
+use Listings\Utils\Time\ListingTime;
 
 interface IListingItem
 {
@@ -31,33 +31,33 @@ interface IListingItem
 
 
     /**
-     * @return InvoiceTime
+     * @return ListingTime
      */
-    public function getWorkStart(): InvoiceTime;
+    public function getWorkStart(): ListingTime;
 
 
     /**
-     * @return InvoiceTime
+     * @return ListingTime
      */
-    public function getWorkEnd(): InvoiceTime;
+    public function getWorkEnd(): ListingTime;
 
 
     /**
-     * @return InvoiceTime
+     * @return ListingTime
      */
-    public function getLunch(): InvoiceTime;
+    public function getLunch(): ListingTime;
 
 
     /**
-     * @return InvoiceTime
+     * @return ListingTime
      */
-    public function getWorkedHours(): InvoiceTime;
+    public function getWorkedHours(): ListingTime;
 
 
     /**
-     * @return InvoiceTime
+     * @return ListingTime
      */
-    public function getWorkedHoursWithLunch(): InvoiceTime;
+    public function getWorkedHoursWithLunch(): ListingTime;
 
 
     /**

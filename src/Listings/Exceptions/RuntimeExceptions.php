@@ -18,6 +18,8 @@ class RuntimeException extends \RuntimeException {}
 
     class NegativeWorkedTimeException extends RuntimeException {}
 
+    class NegativeWorkedDaysException extends RuntimeException {}
+
     class ListingNotFoundException extends RuntimeException {}
 
     class EmployerNotFoundException extends RuntimeException {}

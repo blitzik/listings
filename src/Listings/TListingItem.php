@@ -3,7 +3,7 @@
 namespace Listings;
 
 use Listings\Exceptions\Runtime\WrongDayNumberException;
-use Listings\Services\InvoiceTime;
+use Listings\Utils\Time\ListingTime;
 use Nette\Utils\Validators;
 
 trait TListingItem
@@ -28,36 +28,24 @@ trait TListingItem
     private $locality;
 
     /**
-     * @ORM\Column(name="work_start", type="invoice_time", nullable=false, unique=false)
-     * @var InvoiceTime
+     * @ORM\Column(name="work_start", type="listing_time", nullable=false, unique=false)
+     * @var ListingTime
      */
     private $workStart;
 
     /**
-     * @ORM\Column(name="work_end", type="invoice_time", nullable=false, unique=false)
-     * @var InvoiceTime
+     * @ORM\Column(name="work_end", type="listing_time", nullable=false, unique=false)
+     * @var ListingTime
      */
     private $workEnd;
 
-    /**
-     * @ORM\Column(name="worked_hours_in_seconds", type="integer", nullable=false, unique=false)
-     * @var int
-     */
-    private $workedHoursInSeconds;
 
-
-    /**
-     * @return int
-     */
     public function getListingItemsType(): int
     {
         return $this->listing->getItemsType();
     }
 
 
-    /**
-     * @param string $locality
-     */
     public function changeLocality(string $locality)
     {
         Validators::assert($locality, 'unicode:..70');
@@ -80,64 +68,43 @@ trait TListingItem
     }
 
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getDate(): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->getYear(), $this->getMonth(), $this->getDay()));
     }
 
 
-    /**
-     * @return int
-     */
     public function getDay(): int
     {
         return $this->day;
     }
 
 
-    /**
-     * @return string
-     */
     public function getLocality(): string
     {
         return $this->locality;
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getWorkStart(): InvoiceTime
+    public function getWorkStart(): ListingTime
     {
         return $this->workStart;
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getWorkEnd(): InvoiceTime
+    public function getWorkEnd(): ListingTime
     {
         return $this->workEnd;
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getWorkedHours(): InvoiceTime
+    public function getWorkedHours(): ListingTime
     {
         return $this->workEnd->sub($this->workStart)->sub($this->getLunch());
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getWorkedHoursWithLunch(): InvoiceTime
+    public function getWorkedHoursWithLunch(): ListingTime
     {
         return $this->workEnd->sub($this->workStart);
     }
@@ -150,27 +117,18 @@ trait TListingItem
      */
 
 
-    /**
-     * @return string
-     */
     public function getListingId(): string
     {
         return $this->listing->getId();
     }
 
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->listing->getMonth();
     }
 
 
-    /**
-     * @return int
-     */
     public function getYear(): int
     {
         return $this->listing->getYear();

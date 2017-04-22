@@ -111,7 +111,7 @@
         {var $itemBasePath = sprintf('../../../templates/items/%s/types/%s', $itemAppearance, $listing->getType())}
         {if $item->isEmpty()}
             {include $itemBasePath.'/empty.latte', item => $item}
-        {elseif $item->getWorkedHoursWithLunch()->toSeconds() == 0}
+        {elseif $item->getWorkedHoursWithLunch()->getSeconds() == 0}
             {include $itemBasePath.'/onlyLocality.latte', item => $item}
         {else}
             {include $itemBasePath.'/full.latte', item => $item}
@@ -142,7 +142,7 @@
 
     <tr>
         <td colspan="5" align="right" class="bold-text" style="font-size: 13px;">Hodin celkem</td>
-        <td class="bold-text" style="font-size: 13px;">{if $listing->getWorkedHours()->toSeconds() != 0}{$listing->getWorkedHours()|invoiceTimeWithComma}{else}&nbsp;{/if}</td>
+        <td class="bold-text" style="font-size: 13px;">{if $listing->getWorkedHours()->getSeconds() != 0}{$listing->getWorkedHours()|invoiceTimeWithComma}{else}&nbsp;{/if}</td>
     </tr>
 </table>
 

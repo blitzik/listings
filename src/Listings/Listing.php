@@ -2,11 +2,15 @@
 
 namespace Listings;
 
+use blitzik\Utils\Time;
+use Listings\Exceptions\Runtime\NegativeWorkedDaysException;
+use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WrongMonthNumberException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use blitzik\Authorization\Authorizator\IResource;
 use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Nette\Utils\Validators;
@@ -81,6 +85,25 @@ class Listing implements IResource
      * @var int
      */
     private $type;
+    
+    /**
+     * @ORM\Column(name="worked_days", type="smallint", nullable=false, unique=false)
+     * @var int
+     */
+    private $workedDays;
+
+    /**
+     * @ORM\Column(name="worked_hours", type="integer", nullable=false, unique=false, options={"comment":"in seconds"})
+     * @var int
+     */
+    private $workedHours;
+
+
+    // -----
+
+
+    /** @var Time */
+    private $currentWorkedHours;
 
 
     /**
@@ -109,6 +132,61 @@ class Listing implements IResource
         $this->setItemsType($itemType);
 
         $this->createdAt = new \DateTimeImmutable;
+        $this->workedDays = 0;
+        $this->workedHours = 0;
+    }
+
+
+    /**
+     * @param Time $difference
+     * @throws NegativeWorkedTimeException
+     */
+    public function updateWorkedHours(Time $difference)
+    {
+        $result = $this->getCurrentWorkedHours()->sum($difference);
+        if ($result->getSeconds() < 0) {
+            throw new NegativeWorkedTimeException;
+        }
+
+        $this->workedHours = (int)$result->getSeconds();
+        $this->currentWorkedHours = $result;
+    }
+
+
+    private function getCurrentWorkedHours(): Time
+    {
+        if ($this->currentWorkedHours === null) {
+            $this->currentWorkedHours = new Time($this->workedHours);
+        }
+
+        return $this->currentWorkedHours;
+    }
+
+
+    public function getWorkedHours(): ListingTime
+    {
+        return new ListingTime($this->workedHours);
+    }
+
+
+    public function getWorkedDays(): int
+    {
+        return $this->workedDays;
+    }
+
+
+    /**
+     * @param int $days
+     * @throws  NegativeWorkedDaysException
+     */
+    public function updateWorkedDays(int $days)
+    {
+        $result = $this->workedDays + $days;
+        if ($result < 0) {
+            throw new NegativeWorkedDaysException;
+        }
+
+        $this->workedDays = $result;
     }
 
 

@@ -12,6 +12,7 @@ use Listings\Exceptions\Logic\InvalidStateException;
 use Kdyby\Doctrine\EntityManager;
 use Listings\IListingItem;
 use Listings\ListingItem;
+use blitzik\Utils\Time;
 use Nette\Utils\Arrays;
 use Nette\SmartObject;
 use Listings\Listing;
@@ -132,21 +133,35 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
 
     /**
      * @param string $listingItemId
-     * @return int
+     * @throws \Exception
      */
     public function removeListingItem(string $listingItemId)
     {
-        return $this->em->createQuery(
-            'DELETE FROM ' . ListingItem::class . ' li
-             WHERE li.id = :id'
-        )->execute(['id' => hex2bin($listingItemId)]);
+        try {
+            $this->em->beginTransaction();
+
+            /** @var ListingItem|null $listingItem */
+            $listingItem = $this->em->find(ListingItem::class, $listingItemId);
+            if ($listingItem !== null) {
+                /** @var Listing $listing */
+                $listing = $this->em->find(Listing::class, $listingItem->getListingId());
+                $listing->updateWorkedDays(-1);
+                $listing->updateWorkedHours((new Time($listingItem->getWorkedHours()->getSeconds()))->getNegative());
+            }
+
+            $this->em->remove($listingItem)->flush();
+
+            $this->em->commit();
+
+        } catch (\Exception $e) {
+            $this->em->rollback();
+            $this->em->close();
+
+            throw  $e;
+        }
     }
 
 
-    /**
-     * @param string $listingId
-     * @return array
-     */
     public function loadLocalities(string $listingId): array
     {
         $localities = $this->em->createQuery(
@@ -159,39 +174,19 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    /**
-     * @param string $listingId
-     * @param int $day
-     * @return int
-     */
-    private function removeListingItemByDay(string $listingId, int $day): int
+    private function removeListingItemByDay(string $listingId, int $day)
     {
-        return $this->em->createQuery(
-            'DELETE FROM ' . ListingItem::class . ' li
+        /** @var ListingItem $listingItem */
+        $listingItem = $this->em->createQuery(
+            'SELECT li FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listingId AND li.day = :day'
-        )->execute(['listingId' => hex2bin($listingId), 'day' => $day]);
-    }
+        )->setParameters(['listingId' => hex2bin($listingId), 'day' => $day])
+         ->getOneOrNullResult();
 
+        if ($listingItem === null) {
+            return;
+        }
 
-    /**
-     * @param string $listingId
-     * @return array
-     */
-    public function getWorkedDaysAndHours(string $listingId): array
-    {
-        $result = $this->em->createQuery(
-            'SELECT COUNT(li.id) AS daysCount, SUM(li.workedHoursInSeconds) AS hoursInSeconds
-             FROM ' . ListingItem::class . ' li
-             WHERE li.listing = :listing
-             GROUP BY li.listing'
-        )->setParameter('listing', hex2bin($listingId))
-         ->getArrayResult();
-
-        $listingData = [
-            'daysCount' => empty($result) ? 0 : $result[0]['daysCount'],
-            'hoursInSeconds' => empty($result) ? 0 : $result[0]['hoursInSeconds']
-        ];
-
-        return $listingData;
+        $this->removeListingItem($listingItem->getId());
     }
 }

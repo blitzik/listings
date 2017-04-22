@@ -2,12 +2,12 @@
 
 namespace Listings\Components;
 
+use blitzik\Utils\Time;
 use Listings\Services\ListingItemManipulatorFactory;
 use Listings\Services\IListingItemManipulator;
 use Nette\Application\BadRequestException;
 use Nette\Application\UI\Multiplier;
 use Listings\Facades\ListingFacade;
-use Listings\Services\InvoiceTime;
 use Common\Components\BaseControl;
 use Listings\IListingItem;
 use Listings\Listing;
@@ -26,14 +26,8 @@ class ListingTableControl extends BaseControl
     private $listingFacade;
 
 
-    /** @var int */
-    private $totalWorkedHoursInSeconds;
-
     /** @var IListingItemManipulator */
     private $listingItemManipulator;
-
-    /** @var int */
-    private $totalWorkedDays;
 
     /** @var IListingItem[] */
     private $listingItems;
@@ -77,12 +71,6 @@ class ListingTableControl extends BaseControl
         $template->listingItems = $this->listingItems;
         $template->listing = $this->listing;
 
-        $this->loadListingInfo();
-
-        $template->totalWorkedDays = $this->totalWorkedDays;
-        $template->totalWorkedHoursInSeconds = $this->totalWorkedHoursInSeconds;
-        $template->totalWorkedHours = new InvoiceTime($this->totalWorkedHoursInSeconds);
-
         $template->render();
     }
 
@@ -115,16 +103,6 @@ class ListingTableControl extends BaseControl
     }
 
 
-    private function loadListingInfo()
-    {
-        if ($this->totalWorkedDays === null or $this->totalWorkedHoursInSeconds === null) {
-            $listingData = $this->listingItemManipulator->getWorkedDaysAndHours($this->listing->getId());
-            $this->totalWorkedDays = $listingData['daysCount'];
-            $this->totalWorkedHoursInSeconds = $listingData['hoursInSeconds'];
-        }
-    }
-
-
     // -----
 
 
@@ -133,7 +111,6 @@ class ListingTableControl extends BaseControl
         $this->listingItems[$listingItem->getDay()] = $listingItem;
         $this['listingItem'][$listingItem->getDay()]->redrawControl();
 
-        $this->loadListingInfo();
         $this->redrawControl('listingInfo');
 
         $this->onSuccessfulCopyDown();
@@ -146,7 +123,6 @@ class ListingTableControl extends BaseControl
         $this->listingItems = [];
         $this['listingItem'][$day]->redrawControl();
 
-        $this->loadListingInfo();
         $this->redrawControl('listingInfo');
 
         $this->onSuccessfulRemoval();

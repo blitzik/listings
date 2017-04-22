@@ -3,12 +3,12 @@
 namespace Listings\Doctrine\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Listings\Services\InvoiceTime;
 use Doctrine\DBAL\Types\Type;
+use Listings\Utils\Time\ListingTime;
 
-class InvoiceTimeType extends Type
+class ListingTimeType extends Type
 {
-    const INVOICE_TIME = 'invoice_time';
+    const LISTING_TIME = 'listing_time';
 
     /**
      * Gets the SQL declaration snippet for a field of this type.
@@ -46,9 +46,9 @@ class InvoiceTimeType extends Type
      *
      * @return mixed The PHP representation of the value.
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): InvoiceTime
+    public function convertToPHPValue($value, AbstractPlatform $platform): ListingTime
     {
-        return new InvoiceTime($value);
+        return new ListingTime($value);
     }
 
     /**
@@ -58,7 +58,7 @@ class InvoiceTimeType extends Type
      */
     public function getName()
     {
-        return self::INVOICE_TIME;
+        return self::LISTING_TIME;
     }
 
 }

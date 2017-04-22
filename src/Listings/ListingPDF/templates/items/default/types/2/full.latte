@@ -5,7 +5,7 @@
 {block content}
     <td>{$item->getLocality()}</td>
     <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
-    <td>{if $item->getLunch()->toSeconds() != 0}{$item->getLunchStart()|invoiceTimeHoursAndMinutes} - {$item->getLunchEnd()|invoiceTimeHoursAndMinutes}{else}-{/if}</td>
+    <td>{if $item->getLunch()->getSeconds() != 0}{$item->getLunchStart()|invoiceTimeHoursAndMinutes} - {$item->getLunchEnd()|invoiceTimeHoursAndMinutes}{else}-{/if}</td>
     <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
     <td></td>
 {/block}

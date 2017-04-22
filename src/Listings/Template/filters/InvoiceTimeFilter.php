@@ -2,7 +2,7 @@
 
 namespace Listings\Template\Filters;
 
-use \Listings\Services\InvoiceTime;
+use Listings\Utils\Time\ListingTime;
 use Nette\SmartObject;
 
 final class InvoiceTimeFilter
@@ -11,22 +11,22 @@ final class InvoiceTimeFilter
 
 
     /**
-     * @param \Listings\Services\InvoiceTime $invoiceTime
+     * @param ListingTime $invoiceTime
      * @param bool $trimLeftZero
      * @return string
      */
-    public function __invoke(InvoiceTime $invoiceTime, bool $trimLeftZero = false): string
+    public function __invoke(ListingTime $invoiceTime, bool $trimLeftZero = false): string
     {
         return self::convert($invoiceTime, $trimLeftZero);
     }
 
 
     /**
-     * @param InvoiceTime $invoiceTime
+     * @param ListingTime $invoiceTime
      * @param bool $trimLeftZero
      * @return string
      */
-    public static function convert(InvoiceTime $invoiceTime, bool $trimLeftZero = false): string
+    public static function convert(ListingTime $invoiceTime, bool $trimLeftZero = false): string
     {
         $time = mb_substr($invoiceTime->getTime(), 0, strrpos($invoiceTime->getTime(), ':'));
         if ($trimLeftZero === true) {

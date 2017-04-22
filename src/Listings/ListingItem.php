@@ -2,13 +2,14 @@
 
 namespace Listings;
 
+use blitzik\Utils\Time;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Listings\Services\InvoiceTime;
+use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 
@@ -28,8 +29,8 @@ class ListingItem implements IListingItem
 
 
     /**
-     * @ORM\Column(name="lunch", type="invoice_time", nullable=false, unique=false)
-     * @var InvoiceTime
+     * @ORM\Column(name="lunch", type="listing_time", nullable=false, unique=false)
+     * @var ListingTime
      */
     private $lunch;
 
@@ -38,9 +39,9 @@ class ListingItem implements IListingItem
      * @param Listing $listing
      * @param int $day
      * @param string $locality
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunch
+     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunch
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
@@ -55,7 +56,11 @@ class ListingItem implements IListingItem
         $this->id = $this->generateUuid();
 
         $this->listing = $listing;
-        $this->workedHoursInSeconds = 0;
+        $this->listing->updateWorkedDays(1);
+
+        $this->workStart = new ListingTime();
+        $this->workEnd = new ListingTime();
+        $this->lunch = new ListingTime();
 
         $this->setDay($day);
         $this->changeLocality($locality);
@@ -64,17 +69,17 @@ class ListingItem implements IListingItem
 
 
     /**
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunch
+     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunch
      * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
     public function changeHours($workStart, $workEnd, $lunch)
     {
-        $workStart = new InvoiceTime($workStart);
-        $workEnd = new InvoiceTime($workEnd);
+        $workStart = new ListingTime($workStart);
+        $workEnd = new ListingTime($workEnd);
         if ($workStart->compare('00:00') !== 0 or $workEnd->compare('00:00') !== 0) {
             if ($workStart->compare($workEnd) > 0) {
                 throw new WorkedHoursRangeException;
@@ -85,24 +90,26 @@ class ListingItem implements IListingItem
             }
         }
 
-        $lunch = new InvoiceTime($lunch);
+        $lunch = new ListingTime($lunch);
         $workedHoursWithLunch = $workEnd->sub($workStart);
         if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;
         }
 
+        $originalWorkedHours = new Time($this->getWorkedHours()->getSeconds());
+
         $this->workStart = $workStart;
         $this->workEnd = $workEnd;
         $this->lunch = $lunch;
 
-        $this->workedHoursInSeconds = (int)$this->getWorkedHours()->toSeconds();
+        $newWorkedHours = new Time($this->getWorkedHours()->getSeconds());
+        $diff = $newWorkedHours->sub($originalWorkedHours);
+
+        $this->listing->updateWorkedHours($diff);
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getLunch(): InvoiceTime
+    public function getLunch(): ListingTime
     {
         return $this->lunch;
     }

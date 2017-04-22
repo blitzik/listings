@@ -48,11 +48,4 @@ interface IListingItemManipulator
      * @return array
      */
     public function loadLocalities(string $listingId): array;
-
-
-    /**
-     * @param string $listingId
-     * @return array
-     */
-    public function getWorkedDaysAndHours(string $listingId): array;
 }

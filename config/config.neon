@@ -49,7 +49,7 @@ doctrine:
 
 	types:
 		'uuid_binary': blitzik\Doctrine\Types\UuidBinaryType
-		'invoice_time': Listings\Doctrine\Types\InvoiceTimeType
+		'listing_time': Listings\Doctrine\Types\ListingTimeType
 		'date_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType
 		'datetime_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType
 		'time_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\TimeImmutableType

@@ -8,9 +8,10 @@ use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Listings\Services\InvoiceTime;
+use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use blitzik\Utils\Time;
 
 /**
  * @ORM\Entity
@@ -29,19 +30,19 @@ class LunchRangeListingItem implements IListingItem
 
 
     /**
-     * @ORM\Column(name="lunch_start", type="invoice_time", nullable=false, unique=false)
-     * @var InvoiceTime
+     * @ORM\Column(name="lunch_start", type="listing_time", nullable=false, unique=false)
+     * @var ListingTime
      */
     private $lunchStart;
 
     /**
-     * @ORM\Column(name="lunch_end", type="invoice_time", nullable=false, unique=false)
-     * @var InvoiceTime
+     * @ORM\Column(name="lunch_end", type="listing_time", nullable=false, unique=false)
+     * @var ListingTime
      */
     private $lunchEnd;
 
 
-    /** @var InvoiceTime */
+    /** @var ListingTime */
     private $lunch;
 
 
@@ -49,10 +50,10 @@ class LunchRangeListingItem implements IListingItem
      * @param Listing $listing
      * @param int $day
      * @param string $locality
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunchStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunchEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunchStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunchEnd
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      * @throws LunchHoursRangeException
@@ -69,7 +70,10 @@ class LunchRangeListingItem implements IListingItem
         $this->id = $this->generateUuid();
 
         $this->listing = $listing;
-        $this->workedHoursInSeconds = 0;
+
+        $this->workStart = new ListingTime();
+        $this->workEnd = new ListingTime();
+        $this->lunch = new ListingTime();
 
         $this->setDay($day);
         $this->changeLocality($locality);
@@ -78,24 +82,24 @@ class LunchRangeListingItem implements IListingItem
 
 
     /**
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $workEnd
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunchStart
-     * @param \DateTimeInterface|int|InvoiceTime|null|string $lunchEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunchStart
+     * @param \DateTimeInterface|int|ListingTime|null|string $lunchEnd
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      * @throws LunchHoursRangeException
      */
-    public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd)
+    public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd) // todo
     {
-        $this->workStart = new InvoiceTime($workStart);
-        $this->workEnd = new InvoiceTime($workEnd);
+        $this->workStart = new ListingTime($workStart);
+        $this->workEnd = new ListingTime($workEnd);
         if ($this->workStart->compare($this->workEnd) === 1) {
             throw new WorkedHoursRangeException;
         }
 
-        $this->lunchStart = new InvoiceTime($lunchStart);
-        $this->lunchEnd = new InvoiceTime($lunchEnd);
+        $this->lunchStart = new ListingTime($lunchStart);
+        $this->lunchEnd = new ListingTime($lunchEnd);
         if ($this->lunchStart->compare($this->lunchEnd) === 1 or
             $this->workStart->compare($this->lunchStart) === 1 or
             $this->workEnd->compare($this->lunchEnd) === -1
@@ -108,38 +112,34 @@ class LunchRangeListingItem implements IListingItem
             throw new NegativeWorkedTimeException;
         }
 
+        $originalWorkedHours = $this->getWorkedHours();
+
         $this->lunch = null;
         $this->workStart = $workStart;
         $this->workEnd = $workEnd;
         $this->lunchStart = $lunchStart;
         $this->lunchEnd = $lunchEnd;
 
-        $this->workedHoursInSeconds = (int)$this->getWorkedHours()->toSeconds();
+        $newWorkedHours = $this->getWorkedHours();
+        $diff = $newWorkedHours->sub($originalWorkedHours);
+
+        $this->listing->updateWorkedHours(new Time($diff->getTime()));
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getLunchStart(): InvoiceTime
+    public function getLunchStart(): ListingTime
     {
         return $this->lunchStart;
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getLunchEnd(): InvoiceTime
+    public function getLunchEnd(): ListingTime
     {
         return $this->lunchEnd;
     }
 
 
-    /**
-     * @return InvoiceTime
-     */
-    public function getLunch(): InvoiceTime
+    public function getLunch(): ListingTime
     {
         if ($this->lunch === null) {
             $this-> lunch = $this->lunchEnd->sub($this->lunchStart);

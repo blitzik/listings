@@ -65,7 +65,7 @@ class ListingItemControl extends BaseControl
         if ($this->listingItem === null) {
             $template->setFile(sprintf('%s/%s', $itemTemplateBasePath, 'emptyItem.latte'));
 
-        } elseif ($this->listingItem->getWorkedHoursWithLunch()->toSeconds() === '0') {
+        } elseif ($this->listingItem->getWorkedHoursWithLunch()->getSeconds() === '0') {
             $template->setFile(sprintf('%s/%s', $itemTemplateBasePath, 'onlyLocality.latte'));
 
         } else {

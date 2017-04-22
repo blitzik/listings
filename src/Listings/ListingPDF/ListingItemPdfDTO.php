@@ -2,7 +2,7 @@
 
 namespace Listings\Pdf;
 
-use Listings\Services\InvoiceTime;
+use Listings\Services\Time;
 use Listings\IListingItem;
 use Listings\ListingItem;
 use Nette\SmartObject;
@@ -26,22 +26,22 @@ class ListingItemPdfDTO
     protected $listingItem;
 
 
-    /** @var InvoiceTime */
+    /** @var Time */
     protected $workedHoursWithLunch;
 
-    /** @var InvoiceTime */
+    /** @var Time */
     protected $workedHours;
 
-    /** @var InvoiceTime */
+    /** @var Time */
     protected $workStart;
 
     /** @var string */
     protected $locality;
 
-    /** @var InvoiceTime */
+    /** @var Time */
     protected $workEnd;
 
-    /** @var InvoiceTime */
+    /** @var Time */
     protected $lunch;
 
 
@@ -138,27 +138,27 @@ class ListingItemPdfDTO
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getWorkedHoursWithLunch(): InvoiceTime
+    public function getWorkedHoursWithLunch(): Time
     {
         return $this->workedHoursWithLunch;
     }
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getWorkedHours(): InvoiceTime
+    public function getWorkedHours(): Time
     {
         return $this->workedHours;
     }
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getWorkStart(): InvoiceTime
+    public function getWorkStart(): Time
     {
         return $this->workStart;
     }
@@ -174,18 +174,18 @@ class ListingItemPdfDTO
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getWorkEnd(): InvoiceTime
+    public function getWorkEnd(): Time
     {
         return $this->workEnd;
     }
 
 
     /**
-     * @return InvoiceTime
+     * @return Time
      */
-    public function getLunch(): InvoiceTime
+    public function getLunch(): Time
     {
         return $this->lunch;
     }
