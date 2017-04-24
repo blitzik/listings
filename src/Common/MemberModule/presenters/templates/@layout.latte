@@ -19,24 +19,27 @@
     <label for="sidebar-collapse" id="sidebar-inner-collapse-button"><i class="fa fa-fw fa-times"></i></label>
 
     <div id="sidebar-user">
+        <div class="sidebar-user-ico">
+            <img src="{$imagesPath}/user.svg" alt="icon-user">
+        </div>
         <div class="sidebar-user-detail">
-            <i class="fa fa-fw fa-user"></i> <span>{$_userEntity->getFullName()}</span>
+            {$_userEntity->getFullName()}
         </div>
     </div>
 
     <nav id="main-nav">
         <ul>
             <li class="nav-header">Navigace</li>
-            <li><a href="{plink :Listings:Member:Listing:new}" n:class="$presenter->isLinkCurrent(':Listings:Member:Listing:new') ? active"><i class="fa fa-fw fa-file-text-o"></i> Vytvořit výčetku</a></li>
+            <li><a href="{plink :Listings:Member:Listing:new}" n:class="$presenter->isLinkCurrent(':Listings:Member:Listing:new') ? active"><img src="{$imagesPath}/add-file.svg" alt="icon-add-file"> Vytvořit výčetku</a></li>
             <li><input type="checkbox" id="listing-years" {if $presenter->isLinkCurrent(':Listings:Member:Dashboard:default')}checked{/if}>
-                <label for="listing-years"><i class="fa fa-fw fa-th"></i> Přehled výčetek</label>
+                <label for="listing-years"><img src="{$imagesPath}/th.svg" alt="icon-th"> Přehled výčetek</label>
                 <ul>
                     {foreach $_years as $_year}
                         <li><a href="{plink :Listings:Member:Dashboard:default year => $_year}" n:class="($_year == $_chosenYear) ? active">{$_year}</a></li>
                     {/foreach}
                 </ul>
             </li>
-            <li><a href="{plink :Listings:Member:EmployersOverview:default}" n:class="$presenter->isLinkCurrent(':Listings:Member:EmployersOverview:default') ? active"><i class="fa fa-fw fa-money"></i> Správa zaměstnavatelů</a></li>
+            <li><a href="{plink :Listings:Member:EmployersOverview:default}" n:class="$presenter->isLinkCurrent(':Listings:Member:EmployersOverview:default') ? active"><img src="{$imagesPath}/money.svg" alt="icon-employer"> Správa zaměstnavatelů</a></li>
             <li><a href="{plink :Listings:Public:ListingPdf:default}"><i class="fa fa-fw fa-file-pdf-o"></i> PDF prázdných výčetek</a></li>
         </ul>
 

@@ -15,16 +15,26 @@
   transition: margin-left .7s, width 1s;
 
   #sidebar-user {
+    width: 100%;
     padding: 30px $sidebar-horizontal-padding;
     margin-bottom: 30px;
     color: #fff;
     border-bottom: 1px solid #364044;
+    display: table;
 
-    .sidebar-user-detail {
-      span { display: table-cell; }
-      i {
-        display: table-cell;
-        padding-right: 15px;
+    .sidebar-user-detail,
+    .sidebar-user-ico{
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .sidebar-user-ico{
+      width: 30px;
+      padding-right: 10px;
+
+      img {
+        width: 18px;
+        height: 27px;
       }
     }
 
@@ -37,6 +47,12 @@
       padding: 0 $sidebar-horizontal-padding;
       margin-bottom: 10px;
       text-transform: uppercase;
+    }
+
+    img{
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
     }
 
     ul {
@@ -53,8 +69,8 @@
           text-decoration: none;
           cursor: pointer;
 
-          i {
-            padding-right: 30px;
+          img {
+            //padding-right: 30px;
           }
 
           &:hover {
@@ -76,8 +92,7 @@
           margin-bottom: 0;
 
           &:after {
-            font-family: 'FontAwesome';
-            content: '\f105';
+            content: url("../../images/angle_right.svg");
             float: right;
           }
         }
@@ -102,8 +117,7 @@
             background-color: darken(#202B30, 2.5%);
 
             &:after {
-              font-family: 'FontAwesome';
-              content: '\f107';
+              content: url("../../images/angle_down.svg");
               float: right;
             }
 
