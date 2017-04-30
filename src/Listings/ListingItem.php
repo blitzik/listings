@@ -2,7 +2,6 @@
 
 namespace Listings;
 
-use blitzik\Utils\Time;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
@@ -12,6 +11,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
+use blitzik\Utils\Time;
 
 /**
  * @ORM\Entity

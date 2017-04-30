@@ -22,6 +22,12 @@ trait TListingItem
     private $day;
 
     /**
+     * @ORM\Column(name="weekday", type="smallint", nullable=false, unique=false)
+     * @var int
+     */
+    private $weekday;
+
+    /**
      * @ORM\Column(name="locality", type="string", length=70, nullable=false, unique=false)
      * @var string
      */
@@ -65,6 +71,7 @@ trait TListingItem
         }
 
         $this->day = $day;
+        $this->weekday = (int)(new \DateTime(sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $this->day)))->format('w');
     }
 
 
@@ -77,6 +84,15 @@ trait TListingItem
     public function getDay(): int
     {
         return $this->day;
+    }
+
+
+    /**
+     * @return int 0 - sunday; 1 - monday, etc.
+     */
+    public function getWeekDay(): int
+    {
+        return $this->weekday;
     }
 
 
