@@ -16,7 +16,7 @@
 <input type="radio" name="sidebar-nav" id="sidebar-expand">
 <label for="sidebar-expand" id="sidebar-expand-button">MENU</label>
 <div id="sidebar">
-    <label for="sidebar-collapse" id="sidebar-inner-collapse-button"><i class="fa fa-fw fa-times"></i></label>
+    <label for="sidebar-collapse" id="sidebar-inner-collapse-button"><img src="{$imagesPath}/menu-times.svg" width="15" alt="icon-close-menu"></label>
 
     <div id="sidebar-user">
         <div class="sidebar-user-ico">
@@ -30,21 +30,21 @@
     <nav id="main-nav">
         <ul>
             <li class="nav-header">Navigace</li>
-            <li><a href="{plink :Listings:Member:Listing:new}" n:class="$presenter->isLinkCurrent(':Listings:Member:Listing:new') ? active"><img src="{$imagesPath}/add-file.svg" alt="icon-add-file"> Vytvořit výčetku</a></li>
+            <li><a href="{plink :Listings:Member:Listing:new}" n:class="$presenter->isLinkCurrent(':Listings:Member:Listing:new') ? active"><img src="{$imagesPath}/menu-add-file.svg" alt="icon-add-file"> Vytvořit výčetku</a></li>
             <li><input type="checkbox" id="listing-years" {if $presenter->isLinkCurrent(':Listings:Member:Dashboard:default')}checked{/if}>
-                <label for="listing-years"><img src="{$imagesPath}/th.svg" alt="icon-th"> Přehled výčetek</label>
+                <label for="listing-years"><img src="{$imagesPath}/menu-th.svg" alt="icon-th"> Přehled výčetek</label>
                 <ul>
                     {foreach $_years as $_year}
                         <li><a href="{plink :Listings:Member:Dashboard:default year => $_year}" n:class="($_year == $_chosenYear) ? active">{$_year}</a></li>
                     {/foreach}
                 </ul>
             </li>
-            <li><a href="{plink :Listings:Member:EmployersOverview:default}" n:class="$presenter->isLinkCurrent(':Listings:Member:EmployersOverview:default') ? active"><img src="{$imagesPath}/money.svg" alt="icon-employer"> Správa zaměstnavatelů</a></li>
-            <li><a href="{plink :Listings:Public:ListingPdf:default}"><i class="fa fa-fw fa-file-pdf-o"></i> PDF prázdných výčetek</a></li>
+            <li><a href="{plink :Listings:Member:EmployersOverview:default}" n:class="$presenter->isLinkCurrent(':Listings:Member:EmployersOverview:default') ? active"><img src="{$imagesPath}/menu-money.svg" alt="icon-employer"> Správa zaměstnavatelů</a></li>
+            <li><a href="{plink :Listings:Public:ListingPdf:default}"><img src="{$imagesPath}/menu-file-pdf.svg" alt="icon-employer"> PDF prázdných výčetek</a></li>
         </ul>
 
         <ul class="logout">
-            <li><a href="{plink :Accounts:Public:Auth:logOut}"><i class="fa fa-fw fa-sign-out"></i> Odhlásit</a></li>
+            <li><a href="{plink :Accounts:Public:Auth:logOut}"><img src="{$imagesPath}/menu-signout.svg" alt="icon-sign-out"> Odhlásit</a></li>
         </ul>
     </nav>
 </div>

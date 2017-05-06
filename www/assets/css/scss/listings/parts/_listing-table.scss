@@ -66,11 +66,13 @@
 
   .copy-item-down,
   .remove-item {
+    font-size: 1.3em;
     background-color: #26A69A;
     padding: 10px 15px;
     @include border-radius(5px);
     color: #fff;
     margin: 0 7px;
+    font-weight: bold;
   }
 
   .remove-item {

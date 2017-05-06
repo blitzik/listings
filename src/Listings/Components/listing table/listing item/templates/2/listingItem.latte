@@ -7,6 +7,6 @@
     <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
     <td>{if $item->getLunch()->getSeconds() != 0}{$item->getLunchStart()|invoiceTimeHoursAndMinutes} - {$item->getLunchEnd()|invoiceTimeHoursAndMinutes}{else}-{/if}</td>
     <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
-    <td class="w75"><a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down"><i class="fa fa-angle-down"></i></a></td>
-    <td class="w75"><a href="{link remove}" class="ajax remove-item"><i class="fa fa-remove"></i></a></td>
+    <td class="w75"><a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&dtrif;</a></td>
+    <td class="w75"><a href="{link remove}" class="ajax remove-item">&times;</a></td>
 {/block}

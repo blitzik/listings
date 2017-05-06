@@ -90,10 +90,16 @@
 
         label {
           margin-bottom: 0;
+          position: relative;
 
           &:after {
-            content: url("../../images/angle_right.svg");
-            float: right;
+            content: url("../../images/menu-angle-right.svg");
+            width: 11px; // 11
+            height: 32px; // 32
+            //float: right;
+            position: absolute;
+            right: 15px;
+            top: 8px;
           }
         }
 
@@ -117,8 +123,10 @@
             background-color: darken(#202B30, 2.5%);
 
             &:after {
-              content: url("../../images/angle_down.svg");
-              float: right;
+              content: url("../../images/menu-angle-down.svg");
+              width: 21px; // 21
+              height: 32px; // 32
+              //float: right;
             }
 
             & + ul {

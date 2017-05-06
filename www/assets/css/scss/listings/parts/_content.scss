@@ -96,10 +96,17 @@ h1 {
 
   li {
     float: left;
+    display: table;
+
+    span{
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 10px;
+    }
 
     a {
-      display: block;
-      padding: 12px 20px;
+      display: table-cell;
+      padding: 12px 20px 12px 10px;
       border-right: 1px solid #b0bec5;
 
       i {
@@ -122,6 +129,17 @@ h1 {
 
 .btn-null-time {
   @include button-variant(#fff, #16a085, #16a085);
+}
+
+
+.listing-item-pagination{
+  padding: 0 15px;
+
+  a{
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 
