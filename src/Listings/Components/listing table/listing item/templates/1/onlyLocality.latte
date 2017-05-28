@@ -2,11 +2,25 @@
 {extends $originalTemplatePath}
 
 
-{block content}
-    <td><a href="{plink :Listings:Member:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="w75"><a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&dtrif;</a></td>
-    <td class="w75"><a href="{link remove}" class="ajax remove-item">&times;</a></td>
+{block locality}
+    {$item->getLocality()}
+{/block}
+
+
+{block workingHours}-{/block}
+
+
+{block lunch}-{/block}
+
+
+{block workedHours}-{/block}
+
+
+{block copy-down}
+    <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&dtrif;</a>
+{/block}
+
+
+{block remove}
+    <a href="{link remove}" class="ajax remove-item">&times;</a>
 {/block}

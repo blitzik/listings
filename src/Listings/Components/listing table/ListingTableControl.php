@@ -2,7 +2,6 @@
 
 namespace Listings\Components;
 
-use blitzik\Utils\Time;
 use Listings\Services\ListingItemManipulatorFactory;
 use Listings\Services\IListingItemManipulator;
 use Nette\Application\BadRequestException;
@@ -52,26 +51,28 @@ class ListingTableControl extends BaseControl
     public function render()
     {
         $template = $this->getTemplate();
-        switch ($this->listing->getItemsType()) {
-            case Listing::ITEM_TYPE_LUNCH_RANGE:
-                $template->setFile(sprintf('%s/type templates/%s.latte', __DIR__, $this->listing->getItemsType()));
-                break;
-
-            default:
-                $template->setFile(sprintf('%s/type templates/%s.latte', __DIR__, $this->listing->getItemsType()));
-        }
-
-        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
-        $template->daysInMonth = $daysInMonth;
+        $template->setFile(__DIR__ . '/listingTable.latte');
 
         if ($this->listingItems === null) {
             $this->listingItems = $this->listingItemManipulator->findListingItems($this->listing->getId());
         }
 
-        $template->listingItems = $this->listingItems;
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
+        $daysByWeeks = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $daysByWeeks[$this->getWeekNumber($day)][] = $day;
+        }
+
+        $template->daysByWeeks = $daysByWeeks;
         $template->listing = $this->listing;
 
         $template->render();
+    }
+
+
+    private function getWeekNumber(int $day)
+    {
+        return date('W', strtotime(sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $day)));
     }
 
 

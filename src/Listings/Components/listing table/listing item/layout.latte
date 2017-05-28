@@ -1,6 +1,47 @@
-<tr n:class="$isCurrentDay ? current-day : ($isWeekEnd ? week-end)" n:snippet="item">
-    <td>{$day}</td>
-    <td>{$itemDate|weekDayName|substr:0,2|upper}</td>
 
-    {include #content}
-</tr>
+<div class="day" n:snippet="item">
+    <div class="row">
+        <div class="col-7">
+            <div class="week-day-name">
+                {$itemDate|completeDate}
+            </div>
+        </div>
+        <div class="col-5 text-right">
+            {if $day < $daysInMonth}{include #copy-down}{/if}
+            {include #remove}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="row-link">
+                <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-12 day-labels">
+                                    Popis práce - místo
+                                </div>
+                                <div class="col-12">
+                                    {include #locality}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="row day-labels">
+                                <div class="col-4">Prac. doba</div>
+                                <div class="col-4 text-center">Oběd</div>
+                                <div class="col-4 text-center">Odpr. hod.</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">{include #workingHours}</div>
+                                <div class="col-4 text-center">{include #lunch}</div>
+                                <div class="col-4 text-center">{include #workedHours}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

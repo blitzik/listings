@@ -54,7 +54,7 @@ trait TListingItem
 
     public function changeLocality(string $locality)
     {
-        Validators::assert($locality, 'unicode:..70');
+        Validators::assert($locality, sprintf('unicode:..%s', IListingItem::LENGTH_LOCALITY));
         $this->locality = $locality;
     }
 

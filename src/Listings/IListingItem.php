@@ -6,6 +6,9 @@ use Listings\Utils\Time\ListingTime;
 
 interface IListingItem
 {
+    const LENGTH_LOCALITY = 70;
+
+
     /**
      * @return int
      */

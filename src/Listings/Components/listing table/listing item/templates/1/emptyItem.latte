@@ -2,11 +2,22 @@
 {extends $originalTemplatePath}
 
 
-{block content}
-    <td><a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="edit-item">&nbsp;</a></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="w75"></td>
-    <td class="w75"></td>
-{/block}
+{block locality}-{/block}
+
+
+{block workingHours}-{/block}
+
+
+{block lunch}-{/block}
+
+
+{block workedHours}-{/block}
+
+
+{block item-actions}{* empty *}{/block}
+
+
+{block copy-down}{/block}
+
+
+{block remove}{/block}

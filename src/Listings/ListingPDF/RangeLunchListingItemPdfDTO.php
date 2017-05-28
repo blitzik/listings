@@ -2,15 +2,15 @@
 
 namespace Listings\Pdf;
 
-use Listings\Services\Time;
+use Listings\Utils\Time\ListingTime;
 use Listings\IListingItem;
 
 class RangeLunchListingItemPdfDTO extends ListingItemPdfDTO
 {
-    /** @var Time */
+    /** @var ListingTime */
     private $lunchStart;
 
-    /** @var Time */
+    /** @var ListingTime */
     private $lunchEnd;
 
 
@@ -27,18 +27,18 @@ class RangeLunchListingItemPdfDTO extends ListingItemPdfDTO
 
 
     /**
-     * @return Time
+     * @return ListingTime
      */
-    public function getLunchStart(): Time
+    public function getLunchStart(): ListingTime
     {
         return $this->lunchStart;
     }
 
 
     /**
-     * @return Time
+     * @return ListingTime
      */
-    public function getLunchEnd(): Time
+    public function getLunchEnd(): ListingTime
     {
         return $this->lunchEnd;
     }

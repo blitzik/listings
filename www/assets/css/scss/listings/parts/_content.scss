@@ -4,11 +4,11 @@
 
 @import "listing-table";
 
-.w75 {
+.w75{
   width: 75px;
 }
 
-.w125 {
+.w125{
   width: 130px;
 }
 
@@ -17,20 +17,20 @@
 }
 
 
-h1 {
+h1{
   margin-top: 0;
   margin-bottom: 20px;
 }
 
-#content-wrapper {
+#content-wrapper{
   transition: margin-left .7s;
 }
 
-.content-header {
+.content-header{
   padding-top: 20px;
   margin-bottom: 25px;
 
-  h2 {
+  h2{
     padding-bottom: 5px;
     margin-top: 0;
     display: block;
@@ -54,7 +54,7 @@ h1 {
   margin-top: $grid-gutter-width-base / 2;
 }
 
-.listing {
+.listing{
   display: block;
   background-color: #fff;
   border: 1px solid #b0bec5;
@@ -75,7 +75,7 @@ h1 {
 }
 
 
-.listing-item-title {
+.listing-item-title{
   margin-bottom: 30px;
 }
 
@@ -85,8 +85,8 @@ h1 {
 }
 
 
-.listing-actions {
-  width: 1000px;
+.listing-actions{
+  max-width: 1000px;
   margin: 0 0 10px 0;
   padding: 0;
   list-style: none;
@@ -94,7 +94,7 @@ h1 {
   border: 1px solid #b0bec5;
   overflow: auto;
 
-  li {
+  li{
     float: left;
     display: table;
 
@@ -104,22 +104,22 @@ h1 {
       padding-left: 10px;
     }
 
-    a {
+    a{
       display: table-cell;
       padding: 12px 20px 12px 10px;
       border-right: 1px solid #b0bec5;
 
-      i {
+      i{
         margin-right: 10px;
       }
     }
   }
 }
 
-.listing-removal {
+.listing-removal{
   width: 1000px;
 
-  .listing-removal-notice {
+  .listing-removal-notice{
     background-color: #e74c3c;
     color: #fff;
     padding: 15px;
@@ -127,7 +127,7 @@ h1 {
   }
 }
 
-.btn-null-time {
+.btn-null-time{
   @include button-variant(#fff, #16a085, #16a085);
 }
 
@@ -143,37 +143,46 @@ h1 {
 }
 
 
-@media (min-width: map-get($grid-breakpoints, 'xl')) {
-  .listing-form {
+.listing-pdf-owner-setting{
+  margin-top: 15px;
+}
+
+.listing-pdf-setting h2{
+    margin-top: 10px;
+}
+
+
+@media (min-width: map-get($grid-breakpoints, 'xl')){
+  .listing-form{
     max-width: 40%;
   }
 }
 
 
-@media (min-width: map-get($grid-breakpoints, 'md')) {
-  #content-wrapper {
+@media (min-width: map-get($grid-breakpoints, 'md')){
+  #content-wrapper{
     margin-left: $sidebar-width;
   }
 
-  .listing-removal-form {
+  .listing-removal-form{
     max-width: 40%;
   }
 }
 
 
-@media (min-width: map-get($grid-breakpoints, 'lg')) {
-  #content-wrapper {
+@media (min-width: map-get($grid-breakpoints, 'lg')){
+  #content-wrapper{
     margin-left: $sidebar-width;
   }
 
-  .employer-content {
+  .employer-content{
     max-width: 75%;
   }
 }
 
 
-@media (min-width: 1600px) {
-  #content-wrapper {
+@media (min-width: 1600px){
+  #content-wrapper{
     max-width: 66%;
   }
 }

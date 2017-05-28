@@ -2,11 +2,31 @@
 {extends $originalTemplatePath}
 
 
-{block content}
-    <td><a href="{plink :Listings:Member:ListingItem:default listingId => $item->getListingId(), day => $day}" class="edit-item">{$item->getLocality()}</a></td>
-    <td>{$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}</td>
-    <td>{$item->getLunch()|invoiceTimeWithComma}</td>
-    <td>{$item->getWorkedHours()|invoiceTimeWithComma}</td>
-    <td class="w75"><a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&dtrif;</a></td>
-    <td class="w75"><a href="{link remove}" class="ajax remove-item">&times;</a></td>
+{block locality}
+    {$item->getLocality()}
+{/block}
+
+
+{block workingHours}
+    {$item->getWorkStart()|invoiceTimeHoursAndMinutes} - {$item->getWorkEnd()|invoiceTimeHoursAndMinutes}
+{/block}
+
+
+{block lunch}
+    {$item->getLunch()|invoiceTimeWithComma}
+{/block}
+
+
+{block workedHours}
+    {$item->getWorkedHours()|invoiceTimeWithComma}
+{/block}
+
+
+{block copy-down}
+    <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&dtrif;</a>
+{/block}
+
+
+{block remove}
+    <a href="{link remove}" class="ajax remove-item">&times;</a>
 {/block}

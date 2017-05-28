@@ -2,84 +2,93 @@
 @import "../../../../../../bower_components/bootstrap/scss/mixins";
 
 
-.listing-table {
+.listing-info{
+  max-width: 1000px;
+  overflow: auto;
   background-color: #fff;
-  margin-bottom: 150px;
-  width: 1000px;
+  border: 1px solid #B0BEC5;
+  padding: 10px;
 
-  caption {
-    caption-side: top;
-    border: 1px solid #b0bec5;
-    border-bottom: 0;
-    background-color: #fff;
-    color: #333;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    overflow: auto;
-
-    span {
-      float: right;
-    }
+  span{
+    float: right;
   }
+}
 
-  thead {
-    background-color: #546E7A;
-    border: 1px solid #546E7A;
-    color: #fff;
+.listing-days{
+  max-width: 1000px;
 
-    th {
-      background-color: #546E7A;
-    }
+  h3{
+    font-size: 1em;
+    margin-top: 25px;
+    border-bottom: 1px solid #B0BEC5;
   }
+}
 
-  tr {
-    &.current-day {
-      background-color: #FFE0B2;
-    }
+.day-labels{
+  font-size: 0.65em;
+  font-weight: bold;
+}
 
-    &.week-end {
-      background-color: #ECEFF1;
-    }
-  }
+.day{
+  font-size: 1.15em;
+  margin-top: 10px;
 
-  tr:hover {
-    background-color: #FBE9E7;
-    //color: #fff;
-  }
-
-  th, td {
-    height: 60px;
-    text-align: center;
-  }
-
-  td {
-    border: 1px solid #d5d5d5;
-
-    a {
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-  }
-
-  .copy-item-down,
-  .remove-item {
-    font-size: 1.3em;
-    background-color: #26A69A;
-    padding: 10px 15px;
-    @include border-radius(5px);
-    color: #fff;
-    margin: 0 7px;
+  .week-day-name{
+    font-size: 1.1em;
     font-weight: bold;
+    /*text-align: center;*/
+  }
+}
+
+.day-item{
+  background-color: #fff;
+  border: 1px solid #B0BEC5;
+  padding: 10px;
+
+  &.current-day{
+    background-color: #e8f5e9;
+    border: 1px solid #4caf50;
   }
 
-  .remove-item {
-    background-color: #e74c3c;
+  &.weekend{
+    background-color: #efebe9;
+    border: 1px solid #bcaaa4;
   }
+}
 
-  .edit-item {
-    display: block;
+.row-link{
+  text-decoration: none;
+  color: #333;
+
+  .day-item:hover{
+    border: 1px solid #448aff;
+  }
+}
+
+.copy-item-down,
+.remove-item{
+  width: 100px;
+  display: inline-block;
+  background-color: #26A69A;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover{
+    color: #fff;
+  }
+}
+
+.copy-item-down:hover{
+  background-color: darken(#26A69A, 10%);
+}
+
+.remove-item{
+  width: 50px;
+  background-color: #e74c3c;
+
+  &:hover{
+    background-color: darken(#e74c3c, 10%);
   }
 }

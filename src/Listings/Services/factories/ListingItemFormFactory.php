@@ -2,6 +2,7 @@
 
 namespace Listings\Services\Factories;
 
+use Listings\ListingItem;
 use Listings\Template\Filters\InvoiceTimeFilter;
 use Nette\Application\UI\Form;
 use Listings\IListingItem;
@@ -36,8 +37,9 @@ class ListingItemFormFactory
             ->setDefaultValue('16:00')
             ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
-        $form->addText('locality', 'Místo pracoviště')
+        $form->addText('locality', 'Místo pracoviště', null, IListingItem::LENGTH_LOCALITY)
             ->setRequired('Zadejte místo pracoviště')
+            ->addRule(Form::MAX_LENGTH, 'Do místa pracoviště lze zadat max. %d znaků.', IListingItem::LENGTH_LOCALITY)
             ->setAttribute('list', '_work-locality');
 
         if ($listingItem !== null) {
