@@ -37,6 +37,7 @@ final class CronBackupPresenter extends Presenter
     {
         if ($pwd !== $this->password) {
             $this->logger->info(sprintf('Unauthorized backup try. [%s]', $this->getHttpRequest()->getRemoteAddress()));
+            $this->terminate();
         }
 
         if ($this->cache->load('database-backup') !== null) {
