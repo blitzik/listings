@@ -8,13 +8,13 @@ class TimeAgoInWords extends Object
 {
     /**
      * Czech helper time ago in words.
-     * @param  int
-     * @return string
+     * @param  \DateTime|\DateTimeImmutable|string|int
+     * @return string|false
      */
     public static function get($time)
     {
         if (!$time) {
-            return FALSE;
+            return false;
 
         } elseif (is_numeric($time)) {
             $time = (int) $time;

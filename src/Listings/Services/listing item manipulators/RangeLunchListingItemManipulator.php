@@ -59,12 +59,7 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    /**
-     * @param int $day
-     * @param string $listingId
-     * @return IListingItem|null
-     */
-    public function getListingItemByDay(int $day, string $listingId)
+    public function getListingItemByDay(int $day, string $listingId): ?IListingItem
     {
         return $this->em->createQuery(
             'SELECT li FROM ' . LunchRangeListingItem::class . ' li
@@ -124,23 +119,15 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    /**
-     * @param string $listingItemId
-     * @return int
-     */
-    public function removeListingItem(string $listingItemId)
+    public function removeListingItem(string $listingItemId): void
     {
-        return $this->em->createQuery(
+        $this->em->createQuery(
             'DELETE FROM ' . LunchRangeListingItem::class . ' li
              WHERE li.id = :id'
         )->execute(['id' => hex2bin($listingItemId)]);
     }
 
 
-    /**
-     * @param string $listingId
-     * @return array
-     */
     public function loadLocalities(string $listingId): array
     {
         $localities = $this->em->createQuery(
@@ -153,11 +140,6 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    /**
-     * @param string $listingId
-     * @param int $day
-     * @return int
-     */
     private function removeListingItemByDay(string $listingId, int $day): int
     {
         return $this->em->createQuery(

@@ -11,14 +11,14 @@ use Nette\DI\Compiler;
 
 class AccountsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
 {
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $cb = $this->getContainerBuilder();
         Compiler::loadDefinitions($cb, $this->loadFromFile(__DIR__ . '/services.neon'), $this->name);
     }
 
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $cb = $this->getContainerBuilder();
         $config = $this->getConfig();
@@ -33,7 +33,7 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
     }
 
 
-    function getEntityMappings()
+    function getEntityMappings(): array
     {
         return ['Accounts' => __DIR__ . '/..'];
     }
@@ -42,7 +42,7 @@ class AccountsExtension extends CompilerExtension implements IEntityProvider, IF
     /**
      * @return array
      */
-    public function getDataFixtures()
+    public function getDataFixtures(): array
     {
         return [
             __DIR__ . '/../fixtures' => [

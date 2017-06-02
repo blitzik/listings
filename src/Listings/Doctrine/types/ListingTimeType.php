@@ -3,8 +3,8 @@
 namespace Listings\Doctrine\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\Type;
 use Listings\Utils\Time\ListingTime;
+use Doctrine\DBAL\Types\Type;
 
 class ListingTimeType extends Type
 {

@@ -60,7 +60,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     private $listing;
 
 
-    public function actionDefault($id)
+    public function actionDefault($id): void
     {
         $this->listing = $this->listingFacade
                               ->getListing(
@@ -85,7 +85,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    public function renderDefault($id)
+    public function renderDefault($id): void
     {
         $this->template->listing = $this->listing;
         $this->template->displayRemovalForm = (bool)$this->displayRemovalForm;
@@ -114,7 +114,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    public function onSuccessfulCopyDown()
+    public function onSuccessfulCopyDown(): void
     {
         if (!$this->isAjax()) {
             $this->redirect('this');
@@ -122,7 +122,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    public function onSuccessfulItemRemoval()
+    public function onSuccessfulItemRemoval(): void
     {
         if (!$this->isAjax()) {
             $this->redirect('this');
@@ -130,7 +130,7 @@ final class ListingDetailPresenter extends SecuredPresenter
     }
 
 
-    public function onMissingListing()
+    public function onMissingListing(): void
     {
         $this->flashMessage('Akci nelze dokončit. Výčetka nebyla nalezena.', FlashMessage::WARNING);
         $this->redirect(':Listings:Member:Dashboard:default');

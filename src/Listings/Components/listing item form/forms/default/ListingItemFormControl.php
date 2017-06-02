@@ -48,10 +48,7 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    /**
-     * @param IListingItem $listingItem
-     */
-    public function setListingItem(IListingItem $listingItem)
+    public function setListingItem(IListingItem $listingItem): void
     {
         if ($listingItem->getListingId() !== $this->listing->getId()) {
             throw new InvalidArgumentException;
@@ -60,7 +57,7 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
 
@@ -72,19 +69,13 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    /**
-     * @param ITemplate $template
-     */
-    protected function setPathToTemplate(ITemplate $template)
+    protected function setPathToTemplate(ITemplate $template): void
     {
         $template->setFile(__DIR__ . '/listingItemForm.latte');
     }
 
 
-    /**
-     * @param ITemplate $template
-     */
-    protected function fillTemplate(ITemplate $template)
+    protected function fillTemplate(ITemplate $template) : void
     {
         $template->listing = $this->listing;
 
@@ -122,7 +113,7 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    public function processListing(Form $form)
+    public function processListing(Form $form): void
     {
         $values = $form->getValues(true);
         $values['listing'] = $this->listing;
@@ -146,11 +137,7 @@ class ListingItemFormControl extends BaseControl
     }
 
 
-    /**
-     * @param Form $form
-     * @param IListingItem $listingItem
-     */
-    protected function fillForm(Form $form, IListingItem $listingItem)
+    protected function fillForm(Form $form, IListingItem $listingItem): void
     {
         $form['lunch']->setDefaultValue(InvoiceTimeWithCommaFilter::convert($listingItem->getLunch()));
     }
@@ -165,5 +152,5 @@ interface IListingItemFormControlFactory
      * @param Listing $listing
      * @return ListingItemFormControl
      */
-    public function create(int $day, Listing $listing);
+    public function create(int $day, Listing $listing): ListingItemFormControl;
 }

@@ -2,7 +2,6 @@
 
 namespace Listings\Services\Factories;
 
-use Listings\ListingItem;
 use Listings\Template\Filters\InvoiceTimeFilter;
 use Nette\Application\UI\Form;
 use Listings\IListingItem;
@@ -18,7 +17,7 @@ class ListingItemFormFactory
      * @param bool $isAjaxified
      * @return Form
      */
-    public function create(IListingItem $listingItem = null, bool $isAjaxified = true)
+    public function create(IListingItem $listingItem = null, bool $isAjaxified = true): Form
     {
         $form = new Form;
         if ($isAjaxified) {
@@ -54,7 +53,7 @@ class ListingItemFormFactory
     }
 
 
-    private function fillForm(Form $form, IListingItem $listingItem)
+    private function fillForm(Form $form, IListingItem $listingItem): void
     {
         $form['workStart']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkStart(), true));
         $form['workEnd']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getWorkEnd(), true));
@@ -62,7 +61,7 @@ class ListingItemFormFactory
     }
 
 
-    public function getTimeRegex()
+    public function getTimeRegex(): string
     {
         return '^(0?[0-9]|1[0-9]|2[0-3]):[03]0$';
     }

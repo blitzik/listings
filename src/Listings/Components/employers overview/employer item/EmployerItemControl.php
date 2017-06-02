@@ -37,7 +37,7 @@ class EmployerItemControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->originalTemplatePath = $this->originalTemplatePath;
@@ -56,7 +56,7 @@ class EmployerItemControl extends BaseControl
     }
 
 
-    public function handleDisplayRemovalForm()
+    public function handleDisplayRemovalForm(): void
     {
         $this->isRemovalDisplayed = true;
 
@@ -84,7 +84,7 @@ class EmployerItemControl extends BaseControl
     }
 
 
-    public function processEmployer(Form $form, $values)
+    public function processEmployer(Form $form, $values): void
     {
         $this->employerFacade->save((array)$values, $this->employer);
 
@@ -111,7 +111,7 @@ class EmployerItemControl extends BaseControl
     }
 
 
-    public function processRemoval(SubmitButton $button)
+    public function processRemoval(SubmitButton $button): void
     {
         $this->employerFacade->remove($this->employer->getId());
 
@@ -121,7 +121,7 @@ class EmployerItemControl extends BaseControl
     }
 
 
-    public function processCancel(SubmitButton $button)
+    public function processCancel(SubmitButton $button): void
     {
         $this->isRemovalDisplayed = false;
 
@@ -137,5 +137,5 @@ interface IEmployerItemControlFactory
      * @param Employer $employer
      * @return EmployerItemControl
      */
-    public function create(Employer $employer);
+    public function create(Employer $employer): EmployerItemControl;
 }

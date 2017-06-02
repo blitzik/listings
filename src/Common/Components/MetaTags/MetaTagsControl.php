@@ -8,7 +8,7 @@ class MetaTagsControl extends BaseControl
     private $metas = [];
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/metas.latte');
@@ -19,7 +19,7 @@ class MetaTagsControl extends BaseControl
     }
 
 
-    public function addMeta($name, $content)
+    public function addMeta($name, $content): void
     {
         if (!empty($content)) {
             $this->metas[$name] = $content;
@@ -33,5 +33,5 @@ interface IMetaTagsControlFactory
     /**
      * @return MetaTagsControl
      */
-    public function create();
+    public function create(): MetaTagsControl;
 }

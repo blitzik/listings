@@ -21,13 +21,13 @@ abstract class BaseControl extends Control
     protected $user;
 
 
-    public function setAuthorizator(IAuthorizator $authorizator)
+    public function setAuthorizator(IAuthorizator $authorizator): void
     {
         $this->authorizator = $authorizator;
     }
 
 
-    public function setUser(\Nette\Security\User $user)
+    public function setUser(\Nette\Security\User $user): void
     {
         $this->user = $user;
     }
@@ -36,13 +36,13 @@ abstract class BaseControl extends Control
     /**
      * @param IFlashMessagesControlFactory $factory
      */
-    public function injectFlashMessagesFactory(IFlashMessagesControlFactory $factory)
+    public function injectFlashMessagesFactory(IFlashMessagesControlFactory $factory): void
     {
         $this->flashMessagesFactory = $factory;
     }
 
 
-    protected function createComponentFlashMessages()
+    protected function createComponentFlashMessages(): FlashMessagesControl
     {
         $comp = $this->flashMessagesFactory->create();
 
@@ -50,7 +50,7 @@ abstract class BaseControl extends Control
     }
 
 
-    public function refresh($redirect, array $snippets = null)
+    public function refresh($redirect, array $snippets = null): void
     {
         if ($this->presenter->isAjax()) {
             if ($snippets === null or empty($snippets)) {

@@ -16,13 +16,13 @@ class BackupResult
     /**
      * @param BackupResultObject $resultObject
      */
-    public function add(BackupResultObject $resultObject)
+    public function add(BackupResultObject $resultObject): void
     {
         $this->resultObjects[] = $resultObject;
     }
 
 
-    public function hasErrors()
+    public function hasErrors(): bool
     {
         foreach ($this->resultObjects as $resultObject) {
             if ($resultObject->hasErrors()) {

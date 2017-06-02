@@ -13,9 +13,9 @@ class PageTitleControl extends BaseControl
 
     /**
      * @param $pageTitle
-     * @return $this
+     * @return PageTitleControl
      */
-    public function setPageTitle($pageTitle)
+    public function setPageTitle($pageTitle): PageTitleControl
     {
         $this->pageTitle = $pageTitle;
 
@@ -26,13 +26,13 @@ class PageTitleControl extends BaseControl
     /**
      * @param string $joinedText
      */
-    public function setJoinedText($joinedText)
+    public function setJoinedText($joinedText): void
     {
         $this->joinedText = $joinedText;
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/title.latte');
@@ -50,5 +50,5 @@ interface IPageTitleControlFactory
     /**
      * @return PageTitleControl
      */
-    public function create();
+    public function create(): PageTitleControl;
 }

@@ -49,7 +49,7 @@ class DatabaseBackupSubscriber implements Subscriber
     }
 
 
-    function getSubscribedEvents()
+    function getSubscribedEvents(): array
     {
         return [
             DatabaseBackup::class . '::onSuccessfulDatabaseBackup',
@@ -59,7 +59,7 @@ class DatabaseBackupSubscriber implements Subscriber
     }
 
 
-    public function onSuccessfulDatabaseBackup(BackupFile $backupFile, BackupResult $backupResult)
+    public function onSuccessfulDatabaseBackup(BackupFile $backupFile, BackupResult $backupResult): void
     {
         $messageContent = '<p>Database backup success</p>';
         if ($backupResult->hasErrors()) {
@@ -90,7 +90,7 @@ class DatabaseBackupSubscriber implements Subscriber
     }
 
 
-    public function onDatabaseBackupFailure()
+    public function onDatabaseBackupFailure(): void
     {
         foreach ($this->infoReceivers as $receiver => $nothing) {
             try {

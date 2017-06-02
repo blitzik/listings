@@ -6,7 +6,7 @@ class CompleteDateFilter
 {
     /**
      * @param \DateTimeInterface $dateTime
-     * @return string
+     * @return string|null
      */
     public function __invoke(\DateTimeInterface $dateTime)
     {

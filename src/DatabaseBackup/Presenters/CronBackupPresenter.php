@@ -33,7 +33,7 @@ final class CronBackupPresenter extends Presenter
     }
 
 
-    public function actionBackup($pwd)
+    public function actionBackup($pwd): void
     {
         if ($pwd !== $this->password) {
             $this->logger->info(sprintf('Unauthorized backup try. [%s]', $this->getHttpRequest()->getRemoteAddress()));

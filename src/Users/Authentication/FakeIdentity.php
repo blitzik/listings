@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Users\Authentication;
 
@@ -28,20 +28,14 @@ class FakeIdentity implements IIdentity
         return $this->id;
     }
 
-    
-    /**
-     * @return string
-     */
-    public function getClass()
+
+    public function getClass(): string
     {
         return $this->class;
     }
 
-    
-    /**
-     * @return array
-     */
-    public function getRoles()
+
+    public function getRoles(): array
     {
         return array();
     }

@@ -15,7 +15,7 @@ final class AuthPresenter extends PublicPresenter
     public $loginControlFactory;
 
 
-    public function actionLogin()
+    public function actionLogin(): void
     {
         if ($this->user->isLoggedIn()) {
             $this->redirect(':Listings:Member:Dashboard:default');
@@ -25,7 +25,7 @@ final class AuthPresenter extends PublicPresenter
     }
 
 
-    public function renderLogin()
+    public function renderLogin(): void
     {
     }
 
@@ -49,7 +49,7 @@ final class AuthPresenter extends PublicPresenter
      */
 
 
-    public function actionLogOut()
+    public function actionLogOut(): void
     {
         $this->user->logout(true);
         $this->redirect(':Accounts:Public:Auth:logIn');

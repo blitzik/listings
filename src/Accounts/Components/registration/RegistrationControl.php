@@ -29,7 +29,7 @@ class RegistrationControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/registration.latte');
@@ -50,7 +50,7 @@ class RegistrationControl extends BaseControl
     }
 
 
-    public function processForm(Form $form, $values)
+    public function processForm(Form $form, $values): void
     {
         try {
             $this->accountFacade->createAccount((array)$values);
@@ -71,5 +71,5 @@ interface IRegistrationControlFactory
     /**
      * @return RegistrationControl
      */
-    public function create();
+    public function create(): RegistrationControl;
 }

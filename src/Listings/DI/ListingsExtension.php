@@ -11,14 +11,14 @@ use Nette\DI\Compiler;
 
 final class ListingsExtension extends CompilerExtension implements IEntityProvider, IFixtureProvider
 {
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $cb = $this->getContainerBuilder();
         Compiler::loadDefinitions($cb, $this->loadFromFile(__DIR__ . '/services.neon'), $this->name);
     }
 
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $cb = $this->getContainerBuilder();
 
@@ -31,16 +31,13 @@ final class ListingsExtension extends CompilerExtension implements IEntityProvid
     }
 
 
-    function getEntityMappings()
+    function getEntityMappings(): array
     {
         return ['Listings' => __DIR__ . '/..'];
     }
 
 
-    /**
-     * @return array
-     */
-    public function getDataFixtures()
+    public function getDataFixtures(): array
     {
         return [
             __DIR__ . '/../fixtures' => [

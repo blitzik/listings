@@ -42,7 +42,7 @@ class ListingItemEditingControl extends BaseControl
     /**
      * @param IListingItem $listingItem
      */
-    public function setListingItem(IListingItem $listingItem)
+    public function setListingItem(IListingItem $listingItem): void
     {
         if ($listingItem->getListingId() !== $this->listing->getId()) {
             throw new InvalidArgumentException;
@@ -51,7 +51,7 @@ class ListingItemEditingControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(sprintf('%s/templates/%s.latte', __DIR__, $this->listing->getItemsType()));
@@ -61,7 +61,7 @@ class ListingItemEditingControl extends BaseControl
     }
 
 
-    protected function createComponentListingItemForm()
+    protected function createComponentListingItemForm(): ListingItemFormControl
     {
         $comp = $this->listingItemFormControlFactory
                      ->create($this->day, $this->listing);
@@ -75,7 +75,7 @@ class ListingItemEditingControl extends BaseControl
     }
 
 
-    protected function createComponentLunchRangeListingItemForm()
+    protected function createComponentLunchRangeListingItemForm(): LunchRangeListingItemFormControl
     {
         $comp = $this->lunchRangeListingItemFormControlFactory
                      ->create($this->day, $this->listing);
@@ -97,5 +97,5 @@ interface IListingItemEditingControlFactory
      * @param Listing $listing
      * @return ListingItemEditingControl
      */
-    public function create(int $day, Listing $listing);
+    public function create(int $day, Listing $listing): ListingItemEditingControl;
 }

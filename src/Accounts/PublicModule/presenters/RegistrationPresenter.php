@@ -3,9 +3,9 @@
 namespace Accounts\PublicModule\Presenters;
 
 use Accounts\Components\IRegistrationControlFactory;
-use Accounts\Components\RegistrationControl;
 use Common\AuthModule\Presenters\PublicPresenter;
 use Common\Components\FlashMessages\FlashMessage;
+use Accounts\Components\RegistrationControl;
 
 final class RegistrationPresenter extends PublicPresenter
 {
@@ -16,15 +16,14 @@ final class RegistrationPresenter extends PublicPresenter
     public $registrationControlFactory;
 
 
-    public function actionDefault()
+    public function actionDefault(): void
     {
         $this['metaTitle']->setTitle('Registrace');
     }
 
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
-
     }
 
 

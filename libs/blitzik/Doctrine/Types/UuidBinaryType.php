@@ -37,7 +37,7 @@ class UuidBinaryType extends Type
      * @param string|null                               $value
      * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?string
     {
         if (empty($value)) {
             return null;
@@ -63,7 +63,7 @@ class UuidBinaryType extends Type
      * @param Uuid|null                                 $value
      * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (empty($value)) {
             return null;

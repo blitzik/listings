@@ -49,11 +49,7 @@ class AccountFacade
     }
 
 
-    /**
-     * @param string $email
-     * @return User|null
-     */
-    public function getUserByEmail(string $email)
+    public function getUserByEmail(string $email): ?User
     {
         $user = $this->em->createQuery(
             'SELECT u FROM ' . User::class . ' u
@@ -78,7 +74,7 @@ class AccountFacade
         string $senderEmail,
         string $applicationUrl,
         string $adminFullName
-    ) {
+    ): void {
         $user = $this->getUserByEmail($recipientEmail);
         if ($user === null) {
             throw new UserNotFoundException;
@@ -94,11 +90,7 @@ class AccountFacade
     }
 
 
-    /**
-     * @param User $user
-     * @param string $newPassword
-     */
-    public function changePassword(User $user, $newPassword)
+    public function changePassword(User $user, string $newPassword): void
     {
         $user->changePassword($newPassword);
 

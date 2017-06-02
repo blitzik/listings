@@ -90,7 +90,7 @@ class LunchRangeListingItem implements IListingItem
      * @throws NegativeWorkedTimeException
      * @throws LunchHoursRangeException
      */
-    public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd) // todo
+    public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd): void // todo
     {
         $this->workStart = new ListingTime($workStart);
         $this->workEnd = new ListingTime($workEnd);

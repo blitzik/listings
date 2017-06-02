@@ -30,13 +30,13 @@ class EmployerFormControl extends BaseControl
     /**
      * @param Employer $employer
      */
-    public function updateEmployer(Employer $employer)
+    public function updateEmployer(Employer $employer): void
     {
         $this->employer = $employer;
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/employerForm.latte');
@@ -67,7 +67,7 @@ class EmployerFormControl extends BaseControl
     }
 
 
-    public function processEmployer(Form $form, $values)
+    public function processEmployer(Form $form, $values): void
     {
         $values['user'] = $this->user->getId();
         $employer = $this->employerFacade->save((array)$values, $this->employer);
@@ -85,5 +85,5 @@ interface IEmployerFormControlFactory
     /**
      * @return EmployerFormControl
      */
-    public function create();
+    public function create(): EmployerFormControl;
 }

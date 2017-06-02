@@ -36,7 +36,7 @@ class ListingsOverviewControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingsOverview.latte');
@@ -73,7 +73,7 @@ class ListingsOverviewControl extends BaseControl
     }
 
 
-    protected function createComponentListing()
+    protected function createComponentListing(): Multiplier
     {
         return new Multiplier(function ($id) {
             $comp = $this->listingControlFactory
@@ -91,5 +91,5 @@ interface IListingsOverviewControlFactory
      * @param int $year
      * @return ListingsOverviewControl
      */
-    public function create($year);
+    public function create($year): ListingsOverviewControl;
 }

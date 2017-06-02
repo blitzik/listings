@@ -58,28 +58,19 @@ class Employer
     }
 
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         Validators::assert($name, sprintf('unicode:1..%s', self::LENGTH_NAME));
         $this->name = $name;
     }
 
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getCreationTime(): \DateTimeImmutable
     {
         return $this->createdAt;

@@ -2,8 +2,8 @@
 
 namespace DatabaseBackup\Services;
 
-use Nette\SmartObject;
 use Nette\Utils\Strings;
+use Nette\SmartObject;
 
 class BackupFile
 {
@@ -27,36 +27,24 @@ class BackupFile
     }
 
 
-    /**
-     * @param string $namePrefix
-     */
-    public function setNamePrefix(string $namePrefix)
+    public function setNamePrefix(string $namePrefix): void
     {
         $this->namePrefix = Strings::webalize($namePrefix) . '-';
     }
 
 
-    /**
-     * @return string
-     */
     public function getFileName(): string
     {
         return sprintf('%s%s.sql', $this->namePrefix, $this->createdAt->format('Y-m-d-h-i-s'));
     }
 
 
-    /**
-     * @return string
-     */
     public function getFilePath(): string
     {
         return sprintf('%s%s', $this->storagePath, $this->getFileName());
     }
 
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getBackupDate(): \DateTimeImmutable
     {
         return $this->createdAt;

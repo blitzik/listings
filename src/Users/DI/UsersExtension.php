@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace  Users\DI;
 
@@ -18,7 +18,7 @@ class UsersExtension extends CompilerExtension implements IEntityProvider, IFixt
      * Processes configuration data. Intended to be overridden by descendant.
      * @return void
      */
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $cb = $this->getContainerBuilder();
         Compiler::loadDefinitions($cb, $this->loadFromFile(__DIR__ . '/services.neon'), $this->name);
@@ -29,7 +29,7 @@ class UsersExtension extends CompilerExtension implements IEntityProvider, IFixt
      * Adjusts DI container before is compiled to PHP class. Intended to be overridden by descendant.
      * @return void
      */
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $cb = $this->getContainerBuilder();
 
@@ -46,16 +46,13 @@ class UsersExtension extends CompilerExtension implements IEntityProvider, IFixt
      *
      * @return array
      */
-    public function getEntityMappings()
+    public function getEntityMappings(): array
     {
         return ['Users' => __DIR__ . '/..'];
     }
 
 
-    /**
-     * @return array
-     */
-    public function getDataFixtures()
+    public function getDataFixtures(): array
     {
         return [
             __DIR__ . '/../fixtures' => [

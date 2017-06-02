@@ -7,6 +7,7 @@ use blitzik\email\MailMessageFactory;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Monolog\Logger;
 use Nette\Mail\IMailer;
+use Nette\Mail\Message;
 use Nette\SmartObject;
 use Users\User;
 
@@ -58,7 +59,7 @@ class ForgottenPasswordEmailSender
         string $senderEmail,
         string $applicationUrl,
         string $adminFullName
-    ) {
+    ): void {
         $this->logger->addInfo(sprintf('Try: %s', $user->getEmail()));
 
         $token = $user->createToken((new \DateTime())->modify('+ 1 day'));
@@ -91,7 +92,7 @@ class ForgottenPasswordEmailSender
         string $applicationUrl,
         string $adminFullName,
         string $token
-    ) {
+    ): Message {
         $mailContent = $this->forgottenEmailTemplateFactory
                             ->create(
                                 $recipientEmail,

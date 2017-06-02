@@ -37,13 +37,13 @@ final class ForgottenPasswordPresenter extends PublicPresenter
     private $account;
 
 
-    public function actionRequest()
+    public function actionRequest(): void
     {
         $this['metaTitle']->setTitle('Obnova hesla');
     }
     
     
-    public function renderRequest()
+    public function renderRequest(): void
     {
     }
 
@@ -63,7 +63,7 @@ final class ForgottenPasswordPresenter extends PublicPresenter
      */
 
 
-    public function actionChange($email, $token)
+    public function actionChange($email, $token): void
     {
         if ($email === null or $token === null or !Validators::is($email, 'email') or !Validators::is($token, sprintf('unicode:%s', User::LENGHT_TOKEN))) {
             $this->redirect(':Accounts:Public:Auth:logIn');
@@ -78,7 +78,7 @@ final class ForgottenPasswordPresenter extends PublicPresenter
     }
 
 
-    public function renderChange($email, $token)
+    public function renderChange($email, $token): void
     {
     }
 

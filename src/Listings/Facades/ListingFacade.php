@@ -55,29 +55,18 @@ final class ListingFacade
     }
 
 
-    /**
-     * @param Listing $listing
-     */
-    public function remove(Listing $listing)
+    public function remove(Listing $listing): void
     {
         $this->listingRemover->remove($listing);
     }
 
 
-    /**
-     * @param ListingQuery $query
-     * @return Listing|null
-     */
-    public function getListing(ListingQuery $query)
+    public function getListing(ListingQuery $query): ?Listing
     {
         return $this->listingRepository->fetchOne($query);
     }
 
 
-    /**
-     * @param ListingQuery $query
-     * @return ResultSet
-     */
     public function findListings(ListingQuery $query): ResultSet
     {
         return $this->listingRepository->fetch($query);

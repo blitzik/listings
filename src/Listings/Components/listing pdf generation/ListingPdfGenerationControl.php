@@ -56,7 +56,7 @@ class ListingPdfGenerationControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingPdfGeneration.latte');
@@ -66,7 +66,7 @@ class ListingPdfGenerationControl extends BaseControl
     }
 
 
-    protected function createComponentPdfSettings()
+    protected function createComponentPdfSettings(): Form
     {
         $form = new Form;
 
@@ -102,7 +102,7 @@ class ListingPdfGenerationControl extends BaseControl
     }
 
 
-    public function processListing(Form $form, $values)
+    public function processListing(Form $form, $values): void
     {
         $this->listingItemPdfType = $values['template'];
 
@@ -144,5 +144,5 @@ interface IListingPdfGenerationControlFactory
      * @param Listing $listing
      * @return ListingPdfGenerationControl
      */
-    public function create(Listing $listing);
+    public function create(Listing $listing): ListingPdfGenerationControl;
 }

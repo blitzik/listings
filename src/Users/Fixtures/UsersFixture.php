@@ -13,7 +13,7 @@ class UsersFixture extends AbstractFixture
      *
      * @param ObjectManager $manager
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadDefaultPrivileges($manager);
 
@@ -21,7 +21,7 @@ class UsersFixture extends AbstractFixture
     }
 
 
-    private function loadDefaultPrivileges(ObjectManager $manager)
+    private function loadDefaultPrivileges(ObjectManager $manager): void
     {
         $create = new Privilege(Privilege::CREATE);
         $manager->persist($create);

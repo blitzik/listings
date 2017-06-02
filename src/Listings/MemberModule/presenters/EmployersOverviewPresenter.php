@@ -2,11 +2,11 @@
 
 namespace Listings\MemberModule\Presenters;
 
-use Listings\Components\EmployerFormControl;
-use Listings\Components\EmployersOverviewControl;
 use Listings\Components\IEmployersOverviewControlFactory;
 use Listings\Components\IEmployerFormControlFactory;
 use Common\MemberModule\Presenters\SecuredPresenter;
+use Listings\Components\EmployersOverviewControl;
+use Listings\Components\EmployerFormControl;
 use Listings\Employer;
 
 final class EmployersOverviewPresenter extends SecuredPresenter
@@ -24,16 +24,15 @@ final class EmployersOverviewPresenter extends SecuredPresenter
     public $employerFormControlFactory;
 
 
-    public function actionDefault()
+    public function actionDefault(): void
     {
         $this['metaTitle']->setTitle('Správa zaměstnavatelů');
         $this['pageTitle']->setPageTitle('Správa zaměstnavatelů');
     }
 
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
-
     }
 
 
@@ -47,7 +46,7 @@ final class EmployersOverviewPresenter extends SecuredPresenter
     }
 
 
-    public function onSuccessfulEmployerCreation(Employer $employer)
+    public function onSuccessfulEmployerCreation(Employer $employer): void
     {
         if (!$this->isAjax()) {
             $this->redirect('this');

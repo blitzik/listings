@@ -18,7 +18,7 @@ trait TFlashMessages
      * @param array $parameters
      * @return FlashMessage
      */
-    public function flashMessage($message, $type = 'info', $count = null, array $parameters = [])
+    public function flashMessage($message, $type = 'info', $count = null, array $parameters = []): FlashMessage
     {
         $id = $this->getParameterId('flash');
         $messages = $this->getPresenter()->getFlashSession()->$id;
@@ -44,16 +44,16 @@ trait TFlashMessages
     /**
      * @param ITranslator $translator
      */
-    public function injectFlashMessagesTranslator(ITranslator $translator)
+    public function injectFlashMessagesTranslator(ITranslator $translator): void
     {
         $this->flashMessagesTranslator = $translator;
     }
 
 
     /**
-     * @return NullTranslator|ITranslator
+     * @return ITranslator
      */
-    public function getTranslator()
+    public function getTranslator(): ITranslator
     {
         if ($this->flashMessagesTranslator === null) {
             return new NullTranslator();

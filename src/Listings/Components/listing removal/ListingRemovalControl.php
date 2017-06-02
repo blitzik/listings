@@ -29,7 +29,7 @@ class ListingRemovalControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingRemoval.latte');
@@ -61,7 +61,7 @@ class ListingRemovalControl extends BaseControl
     }
 
 
-    public function processRemoval(Form $form, $values)
+    public function processRemoval(Form $form, $values): void
     {
         $this->listingFacade->remove($this->listing);
 
@@ -76,5 +76,5 @@ interface IListingRemovalControlFactory
      * @param Listing $listing
      * @return ListingRemovalControl
      */
-    public function create(Listing $listing);
+    public function create(Listing $listing): ListingRemovalControl;
 }

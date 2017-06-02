@@ -35,7 +35,7 @@ class ForgottenPasswordChangeControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/forgottenPasswordChange.latte');
@@ -70,7 +70,7 @@ class ForgottenPasswordChangeControl extends BaseControl
     }
 
 
-    public function processForm(Form $form, $values)
+    public function processForm(Form $form, $values): void
     {
         $this->accountFacade->changePassword($this->account, $values['pass']);
 
@@ -85,5 +85,5 @@ interface IForgottenPasswordChangeControlFactory
      * @param User $user
      * @return ForgottenPasswordChangeControl
      */
-    public function create(User $user);
+    public function create(User $user): ForgottenPasswordChangeControl;
 }

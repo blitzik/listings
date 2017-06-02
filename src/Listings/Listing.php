@@ -141,7 +141,7 @@ class Listing implements IResource
      * @param Time $difference
      * @throws NegativeWorkedTimeException
      */
-    public function updateWorkedHours(Time $difference)
+    public function updateWorkedHours(Time $difference): void
     {
         $result = $this->getCurrentWorkedHours()->sum($difference);
         if ($result->getSeconds() < 0) {
@@ -190,9 +190,6 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @return array
-     */
     public static function getTypes(): array
     {
         return [
@@ -202,10 +199,7 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @param int $type
-     */
-    private function setItemsType(int $type)
+    private function setItemsType(int $type): void
     {
         if (!array_key_exists($type, [self::ITEM_TYPE_LUNCH_RANGE => null, self::ITEM_TYPE_LUNCH_SIMPLE => null])) {
             throw new InvalidArgumentException;
@@ -215,51 +209,39 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @return int
-     */
-    public function getItemsType()
+    public function getItemsType(): int
     {
         return $this->type;
     }
 
 
-    /**
-     * @param Employer|null $employer
-     */
-    public function setEmployer(Employer $employer = null)
+    public function setEmployer(?Employer $employer): void
     {
         $this->employer = $employer;
     }
 
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         Validators::assert($name, sprintf('unicode:..%s', self::LENGTH_NAME));
         $this->name = $name;
     }
 
 
-    public function removeName()
+    public function removeName(): void
     {
         $this->name = null;
     }
 
 
-    /**
-     * @param int|null $hourlyRate
-     */
-    public function setHourlyRate(int $hourlyRate = null)
+    public function setHourlyRate(?int $hourlyRate): void
     {
         Validators::assert($hourlyRate, 'null|numericint:0..');
         $this->hourlyRate = $hourlyRate;
     }
 
 
-    public function removeHourlyRate()
+    public function removeHourlyRate(): void
     {
         $this->hourlyRate = null;
     }
@@ -272,54 +254,36 @@ class Listing implements IResource
     */
 
 
-    /**
-     * @return string|null
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
 
-    /**
-     * @return int
-     */
     public function getYear(): int
     {
         return $this->year;
     }
 
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;
     }
 
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getDate(): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromFormat('!Y-m', sprintf('%s-%s', $this->year, $this->month));
     }
 
 
-    /**
-     * @return int|null
-     */
-    public function getHourlyRate()
+    public function getHourlyRate(): ?int
     {
         return $this->hourlyRate;
     }
 
 
-    /**
-     * @return int
-     */
     public function getNumberOfDaysInMonth(): int
     {
         return cal_days_in_month(CAL_GREGORIAN, $this->month, $this->year);
@@ -345,19 +309,13 @@ class Listing implements IResource
      */
 
 
-    /**
-     * @return bool
-     */
     public function hasSetEmployer(): bool
     {
         return $this->employer !== null;
     }
 
 
-    /**
-     * @return string|null
-     */
-    public function getEmployerId()
+    public function getEmployerId(): ?string
     {
         if ($this->hasSetEmployer()) {
             return $this->employer->getId();
@@ -367,10 +325,7 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @return string|null
-     */
-    public function getEmployerName()
+    public function getEmployerName(): ?string
     {
         if ($this->hasSetEmployer()) {
             return $this->employer->getName();
@@ -387,9 +342,6 @@ class Listing implements IResource
      */
 
 
-    /**
-     * @return string
-     */
     public function getOwnerFullName(): string
     {
         return sprintf('%s %s', $this->owner->getFirstName(), $this->owner->getLastName());
@@ -406,10 +358,6 @@ class Listing implements IResource
     }
 
 
-    /**
-     * @param bool $convertToHex
-     * @return string
-     */
     public function getOwnerId(bool $convertToHex = false): string
     {
         return $this->owner->getId($convertToHex);

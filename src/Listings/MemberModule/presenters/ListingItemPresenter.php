@@ -45,7 +45,7 @@ final class ListingItemPresenter extends SecuredPresenter
     private $day;
 
 
-    public function actionDefault($listingId, $day)
+    public function actionDefault($listingId, $day): void
     {
         if ($listingId === null) {
             $this->redirect(':Listings:Member:Dashboard:default');
@@ -77,7 +77,7 @@ final class ListingItemPresenter extends SecuredPresenter
     }
 
 
-    public function renderDefault($listingId, $day)
+    public function renderDefault($listingId, $day): void
     {
         $this->template->listing = $this->listing;
         $this->template->day = $this->day;

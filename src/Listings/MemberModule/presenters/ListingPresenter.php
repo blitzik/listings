@@ -38,14 +38,14 @@ final class ListingPresenter extends SecuredPresenter
     private $listing;
 
 
-    public function actionNew()
+    public function actionNew(): void
     {
         $this['metaTitle']->setTitle('Nová výčetka');
         $this['pageTitle']->setPageTitle('Nová výčetka');
     }
 
 
-    public function renderNew()
+    public function renderNew(): void
     {
     }
 
@@ -69,7 +69,7 @@ final class ListingPresenter extends SecuredPresenter
      */
 
 
-    public function actionEdit($id)
+    public function actionEdit($id): void
     {
         $this->listing = $this->getListingById($id);
 
@@ -83,7 +83,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    public function renderEdit($id)
+    public function renderEdit($id): void
     {
     }
 
@@ -108,7 +108,7 @@ final class ListingPresenter extends SecuredPresenter
      */
 
 
-    public function actionRemove($id)
+    public function actionRemove($id): void
     {
         $this->listing = $this->getListingById($id);
 
@@ -122,7 +122,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    public function renderRemove($id)
+    public function renderRemove($id): void
     {
     }
 
@@ -137,7 +137,7 @@ final class ListingPresenter extends SecuredPresenter
     }
 
 
-    public function onSuccessfulListingRemoval()
+    public function onSuccessfulListingRemoval(): void
     {
         $this->flashMessage('Výčetka byla odstraněna.', FlashMessage::SUCCESS);
         $this->redirect(':Listings:Member:Dashboard:default');
@@ -147,11 +147,7 @@ final class ListingPresenter extends SecuredPresenter
     // -----
 
 
-    /**
-     * @param $id
-     * @return Listing|null
-     */
-    private function getListingById($id)
+    private function getListingById($id): ?Listing
     {
         return $this->listingFacade
                     ->getListing(

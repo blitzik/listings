@@ -8,7 +8,7 @@ use blitzik\Routing\Services\UrlGenerator;
 
 class DefaultFixture extends AbstractFixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadDefaultUrls($manager);
         $this->loadDefaultAuthorizatorRules($manager);
@@ -17,14 +17,14 @@ class DefaultFixture extends AbstractFixture
     }
 
 
-    private function loadDefaultUrls(ObjectManager $manager)
+    private function loadDefaultUrls(ObjectManager $manager): void
     {
         $ug = new UrlGenerator('DatabaseBackup:CronBackup', $manager); // todo
         $ug->addUrl('auto-backup', 'backup');
     }
 
 
-    private function loadDefaultAuthorizatorRules(ObjectManager $manager)
+    private function loadDefaultAuthorizatorRules(ObjectManager $manager): void
     {
         //$arg = new AuthorizationRulesGenerator(new Resource('TODO'), $manager); // todo
     }

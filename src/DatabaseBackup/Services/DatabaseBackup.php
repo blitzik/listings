@@ -49,10 +49,7 @@ class DatabaseBackup
     }
 
 
-    /**
-     * @param IBackupFileHandler $backupHandler
-     */
-    public function addHandler(IBackupFileHandler $backupHandler)
+    public function addHandler(IBackupFileHandler $backupHandler): void
     {
         $this->handlers[] = $backupHandler;
     }
@@ -62,7 +59,7 @@ class DatabaseBackup
      * @param string|null $filenamePrefix
      * @throws \Exception
      */
-    public function backup(string $filenamePrefix = null)
+    public function backup(string $filenamePrefix = null): void
     {
         $storagePath = $this->prepareStoragePath($this->backupTempPath);
 
@@ -112,7 +109,7 @@ class DatabaseBackup
     }
 
 
-    private function removeBackupFile(BackupFile $file)
+    private function removeBackupFile(BackupFile $file): void
     {
         if (file_exists($file->getFilePath()) and !is_dir($file->getFilePath())) {
             FileSystem::delete($file->getFilePath());

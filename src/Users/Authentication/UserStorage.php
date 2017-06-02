@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Users\Authentication;
 
@@ -55,7 +55,7 @@ class UserStorage extends \Nette\Http\UserStorage
      * Returns current user identity, if any.
      * @return IIdentity|NULL
      */
-    public function getIdentity()
+    public function getIdentity(): ?IIdentity
     {
         $identity = parent::getIdentity();
         // if we have our fake identity, we now want to

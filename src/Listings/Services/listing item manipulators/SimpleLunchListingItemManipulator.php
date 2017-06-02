@@ -66,12 +66,7 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    /**
-     * @param int $day
-     * @param string $listingId
-     * @return IListingItem|null
-     */
-    public function getListingItemByDay(int $day, string $listingId)
+    public function getListingItemByDay(int $day, string $listingId): ?IListingItem
     {
         return $this->em
                     ->getRepository(ListingItem::class)
@@ -133,9 +128,10 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
 
     /**
      * @param string $listingItemId
+     * @return void
      * @throws \Exception
      */
-    public function removeListingItem(string $listingItemId)
+    public function removeListingItem(string $listingItemId): void
     {
         try {
             $this->em->beginTransaction();
@@ -174,7 +170,7 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    private function removeListingItemByDay(string $listingId, int $day)
+    private function removeListingItemByDay(string $listingId, int $day): void
     {
         /** @var ListingItem $listingItem */
         $listingItem = $this->em->createQuery(

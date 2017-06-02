@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Users\Authentication;
 
-use Users\Services\RoleRestricters\IRoleRestricter;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Kdyby\Doctrine\EntityManager;
@@ -25,9 +24,6 @@ class UserAuthenticator implements IAuthenticator
     /** @var EntityManager  */
     private $entityManager;
 
-    /** @var IRoleRestricter */
-    private $roleRestricter;
-
 
     public function __construct(
         EntityManager $entityManager,
@@ -37,15 +33,6 @@ class UserAuthenticator implements IAuthenticator
         $this->entityManager = $entityManager;
     }
 
-
-    /**
-     * @param IRoleRestricter|null $restricter
-     */
-    public function setRoleRestricter(IRoleRestricter $restricter = null)
-    {
-        $this->roleRestricter = $restricter;
-    }
-
     
     /**
      * Performs an authentication against e.g. database.
@@ -53,7 +40,7 @@ class UserAuthenticator implements IAuthenticator
      * @return IIdentity
      * @throws AuthenticationException
      */
-    public function authenticate(array $credentials)
+    public function authenticate(array $credentials): IIdentity
     {
         list($email, $password) = $credentials;
 
@@ -69,25 +56,13 @@ class UserAuthenticator implements IAuthenticator
         } elseif (Passwords::needsRehash($user->getPassword())) {
             $user->setPassword($password);
         }
-        
-        if (isset($this->roleRestricter)) {
-            foreach ($user->getRoles() as $role) {
-                if (!$this->roleRestricter->checkRole($role)) {
-                    throw new AuthenticationException('Insufficient permissions');
-                }
-            }
-            $this->roleRestricter = null; // intentionally
-        }
+
 
         return new FakeIdentity($user->getId(), get_class($user));
     }
 
 
-    /**
-     * @param $email
-     * @return User
-     */
-    private function getUser($email)
+    private function getUser($email): ?User
     {
         return $this->entityManager->createQuery(
             'SELECT u, role FROM ' . User::class . ' u

@@ -13,7 +13,7 @@ class BackupResultObject
     private $errors = [];
 
 
-    public function addError(string $message)
+    public function addError(string $message): void
     {
         $this->errors[] = new Error($message);
     }

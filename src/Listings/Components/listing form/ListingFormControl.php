@@ -37,13 +37,13 @@ class ListingFormControl extends BaseControl
     /**
      * @param Listing $listing
      */
-    public function setListing(Listing $listing)
+    public function setListing(Listing $listing): void
     {
         $this->listing = $listing;
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingForm.latte');
@@ -102,7 +102,7 @@ class ListingFormControl extends BaseControl
     }
 
 
-    public function processForm(Form $form)
+    public function processForm(Form $form): void
     {
         $values = $form->getValues(true);
         $values['owner'] = $this->user->getIdentity();
@@ -113,7 +113,7 @@ class ListingFormControl extends BaseControl
     }
 
 
-    private function prepareEditForm(Form $form, Listing $listing)
+    private function prepareEditForm(Form $form, Listing $listing): void
     {
         $form['month']->setDisabled()
                       ->setDefaultValue($this->listing->getMonth());
@@ -138,5 +138,5 @@ interface IListingFormControlFactory
     /**
      * @return ListingFormControl
      */
-    public function create();
+    public function create(): ListingFormControl;
 }

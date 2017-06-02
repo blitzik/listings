@@ -12,7 +12,7 @@ class LoginControl extends BaseControl
     public $onSuccessfulLogin;
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/login.latte');
@@ -41,7 +41,7 @@ class LoginControl extends BaseControl
     }
 
 
-    public function processCredentials(Form $form, $values)
+    public function processCredentials(Form $form, $values): void
     {
         try {
             $this->user->login($values['email'], $values['password']);
@@ -61,5 +61,5 @@ interface ILoginControlFactory
     /**
      * @return LoginControl
      */
-    public function create();
+    public function create(): LoginControl;
 }

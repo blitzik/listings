@@ -10,9 +10,9 @@ class MetaTitleControl extends BaseControl
 
     /**
      * @param $pageTitle
-     * @return $this
+     * @return MetaTitleControl
      */
-    public function setTitle($pageTitle)
+    public function setTitle($pageTitle): MetaTitleControl
     {
         $this->pageTitle = $pageTitle;
 
@@ -20,7 +20,7 @@ class MetaTitleControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/title.latte');
@@ -37,5 +37,5 @@ interface IMetaTitleControlFactory
     /**
      * @return MetaTitleControl
      */
-    public function create();
+    public function create(): MetaTitleControl;
 }

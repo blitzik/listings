@@ -55,7 +55,7 @@ class ListingItemControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->originalTemplatePath = $this->originalTemplatePath;
@@ -89,7 +89,7 @@ class ListingItemControl extends BaseControl
     }
 
 
-    public function handleCopyDown()
+    public function handleCopyDown(): void
     {
         try {
             $newListingItem = $this->listingItemManipulator->copyDown($this->listingItem);
@@ -102,7 +102,7 @@ class ListingItemControl extends BaseControl
     }
 
 
-    public function handleRemove()
+    public function handleRemove(): void
     {
         $this->listingItemManipulator->removeListingItem($this->listingItem->getId());
         $this->onSuccessfulRemoval($this->day);
@@ -118,5 +118,5 @@ interface IListingItemControlFactory
      * @param IListingItem $listingItem
      * @return ListingItemControl
      */
-    public function create($day, Listing $listing, IListingItem $listingItem);
+    public function create($day, Listing $listing, IListingItem $listingItem): ListingItemControl;
 }

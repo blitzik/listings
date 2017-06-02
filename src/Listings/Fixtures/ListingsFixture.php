@@ -14,7 +14,7 @@ use Listings\Listing;
 
 final class ListingsFixture extends AbstractFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadDefaultUrls($manager);
         $this->loadDefaultAuthorizatorRules($manager);
@@ -24,7 +24,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultUrls(ObjectManager $manager)
+    private function loadDefaultUrls(ObjectManager $manager): void
     {
         $ug = new UrlGenerator('Listings:Member:Dashboard', $manager);
         $ug->addUrl('', 'default');
@@ -51,7 +51,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultAuthorizatorRules(ObjectManager $manager)
+    private function loadDefaultAuthorizatorRules(ObjectManager $manager): void
     {
         $arg = new AuthorizationRulesGenerator($manager);
         $arg->addResource(new Resource(Listing::class))
@@ -61,7 +61,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadTestingData(ObjectManager $manager)
+    private function loadTestingData(ObjectManager $manager): void
     {
         $users = [$this->getReference('user_member'), $this->getReference('user_member2'), $this->getReference('user_admin')];
         foreach ([2014, 2015, 2016] as $year) {
@@ -79,7 +79,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    function getDependencies()
+    function getDependencies(): array
     {
         return [
             AccountsFixture::class

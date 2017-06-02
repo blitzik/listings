@@ -18,7 +18,7 @@ class ListingControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listing.latte');
@@ -37,5 +37,5 @@ interface IListingControlFactory
      * @param Listing $listing
      * @return ListingControl
      */
-    public function create(Listing $listing);
+    public function create(Listing $listing): ListingControl;
 }

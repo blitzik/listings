@@ -14,7 +14,7 @@ class CommonExtension extends CompilerExtension
     ];
 
 
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $config = $this->getConfig() + $this->defaults;
         $this->setConfig($config);
@@ -28,7 +28,7 @@ class CommonExtension extends CompilerExtension
     }
 
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $cb = $this->getContainerBuilder();
 

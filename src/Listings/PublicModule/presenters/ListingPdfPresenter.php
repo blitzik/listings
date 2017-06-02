@@ -2,8 +2,8 @@
 
 namespace Listings\PublicModule\Presenters;
 
-use Listings\Components\EmptyListingPdfGenerationControl;
 use Listings\Components\IEmptyListingPdfGenerationControlFactory;
+use Listings\Components\EmptyListingPdfGenerationControl;
 use Common\AuthModule\Presenters\PublicPresenter;
 use Joseki\Application\Responses\PdfResponse;
 
@@ -16,15 +16,14 @@ final class ListingPdfPresenter extends PublicPresenter
     public $emptyListingPdfGenerationControlFactory;
 
 
-    public function actionDefault()
+    public function actionDefault(): void
     {
         $this['metaTitle']->setTitle('Generování prázdných výčetek');
     }
 
 
-    public function renderDefault()
+    public function renderDefault(): void
     {
-
     }
 
 

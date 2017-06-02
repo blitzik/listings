@@ -2,7 +2,6 @@
 
 namespace Listings\MemberModule\Presenters;
 
-use blitzik\Utils\Time;
 use Listings\Components\IListingsOverviewControlFactory;
 use Common\MemberModule\Presenters\SecuredPresenter;
 use Listings\Components\ListingsOverviewControl;
@@ -17,7 +16,7 @@ final class DashboardPresenter extends SecuredPresenter
     public $listingsOverviewControlFactory;
 
 
-    public function actionDefault($year)
+    public function actionDefault($year): void
     {
         if ($year !== null and !array_key_exists($year, TimeUtils::generateYearsForSelection())) {
             $this->redirect(':Listings:Member:Dashboard:default', ['year' => null]);
@@ -33,7 +32,7 @@ final class DashboardPresenter extends SecuredPresenter
     }
 
 
-    public function renderDefault($year)
+    public function renderDefault($year): void
     {
     }
 

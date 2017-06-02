@@ -5,7 +5,7 @@ namespace Accounts\Services\Persisters;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Accounts\Exceptions\Runtime\EmailIsInUseException;
 use Kdyby\Doctrine\EntityManager;
-use Users\Authorization\Role;
+use blitzik\Authorization\Role;
 use Kdyby\Monolog\Logger;
 use Nette\SmartObject;
 use Users\User;
@@ -31,7 +31,7 @@ class UserPersister
     }
 
 
-    public function closeManager()
+    public function closeManager(): void
     {
         $this->em->rollback();
         $this->em->close();

@@ -11,14 +11,14 @@ use Nette\DI\Compiler;
 
 class DatabaseBackupExtension extends CompilerExtension implements IFixtureProvider
 {
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $cb = $this->getContainerBuilder();
         Compiler::loadDefinitions($cb, $this->loadFromFile(__DIR__ . '/services.neon'), $this->name);
     }
 
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $config = $this->getConfig();
         $cb = $this->getContainerBuilder();
@@ -48,7 +48,7 @@ class DatabaseBackupExtension extends CompilerExtension implements IFixtureProvi
     /**
      * @return array
      */
-    public function getDataFixtures()
+    public function getDataFixtures(): array
     {
         return [
             __DIR__ . '/../fixtures' => [

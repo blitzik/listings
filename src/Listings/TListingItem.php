@@ -52,7 +52,7 @@ trait TListingItem
     }
 
 
-    public function changeLocality(string $locality)
+    public function changeLocality(string $locality): void
     {
         Validators::assert($locality, sprintf('unicode:..%s', IListingItem::LENGTH_LOCALITY));
         $this->locality = $locality;
@@ -63,7 +63,7 @@ trait TListingItem
      * @param int $day
      * @throws WrongDayNumberException
      */
-    private function setDay(int $day)
+    private function setDay(int $day): void
     {
         $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $this->listing->getMonth(), $this->listing->getYear());
         if ($day < 1 or $day > $daysInMonth) {

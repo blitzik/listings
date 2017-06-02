@@ -4,8 +4,5 @@ namespace Fixtures;
 
 interface IFixtureProvider
 {
-    /**
-     * @return array
-     */
-    public function getDataFixtures();
+    public function getDataFixtures(): array;
 }

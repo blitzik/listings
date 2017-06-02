@@ -21,10 +21,7 @@ class ListingRemover
     }
 
 
-    /**
-     * @param Listing $listing
-     */
-    public function remove(Listing $listing)
+    public function remove(Listing $listing): void
     {
         $this->em->remove($listing);
         $this->em->flush();

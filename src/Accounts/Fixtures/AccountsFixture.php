@@ -12,7 +12,7 @@ use Users\User;
 
 final class AccountsFixture extends AbstractFixture implements DependentFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $this->loadDefaultUrls($manager);
         $this->loadDefaultUserRoles($manager);
@@ -23,7 +23,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultUrls(ObjectManager $manager)
+    private function loadDefaultUrls(ObjectManager $manager): void
     {
         $ug = new UrlGenerator('Accounts:Public:Auth', $manager);
         $ug->addUrl('prihlaseni', 'logIn')
@@ -38,7 +38,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultUserRoles(ObjectManager $objManager)
+    private function loadDefaultUserRoles(ObjectManager $objManager): void
     {
         $member = new Role(Role::MEMBER);
         $objManager->persist($member);
@@ -51,13 +51,13 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    private function loadDefaultAuthorizatorRules(ObjectManager $manager)
+    private function loadDefaultAuthorizatorRules(ObjectManager $manager): void
     {
         //$arg = new AuthorizationRulesGenerator($manager);
     }
 
 
-    private function loadTestingData(ObjectManager $manager)
+    private function loadTestingData(ObjectManager $manager): void
     {
         $member = new User('Lorem', 'ipsum', 'member@project.cz', 'member', $this->getReference('role_member'));
         $manager->persist($member);
@@ -73,7 +73,7 @@ final class AccountsFixture extends AbstractFixture implements DependentFixtureI
     }
 
 
-    function getDependencies()
+    function getDependencies(): array
     {
         return [
             UsersFixture::class

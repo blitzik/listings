@@ -8,7 +8,7 @@ use Fixtures\IFixtureProvider;
 
 class FixturesExtension extends CompilerExtension
 {
-    public function loadConfiguration()
+    public function loadConfiguration(): void
     {
         $cb = $this->getContainerBuilder();
 
@@ -18,7 +18,7 @@ class FixturesExtension extends CompilerExtension
     }
 
 
-    public function beforeCompile()
+    public function beforeCompile(): void
     {
         $cb = $this->getContainerBuilder();
 

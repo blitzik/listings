@@ -35,7 +35,7 @@ class ForgottenPasswordFormControl extends BaseControl
     /**
      * @param string $applicationUrl
      */
-    public function setApplicationUrl($applicationUrl)
+    public function setApplicationUrl($applicationUrl): void
     {
         $this->applicationUrl = $applicationUrl;
     }
@@ -44,7 +44,7 @@ class ForgottenPasswordFormControl extends BaseControl
     /**
      * @param string $adminFullName
      */
-    public function setAdminFullName($adminFullName)
+    public function setAdminFullName($adminFullName): void
     {
         $this->adminFullName = $adminFullName;
     }
@@ -53,13 +53,13 @@ class ForgottenPasswordFormControl extends BaseControl
     /**
      * @param string $email
      */
-    public function setAdminEmail($email)
+    public function setAdminEmail($email): void
     {
         $this->adminEmail = $email;
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/forgottenPasswordForm.latte');
@@ -90,7 +90,7 @@ class ForgottenPasswordFormControl extends BaseControl
     }
 
 
-    public function processForm(Form $form, $values)
+    public function processForm(Form $form, $values): void
     {
         try {
             $this->accountFacade
@@ -122,5 +122,5 @@ interface IForgottenPasswordFormControlFactory
     /**
      * @return ForgottenPasswordFormControl
      */
-    public function create();
+    public function create(): ForgottenPasswordFormControl;
 }

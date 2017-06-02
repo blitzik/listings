@@ -48,7 +48,7 @@ class ListingTableControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/listingTable.latte');
@@ -70,13 +70,13 @@ class ListingTableControl extends BaseControl
     }
 
 
-    private function getWeekNumber(int $day)
+    private function getWeekNumber(int $day): string
     {
         return date('W', strtotime(sprintf('%s-%s-%s', $this->listing->getYear(), $this->listing->getMonth(), $day)));
     }
 
 
-    protected function createComponentListingItem()
+    protected function createComponentListingItem(): Multiplier
     {
         return new Multiplier(function ($day) {
             if ($this->listingItems === null) {
@@ -107,7 +107,7 @@ class ListingTableControl extends BaseControl
     // -----
 
 
-    public function onSuccessfullyCopiedListingItemDown(IListingItem $listingItem)
+    public function onSuccessfullyCopiedListingItemDown(IListingItem $listingItem): void
     {
         $this->listingItems[$listingItem->getDay()] = $listingItem;
         $this['listingItem'][$listingItem->getDay()]->redrawControl();
@@ -118,7 +118,7 @@ class ListingTableControl extends BaseControl
     }
 
 
-    public function onSuccessfullyRemovedListingItem($day)
+    public function onSuccessfullyRemovedListingItem($day): void
     {
         unset($this['listingItem'][$day]);
         $this->listingItems = [];
@@ -137,5 +137,5 @@ interface IListingTableControlFactory
      * @param Listing $listing
      * @return ListingTableControl
      */
-    public function create(Listing $listing);
+    public function create(Listing $listing): ListingTableControl;
 }

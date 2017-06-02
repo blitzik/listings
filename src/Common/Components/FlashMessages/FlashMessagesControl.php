@@ -6,7 +6,7 @@ use Nette\Application\UI\Control;
 
 class FlashMessagesControl extends Control
 {
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/flashMessages.latte');
@@ -23,5 +23,5 @@ interface IFlashMessagesControlFactory
     /**
      * @return FlashMessagesControl
      */
-    public function create();
+    public function create(): FlashMessagesControl;
 }

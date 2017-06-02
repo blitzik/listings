@@ -32,7 +32,7 @@ class LoadBasicDataCommand extends Command
     /**
      * @param string $fixtureClassName
      */
-    public function addFixture($fixtureClassName)
+    public function addFixture($fixtureClassName): void
     {
         if (!class_exists($fixtureClassName)) {
             return; // todo
@@ -45,7 +45,7 @@ class LoadBasicDataCommand extends Command
     /**
      * Configures the current command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('project:initialize')
              ->setDescription('Initializes entire cms system and fill it with basic data');
@@ -69,7 +69,7 @@ class LoadBasicDataCommand extends Command
      *
      * @see setCode()
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         if (empty($this->fixtures)) {
             $output->writeln('No fixtures found.');
@@ -93,7 +93,7 @@ class LoadBasicDataCommand extends Command
         $question = new ConfirmationQuestion('WARNING! Database will be purged before loading initialization data. Do you want to continue?', false);
         if (!$questionHelper->ask($input, $output, $question)) {
             $output->writeln('CMS initialization has been CANCELED!');
-            return;
+            return 0;
         }
 
         try {

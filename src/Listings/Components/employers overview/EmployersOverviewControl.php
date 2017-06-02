@@ -39,7 +39,7 @@ class EmployersOverviewControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/employersOverview.latte');
@@ -53,7 +53,7 @@ class EmployersOverviewControl extends BaseControl
     }
 
 
-    protected function createComponentEmployerItem()
+    protected function createComponentEmployerItem(): Multiplier
     {
         return new Multiplier(function ($employerId) {
             $id = hex2bin($employerId);
@@ -87,5 +87,5 @@ interface IEmployersOverviewControlFactory
      * @param User $owner
      * @return EmployersOverviewControl
      */
-    public function create(User $owner);
+    public function create(User $owner): EmployersOverviewControl;
 }

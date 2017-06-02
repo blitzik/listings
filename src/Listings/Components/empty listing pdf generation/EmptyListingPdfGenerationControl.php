@@ -26,7 +26,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
     }
 
 
-    public function render()
+    public function render(): void
     {
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/emptyListingPdfGeneration.latte');
@@ -65,7 +65,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
     }
 
 
-    public function generatePdfs(Form $form, $values)
+    public function generatePdfs(Form $form, $values): void
     {
         $pdfDTOs = [];
         foreach ($values['months'] as $month) {
@@ -99,5 +99,5 @@ interface IEmptyListingPdfGenerationControlFactory
     /**
      * @return EmptyListingPdfGenerationControl
      */
-    public function create();
+    public function create(): EmptyListingPdfGenerationControl;
 }

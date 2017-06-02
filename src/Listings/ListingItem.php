@@ -76,7 +76,7 @@ class ListingItem implements IListingItem
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
-    public function changeHours($workStart, $workEnd, $lunch)
+    public function changeHours($workStart, $workEnd, $lunch): void
     {
         $workStart = new ListingTime($workStart);
         $workEnd = new ListingTime($workEnd);

@@ -40,7 +40,7 @@ class FlashMessage
     }
 
 
-    public function setType(string $type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -55,7 +55,7 @@ class FlashMessage
     /**
      * @return null|string
      */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         if ($this->message === null and $this->translator !== null) {
             $this->message = $this->phrase->translate($this->translator);

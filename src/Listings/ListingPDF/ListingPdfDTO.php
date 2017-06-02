@@ -70,10 +70,6 @@ class ListingPdfDTO
     }
 
 
-    /**
-     * @param Listing $listing
-     * @param array $listingItems
-     */
     public function fillByListing(Listing $listing, array $listingItems = [])
     {
         $this->workedDays = 0;
@@ -99,11 +95,7 @@ class ListingPdfDTO
     }
 
 
-    /**
-     * @param int $day
-     * @return ListingItemPdfDTO|null
-     */
-    public function getItemByDay(int $day)
+    public function getItemByDay(int $day): ListingItemPdfDTO
     {
         if ($this->itemDTOs === null) {
             for ($d = 1; $d <= $this->getDaysInMonth(); $d++) {
@@ -124,142 +116,96 @@ class ListingPdfDTO
     }
 
 
-    /**
-     * @return bool
-     */
     public function isHourlyRateDisplayed(): bool
     {
         return $this->displayHourlyRate;
     }
 
 
-    public function displayHourlyRate()
+    public function displayHourlyRate(): void
     {
         $this->displayHourlyRate = true;
     }
 
 
-    /**
-     * @return int
-     */
     public function getType(): int
     {
         return $this->type;
     }
 
 
-    /**
-     * @return int
-     */
     public function getDaysInMonth(): int
     {
         return cal_days_in_month(CAL_GREGORIAN, $this->month, $this->year);
     }
 
 
-    /**
-     * @return int
-     */
     public function getWorkedDays(): int
     {
         return $this->workedDays;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getWorkedHours(): ListingTime
     {
         return $this->workedHours;
     }
 
 
-    /**
-     * @return int
-     */
     public function getYear(): int
     {
         return $this->year;
     }
 
 
-    /**
-     * @param int $year
-     */
-    public function setYear(int $year)
+    public function setYear(int $year): void
     {
         $this->year = $year;
     }
 
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;
     }
 
 
-    /**
-     * @param int $month
-     */
-    public function setMonth(int $month)
+    public function setMonth(int $month): void
     {
         $this->month = $month;
     }
 
 
-    /**
-     * @return string|null
-     */
-    public function getEmployeeFullName()
+    public function getEmployeeFullName(): ?string
     {
         return $this->employeeFullName;
     }
 
-
-    /**
-     * @param string|null $employeeFullName
-     */
-    public function setEmployeeFullName(string $employeeFullName = null)
+    public function setEmployeeFullName(?string $employeeFullName): void
     {
         $this->employeeFullName = $employeeFullName;
     }
 
 
-    /**
-     * @return null|string
-     */
-    public function getEmployerName()
+    public function getEmployerName(): ?string
     {
         return $this->employerName;
     }
 
-
-    /**
-     * @param null|string $employerName
-     */
-    public function setEmployerName(string $employerName = null)
+    
+    public function setEmployerName(?string $employerName): void
     {
         $this->employerName = $employerName;
     }
 
-
-    /**
-     * @return int|null
-     */
-    public function getHourlyRate()
+    
+    public function getHourlyRate(): ?int
     {
         return $this->hourlyRate;
     }
 
-
-    /**
-     * @param int|null $hourlyRate
-     */
-    public function setHourlyRate(int $hourlyRate = null)
+    
+    public function setHourlyRate(?int $hourlyRate): void
     {
         $this->hourlyRate = $hourlyRate;
     }

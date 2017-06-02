@@ -53,9 +53,6 @@ class ListingItemPdfDTO
     }
 
 
-    /**
-     * @param IListingItem $listingItem
-     */
     public function fillByListingItem(IListingItem $listingItem)
     {
         $this->listingItem = $listingItem;
@@ -73,18 +70,12 @@ class ListingItemPdfDTO
     }
 
 
-    /**
-     * @return \DateTimeImmutable
-     */
     public function getDate(): \DateTimeImmutable
     {
         return \DateTimeImmutable::createFromFormat('!Y-m-d', sprintf('%s-%s-%s', $this->year, $this->month, $this->day));
     }
 
 
-    /**
-     * @return bool
-     */
     public function isCurrentDay(): bool
     {
         $currentDate = \DateTimeImmutable::createFromFormat('!Y-m-d', date('Y-m-d'));
@@ -92,99 +83,66 @@ class ListingItemPdfDTO
     }
 
 
-    /**
-     * @return bool
-     */
     public function isWeekEnd(): bool
     {
         return $this->getDate()->format('N') > 5;
     }
 
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
         return $this->listingItem === null;
     }
 
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;
     }
 
 
-    /**
-     * @return int
-     */
     public function getYear(): int
     {
         return $this->year;
     }
 
 
-    /**
-     * @return int
-     */
     public function getDay(): int
     {
         return $this->day;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getWorkedHoursWithLunch(): ListingTime
     {
         return $this->workedHoursWithLunch;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getWorkedHours(): ListingTime
     {
         return $this->workedHours;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getWorkStart(): ListingTime
     {
         return $this->workStart;
     }
 
 
-    /**
-     * @return string
-     */
     public function getLocality(): string
     {
         return $this->locality;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getWorkEnd(): ListingTime
     {
         return $this->workEnd;
     }
 
 
-    /**
-     * @return ListingTime
-     */
     public function getLunch(): ListingTime
     {
         return $this->lunch;

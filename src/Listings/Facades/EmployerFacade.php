@@ -6,7 +6,6 @@ use Listings\Services\Persisters\EmployerPersister;
 use Kdyby\Doctrine\EntityManager;
 use Listings\Employer;
 use Nette\SmartObject;
-use Ramsey\Uuid\Uuid;
 
 class EmployerFacade
 {
@@ -40,10 +39,7 @@ class EmployerFacade
     }
 
 
-    /**
-     * @param string $employerId
-     */
-    public function remove(string $employerId)
+    public function remove(string $employerId): void
     {
         $this->em->createQuery(
             'DELETE FROM ' . Employer::class . ' e
@@ -52,11 +48,7 @@ class EmployerFacade
     }
 
 
-    /**
-     * @param string $employerId
-     * @return null|Employer
-     */
-    public function getEmployer(string $employerId)
+    public function getEmployer(string $employerId): ?Employer
     {
         return $this->em->find(Employer::class, $employerId);
     }

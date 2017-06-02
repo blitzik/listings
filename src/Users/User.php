@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Users;
 
@@ -97,16 +97,13 @@ class User implements IIdentity, IRole
     }
 
 
-    public function deactivate()
+    public function deactivate(): void
     {
         $this->isClosed = true;
     }
 
 
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         Validators::assert($email, 'email');
         Validators::assert($email, sprintf('unicode:1..%s', self::LENGTH_EMAIL));
@@ -114,57 +111,39 @@ class User implements IIdentity, IRole
     }
 
 
-    /**
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
 
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName): void
     {
         Validators::assert($firstName, sprintf('unicode:1..%s', self::LENGTH_FIRSTNAME));
         $this->firstName = $firstName;
     }
 
 
-    /**
-     * @return string
-     */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
 
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName): void
     {
         Validators::assert($lastName, sprintf('unicode:1..%s', self::LENGTH_LASTNAME));
         $this->lastName = $lastName;
     }
 
 
-    /**
-     * @return string
-     */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
 
-    /**
-     * @param string $plainPassword
-     */
-    public function changePassword($plainPassword)
+    public function changePassword(string $plainPassword): void
     {
         $this->password = Passwords::hash($plainPassword);
         $this->token = null;
@@ -172,20 +151,13 @@ class User implements IIdentity, IRole
     }
 
 
-    /**
-     * @return string
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
 
-    /**
-     * @param \DateTime $validity
-     * @return string
-     */
-    public function createToken(\DateTime $validity)
+    public function createToken(\DateTime $validity): string
     {
         $this->token = Random::generate(self::LENGHT_TOKEN);
         $this->tokenValidity = $validity;
@@ -194,28 +166,18 @@ class User implements IIdentity, IRole
     }
 
 
-    /**
-     * @return string
-     */
-    public function getToken()
+    public function getToken(): string
     {
         return $this->token;
     }
     
 
-    /**
-     * @return \DateTimeImmutable
-     */
-    public function getTokenValidity()
+    public function getTokenValidity(): \DateTimeImmutable
     {
         return $this->tokenValidity;
     }
 
-
-    /**
-     * @return string
-     */
-    public function getFullName()
+    public function getFullName(): string
     {
         return sprintf('%s %s', $this->firstName, $this->lastName);
     }
@@ -227,7 +189,7 @@ class User implements IIdentity, IRole
     /**
      * @return IRole[]
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return [$this->role];
     }
@@ -236,7 +198,7 @@ class User implements IIdentity, IRole
     // ----- IRole
 
 
-    function getRoleId()
+    function getRoleId(): string
     {
         return $this->role->getName();
     }

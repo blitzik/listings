@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Users\Queries;
 
-use Kdyby\Persistence\Queryable;
+use blitzik\Authorization\Role;
 use Kdyby\Doctrine\QueryObject;
-use Users\Authorization\Role;
 use Kdyby;
 
 class RoleQuery extends QueryObject
@@ -16,7 +15,7 @@ class RoleQuery extends QueryObject
     private $filter = [];
 
 
-    public function byId($id)
+    public function byId($id): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($id) {
             $qb->andWhere('r.id = :id')->setParameter('id', $id);
@@ -26,7 +25,7 @@ class RoleQuery extends QueryObject
     }
 
 
-    public function byName($name)
+    public function byName(string $name): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($name) {
             $qb->andWhere('r.name = :name')->setParameter('name', $name);

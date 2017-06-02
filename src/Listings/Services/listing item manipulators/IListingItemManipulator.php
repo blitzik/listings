@@ -26,7 +26,7 @@ interface IListingItemManipulator
      * @param string $listingId
      * @return IListingItem|null
      */
-    public function getListingItemByDay(int $day, string $listingId);
+    public function getListingItemByDay(int $day, string $listingId): ?IListingItem;
 
 
     /**
@@ -40,7 +40,7 @@ interface IListingItemManipulator
      * @param string $listingItemId
      * @return void
      */
-    public function removeListingItem(string $listingItemId);
+    public function removeListingItem(string $listingItemId): void;
 
 
     /**

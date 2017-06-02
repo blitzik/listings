@@ -26,10 +26,6 @@ class ListingItemManipulatorFactory
     }
 
 
-    /**
-     * @param Listing $listing
-     * @return IListingItemManipulator
-     */
     public function getByListing(Listing $listing): IListingItemManipulator
     {
         if ($listing->getItemsType() === Listing::ITEM_TYPE_LUNCH_SIMPLE) {

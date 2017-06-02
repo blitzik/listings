@@ -15,7 +15,7 @@ abstract class SecuredPresenter extends AppPresenter
     protected $_backLink;
 
 
-    protected function startup()
+    protected function startup(): void
     {
         parent::startup();
 
@@ -26,7 +26,7 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
-    protected function beforeRender()
+    protected function beforeRender(): void
     {
         parent::beforeRender();
 
@@ -39,7 +39,7 @@ abstract class SecuredPresenter extends AppPresenter
     /**
      * @param Listing $listing
      */
-    protected function setListingPageTitle(Listing $listing)
+    protected function setListingPageTitle(Listing $listing): void
     {
         $this['pageTitle']->setPageTitle(sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear()));
         if ($listing->getName() !== null) {
@@ -48,10 +48,10 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
-    public function findLayoutTemplateFile()
+    public function findLayoutTemplateFile(): ?string
     {
         if ($this->layout === false) {
-            return;
+            return null;
         }
 
         return __DIR__ . '/templates/@layout.latte';

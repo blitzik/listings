@@ -2,10 +2,10 @@
 
 namespace Listings\Components;
 
-use Common\Components\FlashMessages\FlashMessage;
 use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Listings\Services\Factories\ListingItemFormFactory;
 use Listings\Services\RangeLunchListingItemManipulator;
+use Common\Components\FlashMessages\FlashMessage;
 use Listings\Template\Filters\InvoiceTimeFilter;
 use Nette\Application\UI\ITemplate;
 use Nette\Application\UI\Form;
@@ -27,10 +27,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
     }
 
 
-    /**
-     * @param ITemplate $template
-     */
-    protected function setPathToTemplate(ITemplate $template)
+    protected function setPathToTemplate(ITemplate $template): void
     {
         $template->setFile(__DIR__ . '/listingItemForm.latte');
     }
@@ -64,7 +61,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
     }
 
 
-    public function processListing(Form $form)
+    public function processListing(Form $form): void
     {
         try {
             parent::processListing($form);
@@ -77,7 +74,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
     }
 
 
-    protected function fillForm(Form $form, IListingItem $listingItem)
+    protected function fillForm(Form $form, IListingItem $listingItem): void
     {
         $form['lunchStart']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getLunchStart()));
         $form['lunchEnd']->setDefaultValue(InvoiceTimeFilter::convert($listingItem->getLunchEnd()));
@@ -94,5 +91,5 @@ interface ILunchRangeListingItemFormControlFactory
      * @param Listing $listing
      * @return LunchRangeListingItemFormControl
      */
-    public function create(int $day, Listing $listing);
+    public function create(int $day, Listing $listing): LunchRangeListingItemFormControl;
 }

@@ -38,7 +38,7 @@ final class ListingOwnerAuthorizationAssertion implements IAuthorizationAssertio
      * @return bool
      * @throws \Exception
      */
-    public function assert(Permission $acl, $role, $resource, $privilege)
+    public function assert(Permission $acl, $role, $resource, $privilege): bool
     {
         if (!$acl->getQueriedRole() instanceof IRole)  {
             throw new \Exception('The Role\'s owner has to implement IRole');

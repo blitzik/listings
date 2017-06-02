@@ -46,7 +46,7 @@ abstract class AppPresenter extends Presenter
     public $authorizator;
 
 
-    protected function beforeRender()
+    protected function beforeRender(): void
     {
         parent::beforeRender();
 
@@ -80,7 +80,7 @@ abstract class AppPresenter extends Presenter
     }
 
 
-    public function refresh($redirect, array $snippets = null)
+    public function refresh($redirect, array $snippets = null): void
     {
         if ($this->isAjax()) {
             if (empty($snippets)) {

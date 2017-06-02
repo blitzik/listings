@@ -31,7 +31,7 @@ final class ListingPdfGenerationPresenter extends SecuredPresenter
     private $listing;
 
 
-    public function actionDefault($id)
+    public function actionDefault($id): void
     {
         $this->listing = $this->listingFacade
                               ->getListing(
@@ -50,9 +50,8 @@ final class ListingPdfGenerationPresenter extends SecuredPresenter
     }
 
 
-    public function renderDefault($id)
+    public function renderDefault($id): void
     {
-
     }
 
 
