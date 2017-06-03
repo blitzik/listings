@@ -25,6 +25,9 @@ class ListingControl extends BaseControl
 
         $template->listing = $this->listing;
 
+        $isCurrentMonth = $this->listing->getDate()->format('Y-m') === date('Y-m');
+        $template->isCurrentMonth = $isCurrentMonth;
+        $template->currentDay = date('j');
 
         $template->render();
     }

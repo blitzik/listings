@@ -1,7 +1,7 @@
 
 {var $listingName = $listing->getName() ?? 'Bez názvu'}
 
-<a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}" class="listing" title="{$listingName}">
+<a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}{if $isCurrentMonth}#day-{$currentDay}{/if}" class="listing" title="{$listingName}">
     <div class="row">
         <div class="col-8 col-lg-5">
             <small><b>Název</b></small>
