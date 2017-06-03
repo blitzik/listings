@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/authorization.git",
-                "reference": "807c3e7821812e81983b92b861610d2581d90692"
+                "reference": "a0a9cf13087f3f9e6be9ecaa761666d504dfe4af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/authorization/zipball/807c3e7821812e81983b92b861610d2581d90692",
-                "reference": "807c3e7821812e81983b92b861610d2581d90692",
+                "url": "https://api.github.com/repos/blitzik/authorization/zipball/a0a9cf13087f3f9e6be9ecaa761666d504dfe4af",
+                "reference": "a0a9cf13087f3f9e6be9ecaa761666d504dfe4af",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "authorization",
                 "nette"
             ],
-            "time": "2017-04-16 10:23:02"
+            "time": "2017-06-03 06:43:53"
         },
         {
             "name": "blitzik/dbrouting",
@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/dbrouting.git",
-                "reference": "b6867e2e92984aaedf95f7c8eafe309ab73a9da3"
+                "reference": "5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/dbrouting/zipball/b6867e2e92984aaedf95f7c8eafe309ab73a9da3",
-                "reference": "b6867e2e92984aaedf95f7c8eafe309ab73a9da3",
+                "url": "https://api.github.com/repos/blitzik/dbrouting/zipball/5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b",
+                "reference": "5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +96,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-03-25 12:54:18"
+            "time": "2017-06-03 06:23:05"
         },
         {
             "name": "blitzik/router",
@@ -104,12 +104,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/router.git",
-                "reference": "78a9992f32405b43ceb443527d837cdf2e8129e0"
+                "reference": "a72fba91d739da5eb1e32286497d155f0ca910a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/router/zipball/78a9992f32405b43ceb443527d837cdf2e8129e0",
-                "reference": "78a9992f32405b43ceb443527d837cdf2e8129e0",
+                "url": "https://api.github.com/repos/blitzik/router/zipball/a72fba91d739da5eb1e32286497d155f0ca910a4",
+                "reference": "a72fba91d739da5eb1e32286497d155f0ca910a4",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-04-01 19:04:17"
+            "time": "2017-06-03 06:06:21"
         },
         {
             "name": "dg/ftp-php",
