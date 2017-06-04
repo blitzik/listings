@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/dbrouting.git",
-                "reference": "5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b"
+                "reference": "afc3ff5f8594069fde47f1b4f8edcfa3229184e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/dbrouting/zipball/5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b",
-                "reference": "5eed6b259ea9a71dbfcc876e0d7e3b630cccbc9b",
+                "url": "https://api.github.com/repos/blitzik/dbrouting/zipball/afc3ff5f8594069fde47f1b4f8edcfa3229184e8",
+                "reference": "afc3ff5f8594069fde47f1b4f8edcfa3229184e8",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +96,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-06-03 06:23:05"
+            "time": "2017-06-04 13:31:54"
         },
         {
             "name": "blitzik/router",
