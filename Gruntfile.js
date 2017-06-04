@@ -75,6 +75,7 @@ module.exports = function (grunt) {
                     style: "expanded"
                 },
                 files: {
+                    "www/assets/css/temp/listings-bootstrap.css": ["www/assets/css/scss/listings/listings-bootstrap.scss"],
                     "www/assets/css/temp/listings.css": ["www/assets/css/scss/listings/listings.scss"]
                 }
             }
@@ -92,6 +93,7 @@ module.exports = function (grunt) {
             listings: {
                 files: {
                     "www/assets/css/listings.min.css": [
+                        "www/assets/css/temp/listings-bootstrap.css",
                         "www/assets/css/temp/listings.css"
                     ]
                 }

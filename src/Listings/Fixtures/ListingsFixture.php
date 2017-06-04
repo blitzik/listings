@@ -48,6 +48,9 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
 
         $ug->addPresenter('Listings:Public:ListingPdf')
            ->addUrl('pdf-sablony', 'default');
+
+        $ug->addPresenter('Listings:Member:Profile')
+           ->addUrl('profil', 'default');
     }
 
 

@@ -49,6 +49,15 @@ class AccountFacade
     }
 
 
+    public function updateAccount(array $values, User $user): void
+    {
+        $user->setFirstName($values['first_name']);
+        $user->setLastName($values['last_name']);
+
+        $this->em->flush();
+    }
+
+
     public function getUserByEmail(string $email): ?User
     {
         $user = $this->em->createQuery(

@@ -61,16 +61,7 @@ class UserStorage extends \Nette\Http\UserStorage
         // if we have our fake identity, we now want to
         // convert it back into the real entity
         if ($identity instanceof FakeIdentity) {
-            return $this->cache->load(sprintf('user-%s', $identity->getId()), function () use ($identity) {
-                return $this->entityManager->createQuery(
-                    'SELECT u, role FROM ' . $identity->getClass() . ' u
-                     JOIN u.role role
-                     WHERE u.id = :id'
-                )->setParameter('id', hex2bin($identity->getId()))
-                 ->getOneOrNullResult();
-            });
-
-            //return $this->entityManager->getReference($identity->getClass(), $identity->getId());
+            return $this->entityManager->getReference($identity->getClass(), $identity->getId());
         }
         return $identity;
     }

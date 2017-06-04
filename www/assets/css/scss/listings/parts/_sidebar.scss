@@ -28,6 +28,15 @@
       vertical-align: middle;
     }
 
+    .sidebar-user-detail a{
+      color: #fff;
+      text-decoration: underline;
+
+      &:hover{
+        text-decoration: none;
+      }
+    }
+
     .sidebar-user-ico{
       width: 30px;
       padding-right: 10px;

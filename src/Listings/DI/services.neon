@@ -103,3 +103,13 @@ employerItemControlFactory:
 
 emptyListingPdfGenerationControlFactory:
 	implement: Listings\Components\IEmptyListingPdfGenerationControlFactory
+
+userDetailControlFactory:
+	implement: Listings\Components\IUserDetailControlFactory
+	parameters: [Users\User userEntity]
+	arguments: [%userEntity%]
+
+workedTimeOverviewControlFactory:
+	implement: Listings\Components\IWorkedTimeOverviewControlFactory
+	parameters: [Users\User userEntity]
+	arguments: [%userEntity%]

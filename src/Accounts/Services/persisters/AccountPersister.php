@@ -40,21 +40,16 @@ class UserPersister
 
     /**
      * @param array $values
-     * @param User|null $user
      * @return User
      * @throws \Exception
      * @throws EmailIsInUseException
      */
-    public function save(array $values, User $user = null): User
+    public function save(array $values): User
     {
         try {
             $this->em->beginTransaction();
 
-            if (isset($user) and $user->getId() !== null) {
-                $newUser = $this->update($values, $user);
-            } else {
-                $newUser = $this->create($values);
-            }
+            $newUser = $this->create($values);
 
             $this->em->commit();
 
@@ -104,22 +99,6 @@ class UserPersister
         } catch (UniqueConstraintViolationException $e) {
             throw new EmailIsInUseException;
         }
-
-        return $user;
-    }
-
-
-    /**
-     * @param array $values
-     * @param User $user
-     * @return User
-     */
-    private function update(array $values, User $user): User
-    {
-        $user->setFirstName($values['firstName']);
-        $user->setLastName($values['lastName']);
-
-        $this->em->flush();
 
         return $user;
     }

@@ -12,6 +12,7 @@ use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use blitzik\Utils\Time;
+use Listings\Utils\TimeWithComma;
 
 /**
  * @ORM\Entity
@@ -90,7 +91,7 @@ class ListingItem implements IListingItem
             }
         }
 
-        $lunch = new ListingTime($lunch);
+        $lunch = new ListingTime(new TimeWithComma($lunch));
         $workedHoursWithLunch = $workEnd->sub($workStart);
         if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;

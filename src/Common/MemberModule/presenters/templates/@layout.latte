@@ -23,7 +23,7 @@
             <img src="{$imagesPath}/user.svg" alt="icon-user">
         </div>
         <div class="sidebar-user-detail">
-            {$_userEntity->getFullName()}
+            <a href="{plink :Listings:Member:Profile:default}" n:snippet="username">{$_userEntity->getFullName()}</a>
         </div>
     </div>
 

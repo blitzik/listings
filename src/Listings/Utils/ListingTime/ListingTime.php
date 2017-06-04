@@ -4,7 +4,7 @@ namespace Listings\Utils\Time;
 
 use Listings\Exceptions\Runtime\NegativeResultOfTimeCalcException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
-use Nette\Utils\Validators;
+use Listings\Utils\TimeWithComma;
 use blitzik\Utils\Time;
 use Nette\SmartObject;
 
@@ -89,7 +89,7 @@ class ListingTime
 
 
     /**
-     * @param \DateTimeInterface|ListingTime|Time|int|string|null $time
+     * @param \DateTimeInterface|ListingTime|Time|TimeWithComma|int|string|null $time
      * @return Time
      */
     private function gatherTime($time): Time
@@ -97,7 +97,7 @@ class ListingTime
         if ($time instanceof self) {
             $time = $time->getTime();
 
-        } elseif (Validators::is($time, 'unicode') and preg_match(sprintf('~%s~', self::TIME_WITH_COMMA_REGEXP), $time)) {
+        } elseif ($time instanceof TimeWithComma) {
             $time = $this->timeWithComma2Time($time);
         }
 
@@ -111,12 +111,12 @@ class ListingTime
 
 
     /**
-     * @param string $timeWithComma
+     * @param TimeWithComma $timeWithComma
      * @return Time
      */
-    private function timeWithComma2Time(string $timeWithComma): Time
+    private function timeWithComma2Time(TimeWithComma $timeWithComma): Time
     {
-        $hours = str_replace(',', '.', $timeWithComma);
+        $hours = str_replace(',', '.', $timeWithComma->getTimeWithComma());
 
         return new Time(bcmul('3600', $hours, 0));
     }
@@ -131,6 +131,13 @@ class ListingTime
     public function getTime(): string
     {
         return $this->time->getTime();
+    }
+
+
+    public function getTimeWithComma(): string
+    {
+        $t = bcdiv($this->getSeconds(), '3600', 0);
+        return str_replace('.', ',', $t);
     }
 
 

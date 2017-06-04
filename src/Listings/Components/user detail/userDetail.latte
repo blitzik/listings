@@ -1,0 +1,46 @@
+
+<div class="card margin-bottom-md">
+    <div class="card-block">
+        {snippet flashMessages}
+            {control flashMessages}
+        {/snippet}
+
+        {form userDetailForm}
+            <div class="form-group row">
+                <div class="col-12" n:if="$form['first_name']->hasErrors()">
+                    <div class="form-error">
+                        <div class="icon-container">
+                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                        </div>
+                        <div class="message-container">
+                            {inputError first_name}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">{label first_name}</div>
+                <div class="col-9">{input first_name class => 'form-control'}</div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-12" n:if="$form['last_name']->hasErrors()">
+                    <div class="form-error">
+                        <div class="icon-container">
+                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                        </div>
+                        <div class="message-container">
+                            {inputError last_name}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">{label last_name}</div>
+                <div class="col-9">{input last_name class => 'form-control'}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-right">
+                    <button n:name="save" class="btn btn-primary">Uložit</button>
+                </div>
+            </div>
+        {/form}
+    </div>
+</div>

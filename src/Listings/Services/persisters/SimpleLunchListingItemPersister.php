@@ -7,6 +7,7 @@ use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Kdyby\Doctrine\EntityManager;
 use Listings\ListingItem;
+use Listings\Utils\TimeWithComma;
 use Nette\SmartObject;
 
 class SimpleLunchListingItemPersister

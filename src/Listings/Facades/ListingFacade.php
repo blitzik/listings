@@ -72,4 +72,16 @@ final class ListingFacade
         return $this->listingRepository->fetch($query);
     }
 
+
+    public function getWorkedTime(string $userId): array
+    {
+        return $this->em->createQuery(
+            'SELECT COUNT(l.id) AS numberOfListings, SUM(l.workedDays) AS workedDays, SUM(l.workedHours) AS workedHours
+             FROM ' . Listing::class . ' l 
+             WHERE l.owner = :ownerId'
+
+        )->setParameter('ownerId', hex2bin($userId))
+         ->getArrayResult();
+    }
+
 }

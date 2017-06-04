@@ -1,0 +1,15 @@
+
+<table class="table table-bordered">
+    <tr>
+        <th>Počet výčetek</th>
+        <td>{$data['numberOfListings']}</td>
+    </tr>
+    <tr>
+        <th>Odpracovaných dní</th>
+        <td>{$data['workedDays']} {$data['workedDays']|plural:['dní', 'den', 'dny', 'dní']}</td>
+    </tr>
+    <tr>
+        <th>Odpracovaných hodin</th>
+        <td>{$data['workedHours']|invoiceTimeWithComma}</td>
+    </tr>
+</table>

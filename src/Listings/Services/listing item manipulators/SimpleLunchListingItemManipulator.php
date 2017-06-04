@@ -107,7 +107,7 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
                 $listingItem->getLocality(),
                 $listingItem->getWorkStart(),
                 $listingItem->getWorkEnd(),
-                $listingItem->getLunch()
+                $listingItem->getLunch()->getTimeWithComma()
             );
 
             $this->em->persist($newListingItem);
