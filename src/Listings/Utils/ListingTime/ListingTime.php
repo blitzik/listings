@@ -136,8 +136,8 @@ class ListingTime
 
     public function getTimeWithComma(): string
     {
-        $t = bcdiv($this->getSeconds(), '3600', 0);
-        return str_replace('.', ',', $t);
+        $t = bcdiv($this->getSeconds(), '3600', 1);
+        return str_replace(',0', '', str_replace('.', ',', $t));
     }
 
 
