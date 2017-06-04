@@ -13,6 +13,7 @@ use Kdyby\Doctrine\EntityManager;
 use Listings\IListingItem;
 use Listings\ListingItem;
 use blitzik\Utils\Time;
+use Listings\Utils\TimeWithComma;
 use Nette\Utils\Arrays;
 use Nette\SmartObject;
 use Listings\Listing;
@@ -107,7 +108,7 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
                 $listingItem->getLocality(),
                 $listingItem->getWorkStart(),
                 $listingItem->getWorkEnd(),
-                $listingItem->getLunch()->getTimeWithComma()
+                new TimeWithComma($listingItem->getLunch())
             );
 
             $this->em->persist($newListingItem);

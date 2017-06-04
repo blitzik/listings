@@ -16,13 +16,19 @@ final class TimeWithComma
     private $timeWithComma;
 
 
-    public function __construct(string $timeWithComma)
+    public function __construct($timeWithComma)
     {
-        if (!Validators::is($timeWithComma, 'unicode') or !preg_match(sprintf('~%s~', ListingTime::TIME_WITH_COMMA_REGEXP), $timeWithComma)) {
+        if (Validators::is($timeWithComma, 'unicode') and preg_match(sprintf('~%s~', ListingTime::TIME_WITH_COMMA_REGEXP), $timeWithComma)) {
+            $t = $timeWithComma;
+
+        } elseif ($timeWithComma instanceof ListingTime) {
+            $t = $timeWithComma->getTimeWithComma();
+
+        } else {
             throw new InvalidArgumentException;
         }
 
-        $this->timeWithComma = $timeWithComma;
+        $this->timeWithComma = $t;
     }
 
 

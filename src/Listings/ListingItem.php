@@ -40,9 +40,9 @@ class ListingItem implements IListingItem
      * @param Listing $listing
      * @param int $day
      * @param string $locality
-     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
-     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
-     * @param \DateTimeInterface|int|ListingTime|null|string $lunch
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $lunch
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
      */
@@ -70,9 +70,9 @@ class ListingItem implements IListingItem
 
 
     /**
-     * @param \DateTimeInterface|int|ListingTime|null|string $workStart
-     * @param \DateTimeInterface|int|ListingTime|null|string $workEnd
-     * @param \DateTimeInterface|int|ListingTime|null|string $lunch
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $workStart
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $workEnd
+     * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $lunch
      * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
      * @throws NegativeWorkedTimeException
@@ -91,7 +91,7 @@ class ListingItem implements IListingItem
             }
         }
 
-        $lunch = new ListingTime(new TimeWithComma($lunch));
+        $lunch = new ListingTime($lunch);
         $workedHoursWithLunch = $workEnd->sub($workStart);
         if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
             throw new NegativeWorkedTimeException;

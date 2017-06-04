@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 use Listings\LunchRangeListingItem;
+use Listings\Utils\TimeWithComma;
 use blitzik\Authorization\Role;
 use Listings\ListingItem;
 use Listings\Listing;
@@ -18,8 +19,8 @@ class ListingTest extends \Tester\TestCase
 
         $listing = new Listing($owner, 2017, 1, Listing::ITEM_TYPE_LUNCH_SIMPLE);
 
-        $item1 = new ListingItem($listing, 1, 'Consecteteur', '06:00', '16:00', '01:00');
-        $item2 = new ListingItem($listing, 2, 'Consecteteur', '06:00', '16:00', '01:00');
+        $item1 = new ListingItem($listing, 1, 'Consecteteur', '06:00', '16:00', new TimeWithComma('1'));
+        $item2 = new ListingItem($listing, 2, 'Consecteteur', '06:00', '16:00', new TimeWithComma('1'));
 
         Assert::same('18:00:00', $listing->getWorkedHours()->getTime());
         Assert::same(2, $listing->getWorkedDays());

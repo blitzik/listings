@@ -60,7 +60,7 @@ class SimpleLunchListingItemPersister
             $values['locality'],
             $values['workStart'],
             $values['workEnd'],
-            $values['lunch']
+            new TimeWithComma($values['lunch'])
         );
         $this->em->persist($listingItem)->flush();
 
@@ -79,7 +79,7 @@ class SimpleLunchListingItemPersister
     private function update(array $values, ListingItem $listingItem): ListingItem
     {
         $listingItem->changeLocality($values['locality']);
-        $listingItem->changeHours($values['workStart'], $values['workEnd'], $values['lunch']);
+        $listingItem->changeHours($values['workStart'], $values['workEnd'], new TimeWithComma($values['lunch']));
 
         $this->em->flush();
 

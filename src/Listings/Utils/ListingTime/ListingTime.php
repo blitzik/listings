@@ -30,9 +30,9 @@ class ListingTime
      * Numeric int            : integer means number of seconds that must be
      *                          positive and divisible by 1800 without reminder.
      * DateTime               : object takes only the time part
+     * TimeWithComma          : TimeWithComma object
      * String [e.g. 43:30:00] : sets this exact time
      * String [e.g. 43:30]    : hours and minutes time part
-     * String [e.g 9 or 9,5]  : hours and minutes special format. ( but NOT 9,0)
      *
      * @param \DateTimeInterface|ListingTime|Time|int|string|null $time
      */
@@ -137,6 +137,7 @@ class ListingTime
     public function getTimeWithComma(): string
     {
         $t = bcdiv($this->getSeconds(), '3600', 1);
+
         return str_replace(',0', '', str_replace('.', ',', $t));
     }
 
