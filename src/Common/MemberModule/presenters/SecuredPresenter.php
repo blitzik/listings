@@ -36,9 +36,6 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
-    /**
-     * @param Listing $listing
-     */
     protected function setListingPageTitle(Listing $listing): void
     {
         $this['pageTitle']->setPageTitle(sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear()));

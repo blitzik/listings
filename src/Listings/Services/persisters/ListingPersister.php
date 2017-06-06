@@ -72,6 +72,7 @@ class ListingPersister
      */
     private function create(array $values): Listing
     {
+        /** @var User $owner */
         $owner = $this->em->find(User::class, $values['owner']->getId());
         $listing = new Listing($owner, (int)$values['year'], (int)$values['month'], (int)$values['itemType']);
         if ($values['employer'] !== null) {
@@ -115,9 +116,7 @@ class ListingPersister
             $listing->setEmployer(null);
         }
 
-        if (isset($values['name'])) {
-            $listing->setName($values['name']);
-        }
+        $listing->setName($values['name']);
 
         if (!empty($values['hourlyRate'])) {
             $listing->setHourlyRate($values['hourlyRate']);

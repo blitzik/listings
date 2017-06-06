@@ -221,16 +221,10 @@ class Listing implements IResource
     }
 
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
-        Validators::assert($name, sprintf('unicode:..%s', self::LENGTH_NAME));
+        Validators::assert($name, sprintf('null|unicode:..%s', self::LENGTH_NAME));
         $this->name = $name;
-    }
-
-
-    public function removeName(): void
-    {
-        $this->name = null;
     }
 
 
