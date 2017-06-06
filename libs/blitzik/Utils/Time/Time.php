@@ -2,7 +2,6 @@
 
 namespace blitzik\Utils;
 
-use Nette\Utils\Validators;
 
 class Time
 {
@@ -21,9 +20,8 @@ class Time
      * There is different behaviour based on given value and its data type.
      *
      * NULL                   : sets object to 00:00:00
-     * Time                   : sets object to ListingTime time
-     * Numeric int            : integer means number of seconds that must be
-     *                          positive and divisible by 1800 without reminder.
+     * Time                   : sets object to Time's time
+     * Numeric int            : means number of seconds
      * DateTime               : object takes only the time part
      * String [e.g. 43:30:00] : sets this exact time
      * String [e.g. 43:30]    : hours and minutes time part
@@ -100,14 +98,14 @@ class Time
             }
 
             // time in seconds
-            if (Validators::is($time, 'numericint')) {
+            if (is_int($time) || is_string($time) && preg_match('#^-?[0-9]+\z#', $time)) {
                 $this->numberOfSeconds = (string)$time;
                 $time = $this->seconds2time((string)$time);
                 break;
             }
 
             // time in hours:minutes format
-            if (Validators::is($time, 'unicode') and preg_match('~^-?\d+:[0-5][0-9]$~', $time)) {
+            if (is_string($time) && preg_match('##u', $time) && preg_match('~^-?\d+:[0-5][0-9]$~', $time)) {
                 $time = $time . ':00'; // add SECONDS part to HH..:MM format
                 break;
             }
@@ -191,7 +189,6 @@ class Time
 
     private function seconds2time(string $seconds): string
     {
-        Validators::assert($seconds, 'numericint');
         $sign = strpos($seconds, '-') !== false ? '-' : '';
         $s = str_replace('-', '', $seconds);
 
