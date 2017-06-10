@@ -27,7 +27,7 @@ class ListingTest extends \Tester\TestCase
     }
 
 
-    /*public function testLunchRangeListingItem() // todo
+    public function testLunchRangeListingItem()
     {
         $role = new Role('role');
         $owner = new User('Lorem', 'Ipsum', 'lorem@ipsum.xy', 'abcde', $role);
@@ -39,7 +39,7 @@ class ListingTest extends \Tester\TestCase
 
         Assert::same('18:00:00', $listing->getWorkedHours()->getTime());
         Assert::same(2, $listing->getWorkedDays());
-    }*/
+    }
 }
 
 
