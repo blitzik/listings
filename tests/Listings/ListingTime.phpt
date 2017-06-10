@@ -42,6 +42,16 @@ class ListingTimeTest extends \Tester\TestCase
         Assert::same(0, $t1->compare($t2));
         Assert::same(1, $t3->compare($t2));
         Assert::same(-1, $t2->compare($t3));
+
+        Assert::same(true, $t1->isEqualTo($t2));
+        Assert::same(false, $t1->isLowerThan($t2));
+        Assert::same(true, $t1->isLowerOrEqualTo($t2));
+        Assert::same(false, $t1->isBiggerThan($t2));
+        Assert::same(true, $t1->isBiggerOrEqualTo($t2));
+
+        Assert::same(false, $t3->isEqualTo($t2));
+        Assert::same(true, $t3->isBiggerThan($t2));
+        Assert::same(false, $t3->isLowerThan($t2));
     }
 
 

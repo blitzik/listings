@@ -84,7 +84,37 @@ class ListingTime
     {
         $pt = $this->gatherTime($time);
 
-        return (int)bccomp($this->time->getSeconds(), $pt->getSeconds(), 0);
+        return (int)bccomp($this->getSeconds(), $pt->getSeconds(), 0);
+    }
+
+
+    public function isBiggerThan($time): bool
+    {
+        return $this->compare($time) === 1;
+    }
+
+
+    public function isBiggerOrEqualTo($time): bool
+    {
+        return $this->compare($time) >= 0;
+    }
+
+
+    public function isLowerThan($time): bool
+    {
+        return $this->compare($time) === -1;
+    }
+
+
+    public function isLowerOrEqualTo($time): bool
+    {
+        return $this->compare($time) <= 0;
+    }
+
+
+    public function isEqualTo($time): bool
+    {
+        return $this->compare($time) === 0;
     }
 
 
