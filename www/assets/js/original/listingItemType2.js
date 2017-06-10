@@ -29,12 +29,15 @@
             slide: function( event, ui ) {
                 var lStart = global.tc.time2Minutes(workLunchStart.val());
                 var lEnd = global.tc.time2Minutes(workLunchEnd.val());
-                if (ui.values[0] > lStart || ui.values[1] < lEnd) {
-                    return false;
+                var wStart = ui.values[0];
+                var wEnd = ui.values[1];
+                if (lStart !== 0 || lEnd !== 0) {
+                    if (wStart > lStart || wEnd < lEnd) {
+                        return false;
+                    }
                 }
 
-                var lunchMinutes = lEnd - lStart;
-                var workedTime = ui.values[1] - ui.values[0] - lunchMinutes;
+                var workedTime = ui.values[1] - ui.values[0] - (lEnd - lStart);
                 if (workedTime < 30) {
                     return false;
                 }
@@ -55,18 +58,31 @@
             slide: function( event, ui ) {
                 var wStart = global.tc.time2Minutes(workStart.val());
                 var wEnd = global.tc.time2Minutes(workEnd.val());
-                if (ui.values[0] > ui.values[1] || wStart > ui.values[0] || wEnd < ui.values[1]) {
+                var lStart = ui.values[0];
+                var lEnd = ui.values[1];
+
+                if (lStart === 0 && lEnd === 0) {
+                    lStart = wStart;
+                    lEnd = wEnd;
+
+                } else {
+                    if (lStart > lEnd || lStart < wStart || lEnd > wEnd) {
+                        return false;
+                    }
+
+                    if (lEnd - lStart < 30) {
+                        return false;
+                    }
+                }
+
+
+                var workedTime = wEnd - wStart - (lEnd - lStart);
+                if (workedTime < 30) {
                     return false;
                 }
 
-                var lunchMinutes = ui.values[1] - ui.values[0];
-                var workedTime = wEnd - wStart - lunchMinutes;
-                if (workedTime < 0) {
-                    return false;
-                }
-
-                workLunchStart.val(global.tc.minutes2Time(ui.values[0]));
-                workLunchEnd.val(global.tc.minutes2Time(ui.values[1]));
+                workLunchStart.val(global.tc.minutes2Time(lStart));
+                workLunchEnd.val(global.tc.minutes2Time(lEnd));
 
                 workWorkedHours.val(global.tc.minutes2TimeWithComma(workedTime));
             }
@@ -78,6 +94,7 @@
 
         var nullTimeButton = $("#_null-time-button");
         nullTimeButton.on("click", function (e) {
+
             workStart.val("0:00");
             workEnd.val("0:00");
             workLunchStart.val("0:00");
@@ -92,15 +109,29 @@
 
         var lunchNullTimeButton = $("#_lunch-null-time-button");
         lunchNullTimeButton.on("click", function (e) {
-            workLunchStart.val("0:00");
-            workLunchEnd.val("0:00");
-
-            workLunchSlider.slider("values", 0, 0);
-            workLunchSlider.slider("values", 1, 0);
-
             var wStartMinutes = global.tc.time2Minutes(workStart.val());
             var wEndMinutes = global.tc.time2Minutes(workEnd.val());
             var _workedHours = wEndMinutes - wStartMinutes;
+
+            var self = $(this);
+            self.toggleClass("withoutLunch");
+            if (self.hasClass("withoutLunch")) {
+                self.text("S obědem");
+                workLunchStart.val("0:00");
+                workLunchEnd.val("0:00");
+
+                workLunchSlider.slider("values", 0, 0);
+                workLunchSlider.slider("values", 1, 0);
+
+            } else {
+                self.text("Bez oběda");
+                workLunchStart.val(workStart.val());
+                workLunchEnd.val(global.tc.minutes2Time(wEndMinutes - 30));
+                _workedHours = 30;
+
+                workLunchSlider.slider("values", 0, wStartMinutes);
+                workLunchSlider.slider("values", 1, wEndMinutes - 30);
+            }
 
             workWorkedHours.val(global.tc.minutes2TimeWithComma(_workedHours));
         });

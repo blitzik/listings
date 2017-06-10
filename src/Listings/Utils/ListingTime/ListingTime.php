@@ -2,7 +2,6 @@
 
 namespace Listings\Utils\Time;
 
-use Listings\Exceptions\Runtime\NegativeResultOfTimeCalcException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Utils\TimeWithComma;
 use blitzik\Utils\Time;
@@ -61,18 +60,12 @@ class ListingTime
     /**
      * @param \DateTimeInterface|ListingTime|Time|int|string|null $time
      * @return ListingTime
-     * @throws NegativeResultOfTimeCalcException
      */
     public function sub($time): ListingTime
     {
         $t = $this->gatherTime($time);
 
-        $r = new ListingTime($this->time->sub($t));
-        if ($r->compare('00:00:00') === -1) {
-            throw new NegativeResultOfTimeCalcException;
-        }
-
-        return new self($r);
+        return new self($this->time->sub($t));
     }
 
 
@@ -132,8 +125,8 @@ class ListingTime
         }
 
         $time = new Time($time);
-        if (bcmod($time->getSeconds(), self::TIME_STEP) !== '0' or bccomp($time->getSeconds(), '0', 0) === -1) {
-            throw new InvalidArgumentException('Only positive numbers that are divisible by 1800 without reminder can pass');
+        if (bcmod($time->getSeconds(), self::TIME_STEP) !== '0') {
+            throw new InvalidArgumentException('Only numbers that are divisible by 1800 without reminder can pass');
         }
 
         return $time;

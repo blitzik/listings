@@ -4,15 +4,16 @@ namespace Listings;
 
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
+use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Utils\Time\ListingTime;
+use Listings\Utils\TimeWithComma;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use blitzik\Utils\Time;
-use Listings\Utils\TimeWithComma;
 
 /**
  * @ORM\Entity
@@ -57,6 +58,9 @@ class ListingItem implements IListingItem
         $this->id = $this->generateUuid();
 
         $this->listing = $listing;
+        if ($listing->getItemsType() !== Listing::ITEM_TYPE_LUNCH_SIMPLE) {
+            throw new InvalidArgumentException;
+        }
         $this->listing->updateWorkedDays(1);
 
         $this->workStart = new ListingTime();
@@ -75,26 +79,20 @@ class ListingItem implements IListingItem
      * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $lunch
      * @throws WorkedHoursException
      * @throws WorkedHoursRangeException
-     * @throws NegativeWorkedTimeException
      */
     public function changeHours($workStart, $workEnd, $lunch): void
     {
         $workStart = new ListingTime($workStart);
         $workEnd = new ListingTime($workEnd);
-        if ($workStart->compare('00:00') !== 0 or $workEnd->compare('00:00') !== 0) {
-            if ($workStart->compare($workEnd) > 0) {
+        if (!($workStart->isEqualTo('00:00') and $workEnd->isEqualTo('00:00'))) {
+            if ($workStart->isBiggerThan($workEnd)) {
                 throw new WorkedHoursRangeException;
-            }
-
-            if ($workEnd->sub($workStart)->compare('00:30') === -1) {
-                throw new WorkedHoursException;
             }
         }
 
         $lunch = new ListingTime($lunch);
-        $workedHoursWithLunch = $workEnd->sub($workStart);
-        if ($workedHoursWithLunch->compare($lunch) < 0) { // must be $workedHoursWithLunch >= $_lunch
-            throw new NegativeWorkedTimeException;
+        if ($workEnd->sub($workStart)->sub($lunch)->isLowerThan('00:30')) {
+            throw new WorkedHoursException;
         }
 
         $originalWorkedHours = new Time($this->getWorkedHours()->getSeconds());

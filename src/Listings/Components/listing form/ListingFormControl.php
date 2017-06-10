@@ -75,7 +75,7 @@ class ListingFormControl extends BaseControl
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Listing::LENGTH_NAME);
 
         $itemTypes = Listing::getTypes();
-        unset($itemTypes[Listing::ITEM_TYPE_LUNCH_RANGE]);
+        //unset($itemTypes[Listing::ITEM_TYPE_LUNCH_RANGE]);
         $form->addSelect('itemType', 'Typ položek')
                 ->setItems($itemTypes);
                 //->setDefaultValue(Listing::ITEM_TYPE_LUNCH_RANGE);

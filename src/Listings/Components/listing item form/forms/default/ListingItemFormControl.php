@@ -128,9 +128,6 @@ class ListingItemFormControl extends BaseControl
 
         } catch (WorkedHoursException $e) {
             $this->flashMessage('Položku nelze uložit. Musíte mít odpracováno alespoň 30 minut.', FlashMessage::WARNING);
-
-        } catch (NegativeWorkedTimeException $e) {
-            $this->flashMessage('Položku nelze uložit. Musíte mít odpracováno více hodin, než kolik strávíte obědem.', FlashMessage::WARNING);
         }
 
         $this->redrawControl('flashMessages');

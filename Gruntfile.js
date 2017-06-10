@@ -125,6 +125,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask("css_min_listings", ["cssmin:listings"]);
 
+    grunt.registerTask("js_range_lunch", ["concat:range_lunch_listing_item_js", "uglify:range_lunch_listing_item_js"]);
+
     grunt.registerTask("js", ["concat", "uglify"]);
 
 };

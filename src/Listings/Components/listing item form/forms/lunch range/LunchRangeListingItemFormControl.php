@@ -5,6 +5,7 @@ namespace Listings\Components;
 use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Listings\Services\Factories\ListingItemFormFactory;
 use Listings\Services\RangeLunchListingItemManipulator;
+use Listings\Exceptions\Runtime\LunchHoursException;
 use Common\Components\FlashMessages\FlashMessage;
 use Listings\Template\Filters\InvoiceTimeFilter;
 use Nette\Application\UI\ITemplate;
@@ -67,7 +68,10 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
             parent::processListing($form);
 
         } catch (LunchHoursRangeException $e) {
-            $this->flashMessage('Začátek a konec oběda se musí nacházet v rozsahu směny.', FlashMessage::WARNING);
+            $this->flashMessage('Položku nelze uložit. Oběd nemůže končit dříve než začal.', FlashMessage::WARNING);
+
+        } catch (LunchHoursException $e) {
+            $this->flashMessage('Položku nelze uložit. Začátek a konec oběda se musí nacházet v rozsahu směny.', FlashMessage::WARNING);
         }
 
         $this->redrawControl('flashMessages');

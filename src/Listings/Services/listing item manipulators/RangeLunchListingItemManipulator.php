@@ -9,6 +9,7 @@ use Listings\LunchRangeListingItem;
 use Kdyby\Doctrine\EntityManager;
 use Listings\IListingItem;
 use Nette\Utils\Arrays;
+use blitzik\Utils\Time;
 use Nette\SmartObject;
 use Listings\Listing;
 
@@ -121,10 +122,28 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
 
     public function removeListingItem(string $listingItemId): void
     {
-        $this->em->createQuery(
-            'DELETE FROM ' . LunchRangeListingItem::class . ' li
-             WHERE li.id = :id'
-        )->execute(['id' => hex2bin($listingItemId)]);
+        try {
+            $this->em->beginTransaction();
+
+            /** @var LunchRangeListingItem|null $listingItem */
+            $listingItem = $this->em->find(LunchRangeListingItem::class, $listingItemId);
+            if ($listingItem !== null) {
+                /** @var Listing $listing */
+                $listing = $this->em->find(Listing::class, $listingItem->getListingId());
+                $listing->updateWorkedDays(-1);
+                $listing->updateWorkedHours((new Time($listingItem->getWorkedHours()->getSeconds()))->getNegative());
+            }
+
+            $this->em->remove($listingItem)->flush();
+
+            $this->em->commit();
+
+        } catch (\Exception $e) {
+            $this->em->rollback();
+            $this->em->close();
+
+            throw  $e;
+        }
     }
 
 
