@@ -151,7 +151,7 @@
     }
 
     .logout{
-      margin-top: 100px;
+      margin-top: 50px;
       border-top: 1px solid #364044;
     }
   }
@@ -175,17 +175,18 @@
 #sidebar-expand-button {
   position: fixed;
   z-index: 101;
-  bottom: 20px;
-  left: $sidebar-horizontal-padding;
+  bottom: 5px;
+  left: 5px; //$sidebar-horizontal-padding;
+  margin-bottom: 0;
   display: block;
   width: 100px;
-  height: 100px;
-  line-height: 100px;
+  height: 60px;
+  line-height: 60px;
   background-color: #81D4FA;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
-  opacity: .66;
+  opacity: .60;
 
   transition: bottom .66s;
 }
