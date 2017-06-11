@@ -86,7 +86,7 @@ class UserPersister
             'SELECT r FROM ' . Role::class . ' r
              WHERE r.name = :name'
         )->setParameter('name', Role::MEMBER)
-         ->getResult();
+         ->getOneOrNullResult();
 
         $user = new User(
             $values['firstName'],
