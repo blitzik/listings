@@ -59,10 +59,6 @@ class ListingFormControl extends BaseControl
 
     protected function createComponentForm(): Form
     {
-        if ($this->listing === null and $this->listingSettings === null) {
-            $this->listingSettings = $this->listingFacade->getListingSettings($this->user->getIdentity());
-        }
-
         $form = new Form;
 
         $form->addSelect('month', 'Měsíc', TimeUtils::getMonths(true))
@@ -84,8 +80,11 @@ class ListingFormControl extends BaseControl
 
         $itemTypes = Listing::getTypes();
         $form->addSelect('itemType', 'Typ položek')
-                ->setItems($itemTypes)
-                ->setDefaultValue($this->listingSettings->getItemType());
+                ->setItems($itemTypes);
+        if ($this->listing === null and $this->listingSettings === null) {
+            $this->listingSettings = $this->listingFacade->getListingSettings($this->user->getIdentity());
+            $form['itemType']->setDefaultValue($this->listingSettings->getItemType());
+        }
 
         $form->addText('hourlyRate', 'Hodinová mzda')
                 ->setNullable()
