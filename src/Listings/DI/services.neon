@@ -2,6 +2,8 @@
 listingPdfTemplateFactory: Listings\Pdf\ListingPdfTemplateFactory
 listingItemFormFactory: Listings\Services\Factories\ListingItemFormFactory
 listingItemManipulatorFactory: Listings\Services\ListingItemManipulatorFactory
+listingSettingsFormFactory: Listings\Services\Factories\ListingSettingsFormFactory
+
 
 
 # acl
@@ -111,5 +113,10 @@ userDetailControlFactory:
 
 workedTimeOverviewControlFactory:
 	implement: Listings\Components\IWorkedTimeOverviewControlFactory
+	parameters: [Users\User userEntity]
+	arguments: [%userEntity%]
+
+listingSettingsControlFactory:
+	implement: Listings\Components\IListingSettingsControlFactory
 	parameters: [Users\User userEntity]
 	arguments: [%userEntity%]

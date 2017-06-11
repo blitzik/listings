@@ -2,7 +2,6 @@
 
 namespace Listings\Components;
 
-use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Template\Filters\InvoiceTimeWithCommaFilter;
 use Listings\Services\SimpleLunchListingItemManipulator;
@@ -83,9 +82,9 @@ class ListingItemFormControl extends BaseControl
 
         $template->listingLocalities = $this->listingItemManipulator->loadLocalities($this->listing->getId());
 
-        $workedHours = '9';
+        $workedHours = $this->listing->getDefaultSettings()->getWorkedHours()->getTimeWithComma();
         if ($this->listingItem !== null) {
-            $workedHours = InvoiceTimeWithCommaFilter::convert($this->listingItem->getWorkedHours());
+            $workedHours = $this->listingItem->getWorkedHours()->getTimeWithComma();
         }
         $template->workedHours = $workedHours;
     }
@@ -93,12 +92,12 @@ class ListingItemFormControl extends BaseControl
     
     protected function createComponentForm(): Form
     {
-        $form = $this->listingItemFormFactory->create($this->listingItem);
+        $form = $this->listingItemFormFactory->create($this->listing->getDefaultSettings(), $this->listingItem);
 
         $form->addText('lunch', 'Oběd')
                 ->setRequired('Zadejte délku oběda')
                 ->setHtmlId('_work-lunch')
-                ->setDefaultValue('1')
+                ->setDefaultValue($this->listing->getDefaultSettings()->getLunchHours()->getTimeWithComma())
                 ->addRule(Form::PATTERN, 'Špatný formát času', '^\d+(,[05])?$');
 
         if ($this->listingItem !== null) {

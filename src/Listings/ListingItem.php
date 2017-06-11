@@ -84,15 +84,15 @@ class ListingItem implements IListingItem
     {
         $workStart = new ListingTime($workStart);
         $workEnd = new ListingTime($workEnd);
+        $lunch = new ListingTime($lunch);
         if (!($workStart->isEqualTo('00:00') and $workEnd->isEqualTo('00:00'))) {
             if ($workStart->isBiggerThan($workEnd)) {
                 throw new WorkedHoursRangeException;
             }
-        }
 
-        $lunch = new ListingTime($lunch);
-        if ($workEnd->sub($workStart)->sub($lunch)->isLowerThan('00:30')) {
-            throw new WorkedHoursException;
+            if ($workEnd->sub($workStart)->sub($lunch)->isLowerThan('00:30')) {
+                throw new WorkedHoursException;
+            }
         }
 
         $originalWorkedHours = new Time($this->getWorkedHours()->getSeconds());

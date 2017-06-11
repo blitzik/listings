@@ -7,6 +7,7 @@ use Listings\Facades\ListingFacade;
 use Common\Components\BaseControl;
 use Listings\Services\TimeUtils;
 use Nette\Application\UI\Form;
+use Listings\ListingSettings;
 use Listings\Listing;
 
 class ListingFormControl extends BaseControl
@@ -20,6 +21,9 @@ class ListingFormControl extends BaseControl
     /** @var ListingFacade */
     private $listingFacade;
 
+
+    /** @var ListingSettings */
+    private $listingSettings;
 
     /** @var Listing|null */
     private $listing;
@@ -55,6 +59,10 @@ class ListingFormControl extends BaseControl
 
     protected function createComponentForm(): Form
     {
+        if ($this->listing === null and $this->listingSettings === null) {
+            $this->listingSettings = $this->listingFacade->getListingSettings($this->user->getIdentity());
+        }
+
         $form = new Form;
 
         $form->addSelect('month', 'Měsíc', TimeUtils::getMonths(true))
@@ -75,10 +83,9 @@ class ListingFormControl extends BaseControl
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Listing::LENGTH_NAME);
 
         $itemTypes = Listing::getTypes();
-        //unset($itemTypes[Listing::ITEM_TYPE_LUNCH_RANGE]);
         $form->addSelect('itemType', 'Typ položek')
-                ->setItems($itemTypes);
-                //->setDefaultValue(Listing::ITEM_TYPE_LUNCH_RANGE);
+                ->setItems($itemTypes)
+                ->setDefaultValue($this->listingSettings->getItemType());
 
         $form->addText('hourlyRate', 'Hodinová mzda')
                 ->setNullable()

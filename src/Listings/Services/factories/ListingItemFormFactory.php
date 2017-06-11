@@ -2,6 +2,7 @@
 
 namespace Listings\Services\Factories;
 
+use Listings\ListingSettings;
 use Listings\Template\Filters\InvoiceTimeFilter;
 use Nette\Application\UI\Form;
 use Listings\IListingItem;
@@ -13,11 +14,12 @@ class ListingItemFormFactory
 
 
     /**
+     * @param ListingSettings $setting
      * @param IListingItem|null $listingItem
      * @param bool $isAjaxified
      * @return Form
      */
-    public function create(IListingItem $listingItem = null, bool $isAjaxified = true): Form
+    public function create(ListingSettings $setting, IListingItem $listingItem = null, bool $isAjaxified = true): Form
     {
         $form = new Form;
         if ($isAjaxified) {
@@ -27,13 +29,13 @@ class ListingItemFormFactory
         $form->addText('workStart', 'Začátek')
             ->setRequired('Zadejte začátek směny')
             ->setHtmlId('_work-start')
-            ->setDefaultValue('6:00')
+            ->setDefaultValue(InvoiceTimeFilter::convert($setting->getWorkStart(), true))
             ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
         $form->addText('workEnd', 'Konec')
             ->setRequired('Zadejte konec směny')
             ->setHtmlId('_work-end')
-            ->setDefaultValue('16:00')
+            ->setDefaultValue(InvoiceTimeFilter::convert($setting->getWorkEnd(), true))
             ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
         $form->addText('locality', 'Místo pracoviště', null, IListingItem::LENGTH_LOCALITY)

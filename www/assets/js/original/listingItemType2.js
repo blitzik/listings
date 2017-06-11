@@ -20,6 +20,23 @@
         var workedHoursSlider = $("#worked-hours-slider");
         var workLunchSlider = $("#work-lunch-slider");
 
+        var workNullTimeButton = $("#_null-time-button");
+        var lunchNullTimeButton = $("#_lunch-null-time-button");
+
+        var workStartMinutes = global.tc.time2Minutes(workStart.val());
+        var workEndMinutes = global.tc.time2Minutes(workEnd.val());
+        var lunchStartMinutes = global.tc.time2Minutes(workLunchStart.val());
+        var lunchEndMinutes = global.tc.time2Minutes(workLunchEnd.val());
+
+        if (workStartMinutes === 0 && workEndMinutes === 0) {
+            lunchNullTimeButton.prop("disabled", true);
+        }
+
+        if (lunchStartMinutes === 0 && lunchEndMinutes === 0) {
+            lunchNullTimeButton.text("S obědem");
+            lunchNullTimeButton.toggleClass("withoutLunch");
+        }
+
         workedHoursSlider.slider({
             range: true,
             min: 0,
@@ -39,7 +56,20 @@
 
                 var workedTime = ui.values[1] - ui.values[0] - (lEnd - lStart);
                 if (workedTime < 30) {
+                    lunchNullTimeButton.prop("disabled", true);
                     return false;
+                }
+
+                if (lunchNullTimeButton.prop("disabled") === true) {
+                    lunchNullTimeButton.prop("disabled", false);
+                }
+
+                if (lunchNullTimeButton.prop("disabled") === true) {
+                    lunchNullTimeButton.prop("disabled", false);
+                }
+
+                if (lStart === 0 && lEnd === 0) {
+                    lunchNullTimeButton.text("S obědem");
                 }
 
                 workStart.val(global.tc.minutes2Time(ui.values[0]));
@@ -75,10 +105,14 @@
                     }
                 }
 
-
                 var workedTime = wEnd - wStart - (lEnd - lStart);
                 if (workedTime < 30) {
                     return false;
+                }
+
+                if (lunchNullTimeButton.hasClass("withoutLunch")) {
+                    lunchNullTimeButton.text("Bez oběda");
+                    lunchNullTimeButton.toggleClass("withoutLunch");
                 }
 
                 workLunchStart.val(global.tc.minutes2Time(lStart));
@@ -92,8 +126,12 @@
         // -----
 
 
-        var nullTimeButton = $("#_null-time-button");
-        nullTimeButton.on("click", function (e) {
+        workNullTimeButton.on("click", function (e) {
+            lunchNullTimeButton.text("S obědem");
+            lunchNullTimeButton.prop("disabled", true);
+            if (!lunchNullTimeButton.hasClass("withoutLunch")) {
+                lunchNullTimeButton.toggleClass("withoutLunch");
+            }
 
             workStart.val("0:00");
             workEnd.val("0:00");
@@ -107,13 +145,18 @@
             workLunchSlider.slider("values", 1, 0);
         });
 
-        var lunchNullTimeButton = $("#_lunch-null-time-button");
+
         lunchNullTimeButton.on("click", function (e) {
             var wStartMinutes = global.tc.time2Minutes(workStart.val());
             var wEndMinutes = global.tc.time2Minutes(workEnd.val());
             var _workedHours = wEndMinutes - wStartMinutes;
 
             var self = $(this);
+
+            if (wStartMinutes === 0 && wEndMinutes === 0) {
+                return;
+            }
+
             self.toggleClass("withoutLunch");
             if (self.hasClass("withoutLunch")) {
                 self.text("S obědem");

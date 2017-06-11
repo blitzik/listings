@@ -56,6 +56,17 @@ final class ListingQuery extends QueryObject
     }
 
 
+    public function withSettings(): self
+    {
+        $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {
+            $qb->addSelect('s')
+               ->leftJoin('l.defaultSettings', 's');
+        };
+
+        return $this;
+    }
+
+
     /**
      * @param User $owner
      * @return ListingQuery

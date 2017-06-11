@@ -97,7 +97,9 @@ class LunchRangeListingItem implements IListingItem
      * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $lunchStart
      * @param \DateTimeInterface|int|ListingTime|TimeWithComma|null|string $lunchEnd
      * @throws WorkedHoursRangeException
+     * @throws WorkedHoursException
      * @throws LunchHoursRangeException
+     * @throws LunchHoursException
      */
     public function changeHours($workStart, $workEnd, $lunchStart, $lunchEnd): void
     {
@@ -120,11 +122,11 @@ class LunchRangeListingItem implements IListingItem
             if ($workStart->isBiggerThan($lunchStart) or $workEnd->isLowerThan($lunchEnd)) {
                 throw new LunchHoursException;
             }
-        }
 
-        $workedHours = $workEnd->sub($workStart)->sub($lunchEnd->sub($lunchStart));
-        if ($workedHours->isLowerThan('00:30')) {
-            throw new WorkedHoursException;
+            $workedHours = $workEnd->sub($workStart)->sub($lunchEnd->sub($lunchStart));
+            if ($workedHours->isLowerThan('00:30')) {
+                throw new WorkedHoursException;
+            }
         }
 
         $originalWorkedHours = new Time($this->getWorkedHours()->getSeconds());

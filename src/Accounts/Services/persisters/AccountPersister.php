@@ -4,10 +4,13 @@ namespace Accounts\Services\Persisters;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Accounts\Exceptions\Runtime\EmailIsInUseException;
+use Listings\Utils\Time\ListingTime;
 use Kdyby\Doctrine\EntityManager;
 use blitzik\Authorization\Role;
+use Listings\ListingSettings;
 use Kdyby\Monolog\Logger;
 use Nette\SmartObject;
+use Listings\Listing;
 use Users\User;
 
 class UserPersister
@@ -78,11 +81,12 @@ class UserPersister
      */
     private function create(array $values): User
     {
+        /** @var Role $role */
         $role = $this->em->createQuery(
             'SELECT r FROM ' . Role::class . ' r
              WHERE r.name = :name'
         )->setParameter('name', Role::MEMBER)
-         ->getOneOrNullResult();
+         ->getResult();
 
         $user = new User(
             $values['firstName'],
@@ -91,8 +95,16 @@ class UserPersister
             $values['pass'],
             $role
         );
-
         $this->em->persist($user);
+
+        $listingSettings = new ListingSettings(
+            $user,
+            Listing::ITEM_TYPE_LUNCH_RANGE,
+            new ListingTime('06:00'), new ListingTime('14:30'),
+            new ListingTime('10:00'), new ListingTime('10:30' )
+        );
+        $this->em->persist($listingSettings);
+
         try {
             $this->em->flush();
 

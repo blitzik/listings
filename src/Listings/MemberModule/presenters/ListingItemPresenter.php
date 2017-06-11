@@ -54,6 +54,7 @@ final class ListingItemPresenter extends SecuredPresenter
         $this->listing = $this->listingFacade
                               ->getListing(
                                   (new ListingQuery())
+                                  ->withSettings()
                                   ->byId($listingId)
                               );
 

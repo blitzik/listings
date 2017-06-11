@@ -3,14 +3,21 @@
 namespace Listings\Facades;
 
 use Listings\Exceptions\Runtime\EmployerNotFoundException;
+use Listings\Exceptions\Runtime\WorkedHoursRangeException;
+use Listings\Exceptions\Runtime\LunchHoursRangeException;
+use Listings\Exceptions\Runtime\WorkedHoursException;
+use Listings\Exceptions\Runtime\LunchHoursException;
 use Listings\Services\Persisters\ListingPersister;
 use Listings\Services\Removers\ListingRemover;
+use Listings\Utils\Time\ListingTime;
 use Kdyby\Doctrine\EntityRepository;
 use Listings\Queries\ListingQuery;
 use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\ResultSet;
+use Listings\ListingSettings;
 use Nette\SmartObject;
 use Listings\Listing;
+use Users\User;
 
 final class ListingFacade
 {
@@ -51,6 +58,7 @@ final class ListingFacade
      */
     public function save(array $values, Listing $listing = null): Listing
     {
+        $values['setting'] = $this->getListingSettings($values['owner']);
         return $this->listingPersister->save($values, $listing);
     }
 
@@ -79,9 +87,24 @@ final class ListingFacade
             'SELECT COUNT(l.id) AS numberOfListings, SUM(l.workedDays) AS workedDays, SUM(l.workedHours) AS workedHours
              FROM ' . Listing::class . ' l 
              WHERE l.owner = :ownerId'
-
         )->setParameter('ownerId', hex2bin($userId))
          ->getArrayResult();
+    }
+
+
+    public function saveListingSettings(ListingSettings $settings): void
+    {
+        $this->em->flush($settings);
+    }
+
+
+    public function getListingSettings(User $user): ListingSettings
+    {
+        return $this->em->createQuery(
+            'SELECT ls FROM ' . ListingSettings::class . ' ls
+             WHERE ls.user = :usr'
+        )->setParameter('usr', hex2bin($user->getId()))
+         ->getOneOrNullResult();
     }
 
 }

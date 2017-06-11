@@ -1,0 +1,97 @@
+
+<div class="card">
+    <div class="card-block">
+        {snippet flashMessages}
+            {control flashMessages}
+        {/snippet}
+
+        {form listingSettingsForm}
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <div class="form-error" n:if="$form['itemType']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError itemType}</span></div>
+                        {label itemType /}
+                        {input itemType class => 'form-control'}
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-error" n:if="$form['workStart']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError workStart}</span></div>
+                                {label workStart /}
+                                {input workStart class => 'form-control'}
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-error" n:if="$form['workEnd']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError workEnd}</span></div>
+                                {label workEnd /}
+                                {input workEnd class => 'form-control'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
+                            <div id="worked-hours-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-error" n:if="$form['lunchStart']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunchStart}</span></div>
+                                {label lunchStart /}
+                                {input lunchStart class => 'form-control'}
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <div class="form-error" n:if="$form['lunchEnd']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunchEnd}</span></div>
+                                {label lunchEnd /}
+                                {input lunchEnd class => 'form-control'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
+                            <div id="work-lunch-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div id="_worked-hours" data-worked-hours="{$workedHours}"></div>
+                </div>
+
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6 col-md-4 margin-bottom-md">
+                            <button type="button" id="_null-time-button" class="btn btn-null-time btn-block">Vynulovat čas</button>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <button type="button" id="_lunch-null-time-button" class="btn btn-secondary btn-block">Bez oběda</button>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <button n:name="save" class="form-control btn btn-primary float-right">Uložit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {/form}
+    </div>
+</div>

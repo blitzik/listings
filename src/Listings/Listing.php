@@ -44,6 +44,13 @@ class Listing implements IResource
     private $owner;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ListingSettings")
+     * @ORM\JoinColumn(name="default_settings", referencedColumnName="id", nullable=false)
+     * @var ListingSettings
+     */
+    private $defaultSettings;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Employer")
      * @ORM\JoinColumn(name="employer", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @var Employer
@@ -85,6 +92,10 @@ class Listing implements IResource
      * @var int
      */
     private $type;
+
+
+    // -----
+
     
     /**
      * @ORM\Column(name="worked_days", type="smallint", nullable=false, unique=false)
@@ -108,6 +119,7 @@ class Listing implements IResource
 
     /**
      * @param User $owner
+     * @param ListingSettings $setting
      * @param int $year
      * @param int $month
      * @param int $itemType
@@ -115,6 +127,7 @@ class Listing implements IResource
      */
     public function __construct(
         User $owner,
+        ListingSettings $setting,
         int $year,
         int $month,
         int $itemType
@@ -124,6 +137,7 @@ class Listing implements IResource
         $this->type = self::ITEM_TYPE_LUNCH_RANGE;
 
         $this->owner = $owner;
+        $this->defaultSettings = $setting;
         $this->year = $year;
 
         $this->checkMonth($month);
@@ -134,6 +148,12 @@ class Listing implements IResource
         $this->createdAt = new \DateTimeImmutable;
         $this->workedDays = 0;
         $this->workedHours = 0;
+    }
+
+
+    public function getDefaultSettings(): ListingSettings
+    {
+        return $this->defaultSettings;
     }
 
 

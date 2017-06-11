@@ -8,7 +8,6 @@ use Kdyby\Doctrine\EntityManager;
 use Kdyby\Monolog\Logger;
 use Nette\SmartObject;
 use Listings\Listing;
-use Users\User;
 
 class ListingPersister
 {
@@ -72,9 +71,7 @@ class ListingPersister
      */
     private function create(array $values): Listing
     {
-        /** @var User $owner */
-        $owner = $this->em->find(User::class, $values['owner']->getId());
-        $listing = new Listing($owner, (int)$values['year'], (int)$values['month'], (int)$values['itemType']);
+        $listing = new Listing($values['owner'], $values['setting'], (int)$values['year'], (int)$values['month'], (int)$values['itemType']);
         if ($values['employer'] !== null) {
             $employer = $this->employerFacade->getEmployer($values['employer']);
             if ($employer === null) {

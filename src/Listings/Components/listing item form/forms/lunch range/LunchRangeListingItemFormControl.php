@@ -36,18 +36,18 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
 
     protected function createComponentForm(): Form
     {
-        $form = $this->listingItemFormFactory->create($this->listingItem);
+        $form = $this->listingItemFormFactory->create($this->listing->getDefaultSettings(), $this->listingItem);
 
         $form->addText('lunchStart', 'Oběd začátek')
                 ->setRequired('Zadejte začátek oběda')
                 ->setHtmlId('_work-lunch-start')
-                ->setDefaultValue('11:00')
+                ->setDefaultValue(InvoiceTimeFilter::convert($this->listing->getDefaultSettings()->getLunchStart(), true))
                 ->addRule(Form::PATTERN, 'Špatný formát času', $this->listingItemFormFactory->getTimeRegex());
 
         $form->addText('lunchEnd', 'Oběd konec')
             ->setRequired('Zadejte konec oběda')
             ->setHtmlId('_work-lunch-end')
-            ->setDefaultValue('12:00')
+            ->setDefaultValue(InvoiceTimeFilter::convert($this->listing->getDefaultSettings()->getLunchEnd(), true))
             ->addRule(Form::PATTERN, 'Špatný formát času', $this->listingItemFormFactory->getTimeRegex());
 
         if ($this->listingItem !== null) {

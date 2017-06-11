@@ -8,7 +8,9 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use blitzik\Routing\Services\UrlGenerator;
 use Accounts\Fixtures\AccountsFixture;
+use Listings\Utils\Time\ListingTime;
 use blitzik\Authorization\Resource;
+use Listings\ListingSettings;
 use Listings\ListingItem;
 use Listings\Listing;
 
@@ -18,6 +20,7 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
     {
         $this->loadDefaultUrls($manager);
         $this->loadDefaultAuthorizatorRules($manager);
+        $this->loadDefaultListingSettings($manager);
         //$this->loadTestingData($manager);
 
         $manager->flush();
@@ -51,6 +54,9 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
 
         $ug->addPresenter('Listings:Member:Profile')
            ->addUrl('profil', 'default');
+
+        $ug->addPresenter('Listings:Member:Settings')
+           ->addUrl('nastaveni', 'default');
     }
 
 
@@ -61,6 +67,34 @@ final class ListingsFixture extends AbstractFixture implements DependentFixtureI
             ->addDefinition($this->getReference('privilege_edit'), $this->getReference('role_member'))
             ->addDefinition($this->getReference('privilege_remove'), $this->getReference('role_member'))
             ->addDefinition($this->getReference('privilege_view'), $this->getReference('role_member'));
+    }
+
+
+    private function loadDefaultListingSettings(ObjectManager $manager): void
+    {
+        $memberListingSetting = new ListingSettings(
+            $this->getReference('user_member'),
+            Listing::ITEM_TYPE_LUNCH_SIMPLE,
+            new ListingTime('06:00'), new ListingTime('16:00'),
+            new ListingTime('11:00'), new ListingTime('12:00' )
+        );
+        $manager->persist($memberListingSetting);
+
+        $member2ListingSetting = new ListingSettings(
+            $this->getReference('user_member2'),
+            Listing::ITEM_TYPE_LUNCH_SIMPLE,
+            new ListingTime('06:00'), new ListingTime('16:00'),
+            new ListingTime('11:00'), new ListingTime('12:00' )
+        );
+        $manager->persist($member2ListingSetting);
+
+        $adminListingSetting = new ListingSettings(
+            $this->getReference('user_admin'),
+            Listing::ITEM_TYPE_LUNCH_SIMPLE,
+            new ListingTime('06:00'), new ListingTime('16:00'),
+            new ListingTime('11:00'), new ListingTime('12:00' )
+        );
+        $manager->persist($adminListingSetting);
     }
 
 
