@@ -2,7 +2,7 @@
 
 namespace Listings\Utils\Time;
 
-use Listings\Exceptions\Logic\InvalidArgumentException;
+use Listings\Exceptions\Logic\ListingTimeStepException;
 use Listings\Utils\TimeWithComma;
 use blitzik\Utils\Time;
 use Nette\SmartObject;
@@ -126,7 +126,7 @@ class ListingTime
 
         $time = new Time($time);
         if (bcmod($time->getSeconds(), self::TIME_STEP) !== '0') {
-            throw new InvalidArgumentException('Only numbers that are divisible by 1800 without reminder can pass');
+            throw new ListingTimeStepException('Only numbers that are divisible by 1800 without reminder can pass');
         }
 
         return $time;

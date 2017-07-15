@@ -9,3 +9,5 @@ class LogicException extends \LogicException {}
     class InvalidStateException extends LogicException {}
 
     class NoListingSetException extends LogicException  {}
+
+    class ListingTimeStepException extends LogicException {}

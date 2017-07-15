@@ -2,8 +2,10 @@
 
 require __DIR__ . '/../bootstrap.php';
 
+use Listings\Utils\Time\ListingTime;
 use Listings\LunchRangeListingItem;
 use blitzik\Authorization\Role;
+use Listings\ListingSettings;
 use Listings\Listing;
 use Tester\Assert;
 use Users\User;
@@ -11,8 +13,12 @@ use Users\User;
 
 $role = new Role('member');
 $owner = new User('Lorem', 'Ipsum', 'ipsum@app.abc', 'abcde', $role);
-
-$listing = new Listing($owner, 2017, 6, Listing::ITEM_TYPE_LUNCH_RANGE);
+$settings = new ListingSettings(
+    $owner, Listing::ITEM_TYPE_LUNCH_SIMPLE,
+    new ListingTime('06:00'), new ListingTime('14:30'),
+    new ListingTime('10:00'), new ListingTime('10:30')
+);
+$listing = new Listing($owner, $settings, 2017, 6, Listing::ITEM_TYPE_LUNCH_RANGE);
 
 $i1 = new LunchRangeListingItem($listing, 1, 'Lorem ipsum', '06:00', '16:00', '10:00', '11:00');
 Assert::same('09:00:00', $i1->getWorkedHours()->getTime());

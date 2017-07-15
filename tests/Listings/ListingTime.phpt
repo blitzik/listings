@@ -59,7 +59,7 @@ class ListingTimeTest extends \Tester\TestCase
     {
         Assert::exception(function () {
             $t1 = new ListingTime('1');
-        }, \Listings\Exceptions\Logic\InvalidArgumentException::class,
+        }, \Listings\Exceptions\Logic\ListingTimeStepException::class,
         'Only numbers that are divisible by 1800 without reminder can pass');
 
         $t2 = new ListingTime(new TimeWithComma('1'));
