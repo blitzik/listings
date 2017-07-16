@@ -10,7 +10,8 @@ use Nette\DI\Compiler;
 class CommonExtension extends CompilerExtension
 {
     private $defaults = [
-        'imagesPath' => '%wwwDir%/images'
+        'imagesPath' => '%wwwDir%/images',
+        'debugMode' => '%debugMode%'
     ];
 
 
@@ -24,7 +25,10 @@ class CommonExtension extends CompilerExtension
 
         $templateFactory = $cb->addDefinition($this->prefix('templateFactory'));
         $templateFactory->setClass(TemplateFactory::class)
-                        ->setArguments(['imagesPath' => $config['imagesPath']]);
+                        ->setArguments([
+                            'imagesPath' => $config['imagesPath'],
+                            'debugMode' => $config['debugMode']
+                        ]);
     }
 
 

@@ -19,9 +19,13 @@ class TemplateFactory extends \Nette\Bridges\ApplicationLatte\TemplateFactory
     /** @var string */
     private $imagesPath;
 
+    /** @var bool */
+    private $debugMode;
+
 
     public function __construct(
         string $imagesPath,
+        bool $debugMode,
         ILatteFactory $latteFactory,
         Nette\Http\IRequest $httpRequest,
         Nette\Security\User $user,
@@ -34,6 +38,7 @@ class TemplateFactory extends \Nette\Bridges\ApplicationLatte\TemplateFactory
         $this->authorizator = $authorizator;
         $this->translator = $translator;
         $this->imagesPath = $imagesPath;
+        $this->debugMode = $debugMode;
     }
 
 
@@ -41,6 +46,7 @@ class TemplateFactory extends \Nette\Bridges\ApplicationLatte\TemplateFactory
     {
         $template =  parent::createTemplate($control);
 
+        $template->debugMode = $this->debugMode;
         $template->authorizator = $this->authorizator;
         $template->setTranslator($this->translator);
 
