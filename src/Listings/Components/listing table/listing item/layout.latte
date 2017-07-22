@@ -1,47 +1,40 @@
 
 <div class="day" n:snippet="item">
-    <div class="row">
-        <div class="col-7">
-            <div class="week-day-name" id="day-{$day}">
-                {$itemDate|completeDate}
+    <div class="week-day-name" id="day-{$day}">
+        {$itemDate|completeDate}
+    </div>
+
+    <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="row-link">
+        <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
+            <div class="day-working-hours">
+                <span>Prac. doba</span>
+                {include #workingHours}
+            </div>
+
+            <div class="day-lunch">
+                <span>Oběd</span>
+                {include #lunch}
+            </div>
+
+            <div class="day-worked-hours">
+                <span>Odpr. hod.</span>
+                {include #workedHours}
+            </div>
+
+            <div class="day-locality">
+                <span>Popis práce - místo</span>
+                {include #locality}
             </div>
         </div>
-        <div class="col-5 text-right">
-            {if $day < $daysInMonth}{include #copy-down}{/if}
-            {include #remove}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="row-link">
-                <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <div class="row">
-                                <div class="col-12 day-labels">
-                                    Popis práce - místo
-                                </div>
-                                <div class="col-12">
-                                    {include #locality}
-                                </div>
-                            </div>
-                        </div>
+    </a>
 
-                        <div class="col-12 col-lg-6">
-                            <div class="row day-labels">
-                                <div class="col-4">Prac. doba</div>
-                                <div class="col-4 text-center">Oběd</div>
-                                <div class="col-4 text-center">Odpr. hod.</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">{include #workingHours}</div>
-                                <div class="col-4 text-center">{include #lunch}</div>
-                                <div class="col-4 text-center">{include #workedHours}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+
+    {block #copy-down}
+        <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down"><span>&darr;</span></a>
+    {/block}
+
+    {block #remove}
+        <a href="{link remove}" class="ajax remove-item">&times;</a>
+    {/block}
+
 </div>

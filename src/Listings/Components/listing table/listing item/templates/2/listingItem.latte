@@ -20,13 +20,3 @@
 {block workedHours}
     {$item->getWorkedHours()|invoiceTimeWithComma}
 {/block}
-
-
-{block copy-down}
-    <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down">&darr;</a>
-{/block}
-
-
-{block remove}
-    <a href="{link remove}" class="ajax remove-item">&times;</a>
-{/block}

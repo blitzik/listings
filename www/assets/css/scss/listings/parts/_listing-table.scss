@@ -4,20 +4,17 @@
 
 
 .listing-info{
-  max-width: 1000px;
   overflow: auto;
   background-color: #fff;
   border: 1px solid #B0BEC5;
   padding: 10px;
 
   span{
-    float: right;
+    display: block;
   }
 }
 
 .listing-days{
-  max-width: 1000px;
-
   h3{
     font-size: 1em;
     margin-top: 25px;
@@ -32,19 +29,44 @@
 
 .day{
   font-size: 1.15em;
-  margin-top: 10px;
+  margin-top: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+    "weekDayName weekDayName weekDayName"
+    "dayItem dayItem dayItem"
+    "removeItem copyItemDown copyItemDown";
 
   .week-day-name{
     font-size: 1.1em;
     font-weight: bold;
+    grid-area: weekDayName;
     /*text-align: center;*/
   }
 }
 
 .day-item{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  grid-template-areas:
+          "workingHours workedHours"
+          "lunchHours workedHours"
+          "locality locality";
+
   background-color: #fff;
   border: 1px solid #B0BEC5;
   padding: 10px;
+
+  span{
+    font-size: 0.65em;
+    font-weight: bold;
+    display: block;
+  }
 
   &.current-day{
     background-color: #e8f5e9;
@@ -57,7 +79,27 @@
   }
 }
 
+
+.day-working-hours{
+  grid-area: workingHours;
+}
+
+.day-lunch{
+  grid-area: lunchHours;
+}
+
+.day-worked-hours{
+  grid-area: workedHours;
+  text-align: right;
+}
+
+.day-locality{
+  grid-area: locality;
+}
+
+
 .row-link{
+  grid-area: dayItem;
   text-decoration: none;
   color: #333;
 
@@ -68,7 +110,7 @@
 
 .copy-item-down,
 .remove-item{
-  width: 100px;
+  grid-area: copyItemDown;
   display: inline-block;
   background-color: #26A69A;
   color: #fff;
@@ -81,15 +123,50 @@
   }
 }
 
+.copy-item-down{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .copy-item-down:hover{
   background-color: darken(#26A69A, 10%);
 }
 
 .remove-item{
-  width: 50px;
+  grid-area: removeItem;
   background-color: #e74c3c;
 
   &:hover{
     background-color: darken(#e74c3c, 10%);
+  }
+}
+
+
+
+@media (min-width: 450px) {
+  .day-item{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+            "workingHours lunchHours workedHours"
+            "locality locality locality";
+  }
+
+  .day-worked-hours{
+    text-align: left;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .listing-info span{
+    float: right;
+  }
+
+  .day{
+    grid-template-columns: 1fr 150px;
+    grid-template-areas:
+            "weekDayName removeItem"
+            "dayItem copyItemDown";
   }
 }
