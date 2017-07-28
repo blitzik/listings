@@ -11,10 +11,6 @@ class PageTitleControl extends BaseControl
     private $joinedText;
 
 
-    /**
-     * @param $pageTitle
-     * @return PageTitleControl
-     */
     public function setPageTitle($pageTitle): PageTitleControl
     {
         $this->pageTitle = $pageTitle;
@@ -23,9 +19,6 @@ class PageTitleControl extends BaseControl
     }
 
 
-    /**
-     * @param string $joinedText
-     */
     public function setJoinedText($joinedText): void
     {
         $this->joinedText = $joinedText;

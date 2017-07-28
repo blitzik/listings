@@ -29,7 +29,7 @@
 
 .day{
   font-size: 1.15em;
-  margin-top: 25px;
+  margin-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
 
@@ -37,26 +37,25 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   grid-template-areas:
-    "weekDayName weekDayName weekDayName"
     "dayItem dayItem dayItem"
     "removeItem copyItemDown copyItemDown";
 
   .week-day-name{
     font-size: 1.1em;
     font-weight: bold;
-    grid-area: weekDayName;
+    //grid-area: weekDayName;
     /*text-align: center;*/
   }
 }
 
 .day-item{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50px 1fr 1fr;
   grid-gap: 10px;
   grid-template-areas:
-          "workingHours workedHours"
-          "lunchHours workedHours"
-          "locality locality";
+    "dayNumber workingHours workedHours"
+    "weekDayName lunchHours workedHours"
+    ". locality locality";
 
   background-color: #fff;
   border: 1px solid #B0BEC5;
@@ -97,6 +96,25 @@
   grid-area: locality;
 }
 
+.day-number,
+.day-week-day-name{
+  background-color: #78909c ;
+  color: #fff;
+  border: 1px solid #78909c ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.day-number{
+  grid-area: dayNumber;
+}
+
+.day-week-day-name{
+  grid-area: weekDayName;
+}
+
 
 .row-link{
   grid-area: dayItem;
@@ -111,22 +129,18 @@
 .copy-item-down,
 .remove-item{
   grid-area: copyItemDown;
-  display: inline-block;
   background-color: #26A69A;
   color: #fff;
   font-weight: bold;
-  text-align: center;
   text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover{
     color: #fff;
   }
-}
-
-.copy-item-down{
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .copy-item-down:hover{
@@ -146,10 +160,10 @@
 
 @media (min-width: 450px) {
   .day-item{
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 50px 1fr 1fr 1fr;
     grid-template-areas:
-            "workingHours lunchHours workedHours"
-            "locality locality locality";
+            "dayNumber workingHours lunchHours workedHours"
+            "weekDayName locality locality locality";
   }
 
   .day-worked-hours{
@@ -158,15 +172,27 @@
 }
 
 
-@media (min-width: 1024px) {
+@media (min-width: 1300px) {
   .listing-info span{
     float: right;
   }
 
   .day{
-    grid-template-columns: 1fr 150px;
+    border-bottom: 0;
+    grid-template-columns: 1fr 100px 50px;
     grid-template-areas:
-            "weekDayName removeItem"
-            "dayItem copyItemDown";
+      "dayItem copyItemDown removeItem";
+  }
+
+  .day-item{
+    grid-template-columns: 50px 50px 3fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "dayNumber weekDayName locality workingHours lunchHours workedHours";
+  }
+
+  .day-worked-hours,
+  .day-working-hours,
+  .day-lunch{
+    text-align:  center;
   }
 }

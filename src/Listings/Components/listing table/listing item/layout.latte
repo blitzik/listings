@@ -1,11 +1,19 @@
 
 <div class="day" n:snippet="item">
-    <div class="week-day-name" id="day-{$day}">
+    {*<div class="week-day-name" id="day-{$day}">
         {$itemDate|completeDate}
-    </div>
+    </div>*}
 
     <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="row-link">
         <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
+            <div class="day-number">
+                {$day}.
+            </div>
+
+            <div class="day-week-day-name">
+                {$itemDate|weekDayName|substr:0,2|upper}
+            </div>
+
             <div class="day-working-hours">
                 <span>Prac. doba</span>
                 {include #workingHours}
@@ -26,6 +34,7 @@
                 {include #locality}
             </div>
         </div>
+
     </a>
 
 

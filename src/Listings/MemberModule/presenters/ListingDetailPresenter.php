@@ -80,8 +80,8 @@ final class ListingDetailPresenter extends SecuredPresenter
             $this->listingItemManipulator = $this->rangeLunchListingItemManipulator;
         }
 
-        $this['metaTitle']->setTitle('Detail výčetky');
-        $this->setListingPageTitle($this->listing);
+        $title = $this->setListingPageTitle($this->listing);
+        $this['metaTitle']->setTitle($title);
     }
 
 
