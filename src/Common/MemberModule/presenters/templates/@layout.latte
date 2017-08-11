@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
 <input type="radio" name="sidebar-nav" id="sidebar-expand">
 <label for="sidebar-expand" id="sidebar-expand-button">MENU</label>
 <div id="sidebar">
@@ -54,23 +53,12 @@
 </div>
 
 <div id="content-wrapper">
-    <div class="container-fluid">
-        <div class="row content-header">
-            <div class="col-12">
-                {control pageTitle}
-            </div>
-        </div>
+    <div class="content-header">
+        {control pageTitle}
+    </div>
 
-        <div class="row">
-            <div class="col-12">
-                {control flashMessages}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 content">
-                {include #content}
-            </div>
-        </div>
+    <div class="content">
+        {include #content}
     </div>
 </div>
 

@@ -68,7 +68,7 @@ class EmployerItemControl extends BaseControl
     {
         $form = new Form;
 
-        $form->addText('name', $this->employer->getName(), null, Employer::LENGTH_NAME)
+        $form->addText('name', $this->employer->getName(), null)
                 ->setRequired('Zadejte název zaměstnavatele')
                 ->addRule(Form::MAX_LENGTH, 'Lze zadat max. %d znaků', Employer::LENGTH_NAME)
                 ->setDefaultValue($this->employer->getName());

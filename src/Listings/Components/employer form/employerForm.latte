@@ -3,24 +3,20 @@
     <div class="card-block">
         {snippet form}
         {form form}
-            <div class="row">
-                <div class="col-12" n:if="$form['name']->hasErrors()">
-                    <div class="form-error">
-                        <div class="icon-container">
-                            <img src="{$imagesPath}/warning.svg" alt="warning-ico">
-                        </div>
-                        <div class="message-container">
-                            {inputError name}
-                        </div>
+            <div n:if="$form['name']->hasErrors()">
+                <div class="form-error">
+                    <div class="icon-container">
+                        <img src="{$imagesPath}/warning.svg" alt="warning-ico">
+                    </div>
+                    <div class="message-container">
+                        {inputError name}
                     </div>
                 </div>
-                <div class="col-12">{label name /}</div>
             </div>
+            {label name /}
 
-            <div class="row">
-                <div class="col-md-8 margin-bottom-md">{input name class => 'form-control'}</div>
-                <div class="col-md-4"><button n:name="save" class="btn btn-primary form-control">Uložit</button></div>
-            </div>
+            {input name class => 'form-control margin-bottom-md'}
+            <button n:name="save" class="btn btn-primary form-control">Uložit</button>
         {/form}
         {/snippet}
     </div>

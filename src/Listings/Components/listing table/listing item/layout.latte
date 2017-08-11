@@ -1,8 +1,5 @@
 
 <div class="day" n:snippet="item">
-    {*<div class="week-day-name" id="day-{$day}">
-        {$itemDate|completeDate}
-    </div>*}
 
     <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(true), day => $day}" class="row-link">
         <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
@@ -37,13 +34,14 @@
 
     </a>
 
+    <div class="item-actions" n:ifcontent>
+        {block #copy-down}
+            <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down"><span>&darr;</span></a>
+        {/block}
 
-    {block #copy-down}
-        <a n:if="$day < $daysInMonth" href="{link copyDown}" class="ajax copy-item-down"><span>&darr;</span></a>
-    {/block}
-
-    {block #remove}
-        <a href="{link remove}" class="ajax remove-item">&times;</a>
-    {/block}
+        {block #remove}
+            <a href="{link remove}" class="ajax remove-item">&times;</a>
+        {/block}
+    </div>
 
 </div>

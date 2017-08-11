@@ -75,6 +75,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
         }
 
         $this->redrawControl('flashMessages');
+        $this->redrawControl('flashMessages2');
     }
 
 
