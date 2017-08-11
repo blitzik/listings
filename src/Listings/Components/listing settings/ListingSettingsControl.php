@@ -90,6 +90,8 @@ class ListingSettingsControl extends BaseControl
         } catch (LunchHoursException $e) {
             $this->flashMessage('Nastavení nelze uložit. Začátek a konec oběda se musí nacházet v rozsahu směny.', FlashMessage::WARNING);
         }
+
+        $this->refresh('this', ['flashMessages', 'flashMessages2']);
     }
 }
 

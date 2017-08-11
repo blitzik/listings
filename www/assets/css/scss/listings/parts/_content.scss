@@ -110,11 +110,14 @@ h1{
 
 
 .listing-item-title{
-  margin-bottom: 30px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .item-form,
-.item-pagination{
+.item-pagination,
+.listing-form,
+.listing-settings-form{
   max-width: 450px;
 }
 
@@ -145,6 +148,15 @@ h1{
       padding-bottom: 0;
     }
   }
+}
+
+.item-action-buttons button{
+    width: 100%;
+    margin-top: 10px;
+
+    &:first-of-type{
+      margin-top: 0;
+    }
 }
 
 .item-time-period{
@@ -186,19 +198,6 @@ h1{
   }
 }
 
-
-.item-action-buttons{
-  display: flex;
-
-  button:first-child{
-    margin-right: 10px;
-  }
-
-  button{
-    flex-basis: 50%;
-  }
-}
-
 .btn-null-time{
   @include button-variant(#fff, #16a085, #16a085);
 }
@@ -211,17 +210,6 @@ h1{
 .listing-pdf-setting h2{
     margin-top: 10px;
 }
-
-
-/*@supports (display: grid){
-  .listing{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "listingName listingPeriod"
-      "listingWorkedHours listingWorkedDays";
-  }
-}*/
 
 
 @media (min-width: 768px){
@@ -250,6 +238,19 @@ h1{
         text-align: right;
         padding-top: 0;
       }
+    }
+  }
+
+  .item-action-buttons{
+    display: flex;
+
+    button{
+      flex-basis: 50%;
+      margin-top: 0;
+    }
+
+    .btn-null-time{
+      margin-right: 10px;
     }
   }
 
@@ -297,25 +298,10 @@ h1{
     text-align: center;
     flex-basis: 20%;
   }
-
-  /*.listing{
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    grid-template-areas:
-      "listingName listingPeriod listingWorkedHours listingWorkedDays";
-  }
-
-  .listing-period,
-  .listing-worked-days{
-    text-align: left;
-  }*/
 }
 
 
 @media (min-width: 1200px){
-  .listing-form{
-    max-width: 40%;
-  }
-
   .item-additional-flash-messages{
     display: none;
   }

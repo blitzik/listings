@@ -1,52 +1,30 @@
 
 <div class="empty-listings-pdf-setting">
 {form form}
-    <div class="row">
 
-        <div class="col-md-2">
-            Zvolte rok:
-            <div class="row">
-            {foreach $form['year']->getItems() as $key => $label}
-                <div class="col-6 col-md-12">
-                    <input n:name="year:$key">
-                    <label n:name="year:$key" class="year-option">{$label}</label>
-                </div>
-            {/foreach}
-            </div>
-        </div>
+    Zvolte rok:
+    {foreach $form['year']->getItems() as $key => $label}
+        <input n:name="year:$key">
+        <label n:name="year:$key" class="year-option">{$label}</label>
+    {/foreach}
 
-        <div class="col-md-10">
-            Zvolte měsíc:
-            <div class="row">
-            {foreach $form['months']->getItems() as $key => $label}
-                <div class="col-6 col-md-4 col-lg-3">
-                    <input n:name="months:$key">
-                    <label n:name="months:$key" class="month-option">{$label}</label>
-                </div>
-            {/foreach}
-            </div>
+    Zvolte měsíc:
+    {foreach $form['months']->getItems() as $key => $label}
+        <input n:name="months:$key">
+        <label n:name="months:$key" class="month-option">{$label}</label>
+    {/foreach}
 
-            <div class="row">
-                <div class="col-6 col-lg-4">
-                    <div class="form-group">
-                        {label template /}
-                        {input template class => 'form-control'}
-                    </div>
-                </div>
-
-                <div class="col-6 col-lg-4">
-                    <div class="form-group">
-                        {label itemType /}
-                        {input itemType class => 'form-control'}
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-4">
-                    <button n:name="generate" class="btn btn-primary btn-block">Vygenerovat PDF</button>
-                </div>
-            </div>
-        </div>
-
+    <div class="form-group">
+        {label template /}
+        {input template class => 'form-control'}
     </div>
+
+    <div class="form-group">
+        {label itemType /}
+        {input itemType class => 'form-control'}
+    </div>
+
+    <button n:name="generate" class="btn btn-primary btn-block">Vygenerovat PDF</button>
+
 {/form}
 </div>

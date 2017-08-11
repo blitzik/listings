@@ -36,8 +36,6 @@
   .week-day-name{
     font-size: 1.1em;
     font-weight: bold;
-    //grid-area: weekDayName;
-    /*text-align: center;*/
   }
 }
 
@@ -144,8 +142,9 @@
 }
 
 .copy-item-down{
-  width: 60%;
+  flex: 2 0 66%;
   order: 2;
+  margin-left: 10px;
 }
 
 .copy-item-down:hover{
@@ -153,7 +152,7 @@
 }
 
 .remove-item{
-  width: 35%;
+  flex: 1 0 33%;
   order: 1;
   background-color: #e74c3c;
 
@@ -174,26 +173,7 @@
 }
 
 
-/*@supports (display: grid) {
-  .day{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    grid-template-areas:
-            "dayItem dayItem dayItem"
-            "removeItem copyItemDown copyItemDown";
-  }
-
-  .day-item{
-    display: grid;
-    grid-template-columns: 50px 1fr 1fr;
-    grid-gap: 10px;
-    grid-template-areas:
-            "dayNumber workingHours workedHours"
-            "weekDayName lunchHours workedHours"
-            ". locality locality";
-  }
-
+@supports (display: grid) {
   .day-number{
     grid-area: dayNumber;
   }
@@ -219,10 +199,6 @@
     grid-area: locality;
   }
 
-  .remove-item{
-    grid-area: removeItem;
-  }
-
   .row-link{
     grid-area: dayItem;
   }
@@ -231,26 +207,79 @@
     grid-area: copyItemDown;
   }
 
-  @media (min-width: 450px) {
-    .day-item{
-      grid-template-columns: 50px 1fr 1fr 1fr;
+  .remove-item{
+    grid-area: removeItem;
+  }
+
+  .item-actions{
+    grid-area: itemActions;
+  }
+
+  @media (min-width: 768px) {
+    .day{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 10px;
       grid-template-areas:
-              "dayNumber workingHours lunchHours workedHours"
-              "weekDayName locality locality locality";
+        "dayItem"
+        "itemActions";
+    }
+
+    .day-item{
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 44px 1fr 1fr 1fr;
+      grid-template-areas:
+        "dayNumber workingHours lunchHours workedHours"
+        "weekDayName locality locality locality";
+    }
+
+    .day-locality{
+      padding: 0;
+    }
+
+    .day-number,
+    .day-week-day-name{
+      margin-bottom: 0;
+    }
+
+    .item-actions{
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .day{
+      grid-template-columns: 1fr 160px;
+      grid-template-areas:
+        "dayItem itemActions";
+    }
+
+    .item-actions{
+      display: flex;
+
+      .copy-item-down{
+        flex: 2 0 100px;
+        order: 1;
+        margin-left: 0;
+        margin-right: 10px;
+      }
+
+      .remove-item{
+        flex: 1 0 50px;
+      }
     }
   }
 
   @media (min-width: 1300px) {
-    .day{
-      grid-template-columns: 1fr 100px 50px;
-      grid-template-areas:
-              "dayItem copyItemDown removeItem";
+    .day-worked-hours{
+      text-align: center;
     }
 
     .day-item{
-      grid-template-columns: 50px 50px 3fr 1fr 1fr 1fr;
+      grid-template-columns: 44px 44px 3fr 1fr 1fr 1fr;
       grid-template-areas:
-              "dayNumber weekDayName locality workingHours lunchHours workedHours";
+        "dayNumber weekDayName locality workingHours lunchHours workedHours";
     }
   }
-}*/
+}

@@ -1,11 +1,11 @@
 
+<h2 class="card-title listing-item-title">{$date|completeDate}</h2>
+
 <div class="card item-form">
     <div class="card-block">
         {snippet flashMessages}
             {control flashMessages}
         {/snippet}
-
-        <h2 class="card-title listing-item-title">{$date|completeDate}</h2>
 
         {form form}
             <div class="item-time-period">
@@ -44,7 +44,9 @@
                 {input locality class => 'form-control'}
             </div>
 
-            <button type="button" id="_null-time-button" class="btn btn-null-time">vynulovat čas</button>
+            <div class="item-action-buttons">
+                <button type="button" id="_null-time-button" class="btn btn-null-time">vynulovat čas</button>
+            </div>
 
             <div class="item-additional-flash-messages">
                 {snippet flashMessages2}
@@ -52,7 +54,7 @@
                 {/snippet}
             </div>
 
-            <button n:name="save" class="ajax form-control btn btn-primary float-right">Uložit</button>
+            <button n:name="save" class="ajax form-control btn btn-primary item-save-button">Uložit</button>
 
         {/form}
     </div>

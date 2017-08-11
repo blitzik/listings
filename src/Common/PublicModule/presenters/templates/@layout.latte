@@ -6,18 +6,20 @@
     {control metaTitle}
 
     {block styles}
-        <link rel="stylesheet" href="{$basePath}/assets/css/public.min.css?v={$assetsVersion}">
+        {if $debugMode === true}
+            <link rel="stylesheet" href="{$basePath}/assets/css/temp/public-bootstrap.css?v={$assetsVersion}">
+            <link rel="stylesheet" href="{$basePath}/assets/css/temp/public.css?v={$assetsVersion}">
+        {else}
+            <link rel="stylesheet" href="{$basePath}/assets/css/public.min.css?v={$assetsVersion}">
+        {/if}
     {/block}
 </head>
 <body>
 
-<div class="container">
     {include #content}
-</div>
 
-
-{block scripts}
-    <script type="text/javascript" src="{$basePath}/assets/js/js.min.js?v={$assetsVersion}"></script>
-{/block}
+    {block scripts}
+        <script type="text/javascript" src="{$basePath}/assets/js/js.min.js?v={$assetsVersion}"></script>
+    {/block}
 </body>
 </html>
