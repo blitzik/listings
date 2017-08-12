@@ -1,5 +1,5 @@
 
-<div class="card">
+<div class="card login-form-content">
     <div class="card-block">
         {snippet flashMessages}
             {control flashMessages}
@@ -18,13 +18,11 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-3">{label password /}</div>
-                    <div class="col-9 text-right">
-                        <a href="{plink :Accounts:Public:ForgottenPassword:request}">Potřebujete obnovit heslo?</a>
-                    </div>
-                </div>
+            <div class="form-group login-form-password">
+                {label password /}
+
+                <a href="{plink :Accounts:Public:ForgottenPassword:request}">Potřebujete obnovit heslo?</a>
+
                 <div class="input-group">
                     <span class="input-group-addon" title="Heslo">
                         <svg width="20" height="20" viewBox="0 0 1024 1024">
@@ -40,9 +38,14 @@
     </div>
 </div>
 
-<div class="card">
+<div class="card ">
     <div class="card-block text-center">
-        <a href="{plink :Accounts:Public:Registration:default}">Založit nový účet</a> |
+        <a href="{plink :Accounts:Public:Registration:default}">Založit nový účet</a>
+    </div>
+</div>
+
+<div class="card ">
+    <div class="card-block text-center">
         <a href="{plink :Listings:Public:ListingPdf:default}">Získat PDF prázdné výčetky</a>
     </div>
 </div>

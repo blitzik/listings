@@ -1,0 +1,140 @@
+
+.month-option,
+.year-option{
+  display: block;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.submit-generate-pdfs{
+  cursor: pointer;
+  margin-top: 25px;
+}
+
+.empty-listings-form{
+  margin-bottom: 100px;
+
+  input{
+    display: none;
+  }
+
+  input:checked + .year-option{
+    color: #fff;
+    background-color: #8e44ad;
+    border: 1px solid #8e44ad;
+  }
+
+  input:checked + .month-option{
+    color: #fff;
+    background-color: #27ae60;
+    border: 1px solid #27ae60;
+  }
+}
+
+.empty-listings-settings{
+  clear: both;
+  margin-top: 25px;
+}
+
+
+@media (min-width: 768px){
+  .empty-listings-form{
+    overflow: auto;
+  }
+
+  .years-list,
+  .months-list{
+    span{
+      display: block;
+    }
+  }
+
+  .years-list{
+    float: left;
+    width: 200px;
+    margin-right: 5px;
+  }
+
+  .months-list{
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    span{
+      margin-left: 10px;
+      flex: 2 0 95%;
+    }
+  }
+
+  .month-option{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 30%;
+    margin-left: 10px;
+  }
+
+}
+
+
+@media (min-width: 1024px) {
+  .empty-listings-settings{
+    display: flex;
+
+    .form-group{
+      flex: 1 0 40%;
+
+      &:first-of-type{
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+
+@supports (display: grid){
+  @media (min-width: 768px) {
+    .empty-listings-form{
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-row-gap: 15px;
+      grid-column-gap: 10px;
+      grid-template-areas:
+        "yearsList monthsList"
+        "    .     emptyListingsSettings"
+        "    .     submitGeneratePdfs";
+    }
+
+    .years-list{
+      grid-area: yearsList;
+    }
+
+    .months-list{
+      grid-area: monthsList;
+      margin-left: -10px;
+
+      span{
+        margin-left: 10px;
+      }
+    }
+
+    .month-option{
+      margin-bottom: 10px;
+    }
+
+    .empty-listings-settings{
+      margin-top: 0;
+      grid-area: emptyListingsSettings;
+    }
+
+    .submit-generate-pdfs{
+      grid-area: submitGeneratePdfs;
+      margin-top: 0;
+    }
+  }
+}

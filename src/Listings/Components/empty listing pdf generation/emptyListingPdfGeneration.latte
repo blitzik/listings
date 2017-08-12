@@ -1,30 +1,34 @@
 
-<div class="empty-listings-pdf-setting">
-{form form}
+{form form class => 'empty-listings-form'}
 
-    Zvolte rok:
-    {foreach $form['year']->getItems() as $key => $label}
-        <input n:name="year:$key">
-        <label n:name="year:$key" class="year-option">{$label}</label>
-    {/foreach}
-
-    Zvolte měsíc:
-    {foreach $form['months']->getItems() as $key => $label}
-        <input n:name="months:$key">
-        <label n:name="months:$key" class="month-option">{$label}</label>
-    {/foreach}
-
-    <div class="form-group">
-        {label template /}
-        {input template class => 'form-control'}
+    <div class="years-list">
+        <span>Zvolte rok:</span>
+        {foreach $form['year']->getItems() as $key => $label}
+            <input n:name="year:$key">
+            <label n:name="year:$key" class="year-option">{$label}</label>
+        {/foreach}
     </div>
 
-    <div class="form-group">
-        {label itemType /}
-        {input itemType class => 'form-control'}
+    <div class="months-list">
+        <span>Zvolte měsíce:</span>
+        {foreach $form['months']->getItems() as $key => $label}
+            <input n:name="months:$key">
+            <label n:name="months:$key" class="month-option">{$label}</label>
+        {/foreach}
     </div>
 
-    <button n:name="generate" class="btn btn-primary btn-block">Vygenerovat PDF</button>
+    <div class="empty-listings-settings">
+        <div class="form-group">
+            {label template /}
+            {input template class => 'form-control'}
+        </div>
+
+        <div class="form-group">
+            {label itemType /}
+            {input itemType class => 'form-control'}
+        </div>
+    </div>
+
+    <button n:name="generate" class="btn btn-primary btn-block submit-generate-pdfs">Vygenerovat PDF</button>
 
 {/form}
-</div>

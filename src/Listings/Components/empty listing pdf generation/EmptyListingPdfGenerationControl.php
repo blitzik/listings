@@ -85,7 +85,7 @@ class EmptyListingPdfGenerationControl extends BaseControl
 
     private function generateYears(): array
     {
-        $currentYear = date('Y');
+        $currentYear = date('Y') + 1;
         $years = array_reverse(range($currentYear - 3, $currentYear));
         $result = array_combine($years, $years);
 
