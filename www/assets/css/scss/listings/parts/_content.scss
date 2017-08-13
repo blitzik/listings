@@ -200,6 +200,25 @@ h1{
 }
 
 
+.user-detail{
+  button{
+    width: 100%;
+  }
+}
+
+.worked-time-overview-table{
+  width: 100%;
+  border: 1px solid #b0bec5;
+  border-collapse: collapse;
+  background-color: #fff;
+
+  th, td{
+    padding: 10px;
+    border: 1px solid #b0bec5;
+  }
+}
+
+
 @media (min-width: 425px){
   .listing-form-period{
     display: flex;
@@ -314,6 +333,19 @@ h1{
       float: right;
     }
   }
+
+  .user-profile{
+    display: flex;
+
+    .user-detail{
+      margin-right: 15px;
+      flex: 1 0 40%
+    }
+
+    .user-worked-time{
+      flex: 1 0 40%
+    }
+  }
 }
 
 
@@ -323,6 +355,10 @@ h1{
   }
 
   .item-save-button{
+    margin-top: 20px;
+  }
+
+  .listing-settings-form .item-save-button{
     margin-top: 20px;
   }
 

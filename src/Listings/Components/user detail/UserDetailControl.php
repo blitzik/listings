@@ -45,6 +45,11 @@ class UserDetailControl extends BaseControl
         $form = new Form;
         $form->getElementPrototype()->class = 'ajax';
 
+        $form->addText('email', 'E-mail')
+                ->setDisabled()
+                ->setDefaultValue($this->userEntity->getEmail())
+                ->setOmitted();
+
         $form->addText('first_name', 'Jméno', null, User::LENGTH_FIRSTNAME)
                 ->setRequired('Zadejte Vaše křestní jméno')
                 ->setDefaultValue($this->user->getIdentity()->getFirstName())
