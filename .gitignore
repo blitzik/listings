@@ -10,6 +10,7 @@ vendor
 www/assets/fonts
 www/assets/css/temp
 www/assets/css/*.css
+www/assets/css/*.map
 
 www/assets/js/concatenated
 www/assets/js/*.js

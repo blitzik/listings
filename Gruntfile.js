@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                     style: "expanded"
                 },
                 files: {
-                    "www/assets/css/temp/public.css": ["www/assets/css/scss/public/public.scss"]
+                    "www/assets/css/public.css": ["www/assets/css/scss/public/public.scss"]
                 }
             },
 
@@ -75,8 +75,8 @@ module.exports = function (grunt) {
                     style: "expanded"
                 },
                 files: {
-                    "www/assets/css/temp/listings-bootstrap.css": ["www/assets/css/scss/listings/listings-bootstrap.scss"],
-                    "www/assets/css/temp/listings.css": ["www/assets/css/scss/listings/listings.scss"]
+                    "www/assets/css/listings-bootstrap.css": ["www/assets/css/scss/listings/listings-bootstrap.scss"],
+                    "www/assets/css/listings.css": ["www/assets/css/scss/listings/listings.scss"]
                 }
             }
         },
@@ -85,7 +85,8 @@ module.exports = function (grunt) {
             public: {
                 files: {
                     "www/assets/css/public.min.css": [
-                        "www/assets/css/temp/public.css"
+                        "www/assets/css/public-bootstrap.css",
+                        "www/assets/css/public.css"
                     ]
                 }
             },
@@ -93,8 +94,8 @@ module.exports = function (grunt) {
             listings: {
                 files: {
                     "www/assets/css/listings.min.css": [
-                        "www/assets/css/temp/listings-bootstrap.css",
-                        "www/assets/css/temp/listings.css"
+                        "www/assets/css/listings-bootstrap.css",
+                        "www/assets/css/listings.css"
                     ]
                 }
             }

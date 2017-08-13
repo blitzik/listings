@@ -11,7 +11,7 @@ class CommonExtension extends CompilerExtension
 {
     private $defaults = [
         'imagesPath' => '%wwwDir%/images',
-        'debugMode' => '%debugMode%'
+        'debugMode' => false
     ];
 
 
