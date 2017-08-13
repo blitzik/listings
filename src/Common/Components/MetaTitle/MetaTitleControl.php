@@ -25,7 +25,7 @@ class MetaTitleControl extends BaseControl
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/title.latte');
 
-        $this->template->title = $this->pageTitle;
+        $template->title = $this->pageTitle;
 
         $template->render();
     }

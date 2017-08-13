@@ -3,11 +3,109 @@
 @import "../../../../../../bower_components/bootstrap/scss/mixins";
 
 
+.listing-actions{
+  display: flex;
+  position: relative;
+
+  .btn-generate-pdf,
+  .btn-generate-pdf-in-list{
+    flex: 2 0 50%;
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #B0BEC5;
+    padding: 20px;
+
+    img{
+      margin-right: 15px;
+    }
+  }
+
+  .btn-generate-pdf-in-list{
+    display: none;
+  }
+
+  .listing-actions-expand{
+    display: block;
+    padding: 20px;
+    margin-bottom: 0;
+    border: 1px solid #B0BEC5;
+    background-color: #fff;
+    text-align: center;
+    overflow: auto;
+    cursor: pointer;
+  }
+
+  #listing-actions-expand{
+    display: none;
+  }
+
+  ul{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: none;
+    clear: both;
+    background-color: #263238;
+    border: 1px solid #263238;
+    position: absolute;
+    top: 67px;
+
+    li{
+      display: block;
+      border-bottom: 1px solid #364044;
+
+      &:first-of-type{
+        border-bottom: 0;
+      }
+
+      &:last-of-type{
+        border-bottom: 0;
+      }
+
+      a{
+        display: flex;
+        padding: 20px;
+        color: #BBCBCD;
+
+        &:hover{
+          background-color: #202B30;
+        }
+
+        svg{
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+
+  #listing-edit-icon,
+  #listing-trash-icon{
+    fill: #fff;
+  }
+
+  #listing-actions-expand:checked + .listing-actions-expand{
+    background-color: #263238;
+    border: 1px solid #263238;
+    color: #fff;
+  }
+
+  #listing-actions-expand:checked + .listing-actions-expand #listing-nav-icon{
+    fill: #fff;
+  }
+
+  #listing-actions-expand:checked + .listing-actions-expand + ul{
+    display: block;
+  }
+}
+
+
 .listing-info{
   overflow: auto;
   background-color: #fff;
   border: 1px solid #B0BEC5;
   padding: 10px;
+  margin-top: 15px;
 
   span{
     display: block;
@@ -162,11 +260,77 @@
 }
 
 
-@media (min-width: 1300px) {
+@media (min-width: 1024px) {
+  .listing-actions{
+    display: block;
+    position: static;
+    background-color: #fff;
+    border: 1px solid #B0BEC5;
+    justify-content: space-between;
+
+    .btn-generate-pdf-in-list{
+      display: flex;
+      border: 0;
+      border-right: 1px solid #B0BEC5;
+      margin-right: 0;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+    .btn-generate-pdf{
+      display: none;
+    }
+
+    .listing-actions-expand{
+      display: none;
+    }
+
+    ul{
+      width: auto;
+      flex: 1 0 60%;
+      position: static;
+      background-color: #fff;
+      overflow: auto;
+
+      li{
+        float: left;
+        border: 0;
+
+        a{
+          color: #0275d8;
+          border: 0;
+          border-right: 1px solid #B0BEC5;
+          padding-top: 15px;
+          padding-bottom: 15px;
+
+          &:hover{
+            background-color: #fff;
+            color: $link-hover-color;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+
+    #listing-actions-expand + .listing-actions-expand + ul{
+      display: block;
+      background-color: #fff;
+      border: 0;
+    }
+
+    #listing-edit-icon,
+    #listing-trash-icon{
+      fill: #333;
+    }
+  }
+
   .listing-info span{
     float: right;
   }
+}
 
+
+@media (min-width: 1300px) {
   .day{
     border-bottom: 0;
   }
@@ -215,14 +379,15 @@
     grid-area: itemActions;
   }
 
-  @media (min-width: 768px) {
+
+  @media (min-width: 500px) {
     .day{
       display: grid;
       grid-template-columns: 1fr;
       grid-gap: 10px;
       grid-template-areas:
-        "dayItem"
-        "itemActions";
+              "dayItem"
+              "itemActions";
     }
 
     .day-item{
@@ -230,8 +395,8 @@
       grid-gap: 10px;
       grid-template-columns: 44px 1fr 1fr 1fr;
       grid-template-areas:
-        "dayNumber workingHours lunchHours workedHours"
-        "weekDayName locality locality locality";
+              "dayNumber workingHours lunchHours workedHours"
+              "weekDayName locality locality locality";
     }
 
     .day-locality{
@@ -247,6 +412,12 @@
       margin-top: 0;
     }
   }
+
+
+  @media (min-width: 768px) {
+
+  }
+
 
   @media (min-width: 1024px) {
     .day{
@@ -270,6 +441,7 @@
       }
     }
   }
+
 
   @media (min-width: 1300px) {
     .day-worked-hours{

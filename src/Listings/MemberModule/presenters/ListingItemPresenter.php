@@ -74,7 +74,7 @@ final class ListingItemPresenter extends SecuredPresenter
                                   ->getListingItemByDay((int)$day, $this->listing->getId());
 
         $this['metaTitle']->setTitle('Detail položky');
-        $this->setListingPageTitle($this->listing);
+        $this->setListingPageTitle($this->listing, true);
     }
 
 

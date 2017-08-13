@@ -7,15 +7,10 @@
 
 
 <div class="listing-days">
-    <div class="row">
     {foreach $daysByWeeks as $weekNumber => $days}
-        <div class="col-12">
         <h3>{$weekNumber}. týden</h3>
-
-            {foreach $days as $day}
-                {control listingItem-$day}
-            {/foreach}
-        </div>
+        {foreach $days as $day}
+            {control listingItem-$day}
+        {/foreach}
     {/foreach}
-    </div>
 </div>

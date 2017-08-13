@@ -1,13 +1,13 @@
 
 <h2 class="card-title listing-item-title">{$date|completeDate}</h2>
 
-<div class="card item-form">
+<div class="card item-form-container">
     <div class="card-block">
         {snippet flashMessages}
             {control flashMessages}
         {/snippet}
 
-        {form form}
+        {form form class => 'item-form simple'}
             <div class="item-time-period">
                 <div class="form-group">
                     <div class="form-error" n:if="$form['workStart']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError workStart}</span></div>
@@ -22,23 +22,25 @@
                 </div>
             </div>
 
-            <div class="col-12" style="padding-top: 15px; padding-bottom: 15px;">
+            <div class="worked-hours-slider" style="padding-top: 15px; padding-bottom: 15px;">
                 <div id="work-range-slider"></div>
             </div>
 
-            <div class="form-group">
-                <div class="form-error" n:if="$form['lunch']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunch}</span></div>
-                {label lunch /}
-                {input lunch class => 'form-control'}
+            <div class="item-time-period">
+                <div class="form-group">
+                    <div class="form-error" n:if="$form['lunch']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError lunch}</span></div>
+                    {label lunch /}
+                    {input lunch class => 'form-control'}
+                </div>
             </div>
 
-            <div style="padding-top: 15px; padding-bottom: 15px;">
+            <div class="worked-lunch-range-slider" style="padding-top: 15px; padding-bottom: 15px;">
                 <div id="work-lunch-slider"></div>
             </div>
 
             <div id="_worked-hours" data-worked-hours="{$workedHours}"></div>
 
-            <div class="form-group">
+            <div class="form-group item-locality">
                 <div class="form-error" n:if="$form['locality']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError locality}</span></div>
                 {label locality /}
                 {input locality class => 'form-control'}

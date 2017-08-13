@@ -83,6 +83,11 @@
 
 
 @media (min-width: 1024px) {
+  .empty-listings-pdf-generation{
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
   .empty-listings-settings{
     display: flex;
 

@@ -10,12 +10,21 @@ class PageTitleControl extends BaseControl
     /** @var string */
     private $joinedText;
 
+    /** @var string */
+    private $url;
+
 
     public function setPageTitle($pageTitle): PageTitleControl
     {
         $this->pageTitle = $pageTitle;
 
         return $this;
+    }
+
+
+    public function makeItLink(string $url)
+    {
+        $this->url = $url;
     }
 
 
@@ -30,8 +39,9 @@ class PageTitleControl extends BaseControl
         $template = $this->getTemplate();
         $template->setFile(__DIR__ . '/title.latte');
 
-        $this->template->title = $this->pageTitle;
-        $this->template->joinedText = $this->joinedText;
+        $template->title = $this->pageTitle;
+        $template->joinedText = $this->joinedText;
+        $template->url = $this->url;
 
         $template->render();
     }

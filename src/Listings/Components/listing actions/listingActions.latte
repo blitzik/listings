@@ -1,6 +1,32 @@
+<div class="listing-actions">
 
-<ul class="listing-actions">
-    <li><span><img src="{$imagesPath}/file-pdf.svg" width="25"></span> <a href="{plink :Listings:Member:ListingPdfGeneration:default id => $listing->getId()}">{*<i class="fa fw-fw fa-file-pdf-o"></i>*}Generovat PDF</a></li>
-    <li><span><img src="{$imagesPath}/edit.svg" width="25"></span> <a href="{plink :Listings:Member:Listing:edit id => $listing->getId()}">{*<i class="fa fw-fw fa-edit"></i>*}Upravit</a></li>
-    <li><span><img src="{$imagesPath}/trash.svg" width="22"></span> <a href="{plink :Listings:Member:Listing:remove id => $listing->getId()}">{*<i class="fa fw-fw fa-trash"></i>*}Odstranit výčetku</a></li>
-</ul>
+    <a href="{plink :Listings:Member:ListingPdfGeneration:default id => $listing->getId()}" class="btn-generate-pdf">
+        <img src="{$imagesPath}/file-pdf.svg" height="25">Generovat PDF
+    </a>
+
+    <input type="checkbox" id="listing-actions-expand">
+    <label for="listing-actions-expand" class="listing-actions-expand">
+        <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 459 379" preserveAspectRatio="none"><path id="listing-nav-icon" d="M0 382.5h459v-51H0V382.5zM0 255h459v-51H0V255zM0 76.5v51h459v-51H0z"></path></svg>
+    </label>
+    <ul>
+        <li>
+            <a href="{plink :Listings:Member:ListingPdfGeneration:default id => $listing->getId()}" class="btn-generate-pdf-in-list">
+                <img src="{$imagesPath}/file-pdf.svg" height="25">Generovat PDF
+            </a>
+        </li>
+        <li>
+            <a href="{plink :Listings:Member:Listing:edit id => $listing->getId()}">
+                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 32 32">
+                    <path id="listing-edit-icon" d="M15.9 21.1l2.1-2.1-2.7-2.7-2.1 2.1v1h1.7v1.7h1zM23.7 8.3q-0.3-0.3-0.6 0l-6.2 6.3q-0.3 0.3 0 0.6t0.6 0l6.3-6.2q0.3-0.3 0-0.6zM25.1 18.9v3.4q0 2.1-1.5 3.6t-3.6 1.5h-14.9q-2.1 0-3.6-1.5t-1.5-3.6v-14.9q0-2.1 1.5-3.6t3.6-1.5h14.9q1.1 0 2.1 0.4 0.3 0.1 0.3 0.4 0.1 0.3-0.2 0.5l-0.9 0.9q-0.2 0.3-0.6 0.1-0.4-0.1-0.8-0.1h-14.9q-1.2 0-2 0.8t-0.8 2v14.9q0 1.2 0.8 2t2 0.8h14.9q1.2 0 2-0.8t0.8-2v-2.2q0-0.2 0.2-0.4l1.1-1.1q0.3-0.3 0.6-0.1t0.4 0.5zM23.4 5.7l5.1 5.1-12 12h-5.1v-5.1zM31.4 8.1l-1.6 1.6-5.1-5.1 1.6-1.6q0.5-0.5 1.2-0.5t1.2 0.5l2.7 2.7q0.5 0.5 0.5 1.2t-0.5 1.2z"></path>
+                </svg>Upravit
+            </a>
+        </li>
+        <li>
+            <a href="{plink :Listings:Member:Listing:remove id => $listing->getId()}">
+                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 25 32">
+                    <path id="listing-trash-icon" d="M9.1 13.1v10.3q0 0.3-0.2 0.4t-0.4 0.2h-1.1q-0.2 0-0.4-0.2t-0.2-0.4v-10.3q0-0.2 0.2-0.4t0.4-0.2h1.1q0.3 0 0.4 0.2t0.2 0.4zM13.7 13.1v10.3q0 0.3-0.2 0.4t-0.4 0.2h-1.1q-0.2 0-0.4-0.2t-0.2-0.4v-10.3q0-0.2 0.2-0.4t0.4-0.2h1.1q0.3 0 0.4 0.2t0.2 0.4zM18.3 13.1v10.3q0 0.3-0.2 0.4t-0.4 0.2h-1.1q-0.2 0-0.4-0.2t-0.2-0.4v-10.3q0-0.2 0.2-0.4t0.4-0.2h1.1q0.3 0 0.4 0.2t0.2 0.4zM20.6 26.1v-16.9h-16v16.9q0 0.4 0.1 0.7t0.3 0.5 0.2 0.2h14.9q0.1 0 0.2-0.2t0.3-0.5 0.1-0.7zM8.6 6.9h8l-0.9-2.1q-0.1-0.2-0.3-0.2h-5.7q-0.2 0-0.3 0.2zM25.1 7.4v1.1q0 0.3-0.2 0.4t-0.4 0.2h-1.7v16.9q0 1.5-0.8 2.6t-2 1.1h-14.9q-1.2 0-2-1t-0.8-2.5v-17h-1.7q-0.2 0-0.4-0.2t-0.2-0.4v-1.1q0-0.2 0.2-0.4t0.4-0.2h5.5l1.3-3q0.3-0.7 1-1.1t1.4-0.5h5.7q0.7 0 1.4 0.5t1 1.1l1.3 3h5.5q0.3 0 0.4 0.2t0.2 0.4z"></path>
+                </svg>Odstranit výčetku
+            </a>
+        </li>
+    </ul>
+</div>

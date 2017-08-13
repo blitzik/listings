@@ -38,7 +38,7 @@ class ListingItemFormFactory
             ->setDefaultValue(InvoiceTimeFilter::convert($setting->getWorkEnd(), true))
             ->addRule(Form::PATTERN, 'Špatný formát času', $this->getTimeRegex());
 
-        $form->addText('locality', 'Místo pracoviště', null, IListingItem::LENGTH_LOCALITY)
+        $form->addText('locality', 'Popis práce - místo', null, IListingItem::LENGTH_LOCALITY)
             ->setRequired('Zadejte místo pracoviště')
             ->addRule(Form::MAX_LENGTH, 'Do místa pracoviště lze zadat max. %d znaků.', IListingItem::LENGTH_LOCALITY)
             ->setAttribute('list', '_work-locality');

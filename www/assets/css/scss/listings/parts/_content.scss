@@ -88,41 +88,49 @@ h1{
 
 .listing-name{
   flex-basis: 50%;
-  //grid-area: listingName;
 }
 
 .listing-period{
   flex-basis: 50%;
-  //grid-area: listingPeriod;
   text-align: right;
 }
 
 .listing-worked-hours{
   flex-basis: 50%;
-  //grid-area: listingWorkedHours;
 }
 
 .listing-worked-days{
   flex-basis: 50%;
-  //grid-area: listingWorkedDays;
   text-align: right;
 }
-
 
 .listing-item-title{
   margin-top: 25px;
   margin-bottom: 10px;
 }
 
-.item-form,
+.item-form-container,
 .item-pagination,
 .listing-form,
 .listing-settings-form{
   max-width: 450px;
 }
 
-.item-form{
+.item-form-container{
   margin-top: $grid-gutter-width-base / 2;
+}
+
+.item-form{
+  input[type="text"]{
+    font-size: 1.3em;
+  }
+  .item-time-period input{
+    text-align: center;
+  }
+
+  #_worked-hours input{
+    text-align: center;
+  }
 }
 
 .item-additional-flash-messages{
@@ -165,50 +173,45 @@ h1{
   div:first-child{
     margin-right: 10px;
   }
-}
 
-
-.listing-actions{
-  margin: 0 0 10px 0;
-  padding: 0;
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #b0bec5;
-  overflow: auto;
-
-  li{
-    float: left;
-    display: table;
-
-    span{
-      display: table-cell;
-      vertical-align: middle;
-      padding-left: 10px;
-    }
-
-    a{
-      display: table-cell;
-      padding: 12px 20px 12px 10px;
-      border-right: 1px solid #b0bec5;
-
-      i{
-        margin-right: 10px;
-      }
-    }
+  div{
+    flex: 1 0 45%;
   }
 }
+
 
 .btn-null-time{
   @include button-variant(#fff, #16a085, #16a085);
 }
 
 
+.listing-pdf-generation-settings{
+  button{
+    width: 100%;
+  }
+}
+
 .listing-pdf-owner-setting{
   margin-top: 15px;
 }
 
-.listing-pdf-setting h2{
-    margin-top: 10px;
+.listing-pdf-setting{
+    margin-top: 25px;
+}
+
+
+@media (min-width: 425px){
+  .listing-form-period{
+    display: flex;
+
+    div{
+      flex: 1 0 45%;
+
+      &:first-of-type{
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
 
@@ -218,7 +221,7 @@ h1{
   }
 
   .listing-removal-form{
-    max-width: 40%;
+    width: 100%;
   }
 
   .item-pagination-content{
@@ -298,10 +301,23 @@ h1{
     text-align: center;
     flex-basis: 20%;
   }
+
+  .listing-removal-form{
+    width: 680px;
+  }
+
+  .listing-pdf-generation-settings{
+    width: 650px;
+
+    button{
+      width: 250px;
+      float: right;
+    }
+  }
 }
 
 
-@media (min-width: 1200px){
+@media (min-width: 1300px){
   .item-additional-flash-messages{
     display: none;
   }
@@ -309,11 +325,79 @@ h1{
   .item-save-button{
     margin-top: 20px;
   }
+
+  .item-form-wrapper{
+    max-width: 900px;
+  }
+
+  .item-form-container,
+  .item-pagination{
+    max-width: 900px;
+  }
 }
 
 
 @media (min-width: 1600px){
   #content-wrapper{
     max-width: 66%;
+  }
+}
+
+
+@supports (display: grid){
+  @media (min-width: 1300px) {
+    .item-form{
+      display: grid;
+      grid-template-columns: 1fr 1fr 100px;
+      grid-gap: 10px;
+      grid-template-areas:
+        "workingHours      lunchHours        workedHours"
+        "workedHoursSlider lunchRangeSlider       .     "
+        "locality          locality          locality"
+        "itemActionButtons    .              itemSaveButton";
+
+      &.simple{
+        grid-template-columns: 2fr 1fr 100px;
+      }
+    }
+
+    .item-time-period{
+      &:nth-of-type(1){
+        grid-area: workingHours;
+      }
+
+      &:nth-of-type(2){
+        grid-area: lunchHours;
+      }
+    }
+
+    .worked-hours-slider{
+      grid-area: workedHoursSlider;
+    }
+
+    #_worked-hours{
+      grid-area: workedHours;
+    }
+
+    .worked-lunch-range-slider{
+      grid-area: lunchRangeSlider;
+    }
+
+    .item-locality{
+      grid-area: locality;
+    }
+
+    .item-action-buttons{
+      grid-area: itemActionButtons;
+    }
+
+    .item-additional-flash-messages{
+      grid-area: additionFlashes;
+    }
+
+    .item-save-button{
+      grid-area: itemSaveButton;
+      margin-top: 0;
+    }
   }
 }

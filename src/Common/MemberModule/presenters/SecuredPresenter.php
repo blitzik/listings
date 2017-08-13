@@ -36,12 +36,16 @@ abstract class SecuredPresenter extends AppPresenter
     }
 
 
-    protected function setListingPageTitle(Listing $listing): string
+    protected function setListingPageTitle(Listing $listing, bool $isLink = false): string
     {
         $title = sprintf('%s %s', TimeUtils::getMonthName($listing->getMonth()), $listing->getYear());
         $this['pageTitle']->setPageTitle($title);
         if ($listing->getName() !== null) {
             $this['pageTitle']->setJoinedText($listing->getName());
+        }
+
+        if ($isLink === true) {
+            $this['pageTitle']->makeItLink($this->link(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]));
         }
 
         return sprintf('%s%s', $title, $listing->getName() !== null ? (' - ' . $listing->getName()) : null);

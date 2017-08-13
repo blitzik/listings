@@ -1,52 +1,47 @@
 
-{form pdfSettings}
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card listing-pdf-owner-setting">
+<div class="listing-pdf-generation-settings">
+{form pdfSettings class => 'listing-pdf-generation-form'}
+    <div class="card listing-pdf-owner-setting">
+        <div class="card-block">
+            <div class="form-group">
+                {label employer /}
+                {input employer class => 'form-control'}
+            </div>
+
+            <div class="form-group">
+                <div class="form-error" n:if="$form['employee']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError employee}</span></div>
+                {label employee /}
+                {input employee class => 'form-control'}
+            </div>
+
+            <button n:name="generatePdf" class="btn btn-primary">Generovat PDF dokument</button>
+        </div>
+    </div>
+
+    <div class="listing-pdf-setting">
+        <h2>Nastavení</h2>
+        <div class="card">
             <div class="card-block">
-                <div class="form-group">
-                    {label employer /}
-                    {input employer class => 'form-control'}
-                </div>
-
-                <div class="form-group">
-                    <div class="form-error" n:if="$form['employee']->hasErrors()"><i class="fa fa-fw fa-warning"></i> <span>{inputError employee}</span></div>
-                    {label employee /}
-                    {input employee class => 'form-control'}
-                </div>
-
-                <button n:name="generatePdf" class="btn btn-primary float-lg-right">Generovat PDF dokument</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-6 listing-pdf-setting">
-        <div class="row">
-            <div class="col-12">
-                <h2>Nastavení</h2>
-                <div class="card">
-                    <div class="card-block">
-                        <div class="custom-controls-stacked">
-                            <label n:name="displayHourlyRate" class="custom-control custom-checkbox">
-                                <input n:name="displayHourlyRate" class="custom-control-input">
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">Zobrazit "základní mzdu"</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12">
-                <h2>Šablony</h2>
-                <div class="card">
-                    <div class="card-block">
-                        {label template /}
-                        {input template class => 'form-control'}
-                    </div>
+                <div class="custom-controls-stacked">
+                    <label n:name="displayHourlyRate" class="custom-control custom-checkbox">
+                        <input n:name="displayHourlyRate" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Zobrazit "základní mzdu"</span>
+                    </label>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="listing-pdf-setting">
+        <h2>Šablony</h2>
+        <div class="card">
+            <div class="card-block">
+                {label template /}
+                {input template class => 'form-control'}
+            </div>
+        </div>
+    </div>
+
 {/form}
+</div>

@@ -6,25 +6,26 @@
 
 {block content}
 
-<div class="card item-pagination">
-    <div class="card-block item-pagination-content">
-        {if $day > 1}
-            <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day - 1}" n:if="$day > 1">{$previous|completeDate}</a>
-        {else}
-            <span>-</span>
-        {/if}
+    <div class="card item-pagination">
+        <div class="card-block item-pagination-content">
+            {if $day > 1}
+                <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day - 1}" n:if="$day > 1">{$previous|completeDate}</a>
+            {else}
+                <span>-</span>
+            {/if}
 
-        {*<a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}" class="item-listing-name">{if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</a>*}
+            {*<a href="{plink :Listings:Member:ListingDetail:default id => $listing->getId()}" class="item-listing-name">{if $listing->getName() !== null}{$listing->getName()}{else}Bez názvu{/if}</a>*}
 
-        {if $day < $daysInMonth}
-            <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day + 1}">{$next|completeDate}</a>
-        {else}
-            <span>-</span>
-        {/if}
+            {if $day < $daysInMonth}
+                <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day + 1}">{$next|completeDate}</a>
+            {else}
+                <span>-</span>
+            {/if}
+        </div>
     </div>
-</div>
 
 
-{control listingItemEditing}
+    {control listingItemEditing}
+
 
 {/block}
