@@ -74,8 +74,7 @@ class LunchRangeListingItemFormControl extends ListingItemFormControl
             $this->flashMessage('Položku nelze uložit. Začátek a konec oběda se musí nacházet v rozsahu směny.', FlashMessage::WARNING);
         }
 
-        $this->redrawControl('flashMessages');
-        $this->redrawControl('flashMessages2');
+        $this->refresh('this', ['flashMessages', 'flashMessages2']);
     }
 
 

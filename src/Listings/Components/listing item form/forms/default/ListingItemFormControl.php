@@ -129,7 +129,7 @@ class ListingItemFormControl extends BaseControl
             $this->flashMessage('Položku nelze uložit. Musíte mít odpracováno alespoň 30 minut.', FlashMessage::WARNING);
         }
 
-        $this->redrawControl('flashMessages2');
+        $this->refresh('this', ['flashMessages', 'flashMessages2']);
     }
 
 
