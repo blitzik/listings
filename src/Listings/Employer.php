@@ -2,7 +2,7 @@
 
 namespace Listings;
 
-use Common\Entities\Attributes\Identifier;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
@@ -50,8 +50,6 @@ class Employer
         string $name,
         User $user
     ) {
-        $this->id = $this->generateUuid();
-
         $this->setName($name);
         $this->user = $user;
         $this->createdAt = new \DateTimeImmutable;

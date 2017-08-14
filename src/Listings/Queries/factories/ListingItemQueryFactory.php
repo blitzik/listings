@@ -10,13 +10,13 @@ class ListingItemQueryFactory
     use SmartObject;
 
 
-    public static function filterByListing(string $listingId): ListingItemQuery
+    public static function filterByListing(int $listingId): ListingItemQuery
     {
         return (new ListingItemQuery())->byListingId($listingId);
     }
 
 
-    public static function filterByListingAndDay(string $listingId, int $day): ListingItemQuery
+    public static function filterByListingAndDay(int $listingId, int $day): ListingItemQuery
     {
         return self::filterByListing($listingId)->byDay($day);
     }

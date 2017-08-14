@@ -10,10 +10,10 @@ use Listings\Queries\Factories\ListingItemQueryFactory;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Logic\InvalidStateException;
 use Kdyby\Doctrine\EntityManager;
+use Listings\Utils\TimeWithComma;
 use Listings\IListingItem;
 use Listings\ListingItem;
 use blitzik\Utils\Time;
-use Listings\Utils\TimeWithComma;
 use Nette\Utils\Arrays;
 use Nette\SmartObject;
 use Listings\Listing;
@@ -54,20 +54,20 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
 
 
     /**
-     * @param string $listingId
+     * @param int $listingId
      * @return IListingItem[]
      */
-    public function findListingItems(string $listingId): array
+    public function findListingItems(int $listingId): array
     {
         return $this->em->createQuery(
             'SELECT li FROM ' . ListingItem::class . ' li INDEX BY li.day
              WHERE li.listing = :listing'
-        )->setParameter('listing', hex2bin($listingId))
+        )->setParameter('listing', $listingId)
          ->getResult();
     }
 
 
-    public function getListingItemByDay(int $day, string $listingId): ?IListingItem
+    public function getListingItemByDay(int $day, int $listingId): ?IListingItem
     {
         return $this->em
                     ->getRepository(ListingItem::class)
@@ -128,11 +128,11 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
 
 
     /**
-     * @param string $listingItemId
+     * @param int $listingItemId
      * @return void
      * @throws \Exception
      */
-    public function removeListingItem(string $listingItemId): void
+    public function removeListingItem(int $listingItemId): void
     {
         try {
             $this->em->beginTransaction();
@@ -159,25 +159,25 @@ class SimpleLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    public function loadLocalities(string $listingId): array
+    public function loadLocalities(int $listingId): array
     {
         $localities = $this->em->createQuery(
             'SELECT DISTINCT li.locality FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listing'
-        )->setParameter('listing', hex2bin($listingId))
+        )->setParameter('listing', $listingId)
             ->getArrayResult();
 
         return Arrays::flatten($localities);
     }
 
 
-    private function removeListingItemByDay(string $listingId, int $day): void
+    private function removeListingItemByDay(int $listingId, int $day): void
     {
         /** @var ListingItem $listingItem */
         $listingItem = $this->em->createQuery(
             'SELECT li FROM ' . ListingItem::class . ' li
              WHERE li.listing = :listingId AND li.day = :day'
-        )->setParameters(['listingId' => hex2bin($listingId), 'day' => $day])
+        )->setParameters(['listingId' => $listingId, 'day' => $day])
          ->getOneOrNullResult();
 
         if ($listingItem === null) {

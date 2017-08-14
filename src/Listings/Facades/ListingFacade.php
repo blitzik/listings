@@ -3,13 +3,8 @@
 namespace Listings\Facades;
 
 use Listings\Exceptions\Runtime\EmployerNotFoundException;
-use Listings\Exceptions\Runtime\WorkedHoursRangeException;
-use Listings\Exceptions\Runtime\LunchHoursRangeException;
-use Listings\Exceptions\Runtime\WorkedHoursException;
-use Listings\Exceptions\Runtime\LunchHoursException;
 use Listings\Services\Persisters\ListingPersister;
 use Listings\Services\Removers\ListingRemover;
-use Listings\Utils\Time\ListingTime;
 use Kdyby\Doctrine\EntityRepository;
 use Listings\Queries\ListingQuery;
 use Kdyby\Doctrine\EntityManager;
@@ -81,13 +76,13 @@ final class ListingFacade
     }
 
 
-    public function getWorkedTime(string $userId): array
+    public function getWorkedTime(int $userId): array
     {
         return $this->em->createQuery(
             'SELECT COUNT(l.id) AS numberOfListings, SUM(l.workedDays) AS workedDays, SUM(l.workedHours) AS workedHours
              FROM ' . Listing::class . ' l 
              WHERE l.owner = :ownerId'
-        )->setParameter('ownerId', hex2bin($userId))
+        )->setParameter('ownerId', $userId)
          ->getArrayResult();
     }
 
@@ -103,7 +98,7 @@ final class ListingFacade
         return $this->em->createQuery(
             'SELECT ls FROM ' . ListingSettings::class . ' ls
              WHERE ls.user = :usr'
-        )->setParameter('usr', hex2bin($user->getId()))
+        )->setParameter('usr', $user->getId())
          ->getOneOrNullResult();
     }
 

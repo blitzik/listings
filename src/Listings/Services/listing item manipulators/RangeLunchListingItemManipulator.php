@@ -47,25 +47,25 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
 
 
     /**
-     * @param string $listingId
+     * @param int $listingId
      * @return IListingItem[]
      */
-    public function findListingItems(string $listingId): array
+    public function findListingItems(int $listingId): array
     {
         return $this->em->createQuery(
             'SELECT li FROM ' . LunchRangeListingItem::class . ' li INDEX BY li.day
              WHERE li.listing = :listing'
-        )->setParameter('listing', hex2bin($listingId))
+        )->setParameter('listing', $listingId)
          ->getResult();
     }
 
 
-    public function getListingItemByDay(int $day, string $listingId): ?IListingItem
+    public function getListingItemByDay(int $day, int $listingId): ?IListingItem
     {
         return $this->em->createQuery(
             'SELECT li FROM ' . LunchRangeListingItem::class . ' li
              WHERE li.listing = :listing AND li.day = :day'
-        )->setParameters(['listing' => hex2bin($listingId), 'day' => $day])
+        )->setParameters(['listing' => $listingId, 'day' => $day])
          ->getOneOrNullResult();
     }
 
@@ -120,7 +120,7 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    public function removeListingItem(string $listingItemId): void
+    public function removeListingItem(int $listingItemId): void
     {
         try {
             $this->em->beginTransaction();
@@ -147,24 +147,24 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    public function loadLocalities(string $listingId): array
+    public function loadLocalities(int $listingId): array
     {
         $localities = $this->em->createQuery(
             'SELECT DISTINCT li.locality FROM ' . LunchRangeListingItem::class . ' li
              WHERE li.listing = :listing'
-        )->setParameter('listing', hex2bin($listingId))
+        )->setParameter('listing', $listingId)
          ->getArrayResult();
 
         return Arrays::flatten($localities);
     }
 
 
-    private function removeListingItemByDay(string $listingId, int $day): int
+    private function removeListingItemByDay(int $listingId, int $day): int
     {
         return $this->em->createQuery(
             'DELETE FROM ' . LunchRangeListingItem::class . ' li
              WHERE li.listing = :listingId AND li.day = :day'
-        )->execute(['listingId' => hex2bin($listingId), 'day' => $day]);
+        )->execute(['listingId' => $listingId, 'day' => $day]);
     }
 
 }

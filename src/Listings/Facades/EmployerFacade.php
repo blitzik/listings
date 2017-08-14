@@ -39,46 +39,42 @@ class EmployerFacade
     }
 
 
-    public function remove(string $employerId): void
+    public function remove(int $employerId): void
     {
         $this->em->createQuery(
             'DELETE FROM ' . Employer::class . ' e
              WHERE e.id = :id'
-        )->execute(['id' => hex2bin($employerId)]);
+        )->execute(['id' => $employerId]);
     }
 
 
-    public function getEmployer(string $employerId): ?Employer
+    public function getEmployer(int $employerId): ?Employer
     {
         return $this->em->find(Employer::class, $employerId);
     }
 
 
     /**
-     * @param $userId
+     * @param int $userId
      * @return Employer[]
      */
-    public function findEmployers(string $userId): array
+    public function findEmployers(int $userId): array
     {
         return $this->em->createQuery(
             'SELECT e FROM ' . Employer::class . ' e INDEX BY e.id
              WHERE e.user = :userId
              ORDER BY e.createdAt DESC'
-        )->setParameter('userId', hex2bin($userId))
+        )->setParameter('userId', $userId)
          ->getResult();
     }
 
 
-    /**
-     * @param string $userId
-     * @return array
-     */
-    public function findEmployersForSelect(string $userId): array
+    public function findEmployersForSelect(int $userId): array
     {
         $result = $this->em->createQuery(
             'SELECT e.id, e.name FROM ' . Employer::class . ' e
              WHERE e.user = :user'
-        )->setParameter('user', hex2bin($userId))
+        )->setParameter('user', $userId)
          ->getArrayResult();
 
         if (empty($result)) {

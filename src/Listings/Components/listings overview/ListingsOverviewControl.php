@@ -51,7 +51,6 @@ class ListingsOverviewControl extends BaseControl
                                    ->indexedById()
                                )->toArray();
 
-
         $totalWorkedDays = 0;
         $totalWorkedHours = new ListingTime();
         $listingsByMonth = [];
@@ -77,7 +76,7 @@ class ListingsOverviewControl extends BaseControl
     {
         return new Multiplier(function ($id) {
             $comp = $this->listingControlFactory
-                         ->create($this->listings[hex2bin($id)]);
+                         ->create($this->listings[$id]);
 
             return $comp;
         });

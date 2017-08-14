@@ -17,23 +17,26 @@ final class ListingQuery extends QueryObject
     private $filter = [];
 
 
-    /**
-     * @param string $id
-     * @return ListingQuery
-     */
-    public function byId(string $id): self
+    public function byId(int $id): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($id) {
-            $qb->andWhere('l.id = :id')->setParameter('id', hex2bin($id));
+            $qb->andWhere('l.id = :id')->setParameter('id', $id);
         };
 
         return $this;
     }
 
 
-    /**
-     * @return ListingQuery
-     */
+    public function byPresKey(string $presKey): self
+    {
+        $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($presKey) {
+            $qb->andWhere('l.presKey = :key')->setParameter('key', hex2bin($presKey));
+        };
+
+        return $this;
+    }
+
+
     public function withOwner(): self
     {
         $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {
@@ -74,21 +77,17 @@ final class ListingQuery extends QueryObject
     public function byOwner(User $owner): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($owner) {
-            $qb->andWhere('l.owner = :owner')->setParameter('owner', hex2bin($owner->getId()));
+            $qb->andWhere('l.owner = :owner')->setParameter('owner', $owner->getId());
         };
 
         return $this;
     }
 
 
-    /**
-     * @param string $owner
-     * @return ListingQuery
-     */
-    public function byOwnerId(string $owner): self
+    public function byOwnerId(int $owner): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($owner) {
-            $qb->andWhere('l.owner = :owner')->setParameter('owner', hex2bin($owner));
+            $qb->andWhere('l.owner = :owner')->setParameter('owner', $owner);
         };
 
         return $this;

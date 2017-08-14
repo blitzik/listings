@@ -2,7 +2,7 @@
 
 namespace Users;
 
-use Common\Entities\Attributes\Identifier;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
@@ -25,7 +25,7 @@ class User implements IIdentity, IRole
     const LENGTH_FIRSTNAME = 50;
     const LENGTH_LASTNAME = 50;
     const LENGTH_EMAIL = 100;
-    const LENGHT_TOKEN = 32;
+    const LENGTH_TOKEN = 32;
 
 
     /**
@@ -85,8 +85,6 @@ class User implements IIdentity, IRole
         $plainPassword,
         Role $role
     ) {
-        $this->id = $this->generateUuid();
-        
         $this->setFirstName($firstName);
         $this->setLastName($lastName);
         $this->setEmail($email);
@@ -159,14 +157,14 @@ class User implements IIdentity, IRole
 
     public function createToken(\DateTime $validity): string
     {
-        $this->token = Random::generate(self::LENGHT_TOKEN);
+        $this->token = Random::generate(self::LENGTH_TOKEN);
         $this->tokenValidity = $validity;
 
         return $this->token;
     }
 
 
-    public function getToken(): string
+    public function getToken(): ?string
     {
         return $this->token;
     }

@@ -15,18 +15,18 @@ interface IListingItemManipulator
 
 
     /**
-     * @param string $listingId
+     * @param int $listingId
      * @return IListingItem[]
      */
-    public function findListingItems(string $listingId): array;
+    public function findListingItems(int $listingId): array;
 
 
     /**
      * @param int $day
-     * @param string $listingId
+     * @param int $listingId
      * @return IListingItem|null
      */
-    public function getListingItemByDay(int $day, string $listingId): ?IListingItem;
+    public function getListingItemByDay(int $day, int $listingId): ?IListingItem;
 
 
     /**
@@ -37,15 +37,15 @@ interface IListingItemManipulator
 
 
     /**
-     * @param string $listingItemId
+     * @param int $listingItemId
      * @return void
      */
-    public function removeListingItem(string $listingItemId): void;
+    public function removeListingItem(int $listingItemId): void;
 
 
     /**
-     * @param string $listingId
+     * @param int $listingId
      * @return array
      */
-    public function loadLocalities(string $listingId): array;
+    public function loadLocalities(int $listingId): array;
 }

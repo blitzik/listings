@@ -6,8 +6,8 @@ use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Utils\Time\ListingTime;
 use Listings\Utils\TimeWithComma;
@@ -55,8 +55,6 @@ class ListingItem implements IListingItem
         $workEnd,
         $lunch
     ) {
-        $this->id = $this->generateUuid();
-
         $this->listing = $listing;
         if ($listing->getItemsType() !== Listing::ITEM_TYPE_LUNCH_SIMPLE) {
             throw new InvalidArgumentException;

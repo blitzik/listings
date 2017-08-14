@@ -133,7 +133,7 @@ trait TListingItem
      */
 
 
-    public function getListingId(): string
+    public function getListingId(): int
     {
         return $this->listing->getId();
     }

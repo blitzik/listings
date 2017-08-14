@@ -16,25 +16,17 @@ class ListingItemQuery extends QueryObject
     private $filter = [];
 
 
-    /**
-     * @param string $listingId
-     * @return ListingItemQuery
-     */
-    public function byListingId(string $listingId): self
+    public function byListingId(int $listingId): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($listingId) {
             $qb->andWhere('li.listing = :listingId')
-               ->setParameter('listingId', hex2bin($listingId));
+               ->setParameter('listingId', $listingId);
         };
 
         return $this;
     }
 
 
-    /**
-     * @param int $day
-     * @return ListingItemQuery
-     */
     public function byDay(int $day): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($day) {
@@ -46,9 +38,6 @@ class ListingItemQuery extends QueryObject
     }
 
 
-    /**
-     * @return ListingItemQuery
-     */
     public function indexedByDay(): self
     {
         $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {

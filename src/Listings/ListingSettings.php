@@ -6,7 +6,7 @@ use Listings\Exceptions\Runtime\WorkedHoursRangeException;
 use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Runtime\LunchHoursException;
-use Common\Entities\Attributes\Identifier;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping as ORM;
@@ -68,8 +68,6 @@ class ListingSettings
         ListingTime $lunchStart,
         ListingTime $lunchEnd
     ) {
-        $this->id = $this->generateUuid();
-
         $this->user = $user;
 
         $this->itemType = $itemType;

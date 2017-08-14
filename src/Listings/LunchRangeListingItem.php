@@ -8,8 +8,8 @@ use Listings\Exceptions\Runtime\LunchHoursRangeException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
 use Listings\Exceptions\Runtime\WorkedHoursException;
 use Listings\Exceptions\Runtime\LunchHoursException;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\UniqueConstraint;
-use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Utils\Time\ListingTime;
 use Listings\Utils\TimeWithComma;
@@ -71,8 +71,6 @@ class LunchRangeListingItem implements IListingItem
         $lunchStart,
         $lunchEnd
     ) {
-        $this->id = $this->generateUuid();
-
         $this->listing = $listing;
         if ($listing->getItemsType() !== Listing::ITEM_TYPE_LUNCH_RANGE) {
             throw new InvalidArgumentException();

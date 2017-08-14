@@ -55,7 +55,7 @@ final class ListingItemPresenter extends SecuredPresenter
                               ->getListing(
                                   (new ListingQuery())
                                   ->withSettings()
-                                  ->byId($listingId)
+                                  ->byPresKey($listingId)
                               );
 
         if (!Validators::is($day, 'numericint') or $day < 1 or $day > $this->listing->getNumberOfDaysInMonth()) {

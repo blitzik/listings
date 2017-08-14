@@ -37,7 +37,7 @@ final class ListingPdfGenerationPresenter extends SecuredPresenter
                               ->getListing(
                                   (new ListingQuery())
                                   ->withOwner()
-                                  ->byId($id)
+                                  ->byPresKey($id)
                               );
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::VIEW)) {

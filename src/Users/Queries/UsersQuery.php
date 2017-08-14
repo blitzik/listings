@@ -108,7 +108,7 @@ class UsersQuery extends QueryObject
     }
     
     
-    public function byId($id): self
+    public function byId(int $id): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($id) {
             $qb->andWhere('u.id = :id')->setParameter('id', $id);
@@ -118,7 +118,7 @@ class UsersQuery extends QueryObject
     }
 
 
-    public function byIds($ids): self
+    public function byIds(array $ids): self
     {
         $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($ids) {
             $qb->andWhere('u.id IN (:ids)')->setParameter('ids', $ids);

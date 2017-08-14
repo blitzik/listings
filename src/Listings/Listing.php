@@ -6,14 +6,15 @@ use Listings\Exceptions\Runtime\NegativeWorkedDaysException;
 use Listings\Exceptions\Runtime\NegativeWorkedTimeException;
 use Listings\Exceptions\Runtime\WrongMonthNumberException;
 use Listings\Exceptions\Logic\InvalidArgumentException;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use blitzik\Authorization\Authorizator\IResource;
-use Common\Entities\Attributes\Identifier;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Listings\Utils\Time\ListingTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
 use Nette\Utils\Validators;
 use blitzik\Utils\Time;
+use Ramsey\Uuid\Uuid;
 use Users\User;
 
 /**
@@ -34,6 +35,13 @@ class Listing implements IResource
 
     const ITEM_TYPE_LUNCH_SIMPLE = 1;
     const ITEM_TYPE_LUNCH_RANGE = 2;
+
+
+    /**
+     * @ORM\Column(name="pres_key", type="uuid_binary", nullable=false, unique=true)
+     * @var string
+     */
+    private $presKey;
 
 
     /**
@@ -132,8 +140,7 @@ class Listing implements IResource
         int $month,
         int $itemType
     ) {
-        $this->id = $this->generateUuid();
-
+        $this->presKey = str_replace('-', '', Uuid::uuid4()->toString());
         $this->type = self::ITEM_TYPE_LUNCH_RANGE;
 
         $this->owner = $owner;
@@ -148,6 +155,12 @@ class Listing implements IResource
         $this->createdAt = new \DateTimeImmutable;
         $this->workedDays = 0;
         $this->workedHours = 0;
+    }
+
+
+    public function getPresKey(): string
+    {
+        return $this->presKey;
     }
 
 
@@ -329,7 +342,7 @@ class Listing implements IResource
     }
 
 
-    public function getEmployerId(): ?string
+    public function getEmployerId(): ?int
     {
         if ($this->hasSetEmployer()) {
             return $this->employer->getId();
@@ -372,9 +385,9 @@ class Listing implements IResource
     }
 
 
-    public function getOwnerId(bool $convertToHex = false): string
+    public function getOwnerId(): int
     {
-        return $this->owner->getId($convertToHex);
+        return $this->owner->getId();
     }
 
 

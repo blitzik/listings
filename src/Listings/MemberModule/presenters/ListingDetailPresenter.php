@@ -66,7 +66,7 @@ final class ListingDetailPresenter extends SecuredPresenter
                               ->getListing(
                                   (new ListingQuery())
                                   ->withEmployer()
-                                  ->byId($id)
+                                  ->byPresKey($id)
                               );
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::VIEW)) {
