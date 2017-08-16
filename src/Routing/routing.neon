@@ -1,0 +1,26 @@
+paths:
+	"": Listings:Member:Dashboard:default
+
+	"user/login":
+		oneWay: prihlaseni
+
+	"auto-backup": DatabaseBackup:CronBackup:backup
+
+	"prihlaseni": Accounts:Public:Auth:logIn
+	"odhlaseni": Accounts:Public:Auth:logOut
+	"registrace": Accounts:Public:Registration:default
+	"zapomenute-heslo": Accounts:Public:ForgottenPassword:request
+	"obnova-hesla": Accounts:Public:ForgottenPassword:change
+
+
+	"pdf-sablony": Listings:Public:ListingPdf:default
+
+	"vycetka/zalozeni": Listings:Member:Listing:new
+	"vycetka/uprava": Listings:Member:Listing:edit
+	"vycetka/zruseni": Listings:Member:Listing:remove
+	"vycetka/detail": Listings:Member:ListingDetail:default
+	"vycetka/polozka": Listings:Member:ListingItem:default
+	"vycetka/generovani-pdf": Listings:Member:ListingPdfGeneration:default
+	"zamestnavatele": Listings:Member:EmployersOverview:default
+	"profil": Listings:Member:Profile:default
+	"nastaveni": Listings:Member:Settings:default

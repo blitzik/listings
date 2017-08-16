@@ -1,5 +1,7 @@
 services:
 
+	router: Routing\RouterFactory::createRouter(@router.router)
+
 	nette.latteFactory:
 		setup:
 			- addFilter(monthByNumber, @monthByNumberFilter)

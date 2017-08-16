@@ -2,9 +2,9 @@
 
 namespace Accounts\PublicModule\Presenters;
 
-use Accounts\Components\LoginControl;
 use Common\AuthModule\Presenters\PublicPresenter;
 use Accounts\Components\ILoginControlFactory;
+use Accounts\Components\LoginControl;
 
 final class AuthPresenter extends PublicPresenter
 {
@@ -15,7 +15,7 @@ final class AuthPresenter extends PublicPresenter
     public $loginControlFactory;
 
 
-    public function actionLogin(): void
+    public function actionLogIn(): void
     {
         if ($this->user->isLoggedIn()) {
             $this->redirect(':Listings:Member:Dashboard:default');
@@ -25,12 +25,12 @@ final class AuthPresenter extends PublicPresenter
     }
 
 
-    public function renderLogin(): void
+    public function renderLogIn(): void
     {
     }
 
 
-    protected function createComponentLogin(): LoginControl
+    protected function createComponentLogIn(): LoginControl
     {
         $comp = $this->loginControlFactory->create();
 

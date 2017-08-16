@@ -49,7 +49,7 @@
                 "authorization",
                 "nette"
             ],
-            "time": "2017-06-03 06:43:53"
+            "time": "2017-06-03T06:43:53+00:00"
         },
         {
             "name": "blitzik/dbrouting",
@@ -96,7 +96,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-06-04 13:31:54"
+            "time": "2017-06-04T13:31:54+00:00"
         },
         {
             "name": "blitzik/router",
@@ -104,12 +104,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/router.git",
-                "reference": "a72fba91d739da5eb1e32286497d155f0ca910a4"
+                "reference": "65c481c52c70c564ad8c5d4a3916325591453b05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/router/zipball/a72fba91d739da5eb1e32286497d155f0ca910a4",
-                "reference": "a72fba91d739da5eb1e32286497d155f0ca910a4",
+                "url": "https://api.github.com/repos/blitzik/router/zipball/65c481c52c70c564ad8c5d4a3916325591453b05",
+                "reference": "65c481c52c70c564ad8c5d4a3916325591453b05",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-06-03 06:06:21"
+            "time": "2017-08-16T13:07:12+00:00"
         },
         {
             "name": "dg/ftp-php",
@@ -1174,7 +1174,7 @@
                 "nette",
                 "orm"
             ],
-            "time": "2017-05-28 00:37:44"
+            "time": "2017-05-28T00:37:44+00:00"
         },
         {
             "name": "kdyby/doctrine-cache",
@@ -1515,7 +1515,7 @@
                 "nette",
                 "translation"
             ],
-            "time": "2017-05-22 21:17:18"
+            "time": "2017-05-22T21:17:18+00:00"
         },
         {
             "name": "latte/latte",

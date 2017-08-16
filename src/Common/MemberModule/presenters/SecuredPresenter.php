@@ -21,7 +21,7 @@ abstract class SecuredPresenter extends AppPresenter
 
         if (!$this->user->isLoggedIn()) {
             $this->_backLink = $this->storeRequest();
-            $this->redirect(':Accounts:Public:Auth:login');
+            $this->redirect(':Accounts:Public:Auth:logIn');
         }
     }
 

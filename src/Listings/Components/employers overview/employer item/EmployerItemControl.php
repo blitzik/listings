@@ -88,7 +88,7 @@ class EmployerItemControl extends BaseControl
     {
         $this->employerFacade->save((array)$values, $this->employer);
 
-        $this->refresh('this', ['content']);
+        $this->refresh('this', ['employerName']);
 
         unset($this['form']);
     }
