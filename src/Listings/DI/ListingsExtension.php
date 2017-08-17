@@ -22,7 +22,7 @@ final class ListingsExtension extends CompilerExtension implements IEntityProvid
     {
         $cb = $this->getContainerBuilder();
 
-        $cb->getDefinition($cb->getByType(IPresenterFactory::class))
+        $cb->getDefinitionByType(IPresenterFactory::class)
            ->addSetup('setMapping', [['Listings' => 'Listings\\*Module\\Presenters\\*Presenter']]);
 
         $latteFactory = $cb->getDefinition('nette.latteFactory');

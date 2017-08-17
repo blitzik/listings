@@ -36,7 +36,7 @@ class CommonExtension extends CompilerExtension
     {
         $cb = $this->getContainerBuilder();
 
-        $cb->getDefinition($cb->getByType(IPresenterFactory::class))
+        $cb->getDefinitionByType(IPresenterFactory::class)
            ->addSetup('setMapping', [['Common' => 'Common\\*Module\\Presenters\\*Presenter']]);
 
         $cb->removeDefinition('latte.templateFactory');

@@ -33,7 +33,7 @@ class UsersExtension extends CompilerExtension implements IEntityProvider, IFixt
     {
         $cb = $this->getContainerBuilder();
 
-        $userStorage = $cb->getDefinition($cb->getByType(IUserStorage::class));
+        $userStorage = $cb->getDefinitionByType(IUserStorage::class);
         $userStorage->setClass(
             UserStorage::class,
             ['@'.$cb->getByType(Session::class), '@'.$cb->getByType(EntityManager::class)]

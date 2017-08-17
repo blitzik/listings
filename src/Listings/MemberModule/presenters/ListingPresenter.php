@@ -55,7 +55,7 @@ final class ListingPresenter extends SecuredPresenter
         $comp = $this->listingFormControlFactory->create();
 
         $comp->onSuccessfulSaving[] = function (Listing $listing) {
-            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getPresKey()]);
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]);
         };
 
         return $comp;
@@ -94,7 +94,7 @@ final class ListingPresenter extends SecuredPresenter
         $comp->setListing($this->listing);
 
         $comp->onSuccessfulSaving[] = function (Listing $listing) {
-            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getPresKey()]);
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]);
         };
 
         return $comp;
@@ -152,7 +152,7 @@ final class ListingPresenter extends SecuredPresenter
         return $this->listingFacade
                     ->getListing(
                         (new ListingQuery())
-                        ->byPresKey($id)
+                        ->byId((int)$id)
                     );
     }
 

@@ -1,3 +1,5 @@
+- Listings\ParameterFilters\ListingIdFilter
+
 
 listingPdfTemplateFactory: Listings\Pdf\ListingPdfTemplateFactory
 listingItemFormFactory: Listings\Services\Factories\ListingItemFormFactory

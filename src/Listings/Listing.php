@@ -38,13 +38,6 @@ class Listing implements IResource
 
 
     /**
-     * @ORM\Column(name="pres_key", type="uuid_binary", nullable=false, unique=true)
-     * @var string
-     */
-    private $presKey;
-
-
-    /**
      * @ORM\ManyToOne(targetEntity="\Users\User")
      * @ORM\JoinColumn(name="owner", referencedColumnName="id", nullable=false)
      * @var \Users\User
@@ -140,7 +133,6 @@ class Listing implements IResource
         int $month,
         int $itemType
     ) {
-        $this->presKey = str_replace('-', '', Uuid::uuid4()->toString());
         $this->type = self::ITEM_TYPE_LUNCH_RANGE;
 
         $this->owner = $owner;
@@ -155,12 +147,6 @@ class Listing implements IResource
         $this->createdAt = new \DateTimeImmutable;
         $this->workedDays = 0;
         $this->workedHours = 0;
-    }
-
-
-    public function getPresKey(): string
-    {
-        return $this->presKey;
     }
 
 

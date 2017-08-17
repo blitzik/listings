@@ -25,14 +25,12 @@
 		"vasek-purchart/doctrine-date-time-immutable-types": "^0.3.0",
 		"nette/tester": "^1.7",
 		"dg/mysql-dump": "^1.3",
-		"ramsey/uuid": "^3.4",
-		"ramsey/uuid-doctrine": "^1.2",
 		"joseki/pdf-response": "dev-master",
 		"nextras/mail-panel": "^2.3",
 		"dg/ftp-php": "^1.2",
 		"blitzik/router": "dev-master",
-		"blitzik/dbrouting": "dev-master",
-		"blitzik/authorization": "dev-master"
+		"blitzik/authorization": "dev-master",
+		"hashids/hashids": "^2.0"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"

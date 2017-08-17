@@ -55,16 +55,16 @@ final class ListingItemPresenter extends SecuredPresenter
                               ->getListing(
                                   (new ListingQuery())
                                   ->withSettings()
-                                  ->byPresKey($listingId)
+                                  ->byId((int)$listingId)
                               );
-
-        if (!Validators::is($day, 'numericint') or $day < 1 or $day > $this->listing->getNumberOfDaysInMonth()) {
-            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $this->listing->getId()]);
-        }
 
         if ($this->listing === null or !$this->authorizator->isAllowed($this->user, $this->listing, Privilege::EDIT)) {
             $this->flashMessage('Požadovaná výčetka nebyla nalezena.', FlashMessage::WARNING);
             $this->redirect(':Listings:Member:Dashboard:default', []);
+        }
+
+        if (!Validators::is($day, 'numericint') or $day < 1 or $day > $this->listing->getNumberOfDaysInMonth()) {
+            $this->redirect(':Listings:Member:ListingDetail:default', ['id' => $this->listing->getId()]);
         }
 
         $this->day = $day;

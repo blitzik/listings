@@ -23,7 +23,7 @@ class DatabaseBackupExtension extends CompilerExtension implements IFixtureProvi
         $config = $this->getConfig();
         $cb = $this->getContainerBuilder();
 
-        $cb->getDefinition($cb->getByType(IPresenterFactory::class))
+        $cb->getDefinitionByType(IPresenterFactory::class)
            ->addSetup('setMapping', [['DatabaseBackup' => 'DatabaseBackup\\*Module\\Presenters\\*Presenter']]);
 
         $ftpBackupFileHandler = $cb->getDefinition($this->prefix('ftpBackupFileHandler'));

@@ -8,7 +8,6 @@ extensions:
 
 	common: Common\DI\CommonExtension
 	router: blitzik\Router\DI\RouterExtension
-	#dbrouting: blitzik\Routing\DI\DatabaseRoutingExtension
 	fixtures: Fixtures\DI\FixturesExtension
 	authorization: blitzik\Authorization\DI\AuthorizationExtension
 	users: Users\DI\UsersExtension

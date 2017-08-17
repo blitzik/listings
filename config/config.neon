@@ -48,12 +48,10 @@ doctrine:
 			'SUBTIME': blitzik\Doctrine\MySQL\SubTime
 
 	types:
-		'uuid_binary': blitzik\Doctrine\Types\UuidBinaryType
 		'listing_time': Listings\Doctrine\Types\ListingTimeType
 		'date_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateImmutableType
 		'datetime_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\DateTimeImmutableType
 		'time_immutable': VasekPurchart\Doctrine\Type\DateTimeImmutable\TimeImmutableType
-		'uuid': Ramsey\Uuid\Doctrine\UuidType
 
 
 decorator:

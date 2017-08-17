@@ -27,16 +27,6 @@ final class ListingQuery extends QueryObject
     }
 
 
-    public function byPresKey(string $presKey): self
-    {
-        $this->filter[] = function (Kdyby\Doctrine\QueryBuilder $qb) use ($presKey) {
-            $qb->andWhere('l.presKey = :key')->setParameter('key', hex2bin($presKey));
-        };
-
-        return $this;
-    }
-
-
     public function withOwner(): self
     {
         $this->select[] = function (Kdyby\Doctrine\QueryBuilder $qb) {

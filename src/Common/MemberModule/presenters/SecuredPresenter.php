@@ -45,7 +45,7 @@ abstract class SecuredPresenter extends AppPresenter
         }
 
         if ($isLink === true) {
-            $this['pageTitle']->makeItLink($this->link(':Listings:Member:ListingDetail:default', ['id' => $listing->getPresKey()]));
+            $this['pageTitle']->makeItLink($this->link(':Listings:Member:ListingDetail:default', ['id' => $listing->getId()]));
         }
 
         return sprintf('%s%s', $title, $listing->getName() !== null ? (' - ' . $listing->getName()) : null);
