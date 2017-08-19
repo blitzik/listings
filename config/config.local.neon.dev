@@ -29,7 +29,10 @@ parameters:
 
 common:
 	imagesPath: assets/images
+	debugMode: true
 
+router:
+	routingFile: %wwwDir%/../src/Routing/routing.neon
 
 accounts:
 	applicationUrl: %applicationUrl%
