@@ -7,9 +7,6 @@ use Hashids\Hashids;
 
 class ListingIdFilter implements IParameterFilter
 {
-    /** @var array */
-    private $presenters = [];
-
     /** @var Hashids */
     private $hashIds;
 
@@ -17,30 +14,12 @@ class ListingIdFilter implements IParameterFilter
     public function __construct()
     {
         $this->hashIds = new Hashids('w5aL', 5, 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789');
-
-        $this->presenters = [
-            'Listings:Member:ListingDetail:default' => ['id'],
-            'Listings:Member:Listing:remove' => ['id'],
-            'Listings:Member:Listing:edit' => ['id'],
-            'Listings:Member:ListingItem:default' => ['listingId'],
-            'Listings:Member:ListingPdfGeneration:default' => ['id'],
-        ];
     }
 
 
-    public function getPresenters(): array
+    public function getName(): string
     {
-        return $this->presenters;
-    }
-
-
-    public function getParameters(string $presenter): ?array
-    {
-        if (isset($this->presenters[$presenter])) {
-            return $this->presenters[$presenter];
-        }
-
-        return null;
+        return 'ListingIdFilter';
     }
 
 

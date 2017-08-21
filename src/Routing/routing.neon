@@ -14,13 +14,33 @@ paths:
 
 
 	"pdf-sablony": Listings:Public:ListingPdf:default
-
 	"vycetka/zalozeni": Listings:Member:Listing:new
-	"vycetka/uprava": Listings:Member:Listing:edit
-	"vycetka/zruseni": Listings:Member:Listing:remove
-	"vycetka/detail": Listings:Member:ListingDetail:default
-	"vycetka/polozka": Listings:Member:ListingItem:default
-	"vycetka/generovani-pdf": Listings:Member:ListingPdfGeneration:default
+
+	"vycetka/uprava":
+		destination: Listings:Member:Listing:edit
+		filters:
+			ListingIdFilter: id
+
+	"vycetka/zruseni":
+		destination: Listings:Member:Listing:remove
+		filters:
+			ListingIdFilter: id
+
+	"vycetka/detail":
+		destination: Listings:Member:ListingDetail:default
+		filters:
+			ListingIdFilter: id
+
+	"vycetka/polozka":
+		destination: Listings:Member:ListingItem:default
+		filters:
+			ListingIdFilter: listingId
+
+	"vycetka/generovani-pdf":
+		destination: Listings:Member:ListingPdfGeneration:default
+		filters:
+			ListingIdFilter: id
+
 	"zamestnavatele": Listings:Member:EmployersOverview:default
 	"profil": Listings:Member:Profile:default
 	"nastaveni": Listings:Member:Settings:default

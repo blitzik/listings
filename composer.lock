@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/blitzik/router.git",
-                "reference": "bbd8e33c53578d9ad42801f6cc9b37553c91181c"
+                "reference": "e877acb9fbdacf551600bc06cd7a482525f1bd63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/blitzik/router/zipball/bbd8e33c53578d9ad42801f6cc9b37553c91181c",
-                "reference": "bbd8e33c53578d9ad42801f6cc9b37553c91181c",
+                "url": "https://api.github.com/repos/blitzik/router/zipball/e877acb9fbdacf551600bc06cd7a482525f1bd63",
+                "reference": "e877acb9fbdacf551600bc06cd7a482525f1bd63",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2017-08-18T15:05:42+00:00"
+            "time": "2017-08-21T08:22:18+00:00"
         },
         {
             "name": "dg/ftp-php",
