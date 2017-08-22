@@ -159,12 +159,20 @@ class RangeLunchListingItemManipulator implements IListingItemManipulator
     }
 
 
-    private function removeListingItemByDay(int $listingId, int $day): int
+    private function removeListingItemByDay(int $listingId, int $day): void
     {
-        return $this->em->createQuery(
-            'DELETE FROM ' . LunchRangeListingItem::class . ' li
+        /** @var LunchRangeListingItem $listingItem */
+        $listingItem = $this->em->createQuery(
+            'SELECT li FROM ' . LunchRangeListingItem::class . ' li
              WHERE li.listing = :listingId AND li.day = :day'
-        )->execute(['listingId' => $listingId, 'day' => $day]);
+        )->setParameters(['listingId' => $listingId, 'day' => $day])
+         ->getOneOrNullResult();
+
+        if ($listingItem === null) {
+            return;
+        }
+
+        $this->removeListingItem($listingItem->getId());
     }
 
 }

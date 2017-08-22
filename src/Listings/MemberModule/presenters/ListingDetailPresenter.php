@@ -2,13 +2,10 @@
 
 namespace Listings\MemberModule\Presenters;
 
-use Listings\Services\SimpleLunchListingItemManipulator;
-use Listings\Services\RangeLunchListingItemManipulator;
 use Listings\Components\IListingActionsControlFactory;
 use Listings\Components\IListingTableControlFactory;
 use Common\MemberModule\Presenters\SecuredPresenter;
 use Common\Components\FlashMessages\FlashMessage;
-use Listings\Services\IListingItemManipulator;
 use Listings\Components\ListingActionsControl;
 use Listings\Components\ListingTableControl;
 use blitzik\Authorization\Privilege;
@@ -18,22 +15,6 @@ use Listings\Listing;
 
 final class ListingDetailPresenter extends SecuredPresenter
 {
-    /** @persistent */
-    public $displayRemovalForm;
-
-
-    /**
-     * @var SimpleLunchListingItemManipulator
-     * @inject
-     */
-    public $simpleLunchListingItemManipulator;
-
-    /**
-     * @var RangeLunchListingItemManipulator
-     * @inject
-     */
-    public $rangeLunchListingItemManipulator;
-
     /**
      * @var IListingActionsControlFactory
      * @inject
@@ -53,9 +34,6 @@ final class ListingDetailPresenter extends SecuredPresenter
     public $listingFacade;
 
 
-    /** @var IListingItemManipulator */
-    private $listingItemManipulator;
-
     /** @var Listing */
     private $listing;
 
@@ -74,12 +52,6 @@ final class ListingDetailPresenter extends SecuredPresenter
             $this->redirect(':Listings:Member:Dashboard:default');
         }
 
-        if ($this->listing->getItemsType() === Listing::ITEM_TYPE_LUNCH_SIMPLE) {
-            $this->listingItemManipulator = $this->simpleLunchListingItemManipulator;
-        } else {
-            $this->listingItemManipulator = $this->rangeLunchListingItemManipulator;
-        }
-
         $title = $this->setListingPageTitle($this->listing);
         $this['metaTitle']->setTitle($title);
     }
@@ -87,15 +59,12 @@ final class ListingDetailPresenter extends SecuredPresenter
 
     public function renderDefault($id): void
     {
-        $this->template->listing = $this->listing;
-        $this->template->displayRemovalForm = (bool)$this->displayRemovalForm;
     }
 
 
     protected function createComponentListingActions(): ListingActionsControl
     {
-        $comp = $this->listingActionsControlFactory
-                     ->create($this->listing);
+        $comp = $this->listingActionsControlFactory->create($this->listing);
 
         return $comp;
     }
@@ -103,8 +72,7 @@ final class ListingDetailPresenter extends SecuredPresenter
 
     protected function createComponentListingTable(): ListingTableControl
     {
-        $comp = $this->listingTableControlFactory
-                     ->create($this->listing, $this->listingItemManipulator);
+        $comp = $this->listingTableControlFactory->create($this->listing);
 
         $comp->onSuccessfulCopyDown[] = [$this, 'onSuccessfulCopyDown'];
         $comp->onSuccessfulRemoval[] = [$this, 'onSuccessfulItemRemoval'];
