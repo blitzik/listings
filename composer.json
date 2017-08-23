@@ -28,9 +28,9 @@
 		"joseki/pdf-response": "dev-master",
 		"nextras/mail-panel": "^2.3",
 		"dg/ftp-php": "^1.2",
-		"blitzik/router": "dev-master",
 		"blitzik/authorization": "dev-master",
-		"hashids/hashids": "^2.0"
+		"hashids/hashids": "^2.0",
+		"blitzik/router": "dev-master"
 	},
 	"require-dev": {
 		"nette/tester": "^1.6"
