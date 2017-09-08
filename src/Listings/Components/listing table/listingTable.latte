@@ -8,7 +8,7 @@
 
 <div class="listing-days">
     {foreach $daysByWeeks as $weekNumber => $days}
-        <h3>{$weekNumber}. týden</h3>
+        <h3 id="w-{$weekNumber}">{$weekNumber}. týden</h3>
         {foreach $days as $day}
             {control listingItem-$day}
         {/foreach}

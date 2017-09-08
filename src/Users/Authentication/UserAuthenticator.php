@@ -54,7 +54,7 @@ class UserAuthenticator implements IAuthenticator
             throw new AuthenticationException('Wrong password');
 
         } elseif (Passwords::needsRehash($user->getPassword())) {
-            $user->setPassword($password);
+            $user->changePassword($password);
         }
 
 

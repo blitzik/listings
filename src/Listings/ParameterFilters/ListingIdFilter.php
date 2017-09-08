@@ -23,20 +23,25 @@ class ListingIdFilter implements IParameterFilter
     }
 
 
-    public function filterIn($modifiedParameter): string
+    public function filterIn($modifiedParameter): ?string
     {
         $result = $this->hashIds->decode($modifiedParameter);
         if (count($result) === 0) {
-            return (string)$modifiedParameter;
+            return null;
         }
 
         return (string)$result[0];
     }
 
 
-    public function filterOut($parameter): string
+    public function filterOut($parameter): ?string
     {
-        return (string)$this->hashIds->encode($parameter);
+        $p = (string)$this->hashIds->encode($parameter);
+        if ($p === "") {
+            return null;
+        }
+
+        return $p;
     }
 
 }

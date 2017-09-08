@@ -1,7 +1,7 @@
 
 <div class="day" n:snippet="item">
 
-    <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day}" class="row-link" id="day-{$day+1}">
+    <a href="{plink :Listings:Member:ListingItem:default listingId => $listing->getId(), day => $day}" class="row-link">
         <div n:class="day-item, ($isCurrentDay ? current-day : ($isWeekEnd ? weekend))">
             <div class="day-number">
                 {$day}.
